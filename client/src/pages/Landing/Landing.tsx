@@ -1,5 +1,5 @@
 import Header from "../../components/common/Header.tsx";
-import HeroSection from "./Hero.tsx";
+import HeroSection from "./HeroSection.tsx";
 
 function Landing() {
   const isLogin = false;
@@ -8,7 +8,6 @@ function Landing() {
     <>
       <Header isLogin={isLogin} />
       <HeroSection />
-      <h1>랜딩페이지입니다.</h1>
     </>
   );
 }
