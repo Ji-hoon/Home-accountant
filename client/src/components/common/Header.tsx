@@ -47,6 +47,7 @@ const HeaderRoot = styled.header`
 
     img {
       width: 180px;
+      height: 40px;
     }
   }
 `;
