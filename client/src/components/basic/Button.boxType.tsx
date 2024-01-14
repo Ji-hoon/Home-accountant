@@ -21,6 +21,9 @@ const BoxtypeButton = styled.button`
   background-color: ${COLORS.GRAY_01};
   color: ${COLORS.GRAY_10};
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: ${SIZES.SM / 2}px;
 
   &:hover {
     filter: brightness(0.95);

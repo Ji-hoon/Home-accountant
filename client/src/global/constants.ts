@@ -41,12 +41,12 @@ export const COLORS = {
 } as const;
 
 export const SIZES = {
-  XXS: "12",
-  XS: "14",
-  SM: "16",
-  MD: "18",
-  LG: "20",
-  XL: "24",
-  XXL: "36",
-  TITLE: "42",
+  XXS: 12,
+  XS: 14,
+  SM: 16,
+  MD: 18,
+  LG: 20,
+  XL: 24,
+  XXL: 36,
+  TITLE: 42,
 } as const;

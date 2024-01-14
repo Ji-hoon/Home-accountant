@@ -26,6 +26,9 @@
   overflow-y: auto;
 }
 
+* {
+  box-sizing: border-box;
+}
 /* 
 a {
   font-weight: 500;

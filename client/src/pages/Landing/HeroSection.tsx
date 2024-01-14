@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LABELS, SIZES } from "../../global/constants";
+import { LABELS, SIZES, COLORS } from "../../global/constants";
 import Button_Boxtype from "../../components/basic/Button.boxType";
 import { FiChevronRight } from "react-icons/fi";
 
@@ -23,10 +23,11 @@ export default function HeroSection() {
 const HeroSectionContainer = styled.section`
   border-radius: ${SIZES.LG}px;
   max-width: 1200px;
+  max-height: 640px;
   width: calc(100% - 80px);
-  height: calc(100% - 20vh);
+  height: calc(100% - 30vh);
   position: relative;
-  margin: 0 auto;
+  margin: ${SIZES.SM / 2}px auto;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
@@ -41,6 +42,26 @@ const HeroSectionContainer = styled.section`
 
 const HeroSectionTaglineContainer = styled.div`
   position: absolute;
+  max-width: 50%;
   bottom: 40px;
   left: 40px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  color: ${COLORS.BASIC_WHITE};
+  border-radius: ${SIZES.SM}px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  gap: ${SIZES.XXL / 2}px;
+
+  padding: ${SIZES.XL * 1.8}px ${SIZES.LG * 2}px;
+
+  & h1 {
+    margin: 0;
+    max-width: 10em;
+    font-size: ${SIZES.TITLE * 0.8}px;
+  }
 `;
