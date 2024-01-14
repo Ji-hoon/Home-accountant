@@ -1,0 +1,40 @@
+export const LABELS = {
+  LABEL_LOGIN: "로그인",
+  HEADER_MENU_EXPENSES: "지출내역",
+  HEADER_MENU_ASSETS: "자산조회",
+  HEADER_MENU_GROUP_MGMT: "그룹관리",
+} as const;
+
+export const COLORS = {
+  BRAND_DEEP: "#33C464",
+  BRAND_DEFAULT: "#3EE075",
+  BRAND_LIGHT: "#6AF098",
+  BASIC_WHITE: "#FFFFFF",
+  BASIC_BLACK: "#000000",
+  VARIATION_RED: "#EB5151",
+  VARIATION_YELLOW: "#FDE433",
+  VARIATION_PINK: "#F8C6F9",
+  VARIATION_PURPLE: "#D3B3FC",
+  VARIATION_BLUE: "#B3CBFC",
+  GRAY_01: "#F5F5F5",
+  GRAY_02: "#E2E2E2",
+  GRAY_03: "#ADADAD",
+  GRAY_04: "#939393",
+  GRAY_05: "#848484",
+  GRAY_06: "#656565",
+  GRAY_07: "#575757",
+  GRAY_08: "#313131",
+  GRAY_09: "#242424",
+  GRAY_10: "#131313",
+} as const;
+
+export const SIZES = {
+  XXS: "12",
+  XS: "14",
+  SM: "16",
+  MD: "18",
+  LG: "20",
+  XL: "24",
+  XXL: "36",
+  TITLE: "42",
+} as const;
