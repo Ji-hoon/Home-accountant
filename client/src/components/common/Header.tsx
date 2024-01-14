@@ -8,7 +8,7 @@ export default function Header({ isLogin }: { isLogin: boolean }) {
       <div className="HeaderInnerContainer">
         <div className="logo-container">
           <a href="/" target="_self">
-            <img src="/logo.png" />
+            <img src="/img-logo.png" />
           </a>
         </div>
         {isLogin && (
