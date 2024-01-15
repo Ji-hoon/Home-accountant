@@ -14,7 +14,7 @@ const BoxtypeButton = styled.button`
   border: none;
   border-radius: 5px;
   outline: none;
-  padding: ${SIZES.SM}px ${SIZES.LG}px;
+  padding: ${SIZES.XS}px ${SIZES.LG}px;
   font-size: ${SIZES.SM}px;
   line-height: ${SIZES.LG}px;
   font-weight: 700;
