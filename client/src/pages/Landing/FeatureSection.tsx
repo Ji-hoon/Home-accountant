@@ -21,7 +21,7 @@ const featureContents = [
 
 export default function FeatureSection() {
   return (
-    <div style={{ padding: "20px 0" }}>
+    <div style={{ padding: "20px 0 40px" }}>
       {featureContents &&
         featureContents.map((feature, index) => (
           <FeatureSectionContainer key={index}>
@@ -38,6 +38,7 @@ export default function FeatureSection() {
 
 const FeatureSectionContainer = styled.section`
   max-width: 900px;
+  width: calc(100% - 80px);
   padding: ${SIZES.LG}px;
   display: flex;
   margin: 0 auto;

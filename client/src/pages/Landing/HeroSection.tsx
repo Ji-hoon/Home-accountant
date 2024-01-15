@@ -8,7 +8,7 @@ export default function HeroSection() {
     <HeroSectionContainer>
       <img src={URLS.HERO_IMAGE} />
       <HeroSectionTaglineContainer>
-        <h1>{LABELS.TAGLINE}</h1>
+        <h2>{LABELS.TAGLINE}</h2>
         <Button_Boxtype>
           <>
             {LABELS.LABEL_GOTO_LOGIN}
@@ -60,7 +60,7 @@ const HeroSectionTaglineContainer = styled.div`
 
   padding: ${SIZES.XL * 1.8}px ${SIZES.LG * 2}px;
 
-  & h1 {
+  & h2 {
     margin: 0;
     max-width: 10em;
     font-size: ${SIZES.TITLE * 0.8}px;
