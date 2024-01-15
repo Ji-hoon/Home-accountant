@@ -4,7 +4,7 @@ import FeatureSection from "./sections/FeatureSection.tsx";
 import SignupSection from "./sections/SignupSection.tsx";
 import Footer from "../../components/common/Footer.tsx";
 
-function Landing() {
+export default function LandingPage() {
   const isLogin = false;
 
   return (
@@ -17,5 +17,3 @@ function Landing() {
     </>
   );
 }
-
-export default Landing;

@@ -1,23 +1,23 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Landing from "../Landing/Landing.tsx";
 import { PATH } from "../../global/constants";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import LandingPage from "../Landing/LandingPage.tsx";
+import LoginPage from "../Login/LoginPage.tsx";
+import MainPage from "../Main/MainPage.tsx";
 
 const isLogin = false;
 
 const router = createBrowserRouter([
   {
     path: PATH.ROOT,
-    element: isLogin ? (
-      <>
-        <h1>Hello, Home accountant!</h1>
-      </>
-    ) : (
-      <Landing />
-    ),
+    element: isLogin ? <MainPage /> : <LandingPage />,
+  },
+  {
+    path: PATH.APP,
+    element: <MainPage />,
   },
   {
     path: PATH.LOGIN,
-    element: <>로그인 페이지</>,
+    element: <LoginPage />,
   },
   {
     path: "*",

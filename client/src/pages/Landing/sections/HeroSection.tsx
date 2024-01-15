@@ -27,7 +27,7 @@ const HeroSectionContainer = styled.section`
   border-radius: ${SIZES.LG}px;
   max-width: 1200px;
   max-height: 640px;
-  min-height: 360px;
+  min-height: 400px;
   width: calc(100% - 80px);
   height: calc(100% - 30vh);
   position: relative;
@@ -46,7 +46,6 @@ const HeroSectionContainer = styled.section`
 
 const HeroSectionTaglineContainer = styled.div`
   position: absolute;
-  max-width: 50%;
   bottom: 40px;
   left: 40px;
   background-color: rgba(0, 0, 0, 0.4);
@@ -65,8 +64,9 @@ const HeroSectionTaglineContainer = styled.div`
 
   & h2 {
     margin: 0;
-    max-width: 10em;
-    font-size: ${SIZES.TITLE * 0.8}px;
+    font-size: ${SIZES.XXL}px;
+    line-height: ${SIZES.XL * 2}px;
+    white-space: break-spaces;
   }
 
   & button {

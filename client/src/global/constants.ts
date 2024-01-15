@@ -3,10 +3,12 @@ export const LABELS = {
   LABEL_GOTO_LOGIN: "로그인 하러가기",
   LABEL_JOIN: "5초만에 시작하기",
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
+  LABEL_LOGINPAGE_TITLE: "지금 로그인하고 \n자산 관리를 시작해보세요.",
+  LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
   HEADER_MENU_EXPENSES: "지출내역",
   HEADER_MENU_ASSETS: "자산조회",
   HEADER_MENU_GROUP_MGMT: "그룹관리",
-  TAGLINE: "지출 및 자산 관리,\n 이제 간편하게 관리하세요.",
+  TAGLINE: "지출 및 자산 관리,\n이제 간편하게 관리하세요.",
   FEATURE_01_TITLE: "연동이 필요없는 지출내역 관리",
   FEATURE_02_TITLE: "기간별 자산 현황 조회",
   FEATURE_03_TITLE: "함께하는 자산관리",
@@ -63,4 +65,5 @@ export const URLS = {
 export const PATH = {
   ROOT: "/",
   LOGIN: "/login",
+  APP: "/app",
 } as const;
