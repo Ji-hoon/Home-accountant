@@ -1,12 +1,15 @@
 import styled from "styled-components";
-import { LABELS, COLORS, SIZES } from "../../../global/constants";
+import { NavLink } from "react-router-dom";
+import { LABELS, COLORS, SIZES, PATH } from "../../../global/constants";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 
 export default function SignupSection() {
   return (
     <SignupSectionContainer>
       <h2>{LABELS.LABEL_START_TODAY}</h2>
-      <Button_Boxtype>{LABELS.LABEL_GOTO_LOGIN}</Button_Boxtype>
+      <NavLink to={PATH.LOGIN}>
+        <Button_Boxtype>{LABELS.LABEL_GOTO_LOGIN}</Button_Boxtype>
+      </NavLink>
     </SignupSectionContainer>
   );
 }

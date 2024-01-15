@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { LABELS, SIZES, COLORS, URLS } from "../../../global/constants";
+import { NavLink } from "react-router-dom";
+import { LABELS, SIZES, COLORS, URLS, PATH } from "../../../global/constants";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 import { FiChevronRight } from "react-icons/fi";
 
@@ -9,12 +10,14 @@ export default function HeroSection() {
       <img src={URLS.HERO_IMAGE} />
       <HeroSectionTaglineContainer>
         <h2>{LABELS.TAGLINE}</h2>
-        <Button_Boxtype>
-          <>
-            <span>{LABELS.LABEL_GOTO_LOGIN}</span>
-            <FiChevronRight />
-          </>
-        </Button_Boxtype>
+        <NavLink to={PATH.LOGIN}>
+          <Button_Boxtype>
+            <>
+              <span>{LABELS.LABEL_GOTO_LOGIN}</span>
+              <FiChevronRight />
+            </>
+          </Button_Boxtype>
+        </NavLink>
       </HeroSectionTaglineContainer>
     </HeroSectionContainer>
   );

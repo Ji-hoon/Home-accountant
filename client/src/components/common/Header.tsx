@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button_Boxtype from "../basic/Button.boxType";
-import { LABELS } from "../../global/constants";
+import { NavLink } from "react-router-dom";
+import { LABELS, PATH } from "../../global/constants";
 
 export default function Header({ isLogin }: { isLogin: boolean }) {
   return (
@@ -26,7 +27,9 @@ export default function Header({ isLogin }: { isLogin: boolean }) {
         )}
         {!isLogin && (
           <div className="login-button-container">
-            <Button_Boxtype>{LABELS.LABEL_LOGIN}</Button_Boxtype>
+            <NavLink to={PATH.LOGIN}>
+              <Button_Boxtype>{LABELS.LABEL_LOGIN}</Button_Boxtype>
+            </NavLink>
           </div>
         )}
       </div>
@@ -35,7 +38,8 @@ export default function Header({ isLogin }: { isLogin: boolean }) {
 }
 
 const HeaderRoot = styled.header`
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px);
 
   position: sticky;
   top: 0;

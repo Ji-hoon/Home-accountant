@@ -59,3 +59,8 @@ export const URLS = {
   FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
   FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
 } as const;
+
+export const PATH = {
+  ROOT: "/",
+  LOGIN: "/login",
+} as const;
