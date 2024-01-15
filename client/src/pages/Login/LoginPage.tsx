@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { FiHome } from "react-icons/fi";
-import { LABELS, PATH, SIZES, COLORS } from "../../global/constants";
-import { NavLink } from "react-router-dom";
+import { LABELS, URLS, SIZES, COLORS } from "../../global/constants";
 
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
@@ -14,9 +13,9 @@ export default function LoginPage() {
       <LoginContainer>
         <FiHome />
         <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
-        <NavLink to={PATH.APP}>
+        <a href={URLS.EXTERNAL_KAKAO_LOGIN}>
           <Button_Boxtype>{LABELS.LABEL_LOGIN_WITH_KAKAO}</Button_Boxtype>
-        </NavLink>
+        </a>
       </LoginContainer>
       <Footer />
     </>

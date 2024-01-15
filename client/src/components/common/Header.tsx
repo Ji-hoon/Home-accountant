@@ -1,29 +1,37 @@
 import styled from "styled-components";
-import Button_Boxtype from "../basic/Button.boxType";
 import { NavLink } from "react-router-dom";
 import { LABELS, PATH } from "../../global/constants";
+import Button_Boxtype from "../basic/Button.boxType";
+import Navigation_MenuType from "../basic/Navigation.menuType";
 
 export default function Header({ isLogin }: { isLogin: boolean }) {
   return (
     <HeaderRoot>
-      <div className="HeaderInnerContainer">
+      <div className="header-inner-container">
         <div className="logo-container">
           <a href="/" target="_self">
             <img src="/img-logo.png" />
           </a>
         </div>
         {isLogin && (
-          <div className="menu-container">
-            <a href="#" target="_self">
-              {LABELS.HEADER_MENU_EXPENSES}
-            </a>
-            <a href="#" target="_self">
-              {LABELS.HEADER_MENU_ASSETS}
-            </a>
-            <a href="#" target="_self">
-              {LABELS.HEADER_MENU_GROUP_MGMT}
-            </a>
-          </div>
+          <>
+            <Navigation_MenuType>
+              <>
+                <NavLink to={PATH.MAIN_EXPENSES} className="active">
+                  <Button_Boxtype>{LABELS.HEADER_MENU_EXPENSES}</Button_Boxtype>
+                </NavLink>
+                <NavLink to={PATH.MAIN_ASSETS}>
+                  <Button_Boxtype>{LABELS.HEADER_MENU_ASSETS}</Button_Boxtype>
+                </NavLink>
+                <NavLink to={PATH.MAIN_GROUP}>
+                  <Button_Boxtype>
+                    {LABELS.HEADER_MENU_GROUP_MGMT}
+                  </Button_Boxtype>
+                </NavLink>
+              </>
+            </Navigation_MenuType>
+            <div>알림 & 프로필</div>
+          </>
         )}
         {!isLogin && (
           <div className="login-button-container">
@@ -46,9 +54,11 @@ const HeaderRoot = styled.header`
   z-index: 11;
 
   padding: 16px 40px 16px 32px;
+  min-height: 80px;
 
-  & .HeaderInnerContainer {
+  & .header-inner-container {
     max-width: 1200px;
+    //min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,5 +73,9 @@ const HeaderRoot = styled.header`
       width: 180px;
       height: 40px;
     }
+  }
+
+  & nav {
+    transform: translateX(-32px);
   }
 `;

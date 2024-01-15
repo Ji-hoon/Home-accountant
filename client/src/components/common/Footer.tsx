@@ -31,6 +31,7 @@ const FooterContainer = styled.footer`
   padding: ${SIZES.MD * 2}px ${SIZES.MD}px;
   display: flex;
   justify-content: space-between;
+  color: ${COLORS.GRAY_05};
 `;
 
 const FooterLinks = styled.div`
@@ -41,7 +42,13 @@ const FooterLinks = styled.div`
     display: flex;
     gap: ${SIZES.XXS / 2}px;
   }
+
   & a {
-    color: ${COLORS.GRAY_10};
+    color: inherit;
+
+    &:hover {
+      color: ${COLORS.GRAY_07};
+      text-decoration: underline;
+    }
   }
 `;

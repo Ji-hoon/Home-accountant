@@ -5,11 +5,9 @@ import SignupSection from "./sections/SignupSection.tsx";
 import Footer from "../../components/common/Footer.tsx";
 
 export default function LandingPage() {
-  const isLogin = false;
-
   return (
     <>
-      <Header isLogin={isLogin} />
+      <Header isLogin={true} />
       <HeroSection />
       <FeatureSection />
       <SignupSection />
