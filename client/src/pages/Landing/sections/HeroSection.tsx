@@ -41,6 +41,7 @@ const HeroSectionContainer = styled.section`
     position: relative;
     object-fit: cover;
     width: 100%;
+    height: 100%;
   }
 `;
 

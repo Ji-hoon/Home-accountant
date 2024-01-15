@@ -47,7 +47,7 @@ export const URLS = {
   HERO_IMAGE: "/img-hero-1600.png",
   FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
   FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
-  EXTERNAL_KAKAO_LOGIN: "https://naver.com",
+  EXTERNAL_KAKAO_LOGIN: `${import.meta.env.VITE_BACKEND_URL}/api/auth/kakao`,
 } as const;
 
 export const PATH = {
