@@ -56,4 +56,6 @@ export const URLS = {
   FEATURE_IMAGE_02: "/img-feature-02.png",
   FEATURE_IMAGE_03: "/img-feature-03.png",
   HERO_IMAGE: "/img-hero-1600.png",
+  FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
+  FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
 } as const;
