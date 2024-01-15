@@ -65,5 +65,5 @@ export const URLS = {
 export const PATH = {
   ROOT: "/",
   LOGIN: "/login",
-  APP: "/app",
+  MAIN: "/main",
 } as const;
