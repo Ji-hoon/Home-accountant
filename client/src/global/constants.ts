@@ -20,6 +20,12 @@ export const COLORS = {
   GRAY_09: "#242424",
   GRAY_10: "#131313",
   GRAY_01_OVERAY: "rgba(0, 0, 0, 0.08)",
+  GRAY_02_OVERAY: "rgba(0, 0, 0, 0.10)",
+  GRAY_03_OVERAY: "rgba(0, 0, 0, 0.12)",
+  GRAY_04_OVERAY: "rgba(0, 0, 0, 0.14)",
+  GRAY_05_OVERAY: "rgba(0, 0, 0, 0.16)",
+  GRAY_06_OVERAY: "rgba(0, 0, 0, 0.18)",
+  GRAY_07_OVERAY: "rgba(0, 0, 0, 0.2)",
 } as const;
 
 export const SIZES = {

@@ -92,6 +92,10 @@ const HeaderRoot = styled.header`
   & .login-button-container {
     & button {
       background-color: ${COLORS.GRAY_01_OVERAY};
+
+      &:hover {
+        background-color: ${COLORS.GRAY_03_OVERAY};
+      }
     }
   }
 
