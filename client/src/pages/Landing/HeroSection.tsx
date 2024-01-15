@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { LABELS, SIZES, COLORS } from "../../global/constants";
+import { LABELS, SIZES, COLORS, URLS } from "../../global/constants";
 import Button_Boxtype from "../../components/basic/Button.boxType";
 import { FiChevronRight } from "react-icons/fi";
 
 export default function HeroSection() {
   return (
     <HeroSectionContainer>
-      <img src="/img-hero-1600.png" />
+      <img src={URLS.HERO_IMAGE} />
       <HeroSectionTaglineContainer>
         <h1>{LABELS.TAGLINE}</h1>
         <Button_Boxtype>
@@ -24,6 +24,7 @@ const HeroSectionContainer = styled.section`
   border-radius: ${SIZES.LG}px;
   max-width: 1200px;
   max-height: 640px;
+  min-height: 360px;
   width: calc(100% - 80px);
   height: calc(100% - 30vh);
   position: relative;
@@ -31,12 +32,12 @@ const HeroSectionContainer = styled.section`
   overflow: hidden;
   display: flex;
   align-items: flex-end;
+  box-shadow: 0 3px 10px 0 ${COLORS.GRAY_02};
 
   & img {
     position: relative;
     object-fit: cover;
     width: 100%;
-    height: 100%;
   }
 `;
 
