@@ -37,6 +37,10 @@ const FooterLinks = styled.div`
   display: flex;
   gap: ${SIZES.MD}px;
 
+  & > div {
+    display: flex;
+    gap: ${SIZES.XXS / 2}px;
+  }
   & a {
     color: ${COLORS.GRAY_10};
   }

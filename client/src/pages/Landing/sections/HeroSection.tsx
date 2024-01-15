@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { LABELS, SIZES, COLORS, URLS } from "../../global/constants";
-import Button_Boxtype from "../../components/basic/Button.boxType";
+import { LABELS, SIZES, COLORS, URLS } from "../../../global/constants";
+import Button_Boxtype from "../../../components/basic/Button.boxType";
 import { FiChevronRight } from "react-icons/fi";
 
 export default function HeroSection() {
@@ -11,7 +11,7 @@ export default function HeroSection() {
         <h2>{LABELS.TAGLINE}</h2>
         <Button_Boxtype>
           <>
-            {LABELS.LABEL_GOTO_LOGIN}
+            <span>{LABELS.LABEL_GOTO_LOGIN}</span>
             <FiChevronRight />
           </>
         </Button_Boxtype>
@@ -64,5 +64,10 @@ const HeroSectionTaglineContainer = styled.div`
     margin: 0;
     max-width: 10em;
     font-size: ${SIZES.TITLE * 0.8}px;
+  }
+
+  & button {
+    background-color: ${COLORS.BRAND_DEEP};
+    color: ${COLORS.BASIC_WHITE};
   }
 `;

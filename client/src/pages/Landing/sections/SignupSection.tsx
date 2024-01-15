@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { LABELS, COLORS, SIZES } from "../../global/constants";
-import Button_Boxtype from "../../components/basic/Button.boxType";
+import { LABELS, COLORS, SIZES } from "../../../global/constants";
+import Button_Boxtype from "../../../components/basic/Button.boxType";
 
 export default function SignupSection() {
   return (

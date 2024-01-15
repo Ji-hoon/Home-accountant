@@ -1,7 +1,7 @@
 import Header from "../../components/common/Header.tsx";
-import HeroSection from "./HeroSection.tsx";
-import FeatureSection from "./FeatureSection.tsx";
-import SignupSection from "./SignupSection.tsx";
+import HeroSection from "./sections/HeroSection.tsx";
+import FeatureSection from "./sections/FeatureSection.tsx";
+import SignupSection from "./sections/SignupSection.tsx";
 import Footer from "../../components/common/Footer.tsx";
 // import { LABELS } from "../../global/constants";
 

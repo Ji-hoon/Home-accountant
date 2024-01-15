@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LABELS, SIZES, COLORS, URLS } from "../../global/constants";
+import { LABELS, SIZES, COLORS, URLS } from "../../../global/constants";
 
 const featureContents = [
   {

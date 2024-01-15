@@ -24,6 +24,11 @@ const BoxtypeButton = styled.button`
   display: flex;
   align-items: center;
   gap: ${SIZES.SM / 2}px;
+  transition: all 300ms ease-out;
+
+  & span + svg {
+    margin-right: -${SIZES.XXS / 3}px;
+  }
 
   &:hover {
     filter: brightness(0.95);
