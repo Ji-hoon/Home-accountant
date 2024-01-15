@@ -7,7 +7,7 @@ import Footer from "../../components/common/Footer.tsx";
 export default function LandingPage() {
   return (
     <>
-      <Header isLogin={true} />
+      <Header isLogin={false} />
       <HeroSection />
       <FeatureSection />
       <SignupSection />

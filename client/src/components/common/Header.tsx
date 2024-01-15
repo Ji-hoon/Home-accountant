@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FiBell } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
-import { LABELS, PATH, URLS, SIZES } from "../../global/constants";
+import { LABELS, PATH, URLS, SIZES, COLORS } from "../../global/constants";
 import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
 import Button_Icontype from "../basic/Button.iconType";
@@ -89,7 +89,14 @@ const HeaderRoot = styled.header`
     }
   }
 
+  & .login-button-container {
+    & button {
+      background-color: ${COLORS.GRAY_01_OVERAY};
+    }
+  }
+
   & nav {
+    -webkit-transform: translateX(-24px);
     transform: translateX(-24px);
   }
 `;
