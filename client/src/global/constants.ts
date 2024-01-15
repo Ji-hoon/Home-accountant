@@ -19,6 +19,7 @@ export const COLORS = {
   GRAY_08: "#313131",
   GRAY_09: "#242424",
   GRAY_10: "#131313",
+  GRAY_01_OVERAY: "rgba(0, 0, 0, 0.08)",
 } as const;
 
 export const SIZES = {
@@ -33,6 +34,7 @@ export const SIZES = {
 } as const;
 
 export const URLS = {
+  DEFAULT_PROFILE: "/img-default-profile.png",
   FEATURE_IMAGE_01: "/img-feature-01.png",
   FEATURE_IMAGE_02: "/img-feature-02.png",
   FEATURE_IMAGE_03: "/img-feature-03.png",

@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { FiBell } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
-import { LABELS, PATH } from "../../global/constants";
+import { LABELS, PATH, URLS, SIZES } from "../../global/constants";
 import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
+import Button_Icontype from "../basic/Button.iconType";
+import Profile from "../basic/Profile";
 
 export default function Header({ isLogin }: { isLogin: boolean }) {
   return (
@@ -30,7 +33,12 @@ export default function Header({ isLogin }: { isLogin: boolean }) {
                 </NavLink>
               </>
             </Navigation_MenuType>
-            <div>알림 & 프로필</div>
+            <div className="noti-and-profile-container">
+              <Button_Icontype>
+                <FiBell />
+              </Button_Icontype>
+              <Profile url={URLS.DEFAULT_PROFILE} />
+            </div>
           </>
         )}
         {!isLogin && (
@@ -55,6 +63,7 @@ const HeaderRoot = styled.header`
 
   padding: 16px 40px 16px 32px;
   min-height: 80px;
+  overflow: hidden;
 
   & .header-inner-container {
     max-width: 1200px;
@@ -63,6 +72,11 @@ const HeaderRoot = styled.header`
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
+  }
+
+  & .noti-and-profile-container {
+    display: flex;
+    gap: ${SIZES.SM / 2}px;
   }
 
   & .logo-container a {
@@ -76,6 +90,6 @@ const HeaderRoot = styled.header`
   }
 
   & nav {
-    transform: translateX(-32px);
+    transform: translateX(-24px);
   }
 `;
