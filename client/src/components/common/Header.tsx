@@ -6,10 +6,14 @@ import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
 import Button_Icontype from "../basic/Button.iconType";
 import Profile from "../basic/Profile";
+import { useRecoilValue } from "recoil";
+import { isLoginAtom } from "../../atoms/globalAtoms";
 
-export default function Header({ isLogin }: { isLogin?: boolean }) {
+export default function Header() {
+  const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
+
   return (
-    <HeaderRoot>
+    <HeaderRoot isLogin={isLogin}>
       <div className="header-inner-container">
         <div className="logo-container">
           <NavLink to={PATH.ROOT}>
@@ -53,7 +57,9 @@ export default function Header({ isLogin }: { isLogin?: boolean }) {
   );
 }
 
-const HeaderRoot = styled.header`
+const HeaderRoot = styled.header<{
+  isLogin?: boolean;
+}>`
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
 
@@ -64,6 +70,8 @@ const HeaderRoot = styled.header`
   padding: 16px 40px 16px 32px;
   min-height: 80px;
   overflow: hidden;
+
+  box-shadow: inset 0 -1px 0 0 ${(props) => (props.isLogin ? COLORS.GRAY_01_OVERAY : "transparent")};
 
   & .header-inner-container {
     max-width: 1200px;
