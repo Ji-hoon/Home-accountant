@@ -13,7 +13,7 @@ export default function Header() {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
 
   return (
-    <HeaderRoot isLogin={isLogin}>
+    <HeaderRoot $islogin={isLogin.toString()}>
       <div className="header-inner-container">
         <div className="logo-container">
           <NavLink to={PATH.ROOT}>
@@ -58,7 +58,7 @@ export default function Header() {
 }
 
 const HeaderRoot = styled.header<{
-  isLogin?: boolean;
+  $islogin?: string;
 }>`
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
@@ -71,7 +71,7 @@ const HeaderRoot = styled.header<{
   min-height: 80px;
   overflow: hidden;
 
-  box-shadow: inset 0 -1px 0 0 ${(props) => (props.isLogin ? COLORS.GRAY_01_OVERAY : "transparent")};
+  box-shadow: inset 0 -1px 0 0 ${(props) => (props.$islogin === "true" ? COLORS.GRAY_01_OVERAY : "transparent")};
 
   & .header-inner-container {
     max-width: 1200px;

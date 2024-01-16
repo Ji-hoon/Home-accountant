@@ -56,7 +56,7 @@ const LoginContainer = styled.section`
     width: ${SIZES.XL * 2}px;
     height: ${SIZES.XL * 2}px;
     color: ${COLORS.BRAND_DEEP};
-    margin-top: ${SIZES.LG}px;
+    margin-top: ${SIZES.XXS}px;
     flex-shrink: 0;
   }
 

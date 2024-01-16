@@ -3,6 +3,7 @@ import { LABELS, PATH } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import Navigation_ListType from "../../components/basic/Navigation.listType";
+import Layout_HorizontalView from "../../components/layout/Layout.horizontalView";
 
 export default function MainPage() {
   const location = useLocation();
@@ -10,22 +11,28 @@ export default function MainPage() {
 
   return (
     <>
-      {!isLogin && <Navigate to={PATH.ROOT} />}
+      {!isLogin && <Navigate to={PATH.LOGIN} />}
       {isLogin && (
-        <>
-          <Navigation_ListType>
-            <>
-              <NavLink to={PATH.MAIN_EXPENSES}>
-                {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
-              </NavLink>
-              <NavLink to={PATH.MAIN_EXPENSES}>
-                {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
-              </NavLink>
-            </>
-          </Navigation_ListType>
-          <h1>{location.pathname}</h1>
-          <NavLink to={PATH.LOGIN}>Login 페이지로</NavLink>
-        </>
+        <Layout_HorizontalView>
+          <>
+            <div>
+              <Navigation_ListType>
+                <>
+                  <NavLink to={PATH.MAIN_EXPENSES}>
+                    {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
+                  </NavLink>
+                  <NavLink to={PATH.MAIN_EXPENSES}>
+                    {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
+                  </NavLink>
+                </>
+              </Navigation_ListType>
+            </div>
+            <div>
+              <h1>{location.pathname}</h1>
+              <NavLink to={PATH.LOGIN}>Login 페이지로</NavLink>
+            </div>
+          </>
+        </Layout_HorizontalView>
       )}
     </>
   );
