@@ -19,10 +19,6 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: PATH.MAIN,
-        element: <MainPage />,
-      },
-      {
         path: PATH.MAIN_EXPENSES,
         element: <MainPage />,
       },
