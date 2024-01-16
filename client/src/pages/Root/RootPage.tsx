@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import { PATH } from "../../global/constants";
-// import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 type ResultType = {
   result: {
@@ -21,10 +21,12 @@ export default function RootPage() {
   const { result } = useLoaderData() as ResultType;
   const [isLogin, setIsLogin] = useRecoilState(isLoginAtom); // login 여부를 판별하는 상태.
 
-  if (result.id) {
-    setIsLogin(true);
-    //console.log(result);
-  }
+  useLayoutEffect(() => {
+    if (result.id) {
+      setIsLogin(true);
+      //console.log(result);
+    }
+  });
 
   return (
     <>
