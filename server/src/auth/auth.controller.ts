@@ -31,7 +31,7 @@ const authController = {
       console.log("token: ", token);
       res.cookie("service_token", token, { path: "/", httpOnly: true });
       res.redirect(
-        `${process.env.FRONTEND_URL}?id=${result.user._id}&nickname=${result.user.nickname}`,
+        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}`,
       );
     },
   ),

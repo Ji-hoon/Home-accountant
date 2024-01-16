@@ -1,15 +1,36 @@
 import styled from "styled-components";
 import { FiHome } from "react-icons/fi";
-import { LABELS, URLS, SIZES, COLORS } from "../../global/constants";
+import { LABELS, URLS, SIZES, COLORS, PATH } from "../../global/constants";
 
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Button_Boxtype from "../../components/basic/Button.boxType";
+import { Navigate, useSearchParams } from "react-router-dom";
+
+import { useRecoilState } from "recoil";
+import { isLoginAtom } from "../../atoms/globalAtoms";
 
 export default function LoginPage() {
+  const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const nickname = searchParams.get("nickname");
+
+  const currentUser = { id, nickname };
+  console.log(currentUser);
+
+  if (currentUser.id || currentUser.nickname) {
+    setIsLogin(true);
+    return <Navigate to={PATH.MAIN} />;
+  }
+
+  if (currentUser.id === null || currentUser.nickname === null) {
+    setIsLogin(false);
+  }
+
   return (
     <>
-      <Header isLogin={false} />
+      <Header isLogin={isLogin} />
       <LoginContainer>
         <FiHome />
         <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
