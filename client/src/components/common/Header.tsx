@@ -7,7 +7,7 @@ import Navigation_MenuType from "../basic/Navigation.menuType";
 import Button_Icontype from "../basic/Button.iconType";
 import Profile from "../basic/Profile";
 
-export default function Header({ isLogin }: { isLogin: boolean }) {
+export default function Header({ isLogin }: { isLogin?: boolean }) {
   return (
     <HeaderRoot>
       <div className="header-inner-container">
@@ -20,7 +20,7 @@ export default function Header({ isLogin }: { isLogin: boolean }) {
           <>
             <Navigation_MenuType>
               <>
-                <NavLink to={PATH.MAIN_EXPENSES} className="active">
+                <NavLink to={PATH.MAIN_EXPENSES}>
                   <Button_Boxtype>{LABELS.HEADER_MENU_EXPENSES}</Button_Boxtype>
                 </NavLink>
                 <NavLink to={PATH.MAIN_ASSETS}>

@@ -28,7 +28,7 @@ const NavigationMenutypeContainer = styled.nav`
     transform: translateX(-24px);
 
     -webkit-transition: all 100ms ease-out;
-    transition: all 100ms ease-out;
+    transition: all 200ms ease-out;
   }
 
   & a.active:before {
