@@ -13,9 +13,13 @@ export default function LandingPage() {
   return (
     <>
       {isLogin && <Navigate to={PATH.MAIN_EXPENSES} />}
-      <HeroSection />
-      <FeatureSection />
-      <SignupSection />
+      {!isLogin && (
+        <>
+          <HeroSection />
+          <FeatureSection />
+          <SignupSection />
+        </>
+      )}
     </>
   );
 }

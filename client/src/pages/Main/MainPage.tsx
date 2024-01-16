@@ -11,18 +11,22 @@ export default function MainPage() {
   return (
     <>
       {!isLogin && <Navigate to={PATH.ROOT} />}
-      <Navigation_ListType>
+      {isLogin && (
         <>
-          <NavLink to={PATH.MAIN_EXPENSES}>
-            {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
-          </NavLink>
-          <NavLink to={PATH.MAIN_EXPENSES}>
-            {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
-          </NavLink>
+          <Navigation_ListType>
+            <>
+              <NavLink to={PATH.MAIN_EXPENSES}>
+                {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
+              </NavLink>
+              <NavLink to={PATH.MAIN_EXPENSES}>
+                {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
+              </NavLink>
+            </>
+          </Navigation_ListType>
+          <h1>{location.pathname}</h1>
+          <NavLink to={PATH.LOGIN}>Login 페이지로</NavLink>
         </>
-      </Navigation_ListType>
-      <h1>{location.pathname}</h1>
-      <NavLink to={PATH.LOGIN}>Login 페이지로</NavLink>
+      )}
     </>
   );
 }
