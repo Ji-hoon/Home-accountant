@@ -28,12 +28,13 @@ const SignupSectionContainer = styled.section`
   color: ${COLORS.GRAY_09};
 
   display: flex;
-  gap: ${SIZES.SM * 2}px;
+  gap: ${SIZES.XL}px;
   flex-direction: column;
   align-items: center;
 
   & h2 {
     font-size: ${SIZES.XL}px;
+    line-height: ${SIZES.XXL}px;
     margin: 0;
   }
 

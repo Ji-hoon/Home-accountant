@@ -9,6 +9,7 @@ import { Navigate, useSearchParams } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
@@ -19,22 +20,28 @@ export default function LoginPage() {
   const currentUser = { id, nickname };
   console.log(currentUser);
 
-  if (currentUser.id || currentUser.nickname) {
-    setIsLogin(true);
-    return <Navigate to={PATH.MAIN} />;
-  }
+  useEffect(() => {
+    if (currentUser.id || currentUser.nickname) {
+      setIsLogin(true);
+    }
+  }, [currentUser.id, currentUser.nickname, setIsLogin]);
 
   return (
     <>
-      <Header isLogin={isLogin} />
-      <LoginContainer>
-        <FiHome />
-        <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
-        <a href={URLS.EXTERNAL_KAKAO_LOGIN}>
-          <Button_Boxtype>{LABELS.LABEL_LOGIN_WITH_KAKAO}</Button_Boxtype>
-        </a>
-      </LoginContainer>
-      <Footer />
+      {isLogin && <Navigate to={PATH.MAIN} />}
+      {!isLogin && (
+        <>
+          <Header isLogin={isLogin} />
+          <LoginContainer>
+            <FiHome />
+            <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
+            <a href={URLS.EXTERNAL_KAKAO_LOGIN}>
+              <Button_Boxtype>{LABELS.LABEL_LOGIN_WITH_KAKAO}</Button_Boxtype>
+            </a>
+          </LoginContainer>
+          <Footer />
+        </>
+      )}
     </>
   );
 }
@@ -59,6 +66,8 @@ const LoginContainer = styled.section`
 
   & h3 {
     margin: 0;
+    font-size: ${SIZES.XL}px;
+    line-height: ${SIZES.XXL}px;
     white-space: break-spaces;
   }
 
