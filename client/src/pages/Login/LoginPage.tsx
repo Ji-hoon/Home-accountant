@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { FiHome } from "react-icons/fi";
 import { LABELS, URLS, SIZES, COLORS, PATH } from "../../global/constants";
 
-import Header from "../../components/common/Header";
-import Footer from "../../components/common/Footer";
 import Button_Boxtype from "../../components/basic/Button.boxType";
 import { Navigate, useSearchParams } from "react-router-dom";
 
@@ -17,21 +15,20 @@ export default function LoginPage() {
   const id = searchParams.get("id");
   const nickname = searchParams.get("nickname");
 
-  const currentUser = { id, nickname };
-  console.log(currentUser);
-
   useEffect(() => {
+    const currentUser = { id, nickname };
+
     if (currentUser.id || currentUser.nickname) {
       setIsLogin(true);
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
     }
-  }, [currentUser.id, currentUser.nickname, setIsLogin]);
+  }, [id, nickname, setIsLogin]);
 
   return (
     <>
-      {isLogin && <Navigate to={PATH.MAIN} />}
+      {isLogin && <Navigate to={PATH.MAIN_EXPENSES} />}
       {!isLogin && (
         <>
-          <Header isLogin={isLogin} />
           <LoginContainer>
             <FiHome />
             <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
@@ -39,7 +36,6 @@ export default function LoginPage() {
               <Button_Boxtype>{LABELS.LABEL_LOGIN_WITH_KAKAO}</Button_Boxtype>
             </a>
           </LoginContainer>
-          <Footer />
         </>
       )}
     </>
