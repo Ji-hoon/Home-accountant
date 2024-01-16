@@ -24,15 +24,16 @@ const NavigationMenutypeContainer = styled.nav`
     border-top-right-radius: 5px;
     background-color: ${COLORS.BRAND_DEEP};
 
-    -webkit-transform: translateX(-24px);
-    transform: translateX(-24px);
+    -webkit-transform: translate(-24px, 0);
+    transform: translate(-24px, 0);
 
     -webkit-transition: all 100ms ease-out;
     transition: all 200ms ease-out;
   }
 
   & a.active:before {
-    bottom: -16px;
+    -webkit-transform: translate(-24px, -4px);
+    transform: translate(-24px, -4px);
   }
 
   & button {
