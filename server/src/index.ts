@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
+import authRouter from "./auth/auth.router.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const { PORT, MONGODB_URL, FRONTEND_URL } = process.env;
 if (!PORT || !MONGODB_URL || !FRONTEND_URL) {
@@ -18,9 +20,6 @@ mongoose.connection.on("connected", () => {
 const app = express();
 app.use(cookieParser());
 
-// app.use(errorLogger);
-//app.use(errorHandler);
-
 app.use(express.json());
 app.use(
   cors({
@@ -29,9 +28,10 @@ app.use(
   }),
 );
 
-app.get("/", (req, res) => {
-  res.send("Hello, Home accountant server!");
-});
+app.use("/api/auth", authRouter);
+
+app.use(errorHandler);
+
 app.listen(PORT, () => {
   console.log(`PORT:${PORT}`);
 });
