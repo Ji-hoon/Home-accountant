@@ -9,10 +9,10 @@ import { PATH } from "../../global/constants.ts";
 
 export default function LandingPage() {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
-  if (isLogin) return <Navigate to={PATH.MAIN_EXPENSES} />;
 
   return (
     <>
+      {isLogin && <Navigate to={PATH.MAIN_EXPENSES} />}
       <HeroSection />
       <FeatureSection />
       <SignupSection />

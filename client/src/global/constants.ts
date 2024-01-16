@@ -66,6 +66,8 @@ export const LABELS = {
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
   LABEL_LOGINPAGE_TITLE: "지금 로그인하고 \n자산 관리를 시작해보세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
+  NAVIGATION_MENU_EXPENSES_BY_MONTH: "월별 지출 내역",
+  NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
   HEADER_MENU_EXPENSES: "지출 내역",
   HEADER_MENU_ASSETS: "자산 조회",
   HEADER_MENU_GROUP_MGMT: "그룹 관리",
