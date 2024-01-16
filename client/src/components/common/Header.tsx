@@ -12,9 +12,9 @@ export default function Header({ isLogin }: { isLogin: boolean }) {
     <HeaderRoot>
       <div className="header-inner-container">
         <div className="logo-container">
-          <a href="/" target="_self">
+          <NavLink to={PATH.ROOT}>
             <img src="/img-logo.png" />
-          </a>
+          </NavLink>
         </div>
         {isLogin && (
           <>

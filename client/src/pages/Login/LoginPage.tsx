@@ -24,10 +24,6 @@ export default function LoginPage() {
     return <Navigate to={PATH.MAIN} />;
   }
 
-  if (currentUser.id === null || currentUser.nickname === null) {
-    setIsLogin(false);
-  }
-
   return (
     <>
       <Header isLogin={isLogin} />
