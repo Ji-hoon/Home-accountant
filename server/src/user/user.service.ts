@@ -1,13 +1,9 @@
+import { UserType } from "../type/global.js";
 import UserModel from "./user.model.js";
 // import {
 //   generateNickname,
 //   generateRandomProfile,
 // } from "../utils/randomizeContent.js";
-
-type UserType = {
-  nickname: string;
-  profileImgUrl: string;
-};
 
 const userService = {
   async getUser(_id: string) {
