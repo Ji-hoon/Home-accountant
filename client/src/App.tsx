@@ -7,6 +7,7 @@ import LoginPage from "./pages/Login/LoginPage.tsx";
 import MainPage from "./pages/Main/MainPage.tsx";
 import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
+import Modal from "./components/dialog/Modal.tsx";
 
 const router = createBrowserRouter([
   {
@@ -53,5 +54,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Modal />
+    </>
+  );
 }

@@ -6,8 +6,11 @@ import { LABELS, PATH, URLS } from "../../../global/constants";
 import ListHeader from "../../../components/compound/ListHeader";
 import ListItem_ExpenseType from "../../../components/compound/ListItem.expenseType";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
+import { useHandleModal } from "../../../components/hooks/useHandleModal";
 
 export default function Expenses_SubPage() {
+  const { showModal } = useHandleModal();
+
   const mockList = [
     {
       businessName: "(주)배달의민족",
@@ -52,7 +55,14 @@ export default function Expenses_SubPage() {
       </div>
       <div className="list-container">
         <ListHeader $title="2024년 1월" $type="EXPENSES" $value="100000" />
-        <Button_Floatingtype />
+        <Button_Floatingtype
+          onClick={() =>
+            showModal({
+              type: "MODAL",
+              content: "지출 내역 추가",
+            })
+          }
+        />
         <ul>
           {mockList &&
             mockList.length > 0 &&
