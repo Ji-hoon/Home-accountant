@@ -16,11 +16,11 @@ export default function ListHeader({
     <ListHeaderContainer $type={$type}>
       <div className="header-navigation-container">
         <Button_Icontype>
-          <FiChevronLeft stroke-width="3" />
+          <FiChevronLeft strokeWidth="3" />
         </Button_Icontype>
         {$title}
         <Button_Icontype>
-          <FiChevronRight stroke-width="3" />
+          <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
       <div className="header-value-container">

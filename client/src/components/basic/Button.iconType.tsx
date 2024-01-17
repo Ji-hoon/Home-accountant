@@ -3,10 +3,12 @@ import { COLORS, SIZES } from "../../global/constants";
 
 export default function Button_Icontype({
   children,
+  onClick,
 }: {
   children: React.ReactElement | string;
+  onClick?: (e: React.SyntheticEvent) => void;
 }) {
-  return <IcontypeButton>{children}</IcontypeButton>;
+  return <IcontypeButton onClick={onClick}>{children}</IcontypeButton>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

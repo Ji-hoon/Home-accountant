@@ -5,11 +5,11 @@ import { SIZES, COLORS } from "../../global/constants";
 export default function Button_Floatingtype({
   onClick,
 }: {
-  onClick: (e: React.SyntheticEvent) => void;
+  onClick?: (e: React.SyntheticEvent) => void;
 }) {
   return (
     <FloatingtypeButton className="floating-button" onClick={onClick}>
-      <FiPlus stroke-width="2" />
+      <FiPlus strokeWidth="2" />
     </FloatingtypeButton>
   );
 }

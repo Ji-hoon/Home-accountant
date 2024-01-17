@@ -3,10 +3,18 @@ import { COLORS, SIZES } from "../../global/constants";
 
 export default function Button_Boxtype({
   children,
+  onClick,
+  type,
 }: {
   children: React.ReactElement | string;
+  onClick?: (e: React.SyntheticEvent) => void;
+  type?: string;
 }) {
-  return <BoxtypeButton>{children}</BoxtypeButton>;
+  return (
+    <BoxtypeButton className={type} onClick={onClick}>
+      {children}
+    </BoxtypeButton>
+  );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

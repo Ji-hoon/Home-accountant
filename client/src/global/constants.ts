@@ -66,6 +66,13 @@ export const PATH = {
   MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/filter/member",
 } as const;
 
+export const TYPES = {
+  CONFIRM: "confirm",
+  ALERT: "alert",
+  MODAL_DOUBLE_COL: "MODAL_DOUBLE_COLUMN",
+  MODAL_SINGLE_COL: "MODAL_DOUBLE_COLUMN",
+} as const;
+
 export const LABELS = {
   LABEL_LOGIN: "로그인",
   LABEL_GOTO_LOGIN: "로그인 하러가기",
@@ -73,6 +80,8 @@ export const LABELS = {
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
   LABEL_LOGINPAGE_TITLE: "지금 로그인하고 \n자산 관리를 시작해보세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
+  LABEL_CANCEL: "취소",
+  LABEL_ADD_EXPENSE: "지출 내역 추가",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월별 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
   HEADER_MENU_EXPENSES: "지출 내역",

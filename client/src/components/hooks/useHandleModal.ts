@@ -6,14 +6,21 @@ export function useHandleModal() {
 
   function showModal({
     type,
-    content,
+    title,
+    layout,
   }: {
-    type: "MODAL" | "POPUP";
-    content: string;
+    type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
+    title: string;
+    layout: Array<{
+      title: string;
+      type: string;
+      placeholder: string;
+      default?: undefined | string;
+    }>;
   }) {
     const newModal = {
-      isOpen: !modal.isOpen,
-      content: [...modal.content, { type, title: content }],
+      isOpen: true,
+      content: [...modal.content, { type, title, layout }],
     };
     setModal(newModal);
   }

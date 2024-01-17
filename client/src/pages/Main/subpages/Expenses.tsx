@@ -2,11 +2,12 @@ import { NavLink } from "react-router-dom";
 import Navigation_ListType from "../../../components/basic/Navigation.listType";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 
-import { LABELS, PATH, URLS } from "../../../global/constants";
+import { LABELS, PATH, TYPES, URLS } from "../../../global/constants";
 import ListHeader from "../../../components/compound/ListHeader";
 import ListItem_ExpenseType from "../../../components/compound/ListItem.expenseType";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleModal } from "../../../components/hooks/useHandleModal";
+import { CreateExpenseLayout } from "../../../global/layout";
 
 export default function Expenses_SubPage() {
   const { showModal } = useHandleModal();
@@ -58,8 +59,9 @@ export default function Expenses_SubPage() {
         <Button_Floatingtype
           onClick={() =>
             showModal({
-              type: "MODAL",
-              content: "지출 내역 추가",
+              type: TYPES.MODAL_DOUBLE_COL,
+              title: LABELS.LABEL_ADD_EXPENSE,
+              layout: CreateExpenseLayout,
             })
           }
         />
