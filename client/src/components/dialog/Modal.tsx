@@ -100,6 +100,10 @@ const ModalLayoutContainer = styled.div`
       flex-grow: 1;
       text-align: left;
     }
+
+    & button {
+      padding: ${SIZES.XS}px;
+    }
   }
 
   & .modal-contents {
