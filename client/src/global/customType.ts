@@ -7,6 +7,7 @@ export type modalType = {
         layout:
           | Array<{
               title: string;
+              fieldName: string;
               type: string;
               placeholder: string;
               default?: undefined | string;

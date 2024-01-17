@@ -3,12 +3,14 @@ import { COLORS, SIZES } from "../../global/constants";
 
 export default function Textfield({
   title,
+  fieldName,
   type,
   placeholder,
   defaultValue,
   options,
 }: {
   title: string;
+  fieldName: string;
   type: string;
   placeholder: string;
   defaultValue?: string;
@@ -19,6 +21,7 @@ export default function Textfield({
       <label>{title}</label>
       {type !== "selectbox" && (
         <input
+          name={fieldName}
           type={type}
           placeholder={placeholder}
           defaultValue={defaultValue}

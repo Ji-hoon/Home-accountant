@@ -7,6 +7,7 @@ export default function DoubleColumnLayout({
 }: {
   layout: Array<{
     title: string;
+    fieldName: string;
     type: string;
     placeholder: string;
     default?: undefined | string;
@@ -19,6 +20,7 @@ export default function DoubleColumnLayout({
         layout.map((item, index) => (
           <Textfield
             key={index}
+            fieldName={item.fieldName}
             title={item.title}
             type={item.type}
             placeholder={item.placeholder}
