@@ -13,23 +13,21 @@ export default function Layout_HorizontalView({
 const HorizontalViewContainer = styled.section`
   display: flex;
 
-  & div:nth-child(1) {
-    // aside navigation
+  & .aside-navigation-container {
     position: fixed;
     top: 80px;
     min-width: 240px;
   }
 
-  & div:nth-child(2) {
-    // constents area
+  & .list-container {
     padding-left: 240px;
     flex-grow: 1;
     text-align: left;
   }
 
-  & div:nth-child(3) {
-    // advertise area
+  & .advertise-container {
     padding: ${SIZES.XL}px;
+
     & img {
       width: 160px;
       border: 1px solid ${COLORS.GRAY_01};

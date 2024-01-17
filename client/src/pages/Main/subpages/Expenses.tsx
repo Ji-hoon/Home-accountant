@@ -2,11 +2,12 @@ import { NavLink } from "react-router-dom";
 import Navigation_ListType from "../../../components/basic/Navigation.listType";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 import { LABELS, PATH, URLS } from "../../../global/constants";
+import ListHeader from "../../../components/compound/ListHeader";
 
 export default function Expenses_SubPage() {
   return (
     <>
-      <div>
+      <div className="aside-navigation-container">
         <Navigation_ListType>
           <>
             <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MONTH}>
@@ -22,10 +23,11 @@ export default function Expenses_SubPage() {
           </>
         </Navigation_ListType>
       </div>
-      <div>
+      <div className="list-container">
+        <ListHeader $title="2024년 1월" $type="EXPENSES" $value="0원" />
         <h1>{location.pathname}</h1>
       </div>
-      <div>
+      <div className="advertise-container">
         <img src={URLS.AD_MOCK_IMAGE} />
       </div>
     </>
