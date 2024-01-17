@@ -38,7 +38,7 @@ const ListHeaderContainer = styled.div<{
   position: sticky;
   top: 80px;
 
-  padding: ${SIZES.XL}px ${SIZES.SM}px ${SIZES.LG}px;
+  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.LG}px;
   background-color: ${COLORS.BASIC_WHITE};
 
   font-size: ${SIZES.XL}px;
