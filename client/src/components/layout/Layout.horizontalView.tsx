@@ -34,6 +34,9 @@ const HorizontalViewContainer = styled.section`
       margin: -${SIZES.LG * 3}px 0 0;
       padding: 0 0 ${SIZES.XL * 3}px;
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: ${SIZES.XXS / 3}px;
     }
 
     & .floating-button {

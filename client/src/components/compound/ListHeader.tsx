@@ -16,11 +16,11 @@ export default function ListHeader({
     <ListHeaderContainer $type={$type}>
       <div className="header-navigation-container">
         <Button_Icontype>
-          <FiChevronLeft />
+          <FiChevronLeft stroke-width="3" />
         </Button_Icontype>
         {$title}
         <Button_Icontype>
-          <FiChevronRight />
+          <FiChevronRight stroke-width="3" />
         </Button_Icontype>
       </div>
       <div className="header-value-container">
@@ -37,8 +37,9 @@ const ListHeaderContainer = styled.div<{
   justify-content: space-between;
   position: sticky;
   top: 80px;
+  align-items: center;
 
-  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.LG}px;
+  padding: ${SIZES.XXS * 2}px ${SIZES.SM}px ${SIZES.LG}px;
   background-color: ${COLORS.BASIC_WHITE};
 
   font-size: ${SIZES.XL}px;
@@ -52,7 +53,7 @@ const ListHeaderContainer = styled.div<{
     margin-left: -${SIZES.XS / 2}px;
 
     & button {
-      padding: ${SIZES.XXS / 2}px;
+      padding: ${SIZES.XL / 2}px;
     }
   }
 

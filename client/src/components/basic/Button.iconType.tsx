@@ -24,7 +24,8 @@ const IcontypeButton = styled.button`
   display: flex;
   align-items: center;
   gap: ${SIZES.SM / 2}px;
-  transition: all 300ms ease-out;
+  -webkit-transition: all 200ms ease-out;
+  transition: all 200ms ease-out;
 
   & svg {
     width: ${SIZES.LG}px;
@@ -33,5 +34,9 @@ const IcontypeButton = styled.button`
 
   &:hover {
     background-color: ${COLORS.GRAY_01_OVERAY};
+  }
+
+  &:active {
+    background-color: ${COLORS.GRAY_03_OVERAY};
   }
 `;

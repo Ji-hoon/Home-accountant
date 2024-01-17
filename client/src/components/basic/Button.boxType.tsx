@@ -34,4 +34,8 @@ const BoxtypeButton = styled.button`
   &:hover {
     filter: brightness(0.95);
   }
+
+  &:active {
+    filter: brightness(0.92);
+  }
 `;

@@ -34,8 +34,14 @@ const ListItemContainer = styled.div`
   display: flex;
   gap: ${SIZES.XS / 2}px;
   padding: ${SIZES.SM}px ${SIZES.SM}px;
-  border-top: 1px solid ${COLORS.GRAY_01_OVERAY};
   align-items: flex-start;
+  border-radius: ${SIZES.XXS / 2}px;
+  -webkit-transition: all 200ms ease-out;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    background-color: ${COLORS.GRAY_01};
+  }
 
   & input[type="checkbox"] {
     width: ${SIZES.XS}px;

@@ -23,6 +23,9 @@ const NavigationListtypeContainer = styled.nav`
     &:hover {
       background-color: ${COLORS.GRAY_01_OVERAY};
     }
+    &:active {
+      background-color: ${COLORS.GRAY_03_OVERAY};
+    }
   }
 
   & a.active button {
