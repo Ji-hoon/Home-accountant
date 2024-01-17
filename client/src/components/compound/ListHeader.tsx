@@ -23,7 +23,9 @@ export default function ListHeader({
           <FiChevronRight />
         </Button_Icontype>
       </div>
-      <div className="header-value-container">{$value}</div>
+      <div className="header-value-container">
+        {parseInt($value).toLocaleString()}원
+      </div>
     </ListHeaderContainer>
   );
 }
@@ -47,6 +49,7 @@ const ListHeaderContainer = styled.div<{
     display: flex;
     gap: ${SIZES.XS / 2}px;
     align-items: center;
+    margin-left: -${SIZES.XXS / 3}px;
 
     & button {
       padding: ${SIZES.XXS / 2}px;

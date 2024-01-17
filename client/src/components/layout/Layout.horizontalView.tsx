@@ -27,14 +27,30 @@ const HorizontalViewContainer = styled.section`
   & .list-container {
     flex-grow: 1;
     text-align: left;
+    max-width: ${SIZES.MAX_WIDTH / 2}px;
+    margin: 0 auto;
+
+    & ul {
+      margin: -${SIZES.LG * 3}px 0 0;
+      padding: 0 0 ${SIZES.LG * 3}px;
+      list-style: none;
+    }
+
+    & .floating-button {
+      position: sticky;
+      top: calc(100vh - 80px);
+      left: 100%;
+    }
   }
 
   & .advertise-container {
-    padding: ${SIZES.XL}px;
+    padding: ${SIZES.LG}px ${SIZES.XL}px;
 
     & img {
       width: 160px;
       border: 1px solid ${COLORS.GRAY_01};
+      position: sticky;
+      top: 100px;
     }
   }
 `;

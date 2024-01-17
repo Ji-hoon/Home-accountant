@@ -15,9 +15,13 @@ export default function MainPage() {
       {location.pathname == PATH.MAIN_EXPENSES && (
         <Navigate to={PATH.MAIN_EXPENSES_FILTER_BY_MONTH} />
       )}
-      {isLogin && location.pathname.includes(PATH.MAIN_EXPENSES) && (
+      {isLogin && (
         <Layout_HorizontalView>
-          <Expenses_SubPage />
+          {location.pathname.includes(PATH.MAIN_EXPENSES) ? (
+            <Expenses_SubPage />
+          ) : (
+            <></>
+          )}
         </Layout_HorizontalView>
       )}
     </>
