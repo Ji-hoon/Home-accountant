@@ -49,7 +49,7 @@ const ListHeaderContainer = styled.div<{
     display: flex;
     gap: ${SIZES.XS / 2}px;
     align-items: center;
-    margin-left: -${SIZES.XXS / 3}px;
+    margin-left: -${SIZES.XS / 2}px;
 
     & button {
       padding: ${SIZES.XXS / 2}px;

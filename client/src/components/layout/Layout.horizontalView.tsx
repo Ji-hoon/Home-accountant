@@ -32,7 +32,7 @@ const HorizontalViewContainer = styled.section`
 
     & ul {
       margin: -${SIZES.LG * 3}px 0 0;
-      padding: 0 0 ${SIZES.LG * 3}px;
+      padding: 0 0 ${SIZES.XL * 3}px;
       list-style: none;
     }
 
