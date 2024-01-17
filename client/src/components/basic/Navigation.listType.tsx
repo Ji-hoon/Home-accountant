@@ -14,8 +14,18 @@ const NavigationListtypeContainer = styled.nav`
   display: flex;
   flex-direction: column;
   padding: ${SIZES.XL}px;
+  gap: ${SIZES.SM / 2}px;
 
-  & a.active {
+  & a button {
+    background-color: inherit;
+    width: 100%;
+
+    &:hover {
+      background-color: ${COLORS.GRAY_01_OVERAY};
+    }
+  }
+
+  & a.active button {
     background-color: ${COLORS.BRAND_LIGHT};
   }
 `;
