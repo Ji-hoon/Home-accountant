@@ -39,7 +39,7 @@ const ListHeaderContainer = styled.div<{
   top: 80px;
   align-items: center;
 
-  padding: ${SIZES.XXS * 2}px ${SIZES.SM}px ${SIZES.LG}px;
+  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.LG}px;
   background-color: ${COLORS.BASIC_WHITE};
 
   font-size: ${SIZES.XL}px;
@@ -53,7 +53,7 @@ const ListHeaderContainer = styled.div<{
     margin-left: -${SIZES.XS / 2}px;
 
     & button {
-      padding: ${SIZES.XL / 2}px;
+      padding: ${SIZES.LG / 2}px;
     }
   }
 
