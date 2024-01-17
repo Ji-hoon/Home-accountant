@@ -51,6 +51,9 @@ const HorizontalViewContainer = styled.section`
       border: 1px solid ${COLORS.GRAY_01};
       position: sticky;
       top: 100px;
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
     }
   }
 `;
