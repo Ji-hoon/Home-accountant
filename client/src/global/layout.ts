@@ -7,7 +7,9 @@ export const CreateExpenseLayout = [
   {
     title: "카테고리",
     type: "selectbox",
-    placeholder: "카테고리를 선택해주세요.",
+    placeholder: "",
+    default: "카테고리를 선택해주세요.",
+    options: ["식비", "문화생활"],
   },
   {
     title: "상호명",
@@ -17,7 +19,9 @@ export const CreateExpenseLayout = [
   {
     title: "멤버",
     type: "selectbox",
-    placeholder: "멤버를 선택해주세요.",
+    placeholder: "",
+    default: "멤버를 선택해주세요.",
+    options: ["만두", "밀크티"],
   },
   {
     title: "지출 날짜 (YYYY-MM-DD)",
@@ -28,6 +32,7 @@ export const CreateExpenseLayout = [
     title: "정기 지출 여부",
     type: "selectbox",
     placeholder: "",
-    default: "일시불",
+    default: "정기 지출 여부를 선택해주세요.",
+    options: ["일시불", "정기 결제"],
   },
 ];

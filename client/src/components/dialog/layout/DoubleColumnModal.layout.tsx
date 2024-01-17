@@ -10,6 +10,7 @@ export default function DoubleColumnLayout({
     type: string;
     placeholder: string;
     default?: undefined | string;
+    options?: undefined | string[];
   }>;
 }) {
   return (
@@ -22,6 +23,7 @@ export default function DoubleColumnLayout({
             type={item.type}
             placeholder={item.placeholder}
             defaultValue={item.default}
+            options={item.options}
           />
         ))}
     </DoubleColumnLayoutContainer>

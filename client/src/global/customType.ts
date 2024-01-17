@@ -10,6 +10,7 @@ export type modalType = {
               type: string;
               placeholder: string;
               default?: undefined | string;
+              options?: undefined | string[];
             }>
           | [];
       }[]

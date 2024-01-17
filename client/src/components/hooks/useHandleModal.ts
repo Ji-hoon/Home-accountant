@@ -16,6 +16,7 @@ export function useHandleModal() {
       type: string;
       placeholder: string;
       default?: undefined | string;
+      options?: string[];
     }>;
   }) {
     const newModal = {

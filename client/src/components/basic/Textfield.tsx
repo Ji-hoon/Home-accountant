@@ -6,11 +6,13 @@ export default function Textfield({
   type,
   placeholder,
   defaultValue,
+  options,
 }: {
   title: string;
   type: string;
   placeholder: string;
   defaultValue?: string;
+  options?: string[];
 }) {
   return (
     <TextFieldLayout>
@@ -24,9 +26,16 @@ export default function Textfield({
       )}
       {type === "selectbox" && (
         <select name={title}>
-          <option value={placeholder}>
-            {placeholder ? placeholder : defaultValue}
+          <option value={defaultValue} disabled selected>
+            {defaultValue}{" "}
           </option>
+          {options &&
+            options.length > 0 &&
+            options.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
         </select>
       )}
     </TextFieldLayout>
