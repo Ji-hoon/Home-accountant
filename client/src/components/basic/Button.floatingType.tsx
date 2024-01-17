@@ -28,8 +28,12 @@ const FloatingtypeButton = styled.button`
   }
 
   &:hover {
-    filter: brightness(0.95);
-    -webkit-box-shadow: 0 0 0 4px ${COLORS.BRAND_DEFAULT};
-    box-shadow: 0 0 0 4px ${COLORS.BRAND_DEFAULT};
+    background-color: ${COLORS.BRAND_DEFAULT};
+    -webkit-box-shadow: 0 0 0 2px ${COLORS.BRAND_DEFAULT};
+    box-shadow: 0 0 0 2px ${COLORS.BRAND_DEFAULT};
+  }
+
+  &:active {
+    filter: brightness(0.9);
   }
 `;
