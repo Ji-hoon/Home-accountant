@@ -16,3 +16,11 @@ export type modalType = {
       }[]
     | [];
 };
+
+export type ResultType = {
+  result: {
+    id: string;
+    nickname: string;
+    profile: string;
+  };
+};

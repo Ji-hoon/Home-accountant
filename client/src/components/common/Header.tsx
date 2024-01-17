@@ -8,8 +8,9 @@ import Button_Icontype from "../basic/Button.iconType";
 import Profile from "../basic/Profile";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
+import { ResultType } from "../../global/customType";
 
-export default function Header() {
+export default function Header({ user }: { user?: ResultType["result"] }) {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
 
   return (
@@ -41,7 +42,9 @@ export default function Header() {
               <Button_Icontype>
                 <FiBell />
               </Button_Icontype>
-              <Profile url={URLS.DEFAULT_PROFILE} />
+              <Profile
+                url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
+              />
             </div>
           </>
         )}

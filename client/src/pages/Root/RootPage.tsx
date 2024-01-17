@@ -6,13 +6,7 @@ import { useSetRecoilState } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import { PATH } from "../../global/constants";
 import { useLayoutEffect } from "react";
-
-type ResultType = {
-  result: {
-    id: string;
-    nickname: string;
-  };
-};
+import { ResultType } from "../../global/customType";
 
 export default function RootPage() {
   const location = useLocation();
@@ -30,7 +24,7 @@ export default function RootPage() {
 
   return (
     <>
-      <Header />
+      <Header user={result} />
       <Outlet />
       {!currentPath.includes(PATH.MAIN) ? <Footer /> : <></>}
     </>

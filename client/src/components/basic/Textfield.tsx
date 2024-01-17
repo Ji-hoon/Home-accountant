@@ -25,10 +25,8 @@ export default function Textfield({
         />
       )}
       {type === "selectbox" && (
-        <select name={title}>
-          <option value={defaultValue} disabled selected>
-            {defaultValue}{" "}
-          </option>
+        <select name={title} defaultValue={defaultValue}>
+          <option disabled>{defaultValue}</option>
           {options &&
             options.length > 0 &&
             options.map((item, index) => (
