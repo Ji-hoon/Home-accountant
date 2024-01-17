@@ -37,6 +37,7 @@ export const SIZES = {
   XL: 24,
   XXL: 36,
   TITLE: 42,
+  MAX_WIDTH: 1200,
 } as const;
 
 export const URLS = {

@@ -12,15 +12,19 @@ export default function Layout_HorizontalView({
 // eslint-disable-next-line react-refresh/only-export-components
 const HorizontalViewContainer = styled.section`
   display: flex;
+  max-width: ${SIZES.MAX_WIDTH}px;
+  margin: 0 auto;
 
   & .aside-navigation-container {
-    position: fixed;
-    top: 80px;
     min-width: 240px;
+
+    & nav {
+      position: sticky;
+      top: 80px;
+    }
   }
 
   & .list-container {
-    padding-left: 240px;
     flex-grow: 1;
     text-align: left;
   }

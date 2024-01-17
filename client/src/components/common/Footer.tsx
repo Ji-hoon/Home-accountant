@@ -25,7 +25,7 @@ export default function Footer() {
 }
 
 const FooterContainer = styled.footer`
-  max-width: 1200px;
+  max-width: ${SIZES.MAX_WIDTH}px;
   width: calc(100% - 80px);
   margin: 0 auto;
   padding: ${SIZES.MD * 2}px ${SIZES.MD}px;

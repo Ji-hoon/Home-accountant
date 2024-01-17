@@ -74,7 +74,7 @@ const HeaderRoot = styled.header<{
   box-shadow: inset 0 -1px 0 0 ${(props) => (props.$islogin === "true" ? COLORS.GRAY_01_OVERAY : "transparent")};
 
   & .header-inner-container {
-    max-width: 1200px;
+    max-width: ${SIZES.MAX_WIDTH}px;
     //min-height: 48px;
     display: flex;
     align-items: center;
