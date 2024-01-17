@@ -64,5 +64,12 @@ const TextFieldLayout = styled.div`
     outline: none;
     font-size: ${SIZES.SM}px;
     line-height: ${SIZES.LG}px;
+
+    -webkit-transition: all 200ms ease-out;
+    transition: all 200ms ease-out;
+
+    &:focus {
+      background-color: ${COLORS.GRAY_01_OVERAY};
+    }
   }
 `;

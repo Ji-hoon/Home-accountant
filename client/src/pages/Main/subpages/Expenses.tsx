@@ -6,11 +6,11 @@ import { LABELS, PATH, TYPES, URLS } from "../../../global/constants";
 import ListHeader from "../../../components/compound/ListHeader";
 import ListItem_ExpenseType from "../../../components/compound/ListItem.expenseType";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
-import { useHandleModal } from "../../../components/hooks/useHandleModal";
+import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
 
 export default function Expenses_SubPage() {
-  const { showModal } = useHandleModal();
+  const { showDialog } = useHandleDialog();
 
   const mockList = [
     {
@@ -58,7 +58,7 @@ export default function Expenses_SubPage() {
         <ListHeader $title="2024년 1월" $type="EXPENSES" $value="100000" />
         <Button_Floatingtype
           onClick={() =>
-            showModal({
+            showDialog({
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_EXPENSE,
               layout: CreateExpenseLayout,

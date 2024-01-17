@@ -1,12 +1,12 @@
 import { atom } from "recoil";
-import { modalType } from "../global/customType";
+import { dialogType } from "../global/customType";
 
 export const isLoginAtom = atom({
   key: "isLogin",
   default: false,
 });
 
-export const currentDialogAtom = atom<modalType>({
+export const currentDialogAtom = atom<dialogType>({
   key: "currentDialog",
   default: {
     isOpen: false, // false : CLOSED | true : OPENED

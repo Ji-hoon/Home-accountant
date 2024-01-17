@@ -1,4 +1,4 @@
-export type modalType = {
+export type dialogType = {
   isOpen: boolean;
   content:
     | {

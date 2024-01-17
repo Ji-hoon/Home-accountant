@@ -1,10 +1,10 @@
 import { useRecoilState } from "recoil";
 import { currentDialogAtom } from "../../atoms/globalAtoms";
 
-export function useHandleModal() {
-  const [modal, setModal] = useRecoilState(currentDialogAtom);
+export function useHandleDialog() {
+  const [dialog, setDialog] = useRecoilState(currentDialogAtom);
 
-  function showModal({
+  function showDialog({
     type,
     title,
     layout,
@@ -22,19 +22,19 @@ export function useHandleModal() {
   }) {
     const newModal = {
       isOpen: true,
-      content: [...modal.content, { type, title, layout }],
+      content: [...dialog.content, { type, title, layout }],
     };
-    setModal(newModal);
+    setDialog(newModal);
   }
 
-  function hideModal({ order }: { order: number }) {
-    const newContent = [...modal.content];
+  function hideDialog({ order }: { order: number }) {
+    const newContent = [...dialog.content];
     const newModal = {
-      isOpen: !modal.isOpen,
+      isOpen: !dialog.isOpen,
       content: newContent.splice(order, 0),
     };
-    setModal(newModal);
+    setDialog(newModal);
   }
 
-  return { showModal, hideModal };
+  return { showDialog, hideDialog };
 }

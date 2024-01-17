@@ -1,49 +1,51 @@
 import styled from "styled-components";
-import ModalPortal from "./Modal.Portal";
+import DialogPortal from "./Dialog.Portal";
 import { useRecoilValue } from "recoil";
 import { currentDialogAtom } from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
-import { useHandleModal } from "../hooks/useHandleModal";
+import { useHandleDialog } from "../hooks/useHandleDialog";
 import DoubleColumnLayout from "./layout/DoubleColumnModal.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
 
-export default function Modal() {
-  const modal = useRecoilValue(currentDialogAtom);
-  const { hideModal } = useHandleModal();
+export default function Dialog() {
+  const dialog = useRecoilValue(currentDialogAtom);
+  const { hideDialog } = useHandleDialog();
 
   return (
-    <ModalPortal>
-      {modal.isOpen &&
-        modal.content.length > 0 &&
-        modal.content.map((item, index) => (
+    <DialogPortal>
+      {dialog.isOpen &&
+        dialog.content.length > 0 &&
+        dialog.content.map((item, index) => (
           <ModalContainer key={index}>
-            <BackdropModal onClick={() => hideModal({ order: index })} />
+            <BackdropModal onClick={() => hideDialog({ order: index })} />
             <ModalLayoutContainer>
               <section className="modal-header">
                 <h3>{item.title}</h3>
-                <Button_Icontype onClick={() => hideModal({ order: index })}>
+                <Button_Icontype onClick={() => hideDialog({ order: index })}>
                   <FiX />
                 </Button_Icontype>
               </section>
-              <section className="modal-contents">
-                {item.type === "MODAL_DOUBLE_COLUMN" && (
-                  <DoubleColumnLayout layout={item.layout} />
-                )}
-              </section>
-              <section className="modal-actions">
-                <Button_Boxtype onClick={() => hideModal({ order: index })}>
-                  {LABELS.LABEL_CANCEL}
-                </Button_Boxtype>
-                <Button_Boxtype type={TYPES.CONFIRM}>
-                  {item.title}
-                </Button_Boxtype>
-              </section>
+              <form>
+                <section className="modal-contents">
+                  {item.type === "MODAL_DOUBLE_COLUMN" && (
+                    <DoubleColumnLayout layout={item.layout} />
+                  )}
+                </section>
+                <section className="modal-actions">
+                  <Button_Boxtype onClick={() => hideDialog({ order: index })}>
+                    {LABELS.LABEL_CANCEL}
+                  </Button_Boxtype>
+                  <Button_Boxtype type={TYPES.CONFIRM}>
+                    {item.title}
+                  </Button_Boxtype>
+                </section>
+              </form>
             </ModalLayoutContainer>
           </ModalContainer>
         ))}
-    </ModalPortal>
+    </DialogPortal>
   );
 }
 
