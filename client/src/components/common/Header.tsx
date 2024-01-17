@@ -108,7 +108,7 @@ const HeaderRoot = styled.header<{
   }
 
   & nav {
-    -webkit-transform: translateX(-24px);
-    transform: translateX(-24px);
+    -webkit-transform: translateX(-16px);
+    transform: translateX(-16px);
   }
 `;

@@ -45,6 +45,7 @@ export const URLS = {
   FEATURE_IMAGE_02: "/img-feature-02.png",
   FEATURE_IMAGE_03: "/img-feature-03.png",
   HERO_IMAGE: "/img-hero-1600.png",
+  AD_MOCK_IMAGE: "/img-ad-mock.png",
   FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
   FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
   EXTERNAL_KAKAO_LOGIN: `${import.meta.env.VITE_BACKEND_URL}/api/auth/kakao`,
@@ -57,6 +58,8 @@ export const PATH = {
   MAIN_EXPENSES: "/main/expenses",
   MAIN_ASSETS: "/main/assets",
   MAIN_GROUP: "/main/group",
+  MAIN_EXPENSES_FILTER_BY_MONTH: "/main/expenses/filter/month",
+  MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/filter/member",
 } as const;
 
 export const LABELS = {

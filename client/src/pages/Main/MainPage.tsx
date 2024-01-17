@@ -1,9 +1,9 @@
-import { NavLink, Navigate, useLocation } from "react-router-dom";
-import { LABELS, PATH } from "../../global/constants";
+import { Navigate, useLocation } from "react-router-dom";
+import { PATH } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
-import Navigation_ListType from "../../components/basic/Navigation.listType";
 import Layout_HorizontalView from "../../components/layout/Layout.horizontalView";
+import Expenses_SubPage from "./subpages/Expenses";
 
 export default function MainPage() {
   const location = useLocation();
@@ -12,26 +12,12 @@ export default function MainPage() {
   return (
     <>
       {!isLogin && <Navigate to={PATH.LOGIN} />}
-      {isLogin && (
+      {location.pathname == PATH.MAIN_EXPENSES && (
+        <Navigate to={PATH.MAIN_EXPENSES_FILTER_BY_MONTH} />
+      )}
+      {isLogin && location.pathname.includes(PATH.MAIN_EXPENSES) && (
         <Layout_HorizontalView>
-          <>
-            <div>
-              <Navigation_ListType>
-                <>
-                  <NavLink to={PATH.MAIN_EXPENSES}>
-                    {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
-                  </NavLink>
-                  <NavLink to={PATH.MAIN_EXPENSES}>
-                    {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
-                  </NavLink>
-                </>
-              </Navigation_ListType>
-            </div>
-            <div>
-              <h1>{location.pathname}</h1>
-              <NavLink to={PATH.LOGIN}>Login 페이지로</NavLink>
-            </div>
-          </>
+          <Expenses_SubPage />
         </Layout_HorizontalView>
       )}
     </>

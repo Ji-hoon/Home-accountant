@@ -21,6 +21,16 @@ const router = createBrowserRouter([
       {
         path: PATH.MAIN_EXPENSES,
         element: <MainPage />,
+        children: [
+          {
+            path: PATH.MAIN_EXPENSES_FILTER_BY_MONTH,
+            element: <MainPage />,
+          },
+          {
+            path: PATH.MAIN_EXPENSES_FILTER_BY_MEMBER,
+            element: <MainPage />,
+          },
+        ],
       },
       {
         path: PATH.MAIN_ASSETS,
