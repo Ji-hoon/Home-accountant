@@ -1,9 +1,12 @@
 import { useRecoilState } from "recoil";
 import { currentDialogAtom } from "../../atoms/globalAtoms";
-import { dialogLayoutType } from "../../global/customType";
+import { ExpenseType, dialogLayoutType } from "../../global/customType";
+import { useExpenses } from "../../pages/Main/subpages/Expenses.hooks";
+import { LABELS } from "../../global/constants";
 
 export function useHandleDialog() {
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+  const { addExpense } = useExpenses();
 
   function showDialog({
     type,
@@ -30,7 +33,26 @@ export function useHandleDialog() {
     setDialog(newModal);
   }
 
-  function submitDialog() {}
+  async function submitDialog({
+    action,
+    data,
+  }: {
+    action: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: ExpenseType | any; //TODO: submit으로 들어오는 타입들 추가하기
+  }) {
+    if (action === LABELS.LABEL_ADD_EXPENSE) {
+      const result = await addExpense({
+        amounts: data.amounts,
+        category: data.category,
+        businessName: data.businessName,
+        owner: data.owner,
+        date: data.date,
+        isRecurring: data.isRecurring,
+      });
+      if (result) return result;
+    }
+  }
 
   function getDialogFormData(dialogForm: HTMLFormElement) {
     let formData: { [key: string]: string } = {};
@@ -44,7 +66,9 @@ export function useHandleDialog() {
         ) {
           if (element.name) {
             const currentValue = element.value;
-            if (!currentValue.includes("..")) data[element.name] = currentValue;
+            data[element.name] = currentValue.includes("..")
+              ? ""
+              : currentValue;
           }
         }
         return data;

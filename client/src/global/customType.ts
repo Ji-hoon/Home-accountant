@@ -33,6 +33,15 @@ export type InputFormType = {
   isRecurring?: string | undefined;
 };
 
+export type ExpenseType = {
+  amounts: string;
+  category: string;
+  businessName: string;
+  owner: string;
+  date: string;
+  isRecurring: string;
+};
+
 export type ResultType = {
   result: {
     id: string;

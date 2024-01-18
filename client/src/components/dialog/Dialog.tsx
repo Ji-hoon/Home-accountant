@@ -8,21 +8,28 @@ import DoubleColumnLayout from "./layout/DoubleColumnModal.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputFormType } from "../../global/customType";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
-  const { hideDialog, getDialogFormData } = useHandleDialog();
+  const { hideDialog, getDialogFormData, submitDialog } = useHandleDialog();
   const dialogFormRef = useRef<HTMLFormElement>(null);
 
   const { handleSubmit } = useForm<InputFormType>();
+  const [index, setIndex] = useState(0);
 
-  function onSubmit() {
+  async function onSubmit() {
     if (dialogFormRef.current) {
       const currentFormData = getDialogFormData(dialogFormRef.current);
-      console.log("submit!", currentFormData);
+      console.log("submit!", index, currentFormData);
+
+      const result = await submitDialog({
+        action: dialog.content[index].title,
+        data: currentFormData,
+      });
+      if (result?.status === 201) hideDialog({ order: index });
     }
   }
 
@@ -70,6 +77,7 @@ export default function Dialog() {
                 </Button_Boxtype>
                 <Button_Boxtype
                   onClick={() => {
+                    setIndex(index);
                     //console.log(dialogFormRef.current);
                   }}
                   type={TYPES.SUBMIT}
