@@ -13,7 +13,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-//TODO : queryKey 사용하는 걸로만 정리
+//TODO : 사용하는 queryKey로만 정리
 export const queryKeys = {
   expense: "EXPENSE",
 };
