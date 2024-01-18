@@ -13,7 +13,7 @@ const ExpenseSchema = new Schema<expenseSchemaType>(
     },
     date: {
       required: true,
-      type: Date,
+      type: String,
     },
     category: {
       type: Schema.Types.ObjectId,
