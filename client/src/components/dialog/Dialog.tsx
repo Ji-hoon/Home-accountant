@@ -21,11 +21,21 @@ export default function Dialog() {
         dialog.content.length > 0 &&
         dialog.content.map((item, index) => (
           <ModalContainer key={index}>
-            <BackdropModal onClick={() => hideDialog({ order: index })} />
+            <BackdropModal
+              onClick={(event: React.SyntheticEvent) => {
+                event.preventDefault();
+                hideDialog({ order: index });
+              }}
+            />
             <ModalLayoutContainer ref={dialogFormRef}>
               <section className="modal-header">
                 <h3>{item.title}</h3>
-                <Button_Icontype onClick={() => hideDialog({ order: index })}>
+                <Button_Icontype
+                  onClick={(event: React.SyntheticEvent) => {
+                    event.preventDefault();
+                    hideDialog({ order: index });
+                  }}
+                >
                   <FiX />
                 </Button_Icontype>
               </section>
@@ -36,7 +46,12 @@ export default function Dialog() {
                 )}
               </section>
               <section className="modal-actions">
-                <Button_Boxtype onClick={() => hideDialog({ order: index })}>
+                <Button_Boxtype
+                  onClick={(event: React.SyntheticEvent) => {
+                    event.preventDefault();
+                    hideDialog({ order: index });
+                  }}
+                >
                   {LABELS.LABEL_CANCEL}
                 </Button_Boxtype>
                 <Button_Boxtype
