@@ -7,6 +7,7 @@ import LoginPage from "./pages/Login/LoginPage.tsx";
 import MainPage from "./pages/Main/MainPage.tsx";
 import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
+import Dialog from "./components/dialog/Dialog.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,12 +20,18 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: PATH.MAIN,
-        element: <MainPage />,
-      },
-      {
         path: PATH.MAIN_EXPENSES,
         element: <MainPage />,
+        children: [
+          {
+            path: PATH.MAIN_EXPENSES_FILTER_BY_MONTH,
+            element: <MainPage />,
+          },
+          {
+            path: PATH.MAIN_EXPENSES_FILTER_BY_MEMBER,
+            element: <MainPage />,
+          },
+        ],
       },
       {
         path: PATH.MAIN_ASSETS,
@@ -47,5 +54,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Dialog />
+    </>
+  );
 }

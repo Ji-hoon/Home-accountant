@@ -25,7 +25,7 @@ export default function HeroSection() {
 
 const HeroSectionContainer = styled.section`
   border-radius: ${SIZES.LG}px;
-  max-width: 1200px;
+  max-width: ${SIZES.MAX_WIDTH}px;
   max-height: 640px;
   min-height: 400px;
   width: calc(100% - 80px);

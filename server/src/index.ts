@@ -4,6 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import authRouter from "./auth/auth.router.js";
+import expenseRouter from "./expenses/expense.router.js";
 import errorHandler from "./middleware/errorHandler.js";
 
 const { PORT, MONGODB_URL, FRONTEND_URL } = process.env;
@@ -29,6 +30,7 @@ app.use(
 );
 
 app.use("/api/auth", authRouter);
+app.use("/api/expenses", expenseRouter);
 
 app.use(errorHandler);
 

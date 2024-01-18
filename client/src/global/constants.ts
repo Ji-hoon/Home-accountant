@@ -10,7 +10,7 @@ export const COLORS = {
   VARIATION_PURPLE: "#D3B3FC",
   VARIATION_BLUE: "#B3CBFC",
   GRAY_01: "#F5F5F5",
-  GRAY_02: "#E2E2E2",
+  GRAY_02: "#E0E0E0",
   GRAY_03: "#ADADAD",
   GRAY_04: "#939393",
   GRAY_05: "#848484",
@@ -26,6 +26,9 @@ export const COLORS = {
   GRAY_05_OVERAY: "rgba(0, 0, 0, 0.16)",
   GRAY_06_OVERAY: "rgba(0, 0, 0, 0.18)",
   GRAY_07_OVERAY: "rgba(0, 0, 0, 0.2)",
+  GRAY_08_OVERAY: "rgba(0, 0, 0, 0.4)",
+  GRAY_09_OVERAY: "rgba(0, 0, 0, 0.75)",
+  GRAY_10_OVERAY: "rgba(0, 0, 0, 0.9)",
 } as const;
 
 export const SIZES = {
@@ -37,6 +40,7 @@ export const SIZES = {
   XL: 24,
   XXL: 36,
   TITLE: 42,
+  MAX_WIDTH: 1200,
 } as const;
 
 export const URLS = {
@@ -45,6 +49,7 @@ export const URLS = {
   FEATURE_IMAGE_02: "/img-feature-02.png",
   FEATURE_IMAGE_03: "/img-feature-03.png",
   HERO_IMAGE: "/img-hero-1600.png",
+  AD_MOCK_IMAGE: "/img-ad-mock.png",
   FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
   FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
   EXTERNAL_KAKAO_LOGIN: `${import.meta.env.VITE_BACKEND_URL}/api/auth/kakao`,
@@ -57,6 +62,15 @@ export const PATH = {
   MAIN_EXPENSES: "/main/expenses",
   MAIN_ASSETS: "/main/assets",
   MAIN_GROUP: "/main/group",
+  MAIN_EXPENSES_FILTER_BY_MONTH: "/main/expenses/filter/month",
+  MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/filter/member",
+} as const;
+
+export const TYPES = {
+  SUBMIT: "submit",
+  ALERT: "alert",
+  MODAL_DOUBLE_COL: "MODAL_DOUBLE_COLUMN",
+  MODAL_SINGLE_COL: "MODAL_DOUBLE_COLUMN",
 } as const;
 
 export const LABELS = {
@@ -66,9 +80,13 @@ export const LABELS = {
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
   LABEL_LOGINPAGE_TITLE: "지금 로그인하고 \n자산 관리를 시작해보세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
-  HEADER_MENU_EXPENSES: "지출내역",
-  HEADER_MENU_ASSETS: "자산조회",
-  HEADER_MENU_GROUP_MGMT: "그룹관리",
+  LABEL_CANCEL: "취소",
+  LABEL_ADD_EXPENSE: "지출 내역 추가",
+  NAVIGATION_MENU_EXPENSES_BY_MONTH: "월별 지출 내역",
+  NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
+  HEADER_MENU_EXPENSES: "지출 내역",
+  HEADER_MENU_ASSETS: "자산 조회",
+  HEADER_MENU_GROUP_MGMT: "그룹 관리",
   TAGLINE: "지출 및 자산 관리,\n이제 간편하게 관리하세요.",
   FEATURE_01_TITLE: "연동이 필요없는 지출내역 관리",
   FEATURE_02_TITLE: "기간별 자산 현황 조회",

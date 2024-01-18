@@ -6,10 +6,15 @@ import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
 import Button_Icontype from "../basic/Button.iconType";
 import Profile from "../basic/Profile";
+import { useRecoilValue } from "recoil";
+import { isLoginAtom } from "../../atoms/globalAtoms";
+import { ResultType } from "../../global/customType";
 
-export default function Header({ isLogin }: { isLogin?: boolean }) {
+export default function Header({ user }: { user?: ResultType["result"] }) {
+  const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
+
   return (
-    <HeaderRoot>
+    <HeaderRoot $islogin={isLogin.toString()}>
       <div className="header-inner-container">
         <div className="logo-container">
           <NavLink to={PATH.ROOT}>
@@ -37,7 +42,9 @@ export default function Header({ isLogin }: { isLogin?: boolean }) {
               <Button_Icontype>
                 <FiBell />
               </Button_Icontype>
-              <Profile url={URLS.DEFAULT_PROFILE} />
+              <Profile
+                url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
+              />
             </div>
           </>
         )}
@@ -53,7 +60,9 @@ export default function Header({ isLogin }: { isLogin?: boolean }) {
   );
 }
 
-const HeaderRoot = styled.header`
+const HeaderRoot = styled.header<{
+  $islogin?: string;
+}>`
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
 
@@ -65,8 +74,10 @@ const HeaderRoot = styled.header`
   min-height: 80px;
   overflow: hidden;
 
+  box-shadow: inset 0 -1px 0 0 ${(props) => (props.$islogin === "true" ? COLORS.GRAY_01_OVERAY : "transparent")};
+
   & .header-inner-container {
-    max-width: 1200px;
+    max-width: ${SIZES.MAX_WIDTH}px;
     //min-height: 48px;
     display: flex;
     align-items: center;
@@ -100,7 +111,7 @@ const HeaderRoot = styled.header`
   }
 
   & nav {
-    -webkit-transform: translateX(-24px);
-    transform: translateX(-24px);
+    -webkit-transform: translateX(-16px);
+    transform: translateX(-16px);
   }
 `;

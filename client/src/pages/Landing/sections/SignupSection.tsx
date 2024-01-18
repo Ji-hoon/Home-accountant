@@ -17,7 +17,7 @@ export default function SignupSection() {
 const SignupSectionContainer = styled.section`
   border-radius: ${SIZES.LG}px;
 
-  max-width: 1200px;
+  max-width: ${SIZES.MAX_WIDTH}px;
   width: calc(100% - 80px);
   position: relative;
   margin: ${SIZES.SM / 2}px auto;

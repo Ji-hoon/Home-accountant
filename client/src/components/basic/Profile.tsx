@@ -19,6 +19,8 @@ const ProfileContainer = styled.div`
   -webkit-transition: all 200ms ease-out;
   transition: all 200ms ease-out;
 
+  box-shadow: 0 0 0 1px ${COLORS.GRAY_01_OVERAY};
+
   & img {
     object-fit: cover;
     width: 100%;

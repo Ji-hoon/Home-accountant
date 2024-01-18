@@ -1,12 +1,5 @@
-import { Schema, Types, model } from "mongoose";
-
-type UserSchemaType = {
-  _id: Types.ObjectId;
-  nickname: string;
-  snsId: string;
-  profileImgUrl: string;
-  group: Array<Types.ObjectId>;
-};
+import { Schema, model } from "mongoose";
+import { UserSchemaType } from "../type/schema";
 
 const UserSchema = new Schema<UserSchemaType>(
   {

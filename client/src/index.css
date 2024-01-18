@@ -37,6 +37,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+}
 /* 
 a {
   font-weight: 500;
