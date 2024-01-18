@@ -8,10 +8,12 @@ import DoubleColumnLayout from "./layout/DoubleColumnModal.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
+import React, { useRef } from "react";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
   const { hideDialog } = useHandleDialog();
+  const dialogFormRef = useRef(null);
 
   return (
     <DialogPortal>
@@ -20,28 +22,33 @@ export default function Dialog() {
         dialog.content.map((item, index) => (
           <ModalContainer key={index}>
             <BackdropModal onClick={() => hideDialog({ order: index })} />
-            <ModalLayoutContainer>
+            <ModalLayoutContainer ref={dialogFormRef}>
               <section className="modal-header">
                 <h3>{item.title}</h3>
                 <Button_Icontype onClick={() => hideDialog({ order: index })}>
                   <FiX />
                 </Button_Icontype>
               </section>
-              <form>
-                <section className="modal-contents">
-                  {item.type === "MODAL_DOUBLE_COLUMN" && (
-                    <DoubleColumnLayout layout={item.layout} />
-                  )}
-                </section>
-                <section className="modal-actions">
-                  <Button_Boxtype onClick={() => hideDialog({ order: index })}>
-                    {LABELS.LABEL_CANCEL}
-                  </Button_Boxtype>
-                  <Button_Boxtype type={TYPES.CONFIRM}>
-                    {item.title}
-                  </Button_Boxtype>
-                </section>
-              </form>
+
+              <section className="modal-contents">
+                {item.type === "MODAL_DOUBLE_COLUMN" && (
+                  <DoubleColumnLayout layout={item.layout} />
+                )}
+              </section>
+              <section className="modal-actions">
+                <Button_Boxtype onClick={() => hideDialog({ order: index })}>
+                  {LABELS.LABEL_CANCEL}
+                </Button_Boxtype>
+                <Button_Boxtype
+                  onClick={(event: React.SyntheticEvent) => {
+                    event.preventDefault();
+                    console.log(dialogFormRef.current);
+                  }}
+                  type={TYPES.SUBMIT}
+                >
+                  {item.title}
+                </Button_Boxtype>
+              </section>
             </ModalLayoutContainer>
           </ModalContainer>
         ))}
@@ -70,7 +77,7 @@ const BackdropModal = styled.div`
   z-index: 99;
 `;
 
-const ModalLayoutContainer = styled.div`
+const ModalLayoutContainer = styled.form`
   position: absolute;
   z-index: 101;
   background-color: ${COLORS.BASIC_WHITE};
@@ -119,7 +126,7 @@ const ModalLayoutContainer = styled.div`
     gap: ${SIZES.SM / 2}px;
     padding: ${SIZES.XXS}px ${SIZES.XXS}px ${SIZES.MD}px;
 
-    & .confirm {
+    & .submit {
       background-color: ${COLORS.BRAND_LIGHT};
     }
   }

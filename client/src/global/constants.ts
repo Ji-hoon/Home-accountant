@@ -67,7 +67,7 @@ export const PATH = {
 } as const;
 
 export const TYPES = {
-  CONFIRM: "confirm",
+  SUBMIT: "submit",
   ALERT: "alert",
   MODAL_DOUBLE_COL: "MODAL_DOUBLE_COLUMN",
   MODAL_SINGLE_COL: "MODAL_DOUBLE_COLUMN",

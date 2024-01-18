@@ -36,5 +36,7 @@ export function useHandleDialog() {
     setDialog(newModal);
   }
 
-  return { showDialog, hideDialog };
+  function submitDialog() {}
+
+  return { showDialog, hideDialog, submitDialog };
 }
