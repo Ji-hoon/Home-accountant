@@ -36,4 +36,11 @@ const DoubleColumnLayoutContainer = styled.div`
   & > div {
     width: calc(50% - 12px);
   }
+  @media screen and (max-width: 740px) {
+    width: 100%;
+
+    & > div {
+      width: 100%;
+    }
+  }
 `;

@@ -28,10 +28,10 @@ export default function Textfield({
       {type === "selectbox" && (
         <select
           {...register(fieldName, { required: true })}
-          defaultValue={defaultValue}
+          defaultValue={placeholder}
         >
-          <option disabled value="">
-            {defaultValue}
+          <option disabled value={placeholder}>
+            {placeholder}
           </option>
           {options &&
             options.length > 0 &&
@@ -74,6 +74,15 @@ const TextFieldLayout = styled.div`
 
     &:focus {
       background-color: ${COLORS.GRAY_01_OVERAY};
+    }
+  }
+
+  & select {
+    margin-right: 10px;
+    box-shadow: 10px 0 0 0 ${COLORS.GRAY_01};
+
+    &:focus {
+      box-shadow: 10px 0 0 0 ${COLORS.GRAY_01_OVERAY};
     }
   }
 `;
