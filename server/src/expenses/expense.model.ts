@@ -16,17 +16,17 @@ const ExpenseSchema = new Schema<expenseSchemaType>(
       type: String,
     },
     category: {
-      type: Schema.Types.ObjectId,
+      type: String, //TODO: Schema.Types.ObjectId로 변경
       ref: "category",
     },
     owner: {
       required: true,
-      type: Schema.Types.ObjectId,
+      type: String, //TODO: Schema.Types.ObjectId로 변경
       ref: "user",
     },
     isRecurring: {
       required: true,
-      type: Boolean,
+      type: String,
     },
   },
   {

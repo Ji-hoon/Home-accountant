@@ -13,7 +13,7 @@ export type expenseSchemaType = {
   amounts: number;
   businessName: string;
   date: string;
-  category?: Types.ObjectId;
-  owner: Types.ObjectId;
-  isRecurring: boolean;
+  category?: string; //TODO: Types.ObjectId 로 변경
+  owner: string; //TODO: Types.ObjectId 로 변경
+  isRecurring: string;
 };
