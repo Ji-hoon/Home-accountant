@@ -10,7 +10,7 @@ export const CreateExpenseLayout = [
     fieldName: "category",
     type: "selectbox",
     placeholder: "",
-    default: "카테고리를 선택해주세요.",
+    defaultValue: "카테고리를 선택해주세요.",
     options: ["식비", "문화생활"],
   },
   {
@@ -24,7 +24,7 @@ export const CreateExpenseLayout = [
     fieldName: "owner",
     type: "selectbox",
     placeholder: "",
-    default: "멤버를 선택해주세요.",
+    defaultValue: "멤버를 선택해주세요.",
     options: ["만두", "밀크티"],
   },
   {
@@ -38,7 +38,7 @@ export const CreateExpenseLayout = [
     fieldName: "isRecurring",
     type: "selectbox",
     placeholder: "",
-    default: "정기 지출 여부를 선택해주세요.",
+    defaultValue: "정기 지출 여부를 선택해주세요.",
     options: ["일시불", "정기 결제"],
   },
 ];

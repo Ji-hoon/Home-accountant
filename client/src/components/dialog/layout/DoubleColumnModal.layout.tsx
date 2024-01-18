@@ -1,18 +1,12 @@
 import styled from "styled-components";
 import Textfield from "../../basic/Textfield";
 import { SIZES } from "../../../global/constants";
+import { dialogLayoutType } from "../../../global/customType";
 
 export default function DoubleColumnLayout({
   layout,
 }: {
-  layout: Array<{
-    title: string;
-    fieldName: string;
-    type: string;
-    placeholder: string;
-    default?: undefined | string;
-    options?: undefined | string[];
-  }>;
+  layout: dialogLayoutType[];
 }) {
   return (
     <DoubleColumnLayoutContainer>
@@ -24,7 +18,7 @@ export default function DoubleColumnLayout({
             title={item.title}
             type={item.type}
             placeholder={item.placeholder}
-            defaultValue={item.default}
+            defaultValue={item.defaultValue}
             options={item.options}
           />
         ))}

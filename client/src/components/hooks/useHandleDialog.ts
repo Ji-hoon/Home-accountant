@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { currentDialogAtom } from "../../atoms/globalAtoms";
+import { dialogLayoutType } from "../../global/customType";
 
 export function useHandleDialog() {
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
@@ -11,14 +12,7 @@ export function useHandleDialog() {
   }: {
     type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
     title: string;
-    layout: Array<{
-      title: string;
-      fieldName: string;
-      type: string;
-      placeholder: string;
-      default?: undefined | string;
-      options?: string[];
-    }>;
+    layout: dialogLayoutType[];
   }) {
     const newModal = {
       isOpen: true,

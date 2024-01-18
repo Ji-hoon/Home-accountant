@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { COLORS, SIZES } from "../../global/constants";
+import { InputFormType, dialogLayoutType } from "../../global/customType";
+import { useForm } from "react-hook-form";
 
 export default function Textfield({
   title,
@@ -8,19 +10,15 @@ export default function Textfield({
   placeholder,
   defaultValue,
   options,
-}: {
-  title: string;
-  fieldName: string;
-  type: string;
-  placeholder: string;
-  defaultValue?: string;
-  options?: string[];
-}) {
+}: dialogLayoutType) {
+  const { register } = useForm<InputFormType>();
+  //console.log(fieldName, watch(fieldName));
   return (
     <TextFieldLayout>
       <label>{title}</label>
       {type !== "selectbox" && (
         <input
+          {...register(fieldName, { required: true })}
           name={fieldName}
           type={type}
           placeholder={placeholder}
@@ -28,7 +26,10 @@ export default function Textfield({
         />
       )}
       {type === "selectbox" && (
-        <select name={title} defaultValue={defaultValue}>
+        <select
+          {...register(fieldName, { required: true })}
+          defaultValue={defaultValue}
+        >
           <option disabled>{defaultValue}</option>
           {options &&
             options.length > 0 &&
@@ -39,6 +40,7 @@ export default function Textfield({
             ))}
         </select>
       )}
+      {/* {errors.fieldName && <span>This field is required</span>} */}
     </TextFieldLayout>
   );
 }

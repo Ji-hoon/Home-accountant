@@ -9,11 +9,45 @@ import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
 import React, { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { InputFormType } from "../../global/customType";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
   const { hideDialog } = useHandleDialog();
-  const dialogFormRef = useRef(null);
+  const dialogFormRef = useRef<HTMLFormElement>(null);
+
+  const { handleSubmit } = useForm<InputFormType>();
+
+  function onSubmit() {
+    const currentFormData = getFormData();
+    console.log("submit!", currentFormData);
+  }
+
+  function getFormData() {
+    let formData: { [key: string]: string } = {};
+    let formElements: HTMLFormControlsCollection;
+
+    if (dialogFormRef.current) {
+      formElements = dialogFormRef.current.elements;
+
+      formData = Array.from(formElements).reduce(
+        (data, element: Element) => {
+          if (
+            element instanceof HTMLInputElement ||
+            element instanceof HTMLSelectElement
+          ) {
+            if (element.name) {
+              data[element.name] = element.value;
+            }
+          }
+          return data;
+        },
+        {} as { [key: string]: string },
+      );
+      return formData;
+    }
+  }
 
   return (
     <DialogPortal>
@@ -27,7 +61,10 @@ export default function Dialog() {
                 hideDialog({ order: index });
               }}
             />
-            <ModalLayoutContainer ref={dialogFormRef}>
+            <ModalLayoutContainer
+              ref={dialogFormRef}
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <section className="modal-header">
                 <h3>{item.title}</h3>
                 <Button_Icontype
@@ -55,9 +92,8 @@ export default function Dialog() {
                   {LABELS.LABEL_CANCEL}
                 </Button_Boxtype>
                 <Button_Boxtype
-                  onClick={(event: React.SyntheticEvent) => {
-                    event.preventDefault();
-                    console.log(dialogFormRef.current);
+                  onClick={() => {
+                    //console.log(dialogFormRef.current);
                   }}
                   type={TYPES.SUBMIT}
                 >
@@ -99,7 +135,7 @@ const ModalLayoutContainer = styled.form`
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_02_OVERAY};
   max-width: ${SIZES.MAX_WIDTH * 0.65}px;
   max-height: calc(100% - 120px);
-  border-radius: 5px;
+  border-radius: 12px;
   top: 60px;
   left: 50%;
   transform: translateX(-50%);

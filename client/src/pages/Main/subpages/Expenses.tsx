@@ -8,6 +8,7 @@ import ListItem_ExpenseType from "../../../components/compound/ListItem.expenseT
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
+import { dialogLayoutType } from "../../../global/customType";
 
 export default function Expenses_SubPage() {
   const { showDialog } = useHandleDialog();
@@ -61,7 +62,7 @@ export default function Expenses_SubPage() {
             showDialog({
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_EXPENSE,
-              layout: CreateExpenseLayout,
+              layout: CreateExpenseLayout as dialogLayoutType[],
             })
           }
         />

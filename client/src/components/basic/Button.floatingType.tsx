@@ -39,13 +39,12 @@ const FloatingtypeButton = styled.button`
 
   &:hover {
     filter: brightness(0.95);
-    box-shadow: 0 0 3px 0 ${COLORS.GRAY_06_OVERAY};
-
-    -webkit-transform: translateY(1px);
-    transform: translateY(1px);
   }
 
   &:active {
     filter: brightness(0.92);
+    box-shadow: 0 0 3px 0 ${COLORS.GRAY_06_OVERAY};
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
   }
 `;
