@@ -28,11 +28,13 @@ export default function Textfield({
       {type === "selectbox" && (
         <select
           {...register(fieldName, { required: true })}
-          defaultValue={placeholder}
+          defaultValue={placeholder !== "" ? placeholder : defaultValue}
         >
-          <option disabled value={placeholder}>
-            {placeholder}
-          </option>
+          {placeholder !== "" && (
+            <option disabled value={placeholder}>
+              {placeholder}
+            </option>
+          )}
           {options &&
             options.length > 0 &&
             options.map((item, index) => (

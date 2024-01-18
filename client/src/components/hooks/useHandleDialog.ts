@@ -43,7 +43,8 @@ export function useHandleDialog() {
           element instanceof HTMLSelectElement
         ) {
           if (element.name) {
-            data[element.name] = element.value;
+            const currentValue = element.value;
+            if (!currentValue.includes("..")) data[element.name] = currentValue;
           }
         }
         return data;

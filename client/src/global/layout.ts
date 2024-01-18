@@ -37,8 +37,8 @@ export const CreateExpenseLayout = [
     title: "정기 지출 여부",
     fieldName: "isRecurring",
     type: "selectbox",
-    placeholder: "정기 지출 여부를 선택해주세요..",
-    defaultValue: "",
+    placeholder: "",
+    defaultValue: "일시불",
     options: ["일시불", "정기 결제"],
   },
 ];
