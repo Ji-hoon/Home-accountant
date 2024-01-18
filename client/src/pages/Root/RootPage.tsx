@@ -6,13 +6,13 @@ import { useSetRecoilState } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import { PATH } from "../../global/constants";
 import { useLayoutEffect } from "react";
-import { ResultType } from "../../global/customType";
+import { loginUserType } from "../../global/customType";
 
 export default function RootPage() {
   const location = useLocation();
   const currentPath = location.pathname; // path가root or login 인 경우 footer를 표시하지 않음
 
-  const { result } = useLoaderData() as ResultType;
+  const { result } = useLoaderData() as loginUserType;
   const setIsLogin = useSetRecoilState(isLoginAtom); // login 여부를 판별하는 상태.
 
   useLayoutEffect(() => {

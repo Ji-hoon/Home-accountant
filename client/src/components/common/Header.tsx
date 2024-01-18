@@ -8,9 +8,9 @@ import Button_Icontype from "../basic/Button.iconType";
 import Profile from "../basic/Profile";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
-import { ResultType } from "../../global/customType";
+import { loginUserType } from "../../global/customType";
 
-export default function Header({ user }: { user?: ResultType["result"] }) {
+export default function Header({ user }: { user?: loginUserType["result"] }) {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
 
   return (
