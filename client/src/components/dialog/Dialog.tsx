@@ -14,38 +14,15 @@ import { InputFormType } from "../../global/customType";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
-  const { hideDialog } = useHandleDialog();
+  const { hideDialog, getDialogFormData } = useHandleDialog();
   const dialogFormRef = useRef<HTMLFormElement>(null);
 
   const { handleSubmit } = useForm<InputFormType>();
 
   function onSubmit() {
-    const currentFormData = getFormData();
-    console.log("submit!", currentFormData);
-  }
-
-  function getFormData() {
-    let formData: { [key: string]: string } = {};
-    let formElements: HTMLFormControlsCollection;
-
     if (dialogFormRef.current) {
-      formElements = dialogFormRef.current.elements;
-
-      formData = Array.from(formElements).reduce(
-        (data, element: Element) => {
-          if (
-            element instanceof HTMLInputElement ||
-            element instanceof HTMLSelectElement
-          ) {
-            if (element.name) {
-              data[element.name] = element.value;
-            }
-          }
-          return data;
-        },
-        {} as { [key: string]: string },
-      );
-      return formData;
+      const currentFormData = getDialogFormData(dialogFormRef.current);
+      console.log("submit!", currentFormData);
     }
   }
 

@@ -32,5 +32,27 @@ export function useHandleDialog() {
 
   function submitDialog() {}
 
-  return { showDialog, hideDialog, submitDialog };
+  function getDialogFormData(dialogForm: HTMLFormElement) {
+    let formData: { [key: string]: string } = {};
+    const formElements: HTMLFormControlsCollection = dialogForm.elements;
+
+    formData = Array.from(formElements).reduce(
+      (data, element: Element) => {
+        if (
+          element instanceof HTMLInputElement ||
+          element instanceof HTMLSelectElement
+        ) {
+          if (element.name) {
+            data[element.name] = element.value;
+          }
+        }
+        return data;
+      },
+      {} as { [key: string]: string },
+    );
+
+    return formData;
+  }
+
+  return { showDialog, hideDialog, submitDialog, getDialogFormData };
 }

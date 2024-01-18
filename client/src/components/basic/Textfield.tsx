@@ -30,7 +30,9 @@ export default function Textfield({
           {...register(fieldName, { required: true })}
           defaultValue={defaultValue}
         >
-          <option disabled>{defaultValue}</option>
+          <option disabled value="">
+            {defaultValue}
+          </option>
           {options &&
             options.length > 0 &&
             options.map((item, index) => (
