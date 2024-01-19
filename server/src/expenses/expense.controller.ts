@@ -45,11 +45,10 @@ const expenseController = {
       });
 
       if (expenses.length === 0) {
-        throw new CustomError({
-          status: 400,
-          message: "조회된 지출 내역이 없습니다.",
-        });
+        res.json(0);
+        return;
       }
+
       res.json(expenses[0].totalAmounts);
     },
   ),
