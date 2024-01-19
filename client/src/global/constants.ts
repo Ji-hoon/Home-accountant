@@ -99,4 +99,5 @@ export const LABELS = {
   FEATURE_02_DESC: "언제든지 기간별, 자산 타입별 자산을 조회하고 파악해보세요.",
   FEATURE_03_DESC:
     "멤버를 초대해서 함께 자산을 관리하거나 권한을 부여해서 그룹 단위로 관리해보세요.",
+  MESSAGE_NO_EXPENSES: "지출 내역이 없습니다.",
 } as const;

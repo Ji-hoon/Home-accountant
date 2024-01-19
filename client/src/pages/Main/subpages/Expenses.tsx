@@ -19,7 +19,7 @@ export default function Expenses_SubPage() {
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
     if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER) {
-      setCurrentOwner("훈");
+      setCurrentOwner("훈2");
     } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MONTH) {
       setCurrentOwner("");
     }

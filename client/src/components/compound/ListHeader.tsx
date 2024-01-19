@@ -16,7 +16,7 @@ export default function ListHeader({
   const { data } = useExpenses({ owner: $owner });
 
   return (
-    <ListHeaderContainer $type={$type}>
+    <ListHeaderContainer $type={$type} $data={data.amounts}>
       <div className="header-navigation-container">
         <Button_Icontype>
           <FiChevronLeft strokeWidth="3" />
@@ -35,6 +35,7 @@ export default function ListHeader({
 
 const ListHeaderContainer = styled.div<{
   $type: string;
+  $data: number;
 }>`
   display: flex;
   justify-content: space-between;
@@ -64,7 +65,8 @@ const ListHeaderContainer = styled.div<{
     color: ${COLORS.BRAND_DEEP};
 
     &:before {
-      content: ${(props) => (props.$type === "EXPENSES" ? '"-"' : '""')};
+      content: ${(props) =>
+        props.$type === "EXPENSES" && props.$data !== 0 ? '"-"' : '""'};
     }
   }
 `;
