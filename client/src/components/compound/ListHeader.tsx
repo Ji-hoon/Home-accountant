@@ -2,16 +2,19 @@ import styled from "styled-components";
 import { SIZES, COLORS } from "../../global/constants";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
+import { useExpenses } from "../../pages/Main/subpages/Expenses.hooks";
 
 export default function ListHeader({
   $title,
   $type,
-  $value,
+  $owner,
 }: {
   $title: string;
   $type: string;
-  $value: number;
+  $owner: string;
 }) {
+  const { data } = useExpenses({ owner: $owner });
+
   return (
     <ListHeaderContainer $type={$type}>
       <div className="header-navigation-container">
@@ -23,7 +26,7 @@ export default function ListHeader({
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
-      <div className="header-value-container">{$value.toLocaleString()}원</div>
+      <div className="header-value-container">{data.toLocaleString()}원</div>
     </ListHeaderContainer>
   );
 }

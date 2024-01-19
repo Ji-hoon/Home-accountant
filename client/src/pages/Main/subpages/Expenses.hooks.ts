@@ -1,14 +1,18 @@
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
 import { queryClient, queryKeys } from "../../../global/reactQuery";
+import { useEffect } from "react";
 
-export function useExpenses({ owner }: { owner?: string }) {
-  console.log(owner);
-
-  const { data } = useSuspenseQuery({
+export function useExpenses({ owner }: { owner: string }) {
+  const { data, refetch } = useSuspenseQuery<number>({
     queryKey: [queryKeys.amounts],
     queryFn: () => expenseAPI.totalAmounts({ owner }),
   });
+
+  useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [owner]);
 
   const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({
