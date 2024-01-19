@@ -39,8 +39,8 @@ const expenseAPI = {
     const response = await axiosInstance.get(
       `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}`,
     );
-    console.log("data: ", response.data);
-    return response;
+    //console.log("data: ", response.data);
+    return { response, nextCursor: cursor + limit };
   },
 
   async totalAmounts({ owner }: { owner: string }) {

@@ -57,4 +57,5 @@ export type expenseQueryType = {
       _id: string;
     }
   >;
+  nextCursor: number;
 };

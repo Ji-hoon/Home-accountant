@@ -28,7 +28,7 @@ export default function RootPage() {
     <>
       <Header user={result} />
       <Outlet />
-      {!currentPath.includes(PATH.MAIN) ? <Footer /> : <></>}
+      {(currentPath === PATH.ROOT || currentPath === PATH.LOGIN) && <Footer />}
     </>
   );
 }

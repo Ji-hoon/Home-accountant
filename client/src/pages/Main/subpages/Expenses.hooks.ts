@@ -1,26 +1,38 @@
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
 import { queryClient, queryKeys } from "../../../global/reactQuery";
 import { useEffect } from "react";
-import { ExpenseType, expenseQueryType } from "../../../global/customType";
+import { ExpenseType } from "../../../global/customType";
+import { useIntersectionObserver } from "../../../components/hooks/useIntersectionObserver";
 
 export function useExpenses({ owner }: { owner: string }) {
-  //임시 변수
-  const cursor = 0;
-  const limit = 99;
+  const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
 
-  const { data, refetch } = useSuspenseQuery<expenseQueryType>({
+  const results = useSuspenseInfiniteQuery({
     queryKey: [queryKeys.amounts],
-    queryFn: async () => {
+    queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
         expenseAPI.totalAmounts({ owner }),
-        expenseAPI.get({ owner, cursor, limit }),
+        expenseAPI.get({ owner, cursor: pageParam as number, limit }),
       ]);
-      const expenses = expensesResponse.data as (ExpenseType & {
+      const expenses = expensesResponse.response.data as (ExpenseType & {
         _id: string;
       })[];
-      return { amounts, expenses };
+      const nextCursor = expensesResponse.nextCursor;
+      return { amounts, expenses, nextCursor };
     },
+    initialPageParam: 0,
+    getNextPageParam: ({ expenses, nextCursor }) => {
+      if (expenses.length === 0) return null;
+      return nextCursor;
+    },
+  });
+
+  const { data, isError, refetch, fetchNextPage, hasNextPage } = results;
+
+  const { setTarget } = useIntersectionObserver({
+    onIntersect: fetchNextPage,
+    shouldBeBlocked: !hasNextPage || isError,
   });
 
   useEffect(() => {
@@ -71,5 +83,5 @@ export function useExpenses({ owner }: { owner: string }) {
     },
   }).mutateAsync;
 
-  return { addExpense, getExpense, data };
+  return { addExpense, getExpense, ...data, setTarget, hasNextPage };
 }

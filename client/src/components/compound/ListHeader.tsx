@@ -13,10 +13,11 @@ export default function ListHeader({
   $type: string;
   $owner: string;
 }) {
-  const { data } = useExpenses({ owner: $owner });
+  const { pages } = useExpenses({ owner: $owner });
+  const amounts = pages[0]?.amounts;
 
   return (
-    <ListHeaderContainer $type={$type} $data={data.amounts}>
+    <ListHeaderContainer $type={$type} $data={amounts}>
       <div className="header-navigation-container">
         <Button_Icontype>
           <FiChevronLeft strokeWidth="3" />
@@ -26,9 +27,7 @@ export default function ListHeader({
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
-      <div className="header-value-container">
-        {data.amounts.toLocaleString()}원
-      </div>
+      <div className="header-value-container">{amounts.toLocaleString()}원</div>
     </ListHeaderContainer>
   );
 }
