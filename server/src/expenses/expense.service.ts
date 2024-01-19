@@ -24,9 +24,27 @@ const expenseService = {
     owner?: string;
   }) {
     if (!owner) {
-      return await expenseModel.find({});
+      return await expenseModel.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalAmounts: { $sum: "$amounts" },
+          },
+        },
+      ]);
     }
-    return await expenseModel.find({ owner: owner });
+
+    return await expenseModel.aggregate([
+      {
+        $match: { owner: owner },
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmounts: { $sum: "$amounts" },
+        },
+      },
+    ]);
   },
   async addExpense({
     amounts,

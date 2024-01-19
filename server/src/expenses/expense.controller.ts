@@ -4,8 +4,6 @@ import express, { Response } from "express";
 import { CustomError } from "../middleware/errorHandler.js";
 import expenseService from "./expense.service.js";
 import { ExpenseType } from "../type/global.js";
-import { calculateTotalAmounts } from "../utils/calculateFields.js";
-import { expenseSchemaType } from "../type/schema.js";
 
 const expenseController = {
   addExpense: asyncHandler(async (req: express.Request, res: Response) => {
@@ -45,11 +43,14 @@ const expenseController = {
       const expenses = await expenseService.getExpensesByOption({
         owner: owner as string,
       });
-      const totalAmounts = calculateTotalAmounts(
-        expenses as expenseSchemaType[],
-      );
 
-      res.json(totalAmounts);
+      if (expenses.length === 0) {
+        throw new CustomError({
+          status: 400,
+          message: "조회된 지출 내역이 없습니다.",
+        });
+      }
+      res.json(expenses[0].totalAmounts);
     },
   ),
 };
