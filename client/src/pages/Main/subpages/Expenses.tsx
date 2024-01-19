@@ -4,13 +4,12 @@ import Button_Boxtype from "../../../components/basic/Button.boxType";
 
 import { LABELS, PATH, TYPES, URLS } from "../../../global/constants";
 import ListHeader from "../../../components/compound/ListHeader";
-import ListItem_ExpenseType from "../../../components/compound/ListItem.expenseType";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
 import { dialogLayoutType } from "../../../global/customType";
 import { useEffect, useState } from "react";
-import { mockList } from "./Expense.mockList";
+import ExpenseList from "./Expense.list";
 
 export default function Expenses_SubPage() {
   const location = useLocation();
@@ -21,7 +20,7 @@ export default function Expenses_SubPage() {
   useEffect(() => {
     if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER) {
       setCurrentOwner("훈");
-    } else {
+    } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MONTH) {
       setCurrentOwner("");
     }
   }, [currentOwner, location]);
@@ -59,28 +58,7 @@ export default function Expenses_SubPage() {
             })
           }
         />
-        <ul>
-          {mockList &&
-            mockList.length > 0 &&
-            mockList.map((item, index) => (
-              <ListItem_ExpenseType key={index} $item={item} />
-            ))}
-          {mockList &&
-            mockList.length > 0 &&
-            mockList.map((item, index) => (
-              <ListItem_ExpenseType key={index} $item={item} />
-            ))}
-          {mockList &&
-            mockList.length > 0 &&
-            mockList.map((item, index) => (
-              <ListItem_ExpenseType key={index} $item={item} />
-            ))}
-          {mockList &&
-            mockList.length > 0 &&
-            mockList.map((item, index) => (
-              <ListItem_ExpenseType key={index} $item={item} />
-            ))}
-        </ul>
+        <ExpenseList $owner={currentOwner} />
       </div>
       <div className="advertise-container">
         <img src={URLS.AD_MOCK_IMAGE} />

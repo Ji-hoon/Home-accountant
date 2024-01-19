@@ -27,19 +27,27 @@ const expenseAPI = {
     return response;
   },
 
-  // async get({
-  //   owner,
-  //   cursor,
-  //   limit,
-  // }) {
-
-  // }
+  async get({
+    owner,
+    cursor,
+    limit,
+  }: {
+    owner: string;
+    cursor: number;
+    limit: number;
+  }) {
+    const response = await axiosInstance.get(
+      `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}`,
+    );
+    console.log("data: ", response.data);
+    return response;
+  },
 
   async totalAmounts({ owner }: { owner: string }) {
     const response = await axiosInstance.get(
       `/expenses/amounts?owner=${owner}`,
     );
-    console.log("owner: ", owner, "data: ", response.data);
+    //console.log("owner: ", owner, "data: ", response.data);
     return response.data;
   },
 };

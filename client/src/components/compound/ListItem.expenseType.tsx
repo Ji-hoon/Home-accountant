@@ -1,15 +1,12 @@
 import styled from "styled-components";
 import { SIZES, COLORS } from "../../global/constants";
+import { ExpenseType } from "../../global/customType";
 
 export default function ListItem_ExpenseType({
   $item,
 }: {
-  $item: {
-    businessName: string;
-    amounts: number;
-    date: string;
-    category: string;
-    owner: string;
+  $item: ExpenseType & {
+    _id: string;
   };
 }) {
   return (

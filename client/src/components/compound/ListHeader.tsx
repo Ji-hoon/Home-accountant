@@ -26,7 +26,9 @@ export default function ListHeader({
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
-      <div className="header-value-container">{data.toLocaleString()}원</div>
+      <div className="header-value-container">
+        {data.amounts.toLocaleString()}원
+      </div>
     </ListHeaderContainer>
   );
 }

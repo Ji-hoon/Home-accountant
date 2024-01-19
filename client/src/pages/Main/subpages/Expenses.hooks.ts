@@ -2,11 +2,25 @@ import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
 import { queryClient, queryKeys } from "../../../global/reactQuery";
 import { useEffect } from "react";
+import { ExpenseType, expenseQueryType } from "../../../global/customType";
 
 export function useExpenses({ owner }: { owner: string }) {
-  const { data, refetch } = useSuspenseQuery<number>({
+  //임시 변수
+  const cursor = 0;
+  const limit = 99;
+
+  const { data, refetch } = useSuspenseQuery<expenseQueryType>({
     queryKey: [queryKeys.amounts],
-    queryFn: () => expenseAPI.totalAmounts({ owner }),
+    queryFn: async () => {
+      const [amounts, expensesResponse] = await Promise.all([
+        expenseAPI.totalAmounts({ owner }),
+        expenseAPI.get({ owner, cursor, limit }),
+      ]);
+      const expenses = expensesResponse.data as (ExpenseType & {
+        _id: string;
+      })[];
+      return { amounts, expenses };
+    },
   });
 
   useEffect(() => {
@@ -28,6 +42,7 @@ export function useExpenses({ owner }: { owner: string }) {
     onSuccess: (data) => {
       console.log(data.data.message);
       invalidateExpenseQuery();
+      refetch();
     },
     onError: (err) => {
       console.log(err);

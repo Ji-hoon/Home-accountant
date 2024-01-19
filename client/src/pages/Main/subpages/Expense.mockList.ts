@@ -1,3 +1,4 @@
+//TODO: mock list 제거
 export const mockList = [
   {
     businessName: "(주)배달의민족",

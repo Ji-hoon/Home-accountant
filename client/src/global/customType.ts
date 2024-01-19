@@ -49,3 +49,12 @@ export type loginUserType = {
     profile: string;
   };
 };
+
+export type expenseQueryType = {
+  amounts: number;
+  expenses: Array<
+    ExpenseType & {
+      _id: string;
+    }
+  >;
+};
