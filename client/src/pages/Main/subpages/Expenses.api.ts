@@ -26,6 +26,22 @@ const expenseAPI = {
     );
     return response;
   },
+
+  // async get({
+  //   owner,
+  //   cursor,
+  //   limit,
+  // }) {
+
+  // }
+
+  async totalAmounts({ owner }: { owner?: string }) {
+    const response = await axiosInstance.get(
+      `/expenses/amounts?owner=${owner}`,
+    );
+    console.log(owner, response.data);
+    return response.data;
+  },
 };
 
 export default expenseAPI;

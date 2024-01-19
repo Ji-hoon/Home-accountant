@@ -71,6 +71,9 @@ export const TYPES = {
   ALERT: "alert",
   MODAL_DOUBLE_COL: "MODAL_DOUBLE_COLUMN",
   MODAL_SINGLE_COL: "MODAL_DOUBLE_COLUMN",
+  POPUP: "POPUP",
+  EXPENSES: "EXPENSES",
+  ASSETS: "ASSETS",
 } as const;
 
 export const LABELS = {

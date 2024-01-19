@@ -1,9 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
 import { queryClient, queryKeys } from "../../../global/reactQuery";
 
-export function useExpenses() {
-  const invalidateFeedQuery = () => {
+export function useExpenses({ owner }: { owner?: string }) {
+  console.log(owner);
+
+  const { data } = useSuspenseQuery({
+    queryKey: [queryKeys.amounts],
+    queryFn: () => expenseAPI.totalAmounts({ owner }),
+  });
+
+  const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({
       queryKey: [queryKeys.expense],
     });
@@ -16,7 +23,7 @@ export function useExpenses() {
     },
     onSuccess: (data) => {
       console.log(data.data.message);
-      invalidateFeedQuery();
+      invalidateExpenseQuery();
     },
     onError: (err) => {
       console.log(err);
@@ -29,5 +36,21 @@ export function useExpenses() {
     },
   }).mutateAsync;
 
-  return { addExpense };
+  const getExpense = useMutation({
+    //mutationFn: expenseAPI.get,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: () => {
+      //console.log(data.data.message);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+    },
+  }).mutateAsync;
+
+  return { addExpense, getExpense, data };
 }

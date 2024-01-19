@@ -10,7 +10,7 @@ export default function ListHeader({
 }: {
   $title: string;
   $type: string;
-  $value: string;
+  $value: number;
 }) {
   return (
     <ListHeaderContainer $type={$type}>
@@ -23,9 +23,7 @@ export default function ListHeader({
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
-      <div className="header-value-container">
-        {parseInt($value).toLocaleString()}원
-      </div>
+      <div className="header-value-container">{$value.toLocaleString()}원</div>
     </ListHeaderContainer>
   );
 }

@@ -16,4 +16,5 @@ export const queryClient = new QueryClient({
 //TODO : 사용하는 queryKey로만 정리
 export const queryKeys = {
   expense: "EXPENSE",
+  amounts: "AMOUNTS",
 };

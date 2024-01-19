@@ -9,9 +9,14 @@ import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
 import { dialogLayoutType } from "../../../global/customType";
+import { useExpenses } from "./Expenses.hooks";
+import { useEffect, useState } from "react";
 
 export default function Expenses_SubPage() {
+  const [currentOwner, setCurrentOwner] = useState("훈");
+
   const { showDialog } = useHandleDialog();
+  const { data } = useExpenses({ owner: currentOwner });
 
   const mockList = [
     {
@@ -37,6 +42,10 @@ export default function Expenses_SubPage() {
     },
   ];
 
+  useEffect(() => {
+    setCurrentOwner("훈");
+  }, [currentOwner]);
+
   return (
     <>
       <div className="aside-navigation-container">
@@ -56,7 +65,7 @@ export default function Expenses_SubPage() {
         </Navigation_ListType>
       </div>
       <div className="list-container">
-        <ListHeader $title="2024년 1월" $type="EXPENSES" $value="100000" />
+        <ListHeader $title="2024년 1월" $type={TYPES.EXPENSES} $value={data} />
         <Button_Floatingtype
           onClick={() =>
             showDialog({
