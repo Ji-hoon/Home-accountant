@@ -11,11 +11,25 @@ const expenseService = {
     cursor: number;
     limit: number;
   }) {
-    return await expenseModel
-      .find({ owner: owner })
+    const target = owner ? { owner: owner } : {};
+
+    const result = await expenseModel
+      .find(target, {
+        amounts: 1,
+        businessName: 1,
+        date: 1,
+        category: 1,
+        owner: 1,
+        isRecurring: 1,
+        _id: 1,
+      })
       .skip(cursor)
       .limit(limit)
       .sort({ createdAt: -1 });
+
+    // console.log(owner, cursor, limit, result);
+
+    return result;
   },
   async getExpensesByOption({
     //TODO: 추후 owner가 아닌 group으로도 조회 가능하게 변경
@@ -23,20 +37,11 @@ const expenseService = {
   }: {
     owner?: string;
   }) {
-    if (!owner) {
-      return await expenseModel.aggregate([
-        {
-          $group: {
-            _id: null,
-            totalAmounts: { $sum: "$amounts" },
-          },
-        },
-      ]);
-    }
+    const target = owner ? { owner: owner } : {};
 
     return await expenseModel.aggregate([
       {
-        $match: { owner: owner },
+        $match: target,
       },
       {
         $group: {
