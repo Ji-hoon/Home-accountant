@@ -6,6 +6,14 @@ export const isLoginAtom = atom({
   default: false,
 });
 
+export const currentUserAtom = atom({
+  key: "currentUser",
+  default: {
+    userId: "",
+    nickname: "",
+  },
+});
+
 export const currentDialogAtom = atom<dialogType>({
   key: "currentDialog",
   default: {

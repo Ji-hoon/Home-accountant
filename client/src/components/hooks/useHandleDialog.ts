@@ -6,7 +6,7 @@ import { LABELS } from "../../global/constants";
 
 export function useHandleDialog() {
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
-  const { addExpense } = useExpenses();
+  const { addExpense } = useExpenses({ owner: "" });
 
   function showDialog({
     type,

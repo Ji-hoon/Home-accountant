@@ -25,7 +25,7 @@ export const CreateExpenseLayout = [
     type: "selectbox",
     placeholder: "멤버를 선택해주세요..",
     defaultValue: "",
-    options: ["만두", "밀크티"],
+    options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
   },
   {
     title: "지출 날짜 (YYYY-MM-DD)",

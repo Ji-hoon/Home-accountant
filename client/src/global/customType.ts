@@ -42,10 +42,19 @@ export type ExpenseType = {
   isRecurring: string;
 };
 
-export type ResultType = {
+export type loginUserType = {
   result: {
     id: string;
     nickname: string;
     profile: string;
   };
+};
+
+export type expenseQueryType = {
+  amounts: number;
+  expenses: Array<
+    ExpenseType & {
+      _id: string;
+    }
+  >;
 };

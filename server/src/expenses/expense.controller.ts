@@ -27,6 +27,31 @@ const expenseController = {
       expense: result,
     });
   }),
+  getExpense: asyncHandler(async (req: express.Request, res: Response) => {
+    const { owner, cursor, limit } = req.query;
+    const expenses = await expenseService.getExpenses({
+      owner: owner as string,
+      cursor: Number(cursor),
+      limit: Number(limit),
+    });
+
+    res.json(expenses);
+  }),
+  getExpensesAmount: asyncHandler(
+    async (req: express.Request, res: Response) => {
+      const { owner } = req.query;
+      const expenses = await expenseService.getExpensesByOption({
+        owner: owner as string,
+      });
+
+      if (expenses.length === 0) {
+        res.json(0);
+        return;
+      }
+
+      res.json(expenses[0].totalAmounts);
+    },
+  ),
 };
 
 export default expenseController;
