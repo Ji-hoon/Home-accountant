@@ -5,9 +5,9 @@ import { LABELS } from "../../../global/constants";
 import { useExpenses } from "./Expenses.hooks";
 
 export default function Expense_List({ $owner }: { $owner: string }) {
-  const { data } = useExpenses({ owner: $owner });
+  const { pages } = useExpenses({ owner: $owner });
+  const expenseList = pages.flatMap((page) => page.expenses);
 
-  const expenseList = data.expenses;
   return (
     <ul>
       {expenseList.length > 0 &&

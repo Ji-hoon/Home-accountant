@@ -1,25 +1,31 @@
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
 import { queryClient, queryKeys } from "../../../global/reactQuery";
 import { useEffect } from "react";
 import { ExpenseType, expenseQueryType } from "../../../global/customType";
 
 export function useExpenses({ owner }: { owner: string }) {
-  //임시 변수
-  const cursor = 0;
-  const limit = 99;
+  //TODO: 임시 변수 처리함. 추후 useSuspenseInfiniteQuery로 교체 시 수정 필요.
+  //const cursor = 0;
+  const limit = 10;
 
-  const { data, refetch } = useSuspenseQuery<expenseQueryType>({
+  const { data, refetch } = useSuspenseInfiniteQuery<expenseQueryType>({
     queryKey: [queryKeys.amounts],
-    queryFn: async () => {
+    queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
         expenseAPI.totalAmounts({ owner }),
-        expenseAPI.get({ owner, cursor, limit }),
+        expenseAPI.get({ owner, cursor: pageParam as number, limit }),
       ]);
-      const expenses = expensesResponse.data as (ExpenseType & {
+      const expenses = expensesResponse.response.data as (ExpenseType & {
         _id: string;
       })[];
-      return { amounts, expenses };
+      const nextCursor = expensesResponse.nextCursor;
+      return { amounts, expenses, nextCursor };
+    },
+    initialPageParam: 0,
+    getNextPageParam: ({ expenses, nextCursor }) => {
+      if (expenses.length === 0) return null;
+      return nextCursor;
     },
   });
 
@@ -71,5 +77,5 @@ export function useExpenses({ owner }: { owner: string }) {
     },
   }).mutateAsync;
 
-  return { addExpense, getExpense, data };
+  return { addExpense, getExpense, ...data };
 }

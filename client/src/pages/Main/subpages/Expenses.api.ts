@@ -40,7 +40,7 @@ const expenseAPI = {
       `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}`,
     );
     console.log("data: ", response.data);
-    return response;
+    return { response, nextCursor: cursor + limit };
   },
 
   async totalAmounts({ owner }: { owner: string }) {

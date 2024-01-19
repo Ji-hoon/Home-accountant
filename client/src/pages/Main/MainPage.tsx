@@ -3,7 +3,7 @@ import { PATH } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import Layout_HorizontalView from "../../components/layout/Layout.horizontalView";
-import Expenses_SubPage from "./subpages/Expenses";
+import Expenses_SubPage from "./subpages/ExpensesSubPage";
 
 export default function MainPage() {
   const location = useLocation();

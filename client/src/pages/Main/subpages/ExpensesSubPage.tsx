@@ -16,6 +16,8 @@ export default function Expenses_SubPage() {
   const [currentOwner, setCurrentOwner] = useState("");
   const { showDialog } = useHandleDialog();
 
+  //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
+  //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
     if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER) {
