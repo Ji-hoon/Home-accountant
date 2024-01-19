@@ -27,6 +27,16 @@ const expenseController = {
       expense: result,
     });
   }),
+  getExpense: asyncHandler(async (req: express.Request, res: Response) => {
+    const { owner, cursor, limit } = req.query;
+    const expenses = await expenseService.getExpenses({
+      owner: owner as string,
+      cursor: Number(cursor),
+      limit: Number(limit),
+    });
+
+    res.json(expenses);
+  }),
 };
 
 export default expenseController;

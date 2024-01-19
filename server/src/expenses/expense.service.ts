@@ -2,8 +2,20 @@ import expenseModel from "./expense.model.js";
 import { ExpenseType } from "../type/global.js";
 
 const expenseService = {
-  async getExpenses(_id: string) {
-    return expenseModel.find({ owner: _id });
+  async getExpenses({
+    owner,
+    cursor,
+    limit,
+  }: {
+    owner: string;
+    cursor: number;
+    limit: number;
+  }) {
+    return await expenseModel
+      .find({ owner: owner })
+      .skip(cursor)
+      .limit(limit)
+      .sort({ createdAt: -1 });
   },
   async addExpense({
     amounts,
