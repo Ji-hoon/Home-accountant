@@ -2,14 +2,13 @@ import { useMutation, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
 import { queryClient, queryKeys } from "../../../global/reactQuery";
 import { useEffect } from "react";
-import { ExpenseType, expenseQueryType } from "../../../global/customType";
+import { ExpenseType } from "../../../global/customType";
+import { useIntersectionObserver } from "../../../components/hooks/useIntersectionObserver";
 
 export function useExpenses({ owner }: { owner: string }) {
-  //TODO: 임시 변수 처리함. 추후 useSuspenseInfiniteQuery로 교체 시 수정 필요.
-  //const cursor = 0;
-  const limit = 10;
+  const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
 
-  const { data, refetch } = useSuspenseInfiniteQuery<expenseQueryType>({
+  const results = useSuspenseInfiniteQuery({
     queryKey: [queryKeys.amounts],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
@@ -27,6 +26,13 @@ export function useExpenses({ owner }: { owner: string }) {
       if (expenses.length === 0) return null;
       return nextCursor;
     },
+  });
+
+  const { data, isError, refetch, fetchNextPage, hasNextPage } = results;
+
+  const { setTarget } = useIntersectionObserver({
+    onIntersect: fetchNextPage,
+    shouldBeBlocked: !hasNextPage || isError,
   });
 
   useEffect(() => {
@@ -77,5 +83,5 @@ export function useExpenses({ owner }: { owner: string }) {
     },
   }).mutateAsync;
 
-  return { addExpense, getExpense, ...data };
+  return { addExpense, getExpense, ...data, setTarget, hasNextPage };
 }

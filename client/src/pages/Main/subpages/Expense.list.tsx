@@ -5,8 +5,10 @@ import { LABELS } from "../../../global/constants";
 import { useExpenses } from "./Expenses.hooks";
 
 export default function Expense_List({ $owner }: { $owner: string }) {
-  const { pages } = useExpenses({ owner: $owner });
+  const { pages, setTarget, hasNextPage } = useExpenses({ owner: $owner });
   const expenseList = pages.flatMap((page) => page.expenses);
+
+  //console.log(expenseList);
 
   return (
     <ul>
@@ -14,6 +16,7 @@ export default function Expense_List({ $owner }: { $owner: string }) {
         expenseList.map((item, index) => (
           <ListItem_ExpenseType key={index} $item={item} />
         ))}
+      {hasNextPage && <div ref={setTarget}>리스트 마지막</div>}
       {expenseList.length === 0 && (
         <Empty
           icon={<FiAlertTriangle />}
