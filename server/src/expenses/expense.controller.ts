@@ -4,6 +4,8 @@ import express, { Response } from "express";
 import { CustomError } from "../middleware/errorHandler.js";
 import expenseService from "./expense.service.js";
 import { ExpenseType } from "../type/global.js";
+import { calculateTotalAmounts } from "../utils/calculateFields.js";
+import { expenseSchemaType } from "../type/schema.js";
 
 const expenseController = {
   addExpense: asyncHandler(async (req: express.Request, res: Response) => {
@@ -37,6 +39,19 @@ const expenseController = {
 
     res.json(expenses);
   }),
+  getExpensesAmount: asyncHandler(
+    async (req: express.Request, res: Response) => {
+      const { owner } = req.query;
+      const expenses = await expenseService.getExpensesByOption({
+        owner: owner as string,
+      });
+      const totalAmounts = calculateTotalAmounts(
+        expenses as expenseSchemaType[],
+      );
+
+      res.json(totalAmounts);
+    },
+  ),
 };
 
 export default expenseController;

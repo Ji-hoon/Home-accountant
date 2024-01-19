@@ -17,6 +17,17 @@ const expenseService = {
       .limit(limit)
       .sort({ createdAt: -1 });
   },
+  async getExpensesByOption({
+    //TODO: 추후 owner가 아닌 group으로도 조회 가능하게 변경
+    owner,
+  }: {
+    owner?: string;
+  }) {
+    if (!owner) {
+      return await expenseModel.find({});
+    }
+    return await expenseModel.find({ owner: owner });
+  },
   async addExpense({
     amounts,
     businessName,

@@ -7,4 +7,6 @@ expenseRouter.post("/", expenseController.addExpense);
 
 expenseRouter.get("/", expenseController.getExpense);
 
+expenseRouter.get("/amounts", expenseController.getExpensesAmount);
+
 export default expenseRouter;
