@@ -17,6 +17,7 @@ export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
   const location = useLocation();
   const [currentOwner, setCurrentOwner] = useState("");
+  const [dateUnit, setDateUnit] = useState("");
   const { showDialog } = useHandleDialog();
 
   //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
@@ -24,9 +25,14 @@ export default function Expenses_SubPage() {
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
     if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER) {
-      setCurrentOwner("훈");
+      setCurrentOwner("밀크티");
+      setDateUnit("MONTH");
     } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MONTH) {
       setCurrentOwner("");
+      setDateUnit("MONTH");
+    } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_WEEK) {
+      setCurrentOwner("");
+      setDateUnit("WEEK");
     }
   }, [currentOwner, location]);
 
@@ -35,6 +41,11 @@ export default function Expenses_SubPage() {
       <div className="aside-navigation-container">
         <Navigation_ListType>
           <>
+            <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_WEEK}>
+              <Button_Boxtype>
+                {LABELS.NAVIGATION_MENU_EXPENSES_BY_WEEK}
+              </Button_Boxtype>
+            </NavLink>
             <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MONTH}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
@@ -51,6 +62,7 @@ export default function Expenses_SubPage() {
       <div className="list-container">
         <ListHeader
           $currentDate={currentDate}
+          $unit={dateUnit}
           $type={TYPES.EXPENSES}
           $owner={currentOwner}
         />

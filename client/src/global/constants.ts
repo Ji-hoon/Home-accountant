@@ -64,6 +64,7 @@ export const PATH = {
   MAIN_GROUP: "/main/group",
   MAIN_EXPENSES_FILTER_BY_MONTH: "/main/expenses/filter/month",
   MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/filter/member",
+  MAIN_EXPENSES_FILTER_BY_WEEK: "/main/expenses/filter/week",
 } as const;
 
 export const TYPES = {
@@ -85,7 +86,8 @@ export const LABELS = {
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
   LABEL_CANCEL: "취소",
   LABEL_ADD_EXPENSE: "지출 내역 추가",
-  NAVIGATION_MENU_EXPENSES_BY_MONTH: "월별 지출 내역",
+  NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
+  NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
   HEADER_MENU_EXPENSES: "지출 내역",
   HEADER_MENU_ASSETS: "자산 조회",

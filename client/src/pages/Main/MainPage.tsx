@@ -12,11 +12,14 @@ export default function MainPage() {
   return (
     <>
       {location.pathname == PATH.MAIN_EXPENSES && (
-        <Navigate to={PATH.MAIN_EXPENSES_FILTER_BY_MONTH} />
+        <Navigate to={PATH.MAIN_EXPENSES_FILTER_BY_WEEK} />
       )}
       {isLogin && (
         <Layout_HorizontalView>
           <>
+            {location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_WEEK && (
+              <Expenses_SubPage />
+            )}
             {location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MONTH && (
               <Expenses_SubPage />
             )}

@@ -5,7 +5,7 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { useHandleDate } from "../hooks/useHandleDate";
-import { format } from "date-fns";
+import { addDays, startOfWeek, format } from "date-fns";
 
 /* TODO:
  * [x]. ListHeader에서 사용하는 전역 상태인 currentDate를 set. (디폴트 값에 date 활용한 formatted string 할당)
@@ -18,27 +18,44 @@ import { format } from "date-fns";
 
 export default function ListHeader({
   $currentDate,
+  $unit,
   $type,
   $owner,
 }: {
   $currentDate: Date;
+  $unit: string;
   $type: string;
   $owner: string;
 }) {
-  //const [currentDate, setCurrentDate] = useRecoilState(currentDateAtom);
-
-  const { addMonth, subMonth } = useHandleDate();
+  const { addMonth, subMonth, addWeek, subWeek } = useHandleDate();
   const { pages } = useExpenses({ owner: $owner });
   const amounts = pages[0]?.amounts;
+
+  const startDay = startOfWeek($currentDate, { weekStartsOn: 1 });
+  const getEndDay = addDays(startDay, 6);
 
   return (
     <ListHeaderContainer $type={$type} $data={amounts}>
       <div className="header-navigation-container">
-        <Button_Icontype onClick={subMonth}>
+        <Button_Icontype
+          onClick={() => {
+            if ($unit === "WEEK") subWeek();
+            else subMonth();
+          }}
+        >
           <FiChevronLeft strokeWidth="3" />
         </Button_Icontype>
-        {format($currentDate, "yyyy년 MM월")}
-        <Button_Icontype onClick={addMonth}>
+        <>
+          {$unit === "WEEK" &&
+            `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `M월 d일`)}`}
+          {$unit === "MONTH" && format($currentDate, "yyyy년 M월")}
+        </>
+        <Button_Icontype
+          onClick={() => {
+            if ($unit === "WEEK") addWeek();
+            else addMonth();
+          }}
+        >
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
