@@ -1,5 +1,32 @@
-# 가계부를 부탁해
+# 가계부를 부탁해!
 
-![logo](/client/public/img-logo.png)
+![최종 결과물 미리보기 :](/client/public/img-logo.png)
 
-> author : lanslot84@gmail.com
+
+## 안녕하세요! 👋
+
+본 리포지토리는 개인 프로젝트인 **지출 및 자산 관리 애플리케이션** 코드를 포함하고 있습니다.
+
+## 디자인
+
+- [피그마 링크](https://www.figma.com/file/YlqmZ5JlnnyksInDIHRTHJ/HomeAccountBook_mockup?type=design&node-id=0%3A1&mode=design&t=gw0H9wPStNi7CLhV-1)
+
+## 사용 기술
+- 사용 언어 & 라이브러리 : `JavaScript`, `TypeSript`, `ReactJS`, `NodeJs`, `ExpressJS`, `JWT`, `Mongoose`
+- 빌드 툴 : `Vite`
+- DB : `MongoDB`
+- 스타일링 : CSS in JS (`Styled-component`)
+- 전역 상태 관리 : `Recoil`, `Tanstack-query`
+- 라이브러리 : `React-router`, `React-hook-form`, `Axios`
+
+## 구현 내용
+
+1. **모놀리식** 스트럭쳐로 클라이언트와 서버 프로젝트를 하나의 리포지토리에서 구현
+2. 프로젝트 요구사항을 충족시킬 수 있는 **API** 및 **Data schema** 작성 ([링크](https://stellar-rook-e9e.notion.site/API-Schema-6e29ae767fa84d8abc7b6aefc8c0ccc3?pvs=4))
+3. **React-router**를 활용하여 페이지 라우팅 및 navigate, redirect 기능 구현
+4. **Tanstack-query**를 활용한 커스텀 훅을 작성하여 infiniteQuery를 사용해 무한 스크롤 및 데이터 상태 관리 기능 구현
+5. 
+6. (진행중)
+
+
+**Have fun building!** 🚀
