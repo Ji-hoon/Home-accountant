@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { currentDialogAtom } from "../../atoms/globalAtoms";
 import { ExpenseType, dialogLayoutType } from "../../global/customType";
-import { useExpenses } from "../../pages/Main/subpages/Expenses.hooks";
+import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
 
 export function useHandleDialog() {

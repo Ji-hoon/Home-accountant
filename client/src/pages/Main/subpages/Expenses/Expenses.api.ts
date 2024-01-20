@@ -1,5 +1,5 @@
-import { axiosInstance } from "../../../global/axiosInstance";
-import { ExpenseType } from "../../../global/customType";
+import { axiosInstance } from "../../../../global/axiosInstance";
+import { ExpenseType } from "../../../../global/customType";
 
 const expenseAPI = {
   async add({

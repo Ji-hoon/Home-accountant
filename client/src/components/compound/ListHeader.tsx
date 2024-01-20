@@ -1,29 +1,44 @@
 import styled from "styled-components";
+
 import { SIZES, COLORS } from "../../global/constants";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
-import { useExpenses } from "../../pages/Main/subpages/Expenses.hooks";
+import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
+import { useHandleDate } from "../hooks/useHandleDate";
+import { format } from "date-fns";
+
+/* TODO:
+ * [x]. ListHeader에서 사용하는 전역 상태인 currentDate를 set. (디폴트 값에 date 활용한 formatted string 할당)
+ * [x]. Expenses_subpage에서 set한 value를 가져옴 => date 변경 시 리렌더링.
+ * [x]. 아이콘 타입 버튼에 클릭 이벤트 핸들러 할당. 오른쪽 클릭 시 1달 더하기
+ * [x]. 왼쪽 클릭 시 1달 빼기. => 커스텀훅으로 구현
+ * [ ]. 주간 지출 내역 메뉴 추가 (주간 > 월간 > 멤버별)
+ * [ ]. useExpense fetch 파라미터에 period 추가 (API도 반영)
+ */
 
 export default function ListHeader({
-  $title,
+  $currentDate,
   $type,
   $owner,
 }: {
-  $title: string;
+  $currentDate: Date;
   $type: string;
   $owner: string;
 }) {
+  //const [currentDate, setCurrentDate] = useRecoilState(currentDateAtom);
+
+  const { addMonth, subMonth } = useHandleDate();
   const { pages } = useExpenses({ owner: $owner });
   const amounts = pages[0]?.amounts;
 
   return (
     <ListHeaderContainer $type={$type} $data={amounts}>
       <div className="header-navigation-container">
-        <Button_Icontype>
+        <Button_Icontype onClick={subMonth}>
           <FiChevronLeft strokeWidth="3" />
         </Button_Icontype>
-        {$title}
-        <Button_Icontype>
+        {format($currentDate, "yyyy년 MM월")}
+        <Button_Icontype onClick={addMonth}>
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>

@@ -9,9 +9,12 @@ import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
 import { dialogLayoutType } from "../../../global/customType";
 import { useEffect, useState } from "react";
-import ExpenseList from "./Expense.list";
+import ExpenseList from "./Expenses/Expenses.infiniteList";
+import { currentDateAtom } from "../../../atoms/globalAtoms";
+import { useRecoilValue } from "recoil";
 
 export default function Expenses_SubPage() {
+  const currentDate = useRecoilValue(currentDateAtom);
   const location = useLocation();
   const [currentOwner, setCurrentOwner] = useState("");
   const { showDialog } = useHandleDialog();
@@ -21,7 +24,7 @@ export default function Expenses_SubPage() {
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
     if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER) {
-      setCurrentOwner("훈2");
+      setCurrentOwner("훈");
     } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MONTH) {
       setCurrentOwner("");
     }
@@ -47,7 +50,7 @@ export default function Expenses_SubPage() {
       </div>
       <div className="list-container">
         <ListHeader
-          $title="2024년 1월"
+          $currentDate={currentDate}
           $type={TYPES.EXPENSES}
           $owner={currentOwner}
         />

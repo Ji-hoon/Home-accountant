@@ -1,9 +1,9 @@
 import { useMutation, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
-import { queryClient, queryKeys } from "../../../global/reactQuery";
+import { queryClient, queryKeys } from "../../../../global/reactQuery";
 import { useEffect } from "react";
-import { ExpenseType } from "../../../global/customType";
-import { useIntersectionObserver } from "../../../components/hooks/useIntersectionObserver";
+import { ExpenseType } from "../../../../global/customType";
+import { useIntersectionObserver } from "../../../../components/hooks/useIntersectionObserver";
 
 export function useExpenses({ owner }: { owner: string }) {
   const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수

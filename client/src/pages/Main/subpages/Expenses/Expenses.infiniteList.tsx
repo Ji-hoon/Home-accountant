@@ -1,10 +1,10 @@
 import { FiAlertTriangle } from "react-icons/fi";
-import Empty from "../../../components/common/Empty";
-import ListItem_ExpenseType from "../../../components/compound/ListItem.expenseType";
-import { LABELS } from "../../../global/constants";
+import Empty from "../../../../components/common/Empty";
+import ListItem_ExpenseType from "../../../../components/compound/ListItem.expenseType";
+import { LABELS } from "../../../../global/constants";
 import { useExpenses } from "./Expenses.hooks";
 
-export default function Expense_List({ $owner }: { $owner: string }) {
+export default function Expenses_List({ $owner }: { $owner: string }) {
   const { pages, setTarget, hasNextPage } = useExpenses({ owner: $owner });
   const expenseList = pages.flatMap((page) => page.expenses);
 

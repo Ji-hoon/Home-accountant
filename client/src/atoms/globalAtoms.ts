@@ -21,3 +21,8 @@ export const currentDialogAtom = atom<dialogType>({
     content: [], // 배열 길이만큼 다이얼로그를 생성한다. (중첩 가능)
   },
 });
+
+export const currentDateAtom = atom({
+  key: "currentDate",
+  default: new Date(),
+});
