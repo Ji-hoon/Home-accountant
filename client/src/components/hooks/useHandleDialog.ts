@@ -3,6 +3,7 @@ import { currentDialogAtom } from "../../atoms/globalAtoms";
 import { ExpenseType, dialogLayoutType } from "../../global/customType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
+import { parse } from "date-fns";
 
 export function useHandleDialog() {
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
@@ -47,7 +48,7 @@ export function useHandleDialog() {
         category: data.category,
         businessName: data.businessName,
         owner: data.owner,
-        date: data.date,
+        date: parse(data.date, "yyyy-MM-dd", new Date()),
         isRecurring: data.isRecurring,
       });
       if (result) return result;
