@@ -12,8 +12,9 @@ import { addDays, startOfWeek, format } from "date-fns";
  * [x]. Expenses_subpage에서 set한 value를 가져옴 => date 변경 시 리렌더링.
  * [x]. 아이콘 타입 버튼에 클릭 이벤트 핸들러 할당. 오른쪽 클릭 시 1달 더하기
  * [x]. 왼쪽 클릭 시 1달 빼기. => 커스텀훅으로 구현
- * [ ]. 주간 지출 내역 메뉴 추가 (주간 > 월간 > 멤버별)
- * [ ]. useExpense fetch 파라미터에 period 추가 (API도 반영)
+ * [x]. 주간 지출 내역 메뉴 추가 (주간 > 월간 > 멤버별)
+ * [ ]. useExpense fetch 파라미터에 period 추가하고 요청 시 명시
+ * [ ]. useExpense API 로직 업데이트
  */
 
 export default function ListHeader({
@@ -28,7 +29,11 @@ export default function ListHeader({
   $owner: string;
 }) {
   const { addMonth, subMonth, addWeek, subWeek } = useHandleDate();
-  const { pages } = useExpenses({ owner: $owner });
+  const { pages } = useExpenses({
+    owner: $owner,
+    currentDate: $currentDate,
+    unit: $unit,
+  });
   const amounts = pages[0]?.amounts;
 
   const startDay = startOfWeek($currentDate, { weekStartsOn: 1 });
@@ -39,8 +44,7 @@ export default function ListHeader({
       <div className="header-navigation-container">
         <Button_Icontype
           onClick={() => {
-            if ($unit === "WEEK") subWeek();
-            else subMonth();
+            $unit === "WEEK" ? subWeek() : subMonth();
           }}
         >
           <FiChevronLeft strokeWidth="3" />
@@ -48,12 +52,11 @@ export default function ListHeader({
         <>
           {$unit === "WEEK" &&
             `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `M월 d일`)}`}
-          {$unit === "MONTH" && format($currentDate, "yyyy년 M월")}
+          {$unit !== "WEEK" && format($currentDate, "yyyy년 M월")}
         </>
         <Button_Icontype
           onClick={() => {
-            if ($unit === "WEEK") addWeek();
-            else addMonth();
+            $unit === "WEEK" ? addWeek() : addMonth();
           }}
         >
           <FiChevronRight strokeWidth="3" />

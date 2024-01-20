@@ -31,13 +31,15 @@ const expenseAPI = {
     owner,
     cursor,
     limit,
+    period,
   }: {
     owner: string;
     cursor: number;
     limit: number;
+    period?: Date[];
   }) {
     const response = await axiosInstance.get(
-      `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}`,
+      `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0]}&endDate=${period && period[1]}`,
     );
     //console.log("data: ", response.data);
     return { response, nextCursor: cursor + limit };
