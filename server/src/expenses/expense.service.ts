@@ -25,7 +25,7 @@ const expenseService = {
       })
       .skip(cursor)
       .limit(limit)
-      .sort({ createdAt: -1 });
+      .sort({ date: -1 });
 
     // console.log(owner, cursor, limit, result);
 
