@@ -7,16 +7,6 @@ import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { useHandleDate } from "../hooks/useHandleDate";
 import { addDays, startOfWeek, format } from "date-fns";
 
-/* TODO:
- * [x]. ListHeader에서 사용하는 전역 상태인 currentDate를 set. (디폴트 값에 date 활용한 formatted string 할당)
- * [x]. Expenses_subpage에서 set한 value를 가져옴 => date 변경 시 리렌더링.
- * [x]. 아이콘 타입 버튼에 클릭 이벤트 핸들러 할당. 오른쪽 클릭 시 1달 더하기
- * [x]. 왼쪽 클릭 시 1달 빼기. => 커스텀훅으로 구현
- * [x]. 주간 지출 내역 메뉴 추가 (주간 > 월간 > 멤버별)
- * [x]. useExpense fetch 파라미터에 period 추가하고 요청 시 명시
- * [ ]. useExpense API 로직 업데이트
- */
-
 export default function ListHeader({
   $currentDate,
   $unit,

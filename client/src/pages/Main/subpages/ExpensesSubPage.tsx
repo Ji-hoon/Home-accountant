@@ -54,11 +54,11 @@ export default function Expenses_SubPage() {
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
               </Button_Boxtype>
             </NavLink>
-            <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MEMBER}>
+            {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MEMBER}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
               </Button_Boxtype>
-            </NavLink>
+            </NavLink> */}
           </>
         </Navigation_ListType>
       </div>
