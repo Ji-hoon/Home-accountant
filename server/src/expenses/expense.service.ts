@@ -1,43 +1,88 @@
 import expenseModel from "./expense.model.js";
 import { ExpenseType } from "../type/global.js";
+import { ParsedQs } from "qs";
+import { parse } from "date-fns";
 
 const expenseService = {
   async getExpenses({
     owner,
     cursor,
     limit,
+    startDate,
+    endDate,
   }: {
     owner: string;
     cursor: number;
     limit: number;
+    startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
+    endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
+    const startDateFormat = parse(
+      startDate as string,
+      "yyyy-MM-dd",
+      new Date(),
+    );
+    const endDateFormat = parse(endDate as string, "yyyy-MM-dd", new Date());
+
     const target = owner ? { owner: owner } : {};
 
     const result = await expenseModel
-      .find(target, {
-        amounts: 1,
-        businessName: 1,
-        date: 1,
-        category: 1,
-        owner: 1,
-        isRecurring: 1,
-        _id: 1,
-      })
+      .find(
+        {
+          ...target,
+          date: {
+            $gte: startDateFormat,
+            $lte: endDateFormat,
+          },
+        },
+        {
+          amounts: 1,
+          businessName: 1,
+          date: 1,
+          category: 1,
+          owner: 1,
+          isRecurring: 1,
+          _id: 1,
+        },
+      )
       .skip(cursor)
       .limit(limit)
       .sort({ date: -1 });
 
-    // console.log(owner, cursor, limit, result);
-
     return result;
   },
+
   async getExpensesByOption({
     //TODO: 추후 owner가 아닌 group으로도 조회 가능하게 변경
     owner,
+    startDate,
+    endDate,
   }: {
     owner?: string;
+    startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
+    endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
-    const target = owner ? { owner: owner } : {};
+    const startDateFormat = parse(
+      startDate as string,
+      "yyyy-MM-dd",
+      new Date(),
+    );
+    const endDateFormat = parse(endDate as string, "yyyy-MM-dd", new Date());
+
+    const target = owner
+      ? {
+          owner: owner,
+          date: {
+            $gte: startDateFormat,
+            $lte: endDateFormat,
+          },
+        }
+      : {
+          date: {
+            $gte: startDateFormat,
+            $lte: endDateFormat,
+          },
+        };
 
     return await expenseModel.aggregate([
       {
@@ -51,6 +96,7 @@ const expenseService = {
       },
     ]);
   },
+
   async addExpense({
     amounts,
     businessName,
