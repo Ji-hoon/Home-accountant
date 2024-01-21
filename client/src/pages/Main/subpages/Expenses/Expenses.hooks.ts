@@ -1,19 +1,42 @@
 import { useMutation, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import expenseAPI from "./Expenses.api";
-import { queryClient, queryKeys } from "../../../global/reactQuery";
+import { queryClient, queryKeys } from "../../../../global/reactQuery";
 import { useEffect } from "react";
-import { ExpenseType } from "../../../global/customType";
-import { useIntersectionObserver } from "../../../components/hooks/useIntersectionObserver";
+import { ExpenseType } from "../../../../global/customType";
+import { useIntersectionObserver } from "../../../../components/hooks/useIntersectionObserver";
+import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 
-export function useExpenses({ owner }: { owner: string }) {
+export function useExpenses({
+  owner,
+  currentDate,
+  unit,
+}: {
+  owner: string;
+  currentDate: Date;
+  unit: string;
+}) {
+  let startDate;
+  let endDate;
+
+  if (unit === "WEEK") {
+    startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
+    endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
+  } else {
+    startDate = startOfMonth(currentDate);
+    endDate = endOfMonth(currentDate);
+  }
+
+  const period = [startDate, endDate];
+  //console.log(startDate, endDate);
+
   const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
 
   const results = useSuspenseInfiniteQuery({
     queryKey: [queryKeys.amounts],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
-        expenseAPI.totalAmounts({ owner }),
-        expenseAPI.get({ owner, cursor: pageParam as number, limit }),
+        expenseAPI.totalAmounts({ owner, period }),
+        expenseAPI.get({ owner, cursor: pageParam as number, limit, period }),
       ]);
       const expenses = expensesResponse.response.data as (ExpenseType & {
         _id: string;
@@ -38,7 +61,7 @@ export function useExpenses({ owner }: { owner: string }) {
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [owner]);
+  }, [owner, currentDate, unit]);
 
   const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({
@@ -67,21 +90,5 @@ export function useExpenses({ owner }: { owner: string }) {
     },
   }).mutateAsync;
 
-  const getExpense = useMutation({
-    //mutationFn: expenseAPI.get,
-    onMutate: () => {
-      //setisLoading(!isLoading);
-    },
-    onSuccess: () => {
-      //console.log(data.data.message);
-    },
-    onError: (err) => {
-      console.log(err);
-    },
-    onSettled: () => {
-      //setisLoading(!isLoading);
-    },
-  }).mutateAsync;
-
-  return { addExpense, getExpense, ...data, setTarget, hasNextPage };
+  return { addExpense, ...data, setTarget, hasNextPage };
 }

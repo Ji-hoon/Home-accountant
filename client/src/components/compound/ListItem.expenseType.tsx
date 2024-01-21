@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { SIZES, COLORS } from "../../global/constants";
 import { ExpenseType } from "../../global/customType";
+import { format } from "date-fns";
 
 export default function ListItem_ExpenseType({
   $item,
@@ -15,7 +16,7 @@ export default function ListItem_ExpenseType({
         <input type="checkbox" />
         <div className="expense-info">
           <h4>{$item.businessName}</h4>
-          <p>{$item.date}</p>
+          <p>{format($item.date, "yyyy-MM-dd")}</p>
         </div>
         <div className="expense-value">
           <p>{$item.owner}</p>

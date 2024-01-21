@@ -1,12 +1,24 @@
-import { useRecoilState } from "recoil";
-import { currentDialogAtom } from "../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  currentDateAtom,
+  currentDialogAtom,
+  dateUnitAtom,
+} from "../../atoms/globalAtoms";
 import { ExpenseType, dialogLayoutType } from "../../global/customType";
-import { useExpenses } from "../../pages/Main/subpages/Expenses.hooks";
+import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
+import { parse } from "date-fns";
 
 export function useHandleDialog() {
+  const currentDate = useRecoilValue(currentDateAtom);
+  const dateUnit = useRecoilValue(dateUnitAtom);
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
-  const { addExpense } = useExpenses({ owner: "" });
+  //console.log("dialog: ",currentDate);
+  const { addExpense } = useExpenses({
+    owner: "",
+    currentDate,
+    unit: dateUnit,
+  });
 
   function showDialog({
     type,
@@ -47,7 +59,7 @@ export function useHandleDialog() {
         category: data.category,
         businessName: data.businessName,
         owner: data.owner,
-        date: data.date,
+        date: parse(data.date, "yyyy-MM-dd", new Date()),
         isRecurring: data.isRecurring,
       });
       if (result) return result;

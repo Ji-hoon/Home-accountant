@@ -24,6 +24,10 @@ const router = createBrowserRouter([
         element: <MainPage />,
         children: [
           {
+            path: PATH.MAIN_EXPENSES_FILTER_BY_WEEK,
+            element: <MainPage />,
+          },
+          {
             path: PATH.MAIN_EXPENSES_FILTER_BY_MONTH,
             element: <MainPage />,
           },

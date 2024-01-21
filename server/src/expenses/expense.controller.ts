@@ -15,7 +15,7 @@ const expenseController = {
       });
     }
     const result = await expenseService.addExpense(requestBody);
-    console.log(result);
+
     if (!result) {
       throw new CustomError({
         status: 400,
@@ -28,20 +28,24 @@ const expenseController = {
     });
   }),
   getExpense: asyncHandler(async (req: express.Request, res: Response) => {
-    const { owner, cursor, limit } = req.query;
+    const { owner, cursor, limit, startDate, endDate } = req.query;
     const expenses = await expenseService.getExpenses({
       owner: owner as string,
       cursor: Number(cursor),
       limit: Number(limit),
+      startDate: startDate,
+      endDate: endDate,
     });
 
     res.json(expenses);
   }),
   getExpensesAmount: asyncHandler(
     async (req: express.Request, res: Response) => {
-      const { owner } = req.query;
+      const { owner, startDate, endDate } = req.query;
       const expenses = await expenseService.getExpensesByOption({
         owner: owner as string,
+        startDate: startDate,
+        endDate: endDate,
       });
 
       if (expenses.length === 0) {

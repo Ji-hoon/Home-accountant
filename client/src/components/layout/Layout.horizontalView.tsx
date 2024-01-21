@@ -4,7 +4,7 @@ import { SIZES, COLORS } from "../../global/constants";
 export default function Layout_HorizontalView({
   children,
 }: {
-  children: JSX.Element;
+  children?: JSX.Element;
 }) {
   return <HorizontalViewContainer>{children}</HorizontalViewContainer>;
 }

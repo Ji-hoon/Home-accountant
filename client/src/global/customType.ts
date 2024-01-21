@@ -38,7 +38,7 @@ export type ExpenseType = {
   category: string;
   businessName: string;
   owner: string;
-  date: string;
+  date: Date;
   isRecurring: string;
 };
 
