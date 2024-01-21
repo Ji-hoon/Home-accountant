@@ -12,24 +12,22 @@ export function useExpenses({
   unit,
 }: {
   owner: string;
-  currentDate?: Date | undefined;
-  unit?: string;
+  currentDate: Date;
+  unit: string;
 }) {
   let startDate;
   let endDate;
 
-  if (currentDate) {
-    if (unit === "WEEK") {
-      startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
-      endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
-    } else {
-      startDate = startOfMonth(currentDate);
-      endDate = endOfMonth(currentDate);
-    }
+  if (unit === "WEEK") {
+    startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
+    endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
+  } else {
+    startDate = startOfMonth(currentDate);
+    endDate = endOfMonth(currentDate);
   }
 
   const period = [startDate, endDate];
-  //console.log(startDate, endDate);
+  console.log(startDate, endDate);
 
   const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
 
@@ -37,7 +35,7 @@ export function useExpenses({
     queryKey: [queryKeys.amounts],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
-        expenseAPI.totalAmounts({ owner }),
+        expenseAPI.totalAmounts({ owner, period }),
         expenseAPI.get({ owner, cursor: pageParam as number, limit, period }),
       ]);
       const expenses = expensesResponse.response.data as (ExpenseType & {
@@ -63,7 +61,7 @@ export function useExpenses({
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [owner]);
+  }, [owner, currentDate, unit]);
 
   const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({

@@ -26,3 +26,8 @@ export const currentDateAtom = atom({
   key: "currentDate",
   default: new Date(),
 });
+
+export const dateUnitAtom = atom({
+  key: "dateUnit",
+  default: "WEEK",
+});

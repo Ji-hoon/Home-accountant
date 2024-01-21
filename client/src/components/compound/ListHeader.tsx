@@ -13,7 +13,7 @@ import { addDays, startOfWeek, format } from "date-fns";
  * [x]. 아이콘 타입 버튼에 클릭 이벤트 핸들러 할당. 오른쪽 클릭 시 1달 더하기
  * [x]. 왼쪽 클릭 시 1달 빼기. => 커스텀훅으로 구현
  * [x]. 주간 지출 내역 메뉴 추가 (주간 > 월간 > 멤버별)
- * [ ]. useExpense fetch 파라미터에 period 추가하고 요청 시 명시
+ * [x]. useExpense fetch 파라미터에 period 추가하고 요청 시 명시
  * [ ]. useExpense API 로직 업데이트
  */
 
@@ -28,6 +28,7 @@ export default function ListHeader({
   $type: string;
   $owner: string;
 }) {
+  //console.log("header: ", $currentDate);
   const { addMonth, subMonth, addWeek, subWeek } = useHandleDate();
   const { pages } = useExpenses({
     owner: $owner,
@@ -49,11 +50,11 @@ export default function ListHeader({
         >
           <FiChevronLeft strokeWidth="3" />
         </Button_Icontype>
-        <>
+        <div>
           {$unit === "WEEK" &&
             `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `M월 d일`)}`}
           {$unit !== "WEEK" && format($currentDate, "yyyy년 M월")}
-        </>
+        </div>
         <Button_Icontype
           onClick={() => {
             $unit === "WEEK" ? addWeek() : addMonth();

@@ -10,14 +10,14 @@ import { CreateExpenseLayout } from "../../../global/layout";
 import { dialogLayoutType } from "../../../global/customType";
 import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
-import { currentDateAtom } from "../../../atoms/globalAtoms";
-import { useRecoilValue } from "recoil";
+import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
   const location = useLocation();
   const [currentOwner, setCurrentOwner] = useState("");
-  const [dateUnit, setDateUnit] = useState("");
+  const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const { showDialog } = useHandleDialog();
 
   //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
@@ -34,7 +34,10 @@ export default function Expenses_SubPage() {
       setCurrentOwner("");
       setDateUnit("WEEK");
     }
-  }, [currentOwner, location]);
+    //console.log(dateUnit);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentOwner, location, currentDate, dateUnit]);
 
   return (
     <>
@@ -75,7 +78,11 @@ export default function Expenses_SubPage() {
             })
           }
         />
-        <ExpenseList $owner={currentOwner} />
+        <ExpenseList
+          $owner={currentOwner}
+          $currentDate={currentDate}
+          $unit={dateUnit}
+        />
       </div>
       <div className="advertise-container">
         <img src={URLS.AD_MOCK_IMAGE} />
