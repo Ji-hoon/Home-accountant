@@ -39,13 +39,9 @@ const expenseAPI = {
     limit: number;
     period: Array<Date>;
   }) {
-    const response = await axiosInstance.get(
-      `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`,
-    );
-    console.log(
-      `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`,
-    );
-    // console.log("data: ", response.data);
+    const url = `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const response = await axiosInstance.get(url);
+    console.log(url);
     return { response, nextCursor: cursor + limit };
   },
 
@@ -56,10 +52,9 @@ const expenseAPI = {
     owner: string;
     period?: Array<Date | undefined> | undefined;
   }) {
-    const response = await axiosInstance.get(
-      `/expenses/amounts?owner=${owner}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`,
-    );
-    //console.log("owner: ", owner, "data: ", response.data);
+    const url = `/expenses/amounts?owner=${owner}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const response = await axiosInstance.get(url);
+
     return response.data;
   },
 };

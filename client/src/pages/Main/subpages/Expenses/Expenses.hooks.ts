@@ -27,7 +27,7 @@ export function useExpenses({
   }
 
   const period = [startDate, endDate];
-  console.log(startDate, endDate);
+  //console.log(startDate, endDate);
 
   const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
 

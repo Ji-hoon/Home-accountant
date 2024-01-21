@@ -13,15 +13,12 @@ export default function Expenses_List({
   $currentDate: Date;
   $unit: string;
 }) {
-  //console.log("list: ", $currentDate);
   const { pages, setTarget, hasNextPage } = useExpenses({
     owner: $owner,
     currentDate: $currentDate,
     unit: $unit,
   });
   const expenseList = pages.flatMap((page) => page.expenses);
-
-  console.log($unit);
 
   return (
     <ul>
