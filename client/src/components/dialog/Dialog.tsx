@@ -126,7 +126,6 @@ const ModalLayoutContainer = styled.form`
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 
   & .modal-header {
     display: flex;
@@ -137,6 +136,7 @@ const ModalLayoutContainer = styled.form`
     position: sticky;
     top: 0;
     z-index: 1;
+    border-radius: inherit;
 
     & h3 {
       margin: 0;

@@ -30,7 +30,7 @@ export const CreateExpenseLayout = [
   {
     title: "지출 날짜 (YYYY-MM-DD)",
     fieldName: "date",
-    type: "text",
+    type: "date",
     placeholder: "지출 날짜를 입력해주세요.",
   },
   {
@@ -39,6 +39,6 @@ export const CreateExpenseLayout = [
     type: "selectbox",
     placeholder: "",
     defaultValue: "일시불",
-    options: ["일시불", "정기 결제"],
+    options: ["일시불", "할부", "정기 결제"],
   },
 ];
