@@ -5,11 +5,9 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { useHandleDate } from "../hooks/useHandleDate";
-import { addDays, startOfWeek, format } from "date-fns";
+import { addDays, startOfWeek, format, isSameMonth } from "date-fns";
 import Button_Boxtype from "../basic/Button.boxType";
-import { ko } from "date-fns/locale";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
+import Calendar from "../util/Calendar";
 
 export default function ListHeader({
   $currentDate,
@@ -28,9 +26,9 @@ export default function ListHeader({
     subMonth,
     addWeek,
     subWeek,
-    handleDayClick,
     calendarOpen,
     setCalendarOpen,
+    handleDayClick,
   } = useHandleDate();
   const { pages } = useExpenses({
     owner: $owner,
@@ -55,7 +53,7 @@ export default function ListHeader({
         <Button_Boxtype onClick={() => setCalendarOpen(!calendarOpen)}>
           <>
             {$unit === "WEEK" &&
-              `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `M월 d일`)}`}
+              `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
             {$unit !== "WEEK" && format($currentDate, "yyyy년 M월")}
           </>
         </Button_Boxtype>
@@ -69,13 +67,12 @@ export default function ListHeader({
       </div>
       <div className="header-value-container">{amounts.toLocaleString()}원</div>
       {calendarOpen && (
-        <DayPicker
-          locale={ko}
-          mode="single"
-          selected={$currentDate}
-          onDayClick={handleDayClick}
-          footer={<></>}
-        />
+        <div className="header-calendar-container">
+          <Calendar
+            $currentDate={$currentDate}
+            $clickHandler={handleDayClick}
+          />
+        </div>
       )}
     </ListHeaderContainer>
   );
@@ -126,32 +123,9 @@ const ListHeaderContainer = styled.div<{
     }
   }
 
-  & .rdp {
+  & .header-calendar-container {
     position: absolute;
-    margin: 0 !important;
-    padding: 1em;
-    top: 76px;
-    font-size: ${SIZES.SM}px;
-    font-weight: 500;
-    background-color: #fff;
-    /* width: calc(50% - 36px); */
-    left: 4px;
-    z-index: 1;
-    box-shadow: 0 1px 5px 0 ${COLORS.GRAY_05_OVERAY};
-    border-radius: 5px;
-
-    & .rdp-day_selected {
-      pointer-events: none;
-      background-color: ${COLORS.BRAND_LIGHT};
-      color: ${COLORS.BASIC_BLACK};
-      font-weight: 700;
-    }
-
-    & .rdp-day_today:not(.rdp-day_selected) {
-      font-weight: 500;
-    }
-    & .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
-      background-color: ${COLORS.GRAY_01_OVERAY};
-    }
+    top: ${SIZES.XXL * 2 + 4}px;
+    left: 0;
   }
 `;

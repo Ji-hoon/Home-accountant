@@ -21,6 +21,7 @@ const HorizontalViewContainer = styled.section`
     & nav {
       position: sticky;
       top: 80px;
+      padding-right: ${SIZES.MD}px;
     }
   }
 
@@ -48,14 +49,15 @@ const HorizontalViewContainer = styled.section`
   }
 
   & .advertise-container {
-    padding: ${SIZES.LG}px ${SIZES.LG}px ${SIZES.XL * 3}px;
+    padding: ${SIZES.LG}px ${SIZES.MD}px ${SIZES.XL * 3}px;
 
     & img {
       width: 160px;
       border: 1px solid ${COLORS.GRAY_01};
       position: sticky;
       top: 100px;
-      @media screen and (max-width: 900px) {
+
+      @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_X_LARGE}px) {
         display: none;
       }
     }

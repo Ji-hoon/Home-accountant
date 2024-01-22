@@ -3,8 +3,9 @@ import { COLORS, SIZES } from "../../global/constants";
 import { InputFormType, dialogLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import { ko } from "date-fns/locale";
-import { DayPicker, DayClickEventHandler } from "react-day-picker";
+import Calendar from "../util/Calendar";
+
+import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useState } from "react";
 
@@ -70,13 +71,9 @@ export default function Textfield({
         />
       )}
       {type === "date" && calendarOpen && (
-        <DayPicker
-          locale={ko}
-          mode="single"
-          selected={selectedDay}
-          onDayClick={handleDayClick}
-          footer={<></>}
-        />
+        <div className="calendar-container">
+          <Calendar $currentDate={selectedDay} $clickHandler={handleDayClick} />
+        </div>
       )}
       {/* {errors.fieldName && <span>This field is required</span>} */}
     </TextFieldLayout>
@@ -123,30 +120,16 @@ const TextFieldLayout = styled.div`
     }
   }
 
-  & .rdp {
-    position: fixed;
+  & .calendar-container {
+    position: absolute;
     margin: 0 !important;
-    padding: 1em;
-    top: 0;
-    background-color: #fff;
-    width: calc(50% - 36px);
-    left: 24px;
+    top: ${SIZES.XXS / 3}px;
+    left: ${SIZES.XL}px;
     z-index: 1;
-    box-shadow: 0 1px 5px 0 ${COLORS.GRAY_05_OVERAY};
-    border-radius: 5px;
 
-    & .rdp-day_selected {
-      pointer-events: none;
-      background-color: ${COLORS.BRAND_LIGHT};
-      color: ${COLORS.BASIC_BLACK};
-      font-weight: 700;
-    }
-
-    & .rdp-day_today:not(.rdp-day_selected) {
-      font-weight: 500;
-    }
-    & .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
-      background-color: ${COLORS.GRAY_01_OVERAY};
+    @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+      position: absolute;
+      top: 160px;
     }
   }
 `;
