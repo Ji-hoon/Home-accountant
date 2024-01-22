@@ -132,7 +132,7 @@ const TextFieldLayout = styled.div`
     width: calc(50% - 36px);
     left: 24px;
     z-index: 1;
-    box-shadow: 0 1px 5px 0 ${COLORS.GRAY_03_OVERAY};
+    box-shadow: 0 1px 5px 0 ${COLORS.GRAY_05_OVERAY};
     border-radius: 5px;
 
     & .rdp-day_selected {
@@ -144,6 +144,9 @@ const TextFieldLayout = styled.div`
 
     & .rdp-day_today:not(.rdp-day_selected) {
       font-weight: 500;
+    }
+    & .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+      background-color: ${COLORS.GRAY_01_OVERAY};
     }
   }
 `;

@@ -48,7 +48,7 @@ const HorizontalViewContainer = styled.section`
   }
 
   & .advertise-container {
-    padding: ${SIZES.LG}px ${SIZES.XL}px ${SIZES.XL * 3}px;
+    padding: ${SIZES.LG}px ${SIZES.LG}px ${SIZES.XL * 3}px;
 
     & img {
       width: 160px;

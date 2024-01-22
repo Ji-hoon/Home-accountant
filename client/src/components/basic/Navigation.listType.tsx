@@ -13,7 +13,7 @@ export default function Navigation_ListType({
 const NavigationListtypeContainer = styled.nav`
   display: flex;
   flex-direction: column;
-  padding: ${SIZES.XL}px;
+  padding: ${SIZES.XL}px ${SIZES.LG}px;
   gap: ${SIZES.SM / 2}px;
 
   & a button {
