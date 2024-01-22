@@ -40,6 +40,16 @@ const router = createBrowserRouter([
       {
         path: PATH.MAIN_ASSETS,
         element: <MainPage />,
+        children: [
+          {
+            path: PATH.MAIN_ASSETS_FILTER_BY_PERIOD,
+            element: <MainPage />,
+          },
+          {
+            path: PATH.MAIN_ASSETS_FILTER_BY_MEMBER,
+            element: <MainPage />,
+          },
+        ],
       },
       {
         path: PATH.MAIN_GROUP,

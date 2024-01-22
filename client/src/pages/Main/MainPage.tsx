@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import Layout_HorizontalView from "../../components/layout/Layout.horizontalView";
 import Expenses_SubPage from "./subpages/ExpensesSubPage";
+import Assets_SubPage from "./subpages/AssetsSubPage";
 
 export default function MainPage() {
   const location = useLocation();
@@ -13,6 +14,9 @@ export default function MainPage() {
     <>
       {location.pathname == PATH.MAIN_EXPENSES && (
         <Navigate to={PATH.MAIN_EXPENSES_FILTER_BY_WEEK} />
+      )}
+      {location.pathname == PATH.MAIN_ASSETS && (
+        <Navigate to={PATH.MAIN_ASSETS_FILTER_BY_PERIOD} />
       )}
       {isLogin && (
         <Layout_HorizontalView>
@@ -25,6 +29,12 @@ export default function MainPage() {
             )}
             {location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER && (
               <Expenses_SubPage />
+            )}
+            {location.pathname === PATH.MAIN_ASSETS_FILTER_BY_PERIOD && (
+              <Assets_SubPage />
+            )}
+            {location.pathname === PATH.MAIN_ASSETS_FILTER_BY_MEMBER && (
+              <Assets_SubPage />
             )}
           </>
         </Layout_HorizontalView>

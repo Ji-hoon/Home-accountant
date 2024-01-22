@@ -64,9 +64,11 @@ export const PATH = {
   MAIN_EXPENSES: "/main/expenses",
   MAIN_ASSETS: "/main/assets",
   MAIN_GROUP: "/main/group",
-  MAIN_EXPENSES_FILTER_BY_MONTH: "/main/expenses/filter/month",
-  MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/filter/member",
-  MAIN_EXPENSES_FILTER_BY_WEEK: "/main/expenses/filter/week",
+  MAIN_EXPENSES_FILTER_BY_WEEK: "/main/expenses/week",
+  MAIN_EXPENSES_FILTER_BY_MONTH: "/main/expenses/month",
+  MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/member",
+  MAIN_ASSETS_FILTER_BY_PERIOD: "/main/assets/annual",
+  MAIN_ASSETS_FILTER_BY_MEMBER: "/main/assets/member",
 } as const;
 
 export const TYPES = {
@@ -91,6 +93,8 @@ export const LABELS = {
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
+  NAVIGATION_MENU_ASSETS_BY_PERIOD: "기간별 자산 조회",
+  NAVIGATION_MENU_ASSETS_BY_MEMBER: "멤버별 자산 조회",
   HEADER_MENU_EXPENSES: "지출 내역",
   HEADER_MENU_ASSETS: "자산 조회",
   HEADER_MENU_GROUP_MGMT: "그룹 관리",
