@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { COLORS, SIZES } from "../../global/constants";
 import { InputFormType, dialogLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
+import { format } from "date-fns";
+import Calendar from "../util/Calendar";
+
+import { DayClickEventHandler } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { useState } from "react";
 
 export default function Textfield({
   title,
@@ -11,12 +17,21 @@ export default function Textfield({
   defaultValue,
   options,
 }: dialogLayoutType) {
+  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const { register } = useForm<InputFormType>();
+
+  const handleDayClick: DayClickEventHandler = (day) => {
+    setSelectedDay(day);
+    setCalendarOpen(!calendarOpen);
+  };
+
   //console.log(fieldName, watch(fieldName));
+
   return (
     <TextFieldLayout>
       <label>{title}</label>
-      {type !== "selectbox" && (
+      {(type === "text" || type === "number") && (
         <input
           {...register(fieldName, { required: true })}
           name={fieldName}
@@ -44,6 +59,22 @@ export default function Textfield({
             ))}
         </select>
       )}
+      {type === "date" && (
+        <input
+          {...register(fieldName, { required: true })}
+          name={fieldName}
+          type={type}
+          readOnly={true}
+          placeholder={placeholder}
+          value={format(selectedDay, "yyyy-MM-dd")}
+          onClick={() => setCalendarOpen(!calendarOpen)}
+        />
+      )}
+      {type === "date" && calendarOpen && (
+        <div className="calendar-container">
+          <Calendar $currentDate={selectedDay} $clickHandler={handleDayClick} />
+        </div>
+      )}
       {/* {errors.fieldName && <span>This field is required</span>} */}
     </TextFieldLayout>
   );
@@ -54,6 +85,7 @@ const TextFieldLayout = styled.div`
   flex-direction: column;
   gap: ${SIZES.SM / 2}px;
   text-align: left;
+  position: static;
 
   & label {
     font-weight: bold;
@@ -85,6 +117,19 @@ const TextFieldLayout = styled.div`
 
     &:focus {
       box-shadow: 10px 0 0 0 ${COLORS.GRAY_01_OVERAY};
+    }
+  }
+
+  & .calendar-container {
+    position: absolute;
+    margin: 0 !important;
+    top: ${SIZES.XXS / 3}px;
+    left: ${SIZES.XL}px;
+    z-index: 1;
+
+    @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+      position: absolute;
+      top: 160px;
     }
   }
 `;

@@ -101,6 +101,7 @@ const ModalContainer = styled.div`
   margin: 0 auto;
   text-align: center;
   overflow: hidden;
+  overflow-y: auto;
 `;
 
 const BackdropModal = styled.div`
@@ -119,14 +120,13 @@ const ModalLayoutContainer = styled.form`
   background-color: ${COLORS.BASIC_WHITE};
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_02_OVERAY};
   max-width: ${SIZES.MAX_WIDTH * 0.65}px;
-  max-height: calc(100% - 120px);
+  // max-height: calc(100% - 120px);
   border-radius: 12px;
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 
   & .modal-header {
     display: flex;
@@ -137,6 +137,7 @@ const ModalLayoutContainer = styled.form`
     position: sticky;
     top: 0;
     z-index: 1;
+    border-radius: inherit;
 
     & h3 {
       margin: 0;
@@ -165,5 +166,9 @@ const ModalLayoutContainer = styled.form`
     & .submit {
       background-color: ${COLORS.BRAND_LIGHT};
     }
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    width: 80vw;
   }
 `;

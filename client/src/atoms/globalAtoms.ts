@@ -31,3 +31,8 @@ export const dateUnitAtom = atom({
   key: "dateUnit",
   default: "WEEK",
 });
+
+export const calendarOpenAtom = atom({
+  key: "calendarOpen",
+  default: false,
+});

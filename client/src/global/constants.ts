@@ -41,6 +41,8 @@ export const SIZES = {
   XXL: 36,
   TITLE: 42,
   MAX_WIDTH: 1200,
+  MEDIA_QUERY_BP_X_LARGE: 900,
+  MEDIA_QUERY_BP_LARGE: 740,
 } as const;
 
 export const URLS = {

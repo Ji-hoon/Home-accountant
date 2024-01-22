@@ -37,7 +37,7 @@ export default function FeatureSection() {
 }
 
 const FeatureSectionContainer = styled.section`
-  max-width: 900px;
+  max-width: ${SIZES.MEDIA_QUERY_BP_X_LARGE}px;
   width: calc(100% - 80px);
   padding: ${SIZES.LG}px;
   display: flex;

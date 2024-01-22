@@ -5,7 +5,9 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { useHandleDate } from "../hooks/useHandleDate";
-import { addDays, startOfWeek, format } from "date-fns";
+import { addDays, startOfWeek, format, isSameMonth } from "date-fns";
+import Button_Boxtype from "../basic/Button.boxType";
+import Calendar from "../util/Calendar";
 
 export default function ListHeader({
   $currentDate,
@@ -19,7 +21,15 @@ export default function ListHeader({
   $owner: string;
 }) {
   //console.log("header: ", $currentDate);
-  const { addMonth, subMonth, addWeek, subWeek } = useHandleDate();
+  const {
+    addMonth,
+    subMonth,
+    addWeek,
+    subWeek,
+    calendarOpen,
+    setCalendarOpen,
+    handleDayClick,
+  } = useHandleDate();
   const { pages } = useExpenses({
     owner: $owner,
     currentDate: $currentDate,
@@ -40,11 +50,13 @@ export default function ListHeader({
         >
           <FiChevronLeft strokeWidth="3" />
         </Button_Icontype>
-        <div>
-          {$unit === "WEEK" &&
-            `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `M월 d일`)}`}
-          {$unit !== "WEEK" && format($currentDate, "yyyy년 M월")}
-        </div>
+        <Button_Boxtype onClick={() => setCalendarOpen(!calendarOpen)}>
+          <>
+            {$unit === "WEEK" &&
+              `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
+            {$unit !== "WEEK" && format($currentDate, "yyyy년 M월")}
+          </>
+        </Button_Boxtype>
         <Button_Icontype
           onClick={() => {
             $unit === "WEEK" ? addWeek() : addMonth();
@@ -54,6 +66,14 @@ export default function ListHeader({
         </Button_Icontype>
       </div>
       <div className="header-value-container">{amounts.toLocaleString()}원</div>
+      {calendarOpen && (
+        <div className="header-calendar-container">
+          <Calendar
+            $currentDate={$currentDate}
+            $clickHandler={handleDayClick}
+          />
+        </div>
+      )}
     </ListHeaderContainer>
   );
 }
@@ -77,12 +97,20 @@ const ListHeaderContainer = styled.div<{
 
   & .header-navigation-container {
     display: flex;
-    gap: ${SIZES.XS / 2}px;
+    gap: ${SIZES.XXS / 4}px;
     align-items: center;
     margin-left: -${SIZES.XS / 2}px;
 
     & button {
       padding: ${SIZES.LG / 2}px;
+      font-size: inherit;
+
+      &:not(:hover):not(:active) {
+        background-color: transparent;
+      }
+
+      &:hover {
+      }
     }
   }
 
@@ -93,5 +121,11 @@ const ListHeaderContainer = styled.div<{
       content: ${(props) =>
         props.$type === "EXPENSES" && props.$data !== 0 ? '"-"' : '""'};
     }
+  }
+
+  & .header-calendar-container {
+    position: absolute;
+    top: ${SIZES.XXL * 2 + 4}px;
+    left: 0;
   }
 `;

@@ -3,7 +3,7 @@ export const CreateExpenseLayout = [
     title: "지출 금액 (원)",
     fieldName: "amounts",
     type: "number",
-    placeholder: "지출 금액을 입력해주세요.",
+    placeholder: "숫자만 입력해주세요.",
   },
   {
     title: "카테고리",
@@ -28,9 +28,9 @@ export const CreateExpenseLayout = [
     options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
   },
   {
-    title: "지출 날짜 (YYYY-MM-DD)",
+    title: "지출 날짜",
     fieldName: "date",
-    type: "text",
+    type: "date",
     placeholder: "지출 날짜를 입력해주세요.",
   },
   {
@@ -39,6 +39,6 @@ export const CreateExpenseLayout = [
     type: "selectbox",
     placeholder: "",
     defaultValue: "일시불",
-    options: ["일시불", "정기 결제"],
+    options: ["일시불", "할부", "정기 결제"],
   },
 ];
