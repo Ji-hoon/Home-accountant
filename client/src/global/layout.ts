@@ -64,4 +64,12 @@ export const CreateAssetLayout = [
     defaultValue: "",
     options: ["현금", "주식", "비트코인", "부동산"],
   },
+  {
+    title: "멤버",
+    fieldName: "owner",
+    type: "selectbox",
+    placeholder: "멤버를 선택해주세요..",
+    defaultValue: "",
+    options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
+  },
 ];
