@@ -106,7 +106,7 @@ const ListHeaderContainer = styled.div<{
   top: 80px;
   align-items: center;
 
-  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.XS}px;
+  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.XS}px ${SIZES.XXS}px;
   background-color: ${COLORS.BASIC_WHITE};
 
   font-size: ${SIZES.XL}px;
@@ -133,7 +133,8 @@ const ListHeaderContainer = styled.div<{
   }
 
   & .header-value-container {
-    color: ${COLORS.BRAND_DEEP};
+    color: ${(props) =>
+      props.$type === "EXPENSES" ? COLORS.VARIATION_RED : COLORS.BRAND_DEEP};
 
     &:before {
       content: ${(props) => (props.$type === "EXPENSES" ? '"-"' : '""')};
