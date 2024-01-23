@@ -62,9 +62,7 @@ export default function Dialog() {
               </section>
 
               <section className="modal-contents">
-                {item.type === "MODAL_DOUBLE_COLUMN" && (
-                  <DoubleColumnLayout layout={item.layout} />
-                )}
+                <DoubleColumnLayout type={item.type} layout={item.layout} />
               </section>
               <section className="modal-actions">
                 <Button_Boxtype

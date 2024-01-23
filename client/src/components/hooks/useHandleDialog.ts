@@ -64,6 +64,10 @@ export function useHandleDialog() {
       });
       if (result) return result;
     }
+
+    if (action === LABELS.LABEL_ADD_ASSET) {
+      //TODO: useAssets 커스텀 훅 작성 후 addAsset 메소드 사용하도록 추가
+    }
   }
 
   function getDialogFormData(dialogForm: HTMLFormElement) {

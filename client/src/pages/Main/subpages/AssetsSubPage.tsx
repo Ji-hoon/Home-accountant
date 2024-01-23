@@ -2,14 +2,15 @@ import { NavLink } from "react-router-dom";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import Navigation_ListType from "../../../components/basic/Navigation.listType";
 import ListHeader from "../../../components/compound/ListHeader";
-import { LABELS, PATH, TYPES, URLS } from "../../../global/constants";
+import { LABELS, PATH, TYPES } from "../../../global/constants";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 import { dialogLayoutType } from "../../../global/customType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
-import { CreateExpenseLayout } from "../../../global/layout";
+import { CreateAssetLayout } from "../../../global/layout";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
+import Banner from "../../../components/banner/Banner";
 
 export default function Assets_SubPage() {
   const { showDialog } = useHandleDialog();
@@ -27,14 +28,14 @@ export default function Assets_SubPage() {
       <div className="aside-navigation-container">
         <Navigation_ListType>
           <>
-            <NavLink to={PATH.MAIN_ASSETS_BY_PERIOD}>
+            <NavLink to={PATH.MAIN_ASSETS_BY_MONTH}>
               <Button_Boxtype>
-                {LABELS.NAVIGATION_MENU_ASSETS_BY_PERIOD}
+                {LABELS.NAVIGATION_MENU_ASSETS_BY_MONTH}
               </Button_Boxtype>
             </NavLink>
-            <NavLink to={PATH.MAIN_ASSETS_BY_MEMBER}>
+            <NavLink to={PATH.MAIN_ASSETS_BY_YEAR}>
               <Button_Boxtype>
-                {LABELS.NAVIGATION_MENU_ASSETS_BY_MEMBER}
+                {LABELS.NAVIGATION_MENU_ASSETS_BY_YEAR}
               </Button_Boxtype>
             </NavLink>
             {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_BY_MEMBER}>
@@ -55,16 +56,16 @@ export default function Assets_SubPage() {
         <Button_Floatingtype
           onClick={() =>
             showDialog({
-              type: TYPES.MODAL_DOUBLE_COL,
-              title: LABELS.LABEL_ADD_EXPENSE,
-              layout: CreateExpenseLayout as dialogLayoutType[],
+              type: TYPES.MODAL_SINGLE_COL,
+              title: LABELS.LABEL_ADD_ASSET,
+              layout: CreateAssetLayout as dialogLayoutType[],
             })
           }
         />
         <>자산 내역 목록</>
       </div>
       <div className="advertise-container">
-        <img src={URLS.AD_MOCK_IMAGE} />
+        <Banner />
       </div>
     </>
   );

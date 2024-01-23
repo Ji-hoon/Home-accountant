@@ -42,11 +42,11 @@ const router = createBrowserRouter([
         element: <MainPage />,
         children: [
           {
-            path: PATH.MAIN_ASSETS_BY_PERIOD,
+            path: PATH.MAIN_ASSETS_BY_MONTH,
             element: <MainPage />,
           },
           {
-            path: PATH.MAIN_ASSETS_BY_MEMBER,
+            path: PATH.MAIN_ASSETS_BY_YEAR,
             element: <MainPage />,
           },
         ],

@@ -16,7 +16,7 @@ export default function MainPage() {
         <Navigate to={PATH.MAIN_EXPENSES_BY_WEEK} />
       )}
       {location.pathname == PATH.MAIN_ASSETS && (
-        <Navigate to={PATH.MAIN_ASSETS_BY_PERIOD} />
+        <Navigate to={PATH.MAIN_ASSETS_BY_MONTH} />
       )}
       {isLogin && (
         <Layout_HorizontalView>
@@ -30,10 +30,10 @@ export default function MainPage() {
             {location.pathname === PATH.MAIN_EXPENSES_BY_MEMBER && (
               <Expenses_SubPage />
             )}
-            {location.pathname === PATH.MAIN_ASSETS_BY_PERIOD && (
+            {location.pathname === PATH.MAIN_ASSETS_BY_MONTH && (
               <Assets_SubPage />
             )}
-            {location.pathname === PATH.MAIN_ASSETS_BY_MEMBER && (
+            {location.pathname === PATH.MAIN_ASSETS_BY_YEAR && (
               <Assets_SubPage />
             )}
           </>
