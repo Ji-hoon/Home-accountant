@@ -5,11 +5,13 @@ import { dialogLayoutType } from "../../../global/customType";
 
 export default function DoubleColumnLayout({
   layout,
+  type,
 }: {
   layout: dialogLayoutType[];
+  type: string;
 }) {
   return (
-    <DoubleColumnLayoutContainer>
+    <DoubleColumnLayoutContainer type={type}>
       {layout.length > 0 &&
         layout.map((item, index) => (
           <Textfield
@@ -26,15 +28,21 @@ export default function DoubleColumnLayout({
   );
 }
 
-const DoubleColumnLayoutContainer = styled.div`
-  width: 640px;
-  min-height: 300px;
+const DoubleColumnLayoutContainer = styled.div<{
+  type: string;
+}>`
+  width: ${(props) =>
+    props.type === "MODAL_DOUBLE_COLUMN"
+      ? `${SIZES.MODAL_WIDTH_LARGE}px`
+      : `${SIZES.MODAL_WIDTH_MEDIUM}px`};
+  min-height: ${SIZES.MODAL_MIN_HEIGHT}px;
   display: flex;
   flex-wrap: wrap;
   gap: ${SIZES.XL}px;
 
   & > div {
-    width: calc(50% - 12px);
+    width: ${(props) =>
+      props.type === "MODAL_DOUBLE_COLUMN" ? "calc(50% - 12px);" : "100%"};
   }
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
     width: 100%;

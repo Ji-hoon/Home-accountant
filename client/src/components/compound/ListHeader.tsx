@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
-import { SIZES, COLORS } from "../../global/constants";
+import { SIZES, COLORS, PATH } from "../../global/constants";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
-import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { useHandleDate } from "../hooks/useHandleDate";
 import { addDays, startOfWeek, format, isSameMonth } from "date-fns";
 import Button_Boxtype from "../basic/Button.boxType";
 import Calendar from "../util/Calendar";
+import Assets_Amounts from "../../pages/Main/subpages/Assets/Assets.amounts";
+import Expenses_Amounts from "../../pages/Main/subpages/Expenses/Expenses.amounts";
+import { useLocation } from "react-router";
 
 export default function ListHeader({
   $currentDate,
@@ -30,18 +32,20 @@ export default function ListHeader({
     setCalendarOpen,
     handleDayClick,
   } = useHandleDate();
-  const { pages } = useExpenses({
-    owner: $owner,
-    currentDate: $currentDate,
-    unit: $unit,
-  });
-  const amounts = pages[0]?.amounts;
+
+  // const { pages } = useExpenses({
+  //   owner: $owner,
+  //   currentDate: $currentDate,
+  //   unit: $unit,
+  // });
+  //const amounts = pages[0]?.amounts;
+  const location = useLocation();
 
   const startDay = startOfWeek($currentDate, { weekStartsOn: 1 });
   const getEndDay = addDays(startDay, 6);
 
   return (
-    <ListHeaderContainer $type={$type} $data={amounts}>
+    <ListHeaderContainer $type={$type}>
       <div className="header-navigation-container">
         <Button_Icontype
           onClick={() => {
@@ -65,7 +69,22 @@ export default function ListHeader({
           <FiChevronRight strokeWidth="3" />
         </Button_Icontype>
       </div>
-      <div className="header-value-container">{amounts.toLocaleString()}원</div>
+      <div className="header-value-container">
+        {location.pathname.includes(PATH.MAIN_EXPENSES) && (
+          <Expenses_Amounts
+            $currentDate={$currentDate}
+            $unit={$unit}
+            $owner={$owner}
+          />
+        )}
+        {location.pathname.includes(PATH.MAIN_ASSETS) && (
+          <Assets_Amounts
+            $currentDate={$currentDate}
+            $unit={$unit}
+            $owner={$owner}
+          />
+        )}
+      </div>
       {calendarOpen && (
         <div className="header-calendar-container">
           <Calendar
@@ -80,7 +99,6 @@ export default function ListHeader({
 
 const ListHeaderContainer = styled.div<{
   $type: string;
-  $data: number;
 }>`
   display: flex;
   justify-content: space-between;
@@ -88,7 +106,7 @@ const ListHeaderContainer = styled.div<{
   top: 80px;
   align-items: center;
 
-  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.XS}px;
+  padding: ${SIZES.XS * 2}px ${SIZES.SM}px ${SIZES.XS}px ${SIZES.XXS}px;
   background-color: ${COLORS.BASIC_WHITE};
 
   font-size: ${SIZES.XL}px;
@@ -115,11 +133,11 @@ const ListHeaderContainer = styled.div<{
   }
 
   & .header-value-container {
-    color: ${COLORS.BRAND_DEEP};
+    color: ${(props) =>
+      props.$type === "EXPENSES" ? COLORS.VARIATION_RED : COLORS.BRAND_DEEP};
 
     &:before {
-      content: ${(props) =>
-        props.$type === "EXPENSES" && props.$data !== 0 ? '"-"' : '""'};
+      content: ${(props) => (props.$type === "EXPENSES" ? '"-"' : '""')};
     }
   }
 

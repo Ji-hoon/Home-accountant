@@ -1,19 +1,15 @@
-import expenseModel from "./expense.model.js";
-import { ExpenseType } from "../type/global.js";
+import assetModel from "./asset.model.js";
+import { AssetType } from "../type/global.js";
 import { ParsedQs } from "qs";
 import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
 
-const expenseService = {
-  async getExpenses({
+const assetService = {
+  async getAssets({
     owner,
-    cursor,
-    limit,
     startDate,
     endDate,
   }: {
     owner: string;
-    cursor: number;
-    limit: number;
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
@@ -22,33 +18,31 @@ const expenseService = {
 
     const target = owner ? { owner: owner } : {};
 
-    const result = await expenseModel
+    const result = await assetModel
       .find(
         {
           ...target,
           date: {
+            //TODO: assetHistory date를 조회해야 함
             $gte: startDateFormat,
             $lte: endDateFormat,
           },
         },
         {
           amounts: 1,
-          businessName: 1,
-          date: 1,
-          category: 1,
+          name: 1,
+          assetType: 1,
           owner: 1,
-          isRecurring: 1,
+          assetHistory: 1,
           _id: 1,
         },
       )
-      .skip(cursor)
-      .limit(limit)
-      .sort({ date: -1 });
+      .sort({ date: -1 }); //TODO: 이것도 history안에 date 기준으로..
 
     return result;
   },
 
-  async getExpensesByOption({
+  async getAssetsByOption({
     //TODO: 추후 owner가 아닌 group으로도 조회 가능하게 변경
     owner,
     startDate,
@@ -76,7 +70,7 @@ const expenseService = {
           },
         };
 
-    return await expenseModel.aggregate([
+    return await assetModel.aggregate([
       {
         $match: target,
       },
@@ -89,24 +83,16 @@ const expenseService = {
     ]);
   },
 
-  async addExpense({
-    amounts,
-    businessName,
-    date,
-    category,
-    owner,
-    isRecurring,
-  }: ExpenseType) {
-    const newExpense = {
+  async addAsset({ amounts, name, assetType, owner, assetHistory }: AssetType) {
+    const newAsset = {
       amounts,
-      businessName,
-      date,
-      category,
+      name,
+      assetType,
       owner,
-      isRecurring,
+      assetHistory,
     };
-    return await expenseModel.create(newExpense);
+    return await assetModel.create(newAsset);
   },
 };
 
-export default expenseService;
+export default assetService;

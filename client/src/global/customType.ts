@@ -42,6 +42,17 @@ export type ExpenseType = {
   isRecurring: string;
 };
 
+export type AssetType = {
+  amounts: string;
+  name: string;
+  owner: string;
+  assetType: string;
+  assetHistory: {
+    date: string;
+    amounts: number;
+  };
+};
+
 export type loginUserType = {
   result: {
     id: string;

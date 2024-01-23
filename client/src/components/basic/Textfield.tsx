@@ -123,7 +123,7 @@ const TextFieldLayout = styled.div`
   & .calendar-container {
     position: absolute;
     margin: 0 !important;
-    top: ${SIZES.XXS / 3}px;
+    top: -${SIZES.SM / 2}px;
     left: ${SIZES.XL}px;
     z-index: 1;
 

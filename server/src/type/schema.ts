@@ -17,3 +17,15 @@ export type expenseSchemaType = {
   owner: string; //TODO: Types.ObjectId 로 변경
   isRecurring: string;
 };
+
+export type assetSchemaType = {
+  _id: Types.ObjectId;
+  amounts: number;
+  name: string;
+  assetType: string; //TODO: Types.ObjectId로 변경 필요
+  owner: string; //TODO: Types.ObjectId 로 변경 필요
+  assetHistory: Array<{
+    date: Date;
+    amounts: number;
+  }>;
+};

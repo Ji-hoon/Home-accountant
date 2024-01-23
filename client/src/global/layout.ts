@@ -42,3 +42,34 @@ export const CreateExpenseLayout = [
     options: ["일시불", "할부", "정기 결제"],
   },
 ];
+
+export const CreateAssetLayout = [
+  {
+    title: "자산 금액 (원)",
+    fieldName: "amounts",
+    type: "number",
+    placeholder: "숫자만 입력해주세요.",
+  },
+  {
+    title: "자산 이름",
+    fieldName: "name",
+    type: "text",
+    placeholder: "자산 이름을 입력해주세요.",
+  },
+  {
+    title: "자산 타입",
+    fieldName: "assetType",
+    type: "selectbox",
+    placeholder: "자산 타입을 선택해주세요..",
+    defaultValue: "",
+    options: ["현금", "주식", "비트코인", "부동산"],
+  },
+  {
+    title: "멤버",
+    fieldName: "owner",
+    type: "selectbox",
+    placeholder: "멤버를 선택해주세요..",
+    defaultValue: "",
+    options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
+  },
+];

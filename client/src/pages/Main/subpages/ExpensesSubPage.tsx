@@ -2,7 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import Navigation_ListType from "../../../components/basic/Navigation.listType";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 
-import { LABELS, PATH, TYPES, URLS } from "../../../global/constants";
+import { LABELS, PATH, TYPES } from "../../../global/constants";
 import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
+import Banner from "../../../components/banner/Banner";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -24,13 +25,13 @@ export default function Expenses_SubPage() {
   //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
-    if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MEMBER) {
+    if (location.pathname === PATH.MAIN_EXPENSES_BY_MEMBER) {
       setCurrentOwner("밀크티");
       setDateUnit("MONTH");
-    } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_MONTH) {
+    } else if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) {
       setCurrentOwner("");
       setDateUnit("MONTH");
-    } else if (location.pathname === PATH.MAIN_EXPENSES_FILTER_BY_WEEK) {
+    } else if (location.pathname === PATH.MAIN_EXPENSES_BY_WEEK) {
       setCurrentOwner("");
       setDateUnit("WEEK");
     }
@@ -44,17 +45,17 @@ export default function Expenses_SubPage() {
       <div className="aside-navigation-container">
         <Navigation_ListType>
           <>
-            <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_WEEK}>
+            <NavLink to={PATH.MAIN_EXPENSES_BY_WEEK}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_WEEK}
               </Button_Boxtype>
             </NavLink>
-            <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MONTH}>
+            <NavLink to={PATH.MAIN_EXPENSES_BY_MONTH}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MONTH}
               </Button_Boxtype>
             </NavLink>
-            {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MEMBER}>
+            {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_BY_MEMBER}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
               </Button_Boxtype>
@@ -85,7 +86,7 @@ export default function Expenses_SubPage() {
         />
       </div>
       <div className="advertise-container">
-        <img src={URLS.AD_MOCK_IMAGE} />
+        <Banner />
       </div>
     </>
   );

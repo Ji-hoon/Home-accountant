@@ -7,7 +7,8 @@ import {
 import { ExpenseType, dialogLayoutType } from "../../global/customType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
-import { parse } from "date-fns";
+import { format, parse } from "date-fns";
+import { useAssets } from "../../pages/Main/subpages/Assets/Assets.hooks";
 
 export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -19,6 +20,7 @@ export function useHandleDialog() {
     currentDate,
     unit: dateUnit,
   });
+  const { addAsset } = useAssets();
 
   function showDialog({
     type,
@@ -61,6 +63,21 @@ export function useHandleDialog() {
         owner: data.owner,
         date: parse(data.date, "yyyy-MM-dd", new Date()),
         isRecurring: data.isRecurring,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_ADD_ASSET) {
+      //TODO: useAssets 커스텀 훅 작성 후 addAsset 메소드 사용하도록 추가
+      const result = await addAsset({
+        amounts: data.amounts,
+        name: data.name,
+        owner: data.owner,
+        assetType: data.assetType,
+        assetHistory: {
+          date: format(currentDate, "yyyy-MM-dd"),
+          amounts: data.amounts,
+        },
       });
       if (result) return result;
     }
