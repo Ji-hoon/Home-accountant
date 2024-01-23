@@ -64,11 +64,11 @@ export const PATH = {
   MAIN_EXPENSES: "/main/expenses",
   MAIN_ASSETS: "/main/assets",
   MAIN_GROUP: "/main/group",
-  MAIN_EXPENSES_FILTER_BY_WEEK: "/main/expenses/week",
-  MAIN_EXPENSES_FILTER_BY_MONTH: "/main/expenses/month",
-  MAIN_EXPENSES_FILTER_BY_MEMBER: "/main/expenses/member",
-  MAIN_ASSETS_FILTER_BY_PERIOD: "/main/assets/annual",
-  MAIN_ASSETS_FILTER_BY_MEMBER: "/main/assets/member",
+  MAIN_EXPENSES_BY_WEEK: "/main/expenses/weekly",
+  MAIN_EXPENSES_BY_MONTH: "/main/expenses/monthly",
+  MAIN_EXPENSES_BY_MEMBER: "/main/expenses/member",
+  MAIN_ASSETS_BY_PERIOD: "/main/assets/annualy",
+  MAIN_ASSETS_BY_MEMBER: "/main/assets/member",
 } as const;
 
 export const TYPES = {

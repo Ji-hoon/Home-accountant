@@ -24,15 +24,15 @@ const router = createBrowserRouter([
         element: <MainPage />,
         children: [
           {
-            path: PATH.MAIN_EXPENSES_FILTER_BY_WEEK,
+            path: PATH.MAIN_EXPENSES_BY_WEEK,
             element: <MainPage />,
           },
           {
-            path: PATH.MAIN_EXPENSES_FILTER_BY_MONTH,
+            path: PATH.MAIN_EXPENSES_BY_MONTH,
             element: <MainPage />,
           },
           {
-            path: PATH.MAIN_EXPENSES_FILTER_BY_MEMBER,
+            path: PATH.MAIN_EXPENSES_BY_MEMBER,
             element: <MainPage />,
           },
         ],
@@ -42,11 +42,11 @@ const router = createBrowserRouter([
         element: <MainPage />,
         children: [
           {
-            path: PATH.MAIN_ASSETS_FILTER_BY_PERIOD,
+            path: PATH.MAIN_ASSETS_BY_PERIOD,
             element: <MainPage />,
           },
           {
-            path: PATH.MAIN_ASSETS_FILTER_BY_MEMBER,
+            path: PATH.MAIN_ASSETS_BY_MEMBER,
             element: <MainPage />,
           },
         ],

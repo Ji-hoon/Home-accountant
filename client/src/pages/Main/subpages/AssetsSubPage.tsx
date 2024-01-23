@@ -27,17 +27,17 @@ export default function Assets_SubPage() {
       <div className="aside-navigation-container">
         <Navigation_ListType>
           <>
-            <NavLink to={PATH.MAIN_ASSETS_FILTER_BY_PERIOD}>
+            <NavLink to={PATH.MAIN_ASSETS_BY_PERIOD}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_ASSETS_BY_PERIOD}
               </Button_Boxtype>
             </NavLink>
-            <NavLink to={PATH.MAIN_ASSETS_FILTER_BY_MEMBER}>
+            <NavLink to={PATH.MAIN_ASSETS_BY_MEMBER}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_ASSETS_BY_MEMBER}
               </Button_Boxtype>
             </NavLink>
-            {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_FILTER_BY_MEMBER}>
+            {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_BY_MEMBER}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}
               </Button_Boxtype>
