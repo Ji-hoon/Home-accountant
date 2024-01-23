@@ -53,6 +53,7 @@ const HorizontalViewContainer = styled.section`
 
     & img {
       width: 160px;
+      border-radius: 5px;
       border: 1px solid ${COLORS.GRAY_01};
       position: sticky;
       top: 100px;

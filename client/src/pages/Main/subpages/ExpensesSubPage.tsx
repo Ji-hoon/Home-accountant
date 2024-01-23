@@ -2,7 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import Navigation_ListType from "../../../components/basic/Navigation.listType";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
 
-import { LABELS, PATH, TYPES, URLS } from "../../../global/constants";
+import { LABELS, PATH, TYPES } from "../../../global/constants";
 import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
+import Banner from "../../../components/banner/Banner";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -85,7 +86,7 @@ export default function Expenses_SubPage() {
         />
       </div>
       <div className="advertise-container">
-        <img src={URLS.AD_MOCK_IMAGE} />
+        <Banner />
       </div>
     </>
   );
