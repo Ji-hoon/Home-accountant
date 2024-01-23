@@ -1,29 +1,20 @@
 import assetModel from "./asset.model.js";
 import { AssetType } from "../type/global.js";
 import { ParsedQs } from "qs";
-import { parse } from "date-fns";
+import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
 
 const assetService = {
   async getAssets({
     owner,
-    cursor,
-    limit,
     startDate,
     endDate,
   }: {
     owner: string;
-    cursor: number;
-    limit: number;
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
-    const startDateFormat = parse(
-      startDate as string,
-      "yyyy-MM-dd",
-      new Date(),
-    );
-
-    const endDateFormat = parse(endDate as string, "yyyy-MM-dd", new Date());
+    const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
+    const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
     const target = owner ? { owner: owner } : {};
 
@@ -32,7 +23,7 @@ const assetService = {
         {
           ...target,
           date: {
-            //TODO: history안에 date를 조회해야 함
+            //TODO: assetHistory date를 조회해야 함
             $gte: startDateFormat,
             $lte: endDateFormat,
           },
@@ -42,12 +33,10 @@ const assetService = {
           name: 1,
           assetType: 1,
           owner: 1,
-          history: 1,
+          assetHistory: 1,
           _id: 1,
         },
       )
-      .skip(cursor)
-      .limit(limit)
       .sort({ date: -1 }); //TODO: 이것도 history안에 date 기준으로..
 
     return result;
@@ -63,13 +52,8 @@ const assetService = {
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
-    const startDateFormat = parse(
-      startDate as string,
-      "yyyy-MM-dd",
-      new Date(),
-    );
-
-    const endDateFormat = parse(endDate as string, "yyyy-MM-dd", new Date());
+    const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
+    const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
     const target = owner
       ? {
@@ -99,13 +83,13 @@ const assetService = {
     ]);
   },
 
-  async addAsset({ amounts, name, assetType, owner, history }: AssetType) {
+  async addAsset({ amounts, name, assetType, owner, assetHistory }: AssetType) {
     const newAsset = {
       amounts,
       name,
       assetType,
       owner,
-      history,
+      assetHistory,
     };
     return await assetModel.create(newAsset);
   },

@@ -1,7 +1,7 @@
 import expenseModel from "./expense.model.js";
 import { ExpenseType } from "../type/global.js";
 import { ParsedQs } from "qs";
-import { parse } from "date-fns";
+import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
 
 const expenseService = {
   async getExpenses({
@@ -17,12 +17,8 @@ const expenseService = {
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
-    const startDateFormat = parse(
-      startDate as string,
-      "yyyy-MM-dd",
-      new Date(),
-    );
-    const endDateFormat = parse(endDate as string, "yyyy-MM-dd", new Date());
+    const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
+    const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
     const target = owner ? { owner: owner } : {};
 
@@ -62,12 +58,8 @@ const expenseService = {
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
-    const startDateFormat = parse(
-      startDate as string,
-      "yyyy-MM-dd",
-      new Date(),
-    );
-    const endDateFormat = parse(endDate as string, "yyyy-MM-dd", new Date());
+    const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
+    const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
     const target = owner
       ? {
