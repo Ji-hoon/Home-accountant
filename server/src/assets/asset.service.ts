@@ -55,7 +55,6 @@ const assetService = {
     const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
     const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
-    console.log(startDateFormat, endDateFormat);
     const target = owner
       ? {
           owner: owner,
@@ -82,13 +81,7 @@ const assetService = {
           _id: null,
           totalAmounts: { $sum: "$assetHistory.amounts" },
           lastAmounts: { $last: "$assetHistory.amounts" },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          totalAmounts: 1,
-          lastAmounts: 1,
+          lastDate: { $first: "$assetHistory.date" },
         },
       },
     ]);
