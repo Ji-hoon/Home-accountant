@@ -37,7 +37,7 @@ const expenseAPI = {
     owner: string;
     cursor: number;
     limit: number;
-    period: Array<Date>;
+    period: Array<Date | undefined> | undefined;
   }) {
     const url = `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
     const response = await axiosInstance.get(url);

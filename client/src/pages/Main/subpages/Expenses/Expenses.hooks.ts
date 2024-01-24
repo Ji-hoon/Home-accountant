@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { ExpenseType } from "../../../../global/customType";
 import { useIntersectionObserver } from "../../../../components/hooks/useIntersectionObserver";
 import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
+import { TYPES } from "../../../../global/constants";
 
 export function useExpenses({
   owner,
@@ -18,10 +19,10 @@ export function useExpenses({
   let startDate;
   let endDate;
 
-  if (unit === "WEEK") {
+  if (unit === TYPES.TYPE_UNIT_WEEK) {
     startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
     endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
-  } else {
+  } else if (unit === TYPES.TYPE_UNIT_MONTH) {
     startDate = startOfMonth(currentDate);
     endDate = endOfMonth(currentDate);
   }
@@ -32,7 +33,7 @@ export function useExpenses({
   const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
 
   const results = useSuspenseInfiniteQuery({
-    queryKey: [queryKeys.amounts],
+    queryKey: [queryKeys.expense],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
         expenseAPI.totalAmounts({ owner, period }),

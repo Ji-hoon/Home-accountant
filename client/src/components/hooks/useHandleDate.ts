@@ -1,4 +1,11 @@
-import { addMonths, addWeeks, subMonths, subWeeks } from "date-fns";
+import {
+  addMonths,
+  addWeeks,
+  addYears,
+  subMonths,
+  subWeeks,
+  subYears,
+} from "date-fns";
 import { calendarOpenAtom, currentDateAtom } from "../../atoms/globalAtoms";
 import { useRecoilState } from "recoil";
 import { DayClickEventHandler } from "react-day-picker";
@@ -6,6 +13,16 @@ import { DayClickEventHandler } from "react-day-picker";
 export function useHandleDate() {
   const [currentDate, setCurrentDate] = useRecoilState(currentDateAtom);
   const [calendarOpen, setCalendarOpen] = useRecoilState(calendarOpenAtom);
+
+  function addYear() {
+    const newDate = addYears(currentDate, 1);
+    setCurrentDate(newDate);
+  }
+
+  function subYear() {
+    const newDate = subYears(currentDate, 1);
+    setCurrentDate(newDate);
+  }
 
   function addMonth() {
     const newDate = addMonths(currentDate, 1);
@@ -29,6 +46,8 @@ export function useHandleDate() {
     setCalendarOpen(!calendarOpen);
   };
   return {
+    addYear,
+    subYear,
     addMonth,
     subMonth,
     addWeek,

@@ -84,6 +84,9 @@ export const TYPES = {
   POPUP: "POPUP",
   EXPENSES: "EXPENSES",
   ASSETS: "ASSETS",
+  TYPE_UNIT_WEEK: "WEEK",
+  TYPE_UNIT_MONTH: "MONTH",
+  TYPE_UNIT_YEAR: "YEAR",
 } as const;
 
 export const LABELS = {

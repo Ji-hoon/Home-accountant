@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { SIZES, COLORS, PATH } from "../../global/constants";
+import { SIZES, COLORS, PATH, TYPES } from "../../global/constants";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
 import { useHandleDate } from "../hooks/useHandleDate";
@@ -24,6 +24,8 @@ export default function ListHeader({
 }) {
   //console.log("header: ", $currentDate);
   const {
+    addYear,
+    subYear,
     addMonth,
     subMonth,
     addWeek,
@@ -33,12 +35,6 @@ export default function ListHeader({
     handleDayClick,
   } = useHandleDate();
 
-  // const { pages } = useExpenses({
-  //   owner: $owner,
-  //   currentDate: $currentDate,
-  //   unit: $unit,
-  // });
-  //const amounts = pages[0]?.amounts;
   const location = useLocation();
 
   const startDay = startOfWeek($currentDate, { weekStartsOn: 1 });
@@ -49,21 +45,27 @@ export default function ListHeader({
       <div className="header-navigation-container">
         <Button_Icontype
           onClick={() => {
-            $unit === "WEEK" ? subWeek() : subMonth();
+            if ($unit === TYPES.TYPE_UNIT_MONTH) subMonth();
+            else if ($unit === TYPES.TYPE_UNIT_WEEK) subWeek();
+            else if ($unit === TYPES.TYPE_UNIT_YEAR) subYear();
           }}
         >
           <FiChevronLeft strokeWidth="3" />
         </Button_Icontype>
         <Button_Boxtype onClick={() => setCalendarOpen(!calendarOpen)}>
           <>
-            {$unit === "WEEK" &&
+            {$unit === TYPES.TYPE_UNIT_WEEK &&
               `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
-            {$unit !== "WEEK" && format($currentDate, "yyyy년 M월")}
+            {$unit === TYPES.TYPE_UNIT_MONTH &&
+              format($currentDate, "yyyy년 M월")}
+            {$unit === TYPES.TYPE_UNIT_YEAR && format($currentDate, "yyyy년")}
           </>
         </Button_Boxtype>
         <Button_Icontype
           onClick={() => {
-            $unit === "WEEK" ? addWeek() : addMonth();
+            if ($unit === TYPES.TYPE_UNIT_MONTH) addMonth();
+            else if ($unit === TYPES.TYPE_UNIT_WEEK) addWeek();
+            else if ($unit === TYPES.TYPE_UNIT_YEAR) addYear();
           }}
         >
           <FiChevronRight strokeWidth="3" />

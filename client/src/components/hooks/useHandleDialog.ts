@@ -20,7 +20,11 @@ export function useHandleDialog() {
     currentDate,
     unit: dateUnit,
   });
-  const { addAsset } = useAssets();
+  const { addAsset } = useAssets({
+    owner: "",
+    currentDate,
+    unit: dateUnit,
+  });
 
   function showDialog({
     type,

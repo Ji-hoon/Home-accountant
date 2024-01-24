@@ -27,13 +27,13 @@ export default function Expenses_SubPage() {
   useEffect(() => {
     if (location.pathname === PATH.MAIN_EXPENSES_BY_MEMBER) {
       setCurrentOwner("밀크티");
-      setDateUnit("MONTH");
+      setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) {
       setCurrentOwner("");
-      setDateUnit("MONTH");
+      setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_WEEK) {
       setCurrentOwner("");
-      setDateUnit("WEEK");
+      setDateUnit(TYPES.TYPE_UNIT_WEEK);
     }
     //console.log(dateUnit);
 
