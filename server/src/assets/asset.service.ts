@@ -67,9 +67,28 @@ const assetService = {
         $match: target,
       },
       {
+        $unwind: "$assetHistory",
+      },
+      {
+        $match: {
+          "assetHistory.date": {
+            $gte: startDateFormat,
+            $lte: endDateFormat,
+          },
+        },
+      },
+      {
         $group: {
           _id: null,
-          totalAmounts: { $sum: "$amounts" },
+          totalAmounts: { $sum: "$assetHistory.amounts" },
+          lastAmounts: { $last: "$assetHistory.amounts" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          totalAmounts: 1,
+          lastAmounts: 1,
         },
       },
     ]);
