@@ -29,6 +29,7 @@ const FloatingtypeButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_02_OVERAY};
 

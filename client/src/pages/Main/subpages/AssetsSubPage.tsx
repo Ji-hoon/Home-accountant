@@ -11,6 +11,7 @@ import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import Banner from "../../../components/banner/Banner";
+import Chart from "./Assets/Assets.Chart";
 
 export default function Assets_SubPage() {
   const { showDialog } = useHandleDialog();
@@ -66,7 +67,7 @@ export default function Assets_SubPage() {
             })
           }
         />
-        <>자산 내역 목록</>
+        <Chart />
       </div>
       <div className="advertise-container">
         <Banner />
