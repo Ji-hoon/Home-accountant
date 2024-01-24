@@ -20,7 +20,11 @@ export function useHandleDialog() {
     currentDate,
     unit: dateUnit,
   });
-  const { addAsset } = useAssets();
+  const { addAsset } = useAssets({
+    owner: "",
+    currentDate,
+    unit: dateUnit,
+  });
 
   function showDialog({
     type,
@@ -75,7 +79,7 @@ export function useHandleDialog() {
         owner: data.owner,
         assetType: data.assetType,
         assetHistory: {
-          date: format(currentDate, "yyyy-MM-dd"),
+          date: format(new Date(), "yyyy-MM-dd"),
           amounts: data.amounts,
         },
       });

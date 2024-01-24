@@ -19,7 +19,11 @@ export default function Assets_SubPage() {
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
 
   useEffect(() => {
-    setDateUnit("MONTH");
+    if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
+      setDateUnit(TYPES.TYPE_UNIT_MONTH);
+    } else if (location.pathname === PATH.MAIN_ASSETS_BY_YEAR) {
+      setDateUnit(TYPES.TYPE_UNIT_YEAR);
+    }
     setCurrentOwner("");
   }, [setDateUnit]);
 

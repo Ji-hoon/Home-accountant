@@ -4,7 +4,8 @@ import express, { Response } from "express";
 import { AssetType } from "../type/global.js";
 import { CustomError } from "../middleware/errorHandler.js";
 import assetService from "./asset.service.js";
-import { parse } from "date-fns";
+import { format, parse } from "date-fns";
+import expenseService from "../expenses/expense.service.js";
 
 const assetController = {
   addAsset: asyncHandler(async (req: express.Request, res: Response) => {
@@ -49,6 +50,32 @@ const assetController = {
   getAsset: asyncHandler(async (req: express.Request, res: Response) => {
     const { owner, startDate, endDate } = req.query;
     res.json({ owner, startDate, endDate });
+  }),
+
+  getAssetAmounts: asyncHandler(async (req: express.Request, res: Response) => {
+    const { owner, startDate, endDate } = req.query;
+    const assets = await assetService.getAssetsByOption({
+      owner: owner as string,
+      startDate: startDate,
+      endDate: endDate,
+    });
+
+    if (assets.length === 0) {
+      res.json(0);
+      return;
+    }
+
+    const accExpenses = await expenseService.getExpensesByOption({
+      owner: owner as string,
+      startDate: format(assets[0].lastDate, "yyyy-MM-dd"),
+      endDate: endDate,
+    });
+
+    const assetTotal = assets[0].totalAmounts;
+    const expenseTotal =
+      accExpenses.length !== 0 ? accExpenses[0].totalAmounts : 0;
+
+    res.json(assetTotal - expenseTotal);
   }),
 };
 

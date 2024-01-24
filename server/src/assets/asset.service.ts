@@ -58,26 +58,30 @@ const assetService = {
     const target = owner
       ? {
           owner: owner,
-          date: {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
-          },
         }
-      : {
-          date: {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
-          },
-        };
+      : {};
 
     return await assetModel.aggregate([
       {
         $match: target,
       },
       {
+        $unwind: "$assetHistory",
+      },
+      {
+        $match: {
+          "assetHistory.date": {
+            $gte: startDateFormat,
+            $lte: endDateFormat,
+          },
+        },
+      },
+      {
         $group: {
           _id: null,
-          totalAmounts: { $sum: "$amounts" },
+          totalAmounts: { $sum: "$assetHistory.amounts" },
+          lastAmounts: { $last: "$assetHistory.amounts" },
+          lastDate: { $first: "$assetHistory.date" },
         },
       },
     ]);
