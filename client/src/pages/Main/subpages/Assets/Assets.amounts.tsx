@@ -9,7 +9,6 @@ export default function Assets_Amounts({
   $unit: string;
   $owner: string;
 }) {
-  console.log($currentDate, $unit, $owner);
   // 추후 useAssets 커스텀훅을 사용하도록 처리 필요
   const { data } = useAssets({
     owner: $owner,

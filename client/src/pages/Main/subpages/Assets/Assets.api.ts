@@ -36,7 +36,7 @@ const assetsAPI = {
   }) {
     const url = `/assets/amounts?owner=${owner}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
     const response = await axiosInstance.get(url);
-    console.log(url, response);
+    //console.log(url, response);
 
     return response.data;
   },

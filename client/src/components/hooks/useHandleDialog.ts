@@ -79,7 +79,7 @@ export function useHandleDialog() {
         owner: data.owner,
         assetType: data.assetType,
         assetHistory: {
-          date: format(currentDate, "yyyy-MM-dd"),
+          date: format(new Date(), "yyyy-MM-dd"),
           amounts: data.amounts,
         },
       });
