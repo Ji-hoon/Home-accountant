@@ -50,6 +50,22 @@ const assetController = {
     const { owner, startDate, endDate } = req.query;
     res.json({ owner, startDate, endDate });
   }),
+
+  getAssetAmounts: asyncHandler(async (req: express.Request, res: Response) => {
+    const { owner, startDate, endDate } = req.query;
+    const assets = await assetService.getAssetsByOption({
+      owner: owner as string,
+      startDate: startDate,
+      endDate: endDate,
+    });
+
+    if (assets.length === 0) {
+      res.json(0);
+      return;
+    }
+
+    res.json(assets[0].totalAmounts);
+  }),
 };
 
 export default assetController;

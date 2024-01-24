@@ -55,20 +55,12 @@ const assetService = {
     const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
     const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
+    console.log(startDateFormat, endDateFormat);
     const target = owner
       ? {
           owner: owner,
-          date: {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
-          },
         }
-      : {
-          date: {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
-          },
-        };
+      : {};
 
     return await assetModel.aggregate([
       {
