@@ -22,6 +22,7 @@ export type dialogLayoutType = {
   placeholder: string;
   defaultValue?: undefined | string;
   options?: undefined | string[];
+  readonly?: boolean;
 };
 
 export type InputFormType = {

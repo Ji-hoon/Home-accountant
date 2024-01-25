@@ -155,4 +155,17 @@ export default function Chart({
 const ChartContainer = styled.section`
   height: calc(100vh - 130px);
   width: 100%;
+
+  & svg g rect {
+    position: relative;
+    cursor: pointer;
+
+    -webkit-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+
+    &:hover {
+      -webkit-filter: brightness(0.95);
+      filter: brightness(0.95);
+    }
+  }
 `;

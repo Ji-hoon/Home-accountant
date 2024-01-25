@@ -1,5 +1,8 @@
 import { ComputedDatum } from "@nivo/bar";
-import { AssetType } from "../../../../../global/customType";
+import { AssetType, dialogLayoutType } from "../../../../../global/customType";
+import { useHandleDialog } from "../../../../../components/hooks/useHandleDialog";
+import { LABELS, TYPES } from "../../../../../global/constants";
+import { EditAssetLayout } from "../../../../../global/layout";
 
 export type ChartData = {
   [key: string]: number;
@@ -19,12 +22,23 @@ export function useChart({
     _id: string;
   })[];
 }) {
+  const { showDialog } = useHandleDialog();
+
   function handleBarClick(
     datum: ComputedDatum<ChartData> & {
       color: string;
     },
   ) {
     console.log(datum);
+    showDialog({
+      type: TYPES.MODAL_SINGLE_COL,
+      title: LABELS.LABEL_EDIT_ASSET,
+      layout: EditAssetLayout({
+        owner: datum.indexValue as string,
+        name: datum.id as string,
+        amounts: parseInt(datum.formattedValue),
+      }) as dialogLayoutType[],
+    });
   }
 
   function generateMonthlyAssetData() {

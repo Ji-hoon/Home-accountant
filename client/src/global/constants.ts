@@ -99,6 +99,7 @@ export const LABELS = {
   LABEL_CANCEL: "취소",
   LABEL_ADD_EXPENSE: "지출 내역 추가",
   LABEL_ADD_ASSET: "자산 항목 추가",
+  LABEL_EDIT_ASSET: "자산 정보 수정",
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",

@@ -62,7 +62,7 @@ export const CreateAssetLayout = [
     type: "selectbox",
     placeholder: "자산 타입을 선택해주세요..",
     defaultValue: "",
-    options: ["현금", "주식", "비트코인", "부동산"],
+    options: ["현금", "주식", "보험금", "비트코인", "부동산"],
   },
   {
     title: "멤버",
@@ -73,3 +73,50 @@ export const CreateAssetLayout = [
     options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
   },
 ];
+
+export const EditAssetLayout = ({
+  owner,
+  name,
+  amounts,
+}: {
+  owner: string;
+  name: string;
+  amounts: number;
+}) => {
+  return [
+    {
+      title: "자산 금액 (원)",
+      fieldName: "amounts",
+      type: "number",
+      placeholder: "숫자만 입력해주세요.",
+      defaultValue: amounts * 100000,
+      readonly: false,
+    },
+    {
+      title: "자산 이름",
+      fieldName: "name",
+      type: "text",
+      placeholder: "자산 이름을 입력해주세요.",
+      defaultValue: name.split(" (")[0],
+      readonly: false,
+    },
+    {
+      title: "자산 타입",
+      fieldName: "assetType",
+      type: "selectbox",
+      placeholder: "",
+      options: ["현금", "주식", "보험금", "비트코인", "부동산"],
+      defaultValue: name.split(" (")[1].replace(")", ""),
+      readonly: true,
+    },
+    {
+      title: "멤버",
+      fieldName: "owner",
+      type: "selectbox",
+      placeholder: "",
+      options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
+      defaultValue: owner,
+      readonly: true,
+    },
+  ];
+};

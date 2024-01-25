@@ -16,6 +16,7 @@ export default function Textfield({
   placeholder,
   defaultValue,
   options,
+  readonly,
 }: dialogLayoutType) {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -44,6 +45,7 @@ export default function Textfield({
         <select
           {...register(fieldName, { required: true })}
           defaultValue={placeholder !== "" ? placeholder : defaultValue}
+          disabled={readonly}
         >
           {placeholder !== "" && (
             <option disabled value={placeholder}>
@@ -108,6 +110,9 @@ const TextFieldLayout = styled.div`
 
     &:focus {
       background-color: ${COLORS.GRAY_01_OVERAY};
+    }
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 

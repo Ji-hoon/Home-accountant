@@ -40,14 +40,6 @@ export function useAssets({
 
   const { data, refetch } = results;
 
-  // const { data, refetch } = useSuspenseQuery({
-  //   queryKey: [queryKeys.assetAmounts],
-  //   queryFn: () => assetsAPI.totalAssetAmounts({
-  //     owner,
-  //     period,
-  //   }),
-  // });
-
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps

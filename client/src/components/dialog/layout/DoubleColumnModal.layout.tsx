@@ -22,6 +22,7 @@ export default function DoubleColumnLayout({
             placeholder={item.placeholder}
             defaultValue={item.defaultValue}
             options={item.options}
+            readonly={item.readonly}
           />
         ))}
     </DoubleColumnLayoutContainer>
