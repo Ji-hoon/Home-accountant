@@ -36,7 +36,7 @@ export function useChart({
       layout: EditAssetLayout({
         owner: datum.indexValue as string,
         name: datum.id as string,
-        amounts: parseInt(datum.formattedValue),
+        amounts: datum.value as number,
       }) as dialogLayoutType[],
     });
   }
