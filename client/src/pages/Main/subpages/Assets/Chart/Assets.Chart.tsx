@@ -1,12 +1,13 @@
 import { ResponsiveBar } from "@nivo/bar";
 import styled from "styled-components";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useAssets } from "../Assets.hooks.ts";
 import { ChartData, useChart } from "./Assets.Chart.hooks.ts";
 import CustomTooltip from "./Assets.Chart.customTooltip.tsx";
 import Empty from "../../../../../components/common/Empty.tsx";
 import { LABELS } from "../../../../../global/constants.ts";
 import { FiAlertTriangle } from "react-icons/fi";
+import { throttle } from "lodash";
 
 export default function Chart({
   $owner,
@@ -30,6 +31,20 @@ export default function Chart({
 
   const chartRef = useRef<HTMLDivElement | null>(null);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = throttle(() => {
+    setWindowWidth(window.innerWidth);
+  }, 500);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      // cleanup
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
   useEffect(() => {
     if (chartRef?.current) {
       const svgElements = Array.from(
@@ -39,7 +54,7 @@ export default function Chart({
         svgElements[0].setAttribute("width", "100%");
       }
     }
-  });
+  }, [windowWidth]);
 
   return (
     <>
