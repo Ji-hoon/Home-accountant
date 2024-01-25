@@ -63,7 +63,15 @@ export function useChart({
       {},
     );
 
-    const dataArray = Object.values(newAssetData);
+    const dataArray = Object.values(newAssetData).sort((a, b) => {
+      if (a.owner < b.owner) {
+        return -1;
+      }
+      if (a.owner > b.owner) {
+        return 1;
+      }
+      return 0;
+    });
 
     const keyArray: string[] = dataArray
       .map((data) => {
@@ -73,7 +81,15 @@ export function useChart({
       })
       .flat();
 
-    const uniqueKeyArray: string[] = [...new Set(keyArray)];
+    const uniqueKeyArray: string[] = [...new Set(keyArray)].sort((a, b) => {
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    });
 
     const resultArray = dataArray.length !== 0 ? dataArray : [];
     return { resultArray, uniqueKeyArray };

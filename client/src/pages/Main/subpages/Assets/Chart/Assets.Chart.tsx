@@ -160,12 +160,12 @@ const ChartContainer = styled.section`
     position: relative;
     cursor: pointer;
 
-    -webkit-transition: all 300ms ease-out;
-    transition: all 300ms ease-out;
-
     &:hover {
-      -webkit-filter: brightness(0.95);
-      filter: brightness(0.95);
+      -webkit-filter: brightness(1.05);
+      filter: brightness(1.05);
+
+      -webkit-transition: all 300ms ease-out;
+      transition: all 300ms ease-out;
     }
   }
 `;
