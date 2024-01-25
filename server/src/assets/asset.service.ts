@@ -18,26 +18,29 @@ const assetService = {
 
     const target = owner ? { owner: owner } : {};
 
-    const result = await assetModel
-      .find(
-        {
+    const result = await assetModel.aggregate([
+      { $unwind: "$assetHistory" },
+      {
+        $match: {
           ...target,
-          date: {
-            //TODO: assetHistory date를 조회해야 함
+          "assetHistory.date": {
             $gte: startDateFormat,
             $lte: endDateFormat,
           },
         },
-        {
-          amounts: 1,
-          name: 1,
-          assetType: 1,
-          owner: 1,
-          assetHistory: 1,
-          _id: 1,
+      },
+      {
+        $group: {
+          _id: "$_id",
+          amounts: { $last: "$amounts" },
+          name: { $last: "$name" },
+          assetType: { $last: "$assetType" },
+          owner: { $last: "$owner" },
+          assetHistory: { $last: "$assetHistory" },
         },
-      )
-      .sort({ date: -1 }); //TODO: 이것도 history안에 date 기준으로..
+      },
+      { $sort: { "assetHistory.date": -1 } },
+    ]);
 
     return result;
   },
