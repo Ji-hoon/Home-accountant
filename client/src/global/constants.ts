@@ -118,4 +118,5 @@ export const LABELS = {
   FEATURE_03_DESC:
     "멤버를 초대해서 함께 자산을 관리하거나 권한을 부여해서 그룹 단위로 관리해보세요.",
   MESSAGE_NO_EXPENSES: "지출 내역이 없습니다.",
+  MESSAGE_NO_ASSETS: "자산 항목이 없습니다.",
 } as const;

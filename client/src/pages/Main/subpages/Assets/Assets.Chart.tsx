@@ -1,10 +1,12 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { dataMock } from "./Chart.mock.ts";
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
 import { useAssets } from "./Assets.hooks.ts";
 import { ChartData, useChart } from "./Assets.Chart.hooks.ts";
 import CustomTooltip from "./Assets.Chart.customTooltip.tsx";
+import Empty from "../../../../components/common/Empty.tsx";
+import { LABELS } from "../../../../global/constants.ts";
+import { FiAlertTriangle } from "react-icons/fi";
 
 export default function Chart({
   $owner,
@@ -21,8 +23,10 @@ export default function Chart({
     unit: $unit,
   });
 
-  const { handleBarClick } = useChart({ assetResponse: data.assetResponse });
-  //const assetData = generateMonthlyAssetData();
+  const { handleBarClick, generateMonthlyAssetData } = useChart({
+    assetResponse: data.assetResponse,
+  });
+  const { resultArray, uniqueKeyArray } = generateMonthlyAssetData();
 
   const chartRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,82 +42,98 @@ export default function Chart({
   });
 
   return (
-    <ChartContainer ref={chartRef}>
-      <ResponsiveBar<ChartData>
-        data={dataMock}
-        keys={["현금", "주식", "부동산", "비트코인"]}
-        indexBy="owner"
-        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        padding={0.35}
-        valueScale={{ type: "linear" }}
-        indexScale={{ type: "band", round: true }}
-        colors={{ scheme: "nivo" }}
-        layout="vertical"
-        borderColor={{
-          from: "color",
-          modifiers: [["darker", 1.6]],
-        }}
-        motionConfig="gentle"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "",
-          legendPosition: "middle",
-          legendOffset: 32,
-          truncateTickAt: 0,
-        }}
-        axisLeft={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "단위(십만원)",
-          legendPosition: "middle",
-          legendOffset: -52,
-          truncateTickAt: 0,
-        }}
-        enableLabel={false}
-        labelSkipWidth={12}
-        labelSkipHeight={12}
-        labelTextColor={{
-          from: "color",
-          modifiers: [["darker", 1.6]],
-        }}
-        legends={[
-          {
-            dataFrom: "keys",
-            anchor: "top-right",
-            direction: "column",
-            justify: false,
-            translateX: 120,
-            translateY: 0,
-            itemsSpacing: 0,
-            itemWidth: 100,
-            itemHeight: 30,
-            itemDirection: "left-to-right",
-            itemOpacity: 0.85,
-            symbolSize: 20,
-            effects: [
+    <>
+      {resultArray.length > 0 && (
+        <ChartContainer ref={chartRef}>
+          <ResponsiveBar<
+            ChartData & {
+              owner: string;
+            }
+          >
+            data={resultArray as unknown as (ChartData & { owner: string })[]}
+            keys={uniqueKeyArray}
+            indexBy="owner"
+            margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+            padding={0.35}
+            valueScale={{ type: "linear" }}
+            indexScale={{ type: "band", round: true }}
+            colors={{ scheme: "nivo" }}
+            layout="vertical"
+            borderColor={{
+              from: "color",
+              modifiers: [["darker", 1.6]],
+            }}
+            motionConfig="gentle"
+            axisTop={null}
+            axisRight={null}
+            axisBottom={{
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: 0,
+              legend: "",
+              legendPosition: "middle",
+              legendOffset: 32,
+              truncateTickAt: 0,
+            }}
+            axisLeft={{
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: 0,
+              legend: "단위(십만원)",
+              legendPosition: "middle",
+              legendOffset: -52,
+              truncateTickAt: 0,
+            }}
+            enableLabel={false}
+            labelSkipWidth={12}
+            labelSkipHeight={12}
+            labelTextColor={{
+              from: "color",
+              modifiers: [["darker", 1.6]],
+            }}
+            legends={[
               {
-                on: "hover",
-                style: {
-                  itemOpacity: 1,
-                },
+                dataFrom: "keys",
+                anchor: "top-right",
+                direction: "column",
+                justify: false,
+                translateX: 140,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemWidth: 120,
+                itemHeight: 30,
+                itemDirection: "left-to-right",
+                itemOpacity: 0.85,
+                symbolSize: 20,
+                effects: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemOpacity: 1,
+                    },
+                  },
+                ],
               },
-            ],
-          },
-        ]}
-        role="application"
-        ariaLabel="자산"
-        barAriaLabel={(e) =>
-          e.id + ": " + e.formattedValue + " in country: " + e.indexValue
-        }
-        onClick={handleBarClick}
-        tooltip={CustomTooltip}
-      />
-    </ChartContainer>
+            ]}
+            role="application"
+            ariaLabel="자산"
+            barAriaLabel={(e) =>
+              e.id + ": " + e.formattedValue + " in country: " + e.indexValue
+            }
+            onClick={handleBarClick}
+            tooltip={CustomTooltip}
+          />
+        </ChartContainer>
+      )}
+      {resultArray.length === 0 && (
+        <ul>
+          <Empty
+            icon={<FiAlertTriangle />}
+            message={LABELS.MESSAGE_NO_ASSETS}
+          />
+        </ul>
+      )}
+    </>
   );
 }
 
