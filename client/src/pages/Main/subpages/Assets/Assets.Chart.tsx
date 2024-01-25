@@ -1,19 +1,10 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { ComputedDatum } from "@nivo/bar";
 import { dataMock } from "./Chart.mock.ts";
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
 import { useAssets } from "./Assets.hooks.ts";
-
-type BarData = {
-  country: string;
-  "hot dog": number;
-  burger: number;
-  sandwich: number;
-  kebab: number;
-  fries: number;
-  donut: number;
-};
+import { ChartData, useChart } from "./Assets.Chart.hooks.ts";
+import CustomTooltip from "./Assets.Chart.customTooltip.tsx";
 
 export default function Chart({
   $owner,
@@ -30,15 +21,9 @@ export default function Chart({
     unit: $unit,
   });
 
-  console.log(data.assetResponse);
+  const { handleBarClick } = useChart({ assetResponse: data.assetResponse });
+  //const assetData = generateMonthlyAssetData();
 
-  function handleBarClick(
-    datum: ComputedDatum<BarData> & {
-      color: string;
-    },
-  ) {
-    console.log(datum);
-  }
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -51,64 +36,31 @@ export default function Chart({
       }
     }
   });
-  console.log("chart");
 
   return (
     <ChartContainer ref={chartRef}>
-      <ResponsiveBar<BarData>
+      <ResponsiveBar<ChartData>
         data={dataMock}
-        keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-        indexBy="country"
+        keys={["현금", "주식", "부동산", "비트코인"]}
+        indexBy="owner"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        padding={0.3}
+        padding={0.35}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
         colors={{ scheme: "nivo" }}
-        defs={[
-          {
-            id: "dots",
-            type: "patternDots",
-            background: "inherit",
-            color: "#38bcb2",
-            size: 4,
-            padding: 1,
-            stagger: true,
-          },
-          {
-            id: "lines",
-            type: "patternLines",
-            background: "inherit",
-            color: "#eed312",
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-          },
-        ]}
-        fill={[
-          {
-            match: {
-              id: "fries",
-            },
-            id: "dots",
-          },
-          {
-            match: {
-              id: "sandwich",
-            },
-            id: "lines",
-          },
-        ]}
+        layout="vertical"
         borderColor={{
           from: "color",
           modifiers: [["darker", 1.6]],
         }}
+        motionConfig="gentle"
         axisTop={null}
         axisRight={null}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "country",
+          legend: "",
           legendPosition: "middle",
           legendOffset: 32,
           truncateTickAt: 0,
@@ -117,11 +69,12 @@ export default function Chart({
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "food",
+          legend: "단위(십만원)",
           legendPosition: "middle",
-          legendOffset: -40,
+          legendOffset: -52,
           truncateTickAt: 0,
         }}
+        enableLabel={false}
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={{
@@ -131,14 +84,14 @@ export default function Chart({
         legends={[
           {
             dataFrom: "keys",
-            anchor: "bottom-right",
+            anchor: "top-right",
             direction: "column",
             justify: false,
             translateX: 120,
             translateY: 0,
-            itemsSpacing: 2,
+            itemsSpacing: 0,
             itemWidth: 100,
-            itemHeight: 20,
+            itemHeight: 30,
             itemDirection: "left-to-right",
             itemOpacity: 0.85,
             symbolSize: 20,
@@ -153,11 +106,12 @@ export default function Chart({
           },
         ]}
         role="application"
-        ariaLabel="Nivo bar chart demo"
+        ariaLabel="자산"
         barAriaLabel={(e) =>
           e.id + ": " + e.formattedValue + " in country: " + e.indexValue
         }
         onClick={handleBarClick}
+        tooltip={CustomTooltip}
       />
     </ChartContainer>
   );

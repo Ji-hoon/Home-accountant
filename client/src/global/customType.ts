@@ -48,7 +48,7 @@ export type AssetType = {
   owner: string;
   assetType: string;
   assetHistory: {
-    date: string;
+    date: Date;
     amounts: number;
   };
 };
