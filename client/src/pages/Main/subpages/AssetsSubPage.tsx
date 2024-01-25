@@ -11,7 +11,7 @@ import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import Banner from "../../../components/banner/Banner";
-import Chart from "./Assets/Assets.Chart";
+import Chart from "./Assets/Chart/Assets.Chart";
 
 export default function Assets_SubPage() {
   const { showDialog } = useHandleDialog();

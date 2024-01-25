@@ -61,7 +61,7 @@ export function useAssets({
     onSuccess: () => {
       //console.log(data.data.message);
       //invalidateExpenseQuery();
-      //refetch();
+      refetch();
     },
     onError: (err) => {
       console.log(err);

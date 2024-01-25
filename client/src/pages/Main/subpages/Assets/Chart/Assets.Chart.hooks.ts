@@ -1,5 +1,5 @@
 import { ComputedDatum } from "@nivo/bar";
-import { AssetType } from "../../../../global/customType";
+import { AssetType } from "../../../../../global/customType";
 
 export type ChartData = {
   [key: string]: number;
@@ -54,7 +54,6 @@ export function useChart({
     const keyArray: string[] = dataArray
       .map((data) => {
         return Object.keys(data).filter((key) => {
-          console.log(data[key]);
           return typeof data[key] === "number";
         });
       })

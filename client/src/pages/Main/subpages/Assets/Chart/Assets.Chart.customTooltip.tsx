@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../../../global/constants.ts";
+import { COLORS, SIZES } from "../../../../../global/constants.ts";
 import { BarTooltipProps } from "@nivo/bar";
 import { ChartData } from "./Assets.Chart.hooks.ts";
 

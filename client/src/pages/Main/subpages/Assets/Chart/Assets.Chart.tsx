@@ -1,11 +1,11 @@
 import { ResponsiveBar } from "@nivo/bar";
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
-import { useAssets } from "./Assets.hooks.ts";
+import { useAssets } from "../Assets.hooks.ts";
 import { ChartData, useChart } from "./Assets.Chart.hooks.ts";
 import CustomTooltip from "./Assets.Chart.customTooltip.tsx";
-import Empty from "../../../../components/common/Empty.tsx";
-import { LABELS } from "../../../../global/constants.ts";
+import Empty from "../../../../../components/common/Empty.tsx";
+import { LABELS } from "../../../../../global/constants.ts";
 import { FiAlertTriangle } from "react-icons/fi";
 
 export default function Chart({
