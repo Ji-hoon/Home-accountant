@@ -94,7 +94,7 @@ export const LABELS = {
   LABEL_GOTO_LOGIN: "로그인 하러가기",
   LABEL_JOIN: "5초만에 시작하기",
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
-  LABEL_LOGINPAGE_TITLE: "지금 로그인하고 \n자산 관리를 시작해보세요.",
+  LABEL_LOGINPAGE_TITLE: "지금 자산 관리를 시작해보세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
   LABEL_CANCEL: "취소",
   LABEL_ADD_EXPENSE: "지출 내역 추가",

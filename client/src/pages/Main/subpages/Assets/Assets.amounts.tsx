@@ -15,7 +15,7 @@ export default function Assets_Amounts({
     currentDate: $currentDate,
     unit: $unit,
   });
-  const amounts = data;
+  const amounts = data.amounts;
 
   return <>{amounts.toLocaleString()}원</>;
 }

@@ -67,7 +67,11 @@ export default function Assets_SubPage() {
             })
           }
         />
-        <Chart />
+        <Chart
+          $currentDate={currentDate}
+          $unit={dateUnit}
+          $owner={currentOwner}
+        />
       </div>
       <div className="advertise-container">
         <Banner />

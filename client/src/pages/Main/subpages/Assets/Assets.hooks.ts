@@ -27,14 +27,26 @@ export function useAssets({
 
   const period = [startDate, endDate];
 
-  const { data, refetch } = useSuspenseQuery({
+  const results = useSuspenseQuery({
     queryKey: [queryKeys.assetAmounts],
-    queryFn: () =>
-      assetsAPI.totalAssetAmounts({
-        owner,
-        period,
-      }),
+    queryFn: async () => {
+      const [amounts, assetResponse] = await Promise.all([
+        assetsAPI.totalAssetAmounts({ owner, period }),
+        assetsAPI.get({ owner, period }),
+      ]);
+      return { amounts, assetResponse };
+    },
   });
+
+  const { data, refetch } = results;
+
+  // const { data, refetch } = useSuspenseQuery({
+  //   queryKey: [queryKeys.assetAmounts],
+  //   queryFn: () => assetsAPI.totalAssetAmounts({
+  //     owner,
+  //     period,
+  //   }),
+  // });
 
   useEffect(() => {
     refetch();

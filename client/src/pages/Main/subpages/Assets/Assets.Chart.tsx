@@ -1,8 +1,9 @@
 import { ResponsiveBar } from "@nivo/bar";
 import { ComputedDatum } from "@nivo/bar";
-import { data } from "./Chart.mock.ts";
+import { dataMock } from "./Chart.mock.ts";
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
+import { useAssets } from "./Assets.hooks.ts";
 
 type BarData = {
   country: string;
@@ -14,7 +15,23 @@ type BarData = {
   donut: number;
 };
 
-export default function Chart() {
+export default function Chart({
+  $owner,
+  $currentDate,
+  $unit,
+}: {
+  $owner: string;
+  $currentDate: Date;
+  $unit: string;
+}) {
+  const { data } = useAssets({
+    owner: $owner,
+    currentDate: $currentDate,
+    unit: $unit,
+  });
+
+  console.log(data.assetResponse);
+
   function handleBarClick(
     datum: ComputedDatum<BarData> & {
       color: string;
@@ -39,7 +56,7 @@ export default function Chart() {
   return (
     <ChartContainer ref={chartRef}>
       <ResponsiveBar<BarData>
-        data={data}
+        data={dataMock}
         keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
         indexBy="country"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}

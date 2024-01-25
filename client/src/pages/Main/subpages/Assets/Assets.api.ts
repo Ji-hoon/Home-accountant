@@ -40,6 +40,19 @@ const assetsAPI = {
 
     return response.data;
   },
+
+  async get({
+    owner,
+    period,
+  }: {
+    owner: string;
+    period: Array<Date | undefined>;
+  }) {
+    const url = `/assets?owner=${owner}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const response = await axiosInstance.get(url);
+
+    return response.data;
+  },
 };
 
 export default assetsAPI;

@@ -1,4 +1,4 @@
-export const data = [
+export const dataMock = [
   {
     country: "AD",
     "hot dog": 7,
