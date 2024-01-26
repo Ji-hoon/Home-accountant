@@ -4,7 +4,7 @@ import express, { Response } from "express";
 import { AssetType } from "../type/global.js";
 import { CustomError } from "../middleware/errorHandler.js";
 import assetService from "./asset.service.js";
-import { format, parse } from "date-fns";
+import { parse } from "date-fns";
 import expenseService from "../expenses/expense.service.js";
 
 const assetController = {
@@ -41,6 +41,7 @@ const assetController = {
         message: "자산 항목 생성에 실패했습니다.",
       });
     }
+
     res.status(201).json({
       message: "자산 항목 생성에 성공했습니다.",
       asset: result,
@@ -73,15 +74,43 @@ const assetController = {
 
     const accExpenses = await expenseService.getExpensesByOption({
       owner: owner as string,
-      startDate: format(assets[0].lastDate, "yyyy-MM-dd"),
+      //startDate: format(assets[0].lastDate, "yyyy-MM-dd"),
+      startDate: startDate,
       endDate: endDate,
     });
 
-    const assetTotal = assets[0].totalAmounts;
+    const assetTotal = assets.reduce((acc, asset) => {
+      return acc + asset.totalAmounts;
+    }, 0);
+
     const expenseTotal =
       accExpenses.length !== 0 ? accExpenses[0].totalAmounts : 0;
 
+    //console.log(assetTotal, expenseTotal);
     res.json(assetTotal - expenseTotal);
+  }),
+
+  updateAsset: asyncHandler(async (req: express.Request, res: Response) => {
+    const requestBody = {
+      amounts: req.body.amounts as number,
+      name: req.body.name as string,
+      assetType: req.body.assetType as string,
+      owner: req.body.owner as string,
+      assetId: req.query.assetId as string,
+    };
+
+    const result = await assetService.updateAsset(requestBody);
+
+    if (!result) {
+      throw new CustomError({
+        status: 400,
+        message: "자산 항목 수정에 실패했습니다.",
+      });
+    }
+    res.status(200).json({
+      message: "자산 항목 수정에 성공했습니다.",
+      asset: result,
+    });
   }),
 };
 

@@ -1,7 +1,8 @@
 import assetModel from "./asset.model.js";
-import { AssetType } from "../type/global.js";
+import { AssetType, AssetUpdateType } from "../type/global.js";
 import { ParsedQs } from "qs";
 import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
+import { CustomError } from "../middleware/errorHandler.js";
 
 const assetService = {
   async getAssets({
@@ -69,22 +70,31 @@ const assetService = {
         $match: target,
       },
       {
-        $unwind: "$assetHistory",
-      },
-      {
-        $match: {
-          "assetHistory.date": {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
+        $project: {
+          totalAmounts: {
+            $reduce: {
+              input: {
+                $filter: {
+                  input: "$assetHistory",
+                  as: "history",
+                  cond: {
+                    $and: [
+                      { $gte: ["$$history.date", startDateFormat] },
+                      { $lte: ["$$history.date", endDateFormat] },
+                    ],
+                  },
+                },
+              },
+              initialValue: 0,
+              in: {
+                $cond: [
+                  { $eq: ["$$this", { $arrayElemAt: ["$assetHistory", -1] }] },
+                  { $add: ["$$value", "$$this.amounts"] },
+                  "$$value",
+                ],
+              },
+            },
           },
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          totalAmounts: { $sum: "$assetHistory.amounts" },
-          lastAmounts: { $last: "$assetHistory.amounts" },
-          lastDate: { $first: "$assetHistory.date" },
         },
       },
     ]);
@@ -98,7 +108,52 @@ const assetService = {
       owner,
       assetHistory,
     };
+    const asset = await assetModel.findOne({
+      owner: owner,
+      assetType: assetType,
+    });
+
+    if (asset) {
+      //TODO: controller로 에러 처리 이관 필요
+      throw new CustomError({
+        status: 400,
+        message: "동일한 타입의 자산은 1개만 생성할 수 있습니다.",
+      });
+    }
     return await assetModel.create(newAsset);
+  },
+
+  async updateAsset({
+    amounts,
+    name,
+    assetType,
+    owner,
+    assetId,
+  }: AssetUpdateType) {
+    const currentAmounts = await assetModel.findOne({ _id: assetId });
+    const updatedModel = await assetModel.findByIdAndUpdate(
+      { _id: assetId },
+      {
+        amounts,
+        name,
+        assetType,
+        owner,
+      },
+      {
+        new: true,
+      },
+    );
+
+    if (updatedModel && updatedModel.amounts !== currentAmounts?.amounts) {
+      updatedModel.assetHistory.push({
+        amounts,
+        date: new Date(),
+        _id: null,
+      });
+      await updatedModel.save();
+    }
+
+    return updatedModel;
   },
 };
 

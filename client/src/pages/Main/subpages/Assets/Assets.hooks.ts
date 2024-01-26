@@ -1,6 +1,6 @@
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import assetsAPI from "./Assets.api";
-import { queryKeys } from "../../../../global/reactQuery";
+import { queryClient, queryKeys } from "../../../../global/reactQuery";
 import { endOfMonth, endOfYear, startOfMonth, startOfYear } from "date-fns";
 import { TYPES } from "../../../../global/constants";
 import { useEffect } from "react";
@@ -45,14 +45,20 @@ export function useAssets({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [owner, currentDate, unit]);
 
+  const invalidateExpenseQuery = () => {
+    queryClient.invalidateQueries({
+      queryKey: [queryKeys.assetAmounts],
+    });
+  };
+
   const addAsset = useMutation({
     mutationFn: assetsAPI.add,
     onMutate: () => {
       //setisLoading(!isLoading);
     },
-    onSuccess: () => {
-      //console.log(data.data.message);
-      //invalidateExpenseQuery();
+    onSuccess: (data) => {
+      console.log(data.data.message);
+      invalidateExpenseQuery();
       refetch();
     },
     onError: (err) => {
@@ -63,5 +69,23 @@ export function useAssets({
     },
   }).mutateAsync;
 
-  return { addAsset, data };
+  const updateAsset = useMutation({
+    mutationFn: assetsAPI.update,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: (data) => {
+      console.log(data.data.message);
+      invalidateExpenseQuery();
+      refetch();
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+    },
+  }).mutateAsync;
+
+  return { addAsset, updateAsset, data };
 }

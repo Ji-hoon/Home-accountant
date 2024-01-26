@@ -29,7 +29,8 @@ export default function Dialog() {
         action: dialog.content[index].title,
         data: currentFormData,
       });
-      if (result?.status === 201) hideDialog({ order: index });
+      if (result?.status === 201 || result?.status === 200)
+        hideDialog({ order: index });
     }
   }
 

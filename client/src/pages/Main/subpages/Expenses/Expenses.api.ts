@@ -25,6 +25,7 @@ const expenseAPI = {
         withCredentials: true,
       },
     );
+    //console.log(response);
     return response;
   },
 

@@ -7,6 +7,7 @@ import {
 import {
   ExpenseType,
   AssetType,
+  AssetUpdateType,
   dialogLayoutType,
 } from "../../global/customType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
@@ -24,7 +25,7 @@ export function useHandleDialog() {
     currentDate,
     unit: dateUnit,
   });
-  const { addAsset } = useAssets({
+  const { addAsset, updateAsset } = useAssets({
     owner: "",
     currentDate,
     unit: dateUnit,
@@ -61,7 +62,7 @@ export function useHandleDialog() {
   }: {
     action: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: ExpenseType | AssetType | any; //TODO: submit으로 들어오는 타입들 추가하기
+    data: ExpenseType | AssetType | AssetUpdateType | any; //TODO: submit으로 들어오는 타입들 추가하기
   }) {
     if (action === LABELS.LABEL_ADD_EXPENSE) {
       const result = await addExpense({
@@ -76,7 +77,6 @@ export function useHandleDialog() {
     }
 
     if (action === LABELS.LABEL_ADD_ASSET) {
-      //TODO: useAssets 커스텀 훅 작성 후 addAsset 메소드 사용하도록 추가
       const result = await addAsset({
         amounts: data.amounts,
         name: data.name,
@@ -86,6 +86,18 @@ export function useHandleDialog() {
           date: format(new Date(), "yyyy-MM-dd"),
           amounts: data.amounts,
         },
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_EDIT_ASSET) {
+      const result = await updateAsset({
+        amounts: data.amounts,
+        name: data.name,
+        owner: data.owner,
+        assetType: data.assetType,
+        assetId: data.assets_id,
+        assetDate: data.assets_date,
       });
       if (result) return result;
     }

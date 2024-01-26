@@ -9,4 +9,6 @@ assetRouter.get("/", assetController.getAsset);
 
 assetRouter.get("/amounts", assetController.getAssetAmounts);
 
+assetRouter.put("/", assetController.updateAsset);
+
 export default assetRouter;

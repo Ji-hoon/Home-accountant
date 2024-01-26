@@ -1,16 +1,9 @@
 import { format } from "date-fns";
 import { axiosInstance } from "../../../../global/axiosInstance";
-import { AssetType } from "../../../../global/customType";
+import { AssetType, AssetUpdateType } from "../../../../global/customType";
 
 const assetsAPI = {
   async add({ amounts, name, owner, assetType, assetHistory }: AssetType) {
-    console.log({
-      amounts,
-      name,
-      owner,
-      assetType,
-      assetHistory,
-    });
     const response = await axiosInstance.post(
       `/assets`,
       {
@@ -52,6 +45,31 @@ const assetsAPI = {
     const response = await axiosInstance.get(url);
 
     return response.data;
+  },
+
+  async update({
+    amounts,
+    name,
+    owner,
+    assetType,
+    assetId,
+    assetDate,
+  }: AssetUpdateType) {
+    const response = await axiosInstance.put(
+      `/assets?assetId=${assetId}`,
+      {
+        amounts,
+        name,
+        owner,
+        assetType,
+        assetDate,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    console.log(response);
+    return response;
   },
 };
 

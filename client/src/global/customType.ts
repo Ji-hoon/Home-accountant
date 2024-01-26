@@ -58,6 +58,15 @@ export type AssetType = {
   };
 };
 
+export type AssetUpdateType = {
+  amounts: string;
+  name: string;
+  owner: string;
+  assetId: string;
+  assetType: string;
+  assetDate: Date | string;
+};
+
 export type loginUserType = {
   result: {
     id: string;
