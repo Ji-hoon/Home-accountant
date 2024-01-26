@@ -38,11 +38,12 @@ export default function Assets_SubPage() {
                 {LABELS.NAVIGATION_MENU_ASSETS_BY_MONTH}
               </Button_Boxtype>
             </NavLink>
+            {/* TODO: 연간 자산 조회 기능은 상세 기획 후 구현
             <NavLink to={PATH.MAIN_ASSETS_BY_YEAR}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_ASSETS_BY_YEAR}
               </Button_Boxtype>
-            </NavLink>
+            </NavLink> */}
             {/* TODO: 멤버별 지출 내역 조회는 추후 필터로 구현 <NavLink to={PATH.MAIN_EXPENSES_BY_MEMBER}>
               <Button_Boxtype>
                 {LABELS.NAVIGATION_MENU_EXPENSES_BY_MEMBER}

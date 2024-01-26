@@ -14,12 +14,13 @@ export default function Banner() {
 }
 
 const BannerContainer = styled.div`
+  position: sticky;
+  top: 100px;
+
   & img {
     width: 160px;
     border-radius: 5px;
     border: 1px solid ${COLORS.GRAY_01};
-    position: sticky;
-    top: 100px;
 
     @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_X_LARGE}px) {
       display: none;
