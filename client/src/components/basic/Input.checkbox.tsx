@@ -5,8 +5,14 @@ import { useState } from "react";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 import { useRecoilState } from "recoil";
 
-export default function Input_Checkbox({ $id }: { $id?: string }) {
-  const [isSelected, setIsSelected] = useState(false);
+export default function Input_Checkbox({
+  $id,
+  $default,
+}: {
+  $id?: string;
+  $default?: boolean;
+}) {
+  const [isSelected, setIsSelected] = useState($default ? true : false);
   const [selectedExpenseId, setSelectedExpenseId] = useRecoilState(
     selectedExpenseIdAtom,
   );
@@ -24,7 +30,7 @@ export default function Input_Checkbox({ $id }: { $id?: string }) {
     }
     setIsSelected(!isSelected);
   };
-  //console.log($id, selectedExpenseId);
+  // console.log($id, selectedExpenseId);
 
   return (
     <Checkbox onClick={() => handleClick()} $selected={isSelected}>

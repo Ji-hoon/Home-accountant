@@ -13,6 +13,7 @@ import ExpenseList from "./Expenses/Expenses.infiniteList";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Banner from "../../../components/banner/Banner";
+import ListActionBar from "../../../components/compound/ListActionBar";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -79,6 +80,7 @@ export default function Expenses_SubPage() {
             })
           }
         />
+        <ListActionBar />
         <ExpenseList
           $owner={currentOwner}
           $currentDate={currentDate}

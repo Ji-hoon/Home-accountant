@@ -45,8 +45,8 @@ const HorizontalViewContainer = styled.section<{
     & > ul,
     & section {
       min-height: calc(100vh - 162px);
-      margin: -${SIZES.LG * 3}px 0 0;
-      padding: 0 0 ${SIZES.XL * 3}px;
+      margin: -${SIZES.LG * 3 + 84}px 0 0;
+      padding: 0 0 84px;
       list-style: none;
       display: flex;
       flex-direction: column;
@@ -58,6 +58,7 @@ const HorizontalViewContainer = styled.section<{
       top: ${(props) =>
         props.$showBottomBar ? "100vh" : "calc(100vh - 80px)"};
       left: 100%;
+      opacity: ${(props) => (props.$showBottomBar ? 0 : 1)};
     }
   }
 

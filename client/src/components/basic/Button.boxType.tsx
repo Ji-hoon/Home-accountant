@@ -5,11 +5,14 @@ export default function Button_Boxtype({
   children,
   onClick,
   type,
+  disabled,
 }: {
   children: React.ReactElement | string;
   onClick?: (e: React.SyntheticEvent) => void;
   type?: string;
+  disabled?: boolean | undefined;
 }) {
+  console.log(disabled);
   return (
     <>
       {type && type === TYPES.SUBMIT && typeof children === "string" && (
@@ -18,10 +21,11 @@ export default function Button_Boxtype({
           className={type}
           onClick={onClick}
           value={children}
+          disabled={disabled}
         />
       )}
       {type !== TYPES.SUBMIT && (
-        <BoxtypeButton className={type} onClick={onClick}>
+        <BoxtypeButton className={type} onClick={onClick} disabled={disabled}>
           {children}
         </BoxtypeButton>
       )}
@@ -57,6 +61,13 @@ const BoxtypeButton = styled.button`
 
   &:active {
     filter: brightness(0.92);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    color: ${COLORS.GRAY_04};
+    background-color: ${COLORS.GRAY_01_OVERAY};
+    opacity: 0.5;
   }
 `;
 
