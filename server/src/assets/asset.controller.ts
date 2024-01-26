@@ -41,6 +41,7 @@ const assetController = {
         message: "자산 항목 생성에 실패했습니다.",
       });
     }
+
     res.status(201).json({
       message: "자산 항목 생성에 성공했습니다.",
       asset: result,

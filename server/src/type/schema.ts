@@ -27,5 +27,6 @@ export type assetSchemaType = {
   assetHistory: Array<{
     date: Date;
     amounts: number;
+    _id: null;
   }>;
 };

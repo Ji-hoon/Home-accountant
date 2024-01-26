@@ -20,6 +20,7 @@ export type AssetType = {
   assetHistory: {
     date: string | Date; //api 요청만 string으로 받고, data 저장 시에는 date로 parsing 해서 저장.
     amounts: number;
+    _id: null;
   }[];
 };
 

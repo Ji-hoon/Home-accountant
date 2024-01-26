@@ -2,6 +2,7 @@ import assetModel from "./asset.model.js";
 import { AssetType, AssetUpdateType } from "../type/global.js";
 import { ParsedQs } from "qs";
 import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
+import { CustomError } from "../middleware/errorHandler.js";
 
 const assetService = {
   async getAssets({
@@ -98,6 +99,17 @@ const assetService = {
       owner,
       assetHistory,
     };
+    const asset = await assetModel.findOne({
+      owner: owner,
+      assetType: assetType,
+    });
+
+    if (asset) {
+      throw new CustomError({
+        status: 400,
+        message: "동일한 타입의 자산은 1개만 생성할 수 있습니다.",
+      });
+    }
     return await assetModel.create(newAsset);
   },
 
@@ -124,7 +136,11 @@ const assetService = {
     );
 
     if (updatedModel && updatedModel.amounts !== currentAmounts?.amounts) {
-      updatedModel.assetHistory.push({ amounts, date: assetDate as Date });
+      updatedModel.assetHistory.push({
+        amounts,
+        date: assetDate as Date,
+        _id: null,
+      });
       await updatedModel.save();
     }
 
