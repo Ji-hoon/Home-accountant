@@ -74,7 +74,8 @@ const Checkbox = styled.div<{
     margin: -10px;
   }
   &:hover {
-    //filter: brightness(0.95);
+    filter: ${(props) =>
+      props.$selected ? "brightness(0.95)" : "brightness(1)"};
     border-color: ${(props) =>
       props.$selected ? COLORS.GRAY_05_OVERAY : COLORS.GRAY_08_OVERAY};
   }
