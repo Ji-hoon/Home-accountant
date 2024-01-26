@@ -105,6 +105,7 @@ const assetService = {
     });
 
     if (asset) {
+      //TODO: controller로 에러 처리 이관 필요
       throw new CustomError({
         status: 400,
         message: "동일한 타입의 자산은 1개만 생성할 수 있습니다.",
