@@ -29,7 +29,6 @@ export function useChart({
       color: string;
     },
   ) {
-    console.log(datum);
     showDialog({
       type: TYPES.MODAL_SINGLE_COL,
       title: LABELS.LABEL_EDIT_ASSET,
