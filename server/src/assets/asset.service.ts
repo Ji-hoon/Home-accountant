@@ -70,22 +70,31 @@ const assetService = {
         $match: target,
       },
       {
-        $unwind: "$assetHistory",
-      },
-      {
-        $match: {
-          "assetHistory.date": {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
+        $project: {
+          totalAmounts: {
+            $reduce: {
+              input: {
+                $filter: {
+                  input: "$assetHistory",
+                  as: "history",
+                  cond: {
+                    $and: [
+                      { $gte: ["$$history.date", startDateFormat] },
+                      { $lte: ["$$history.date", endDateFormat] },
+                    ],
+                  },
+                },
+              },
+              initialValue: 0,
+              in: {
+                $cond: [
+                  { $eq: ["$$this", { $arrayElemAt: ["$assetHistory", -1] }] },
+                  { $add: ["$$value", "$$this.amounts"] },
+                  "$$value",
+                ],
+              },
+            },
           },
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          totalAmounts: { $sum: "$assetHistory.amounts" },
-          lastAmounts: { $last: "$assetHistory.amounts" },
-          lastDate: { $first: "$assetHistory.date" },
         },
       },
     ]);
@@ -119,7 +128,6 @@ const assetService = {
     name,
     assetType,
     owner,
-    assetDate,
     assetId,
   }: AssetUpdateType) {
     const currentAmounts = await assetModel.findOne({ _id: assetId });
@@ -139,7 +147,7 @@ const assetService = {
     if (updatedModel && updatedModel.amounts !== currentAmounts?.amounts) {
       updatedModel.assetHistory.push({
         amounts,
-        date: assetDate as Date,
+        date: new Date(),
         _id: null,
       });
       await updatedModel.save();

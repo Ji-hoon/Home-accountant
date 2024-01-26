@@ -30,5 +30,4 @@ export type AssetUpdateType = {
   owner: string;
   assetId: string;
   assetType: string;
-  assetDate: Date | string;
 };
