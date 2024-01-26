@@ -29,10 +29,10 @@ export default function Expenses_SubPage() {
       setCurrentOwner("밀크티");
       setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) {
-      setCurrentOwner("");
+      //setCurrentOwner("");
       setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_WEEK) {
-      setCurrentOwner("");
+      //setCurrentOwner("");
       setDateUnit(TYPES.TYPE_UNIT_WEEK);
     }
     //console.log(dateUnit);
