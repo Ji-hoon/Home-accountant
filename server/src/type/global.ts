@@ -22,3 +22,12 @@ export type AssetType = {
     amounts: number;
   }[];
 };
+
+export type AssetUpdateType = {
+  amounts: number;
+  name: string;
+  owner: string;
+  assetId: string;
+  assetType: string;
+  assetDate: Date | string;
+};

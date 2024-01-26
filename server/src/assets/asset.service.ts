@@ -1,5 +1,5 @@
 import assetModel from "./asset.model.js";
-import { AssetType } from "../type/global.js";
+import { AssetType, AssetUpdateType } from "../type/global.js";
 import { ParsedQs } from "qs";
 import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
 
@@ -99,6 +99,36 @@ const assetService = {
       assetHistory,
     };
     return await assetModel.create(newAsset);
+  },
+
+  async updateAsset({
+    amounts,
+    name,
+    assetType,
+    owner,
+    assetDate,
+    assetId,
+  }: AssetUpdateType) {
+    const currentAmounts = await assetModel.findOne({ _id: assetId });
+    const updatedModel = await assetModel.findByIdAndUpdate(
+      { _id: assetId },
+      {
+        amounts,
+        name,
+        assetType,
+        owner,
+      },
+      {
+        new: true,
+      },
+    );
+
+    if (updatedModel && updatedModel.amounts !== currentAmounts?.amounts) {
+      updatedModel.assetHistory.push({ amounts, date: assetDate as Date });
+      await updatedModel.save();
+    }
+
+    return updatedModel;
   },
 };
 

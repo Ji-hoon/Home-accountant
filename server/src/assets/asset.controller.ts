@@ -83,6 +83,30 @@ const assetController = {
 
     res.json(assetTotal - expenseTotal);
   }),
+
+  updateAsset: asyncHandler(async (req: express.Request, res: Response) => {
+    const requestBody = {
+      amounts: req.body.amounts as number,
+      name: req.body.name as string,
+      assetType: req.body.assetType as string,
+      owner: req.body.owner as string,
+      assetDate: req.body.assetDate as Date,
+      assetId: req.query.assetId as string,
+    };
+
+    const result = await assetService.updateAsset(requestBody);
+
+    if (!result) {
+      throw new CustomError({
+        status: 400,
+        message: "자산 항목 수정에 실패했습니다.",
+      });
+    }
+    res.status(200).json({
+      message: "자산 항목 수정에 성공했습니다.",
+      asset: result,
+    });
+  }),
 };
 
 export default assetController;
