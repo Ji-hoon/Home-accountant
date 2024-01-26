@@ -84,3 +84,5 @@ export type expenseQueryType = {
   >;
   nextCursor: number;
 };
+
+export type selectedExpenseType = string[];

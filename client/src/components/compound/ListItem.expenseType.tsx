@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SIZES, COLORS } from "../../global/constants";
 import { ExpenseType } from "../../global/customType";
 import { format } from "date-fns";
+import Input_Checkbox from "../basic/Input.checkbox";
 
 export default function ListItem_ExpenseType({
   $item,
@@ -13,7 +14,9 @@ export default function ListItem_ExpenseType({
   return (
     <li>
       <ListItemContainer>
-        <input type="checkbox" />
+        <div>
+          <Input_Checkbox $id={$item._id} />
+        </div>
         <div className="expense-info">
           <h4>{$item.businessName}</h4>
           <p>{format($item.date, "yyyy-MM-dd")}</p>
@@ -61,6 +64,10 @@ const ListItemContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${SIZES.XXS / 2}px;
+
+    & h4:before {
+      content: "-";
+    }
   }
 
   & h4 {
