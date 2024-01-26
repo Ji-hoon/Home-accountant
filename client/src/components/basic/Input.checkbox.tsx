@@ -56,7 +56,7 @@ const Checkbox = styled.div<{
   border: ${(props) =>
     props.$selected
       ? `1px solid ${COLORS.BRAND_DEEP}`
-      : `1px solid ${COLORS.GRAY_05}`};
+      : `1px solid ${COLORS.GRAY_06_OVERAY}`};
   margin-top: 2px;
   margin-right: 4px;
   cursor: pointer;
@@ -64,6 +64,7 @@ const Checkbox = styled.div<{
   padding: 1px 1px;
   background-color: ${(props) =>
     props.$selected ? COLORS.BRAND_DEEP : COLORS.BASIC_WHITE};
+  box-shadow: 0 1px 3px 0 ${COLORS.GRAY_05_OVERAY};
 
   &:before {
     content: "";
@@ -73,6 +74,8 @@ const Checkbox = styled.div<{
     margin: -10px;
   }
   &:hover {
-    filter: brightness(0.95);
+    //filter: brightness(0.95);
+    border-color: ${(props) =>
+      props.$selected ? COLORS.GRAY_05_OVERAY : COLORS.GRAY_08_OVERAY};
   }
 `;

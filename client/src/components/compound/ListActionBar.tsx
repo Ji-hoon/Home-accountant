@@ -67,7 +67,7 @@ const ActionBarContainer = styled.div<{
   & .bar-info {
     display: flex;
     flex-grow: 1;
-    gap: ${SIZES.SM / 4}px;
+    gap: ${SIZES.MD / 3}px;
     align-items: flex-end;
 
     & span {
