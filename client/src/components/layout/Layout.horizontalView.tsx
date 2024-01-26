@@ -53,10 +53,16 @@ const HorizontalViewContainer = styled.section<{
       gap: ${SIZES.XXS / 3}px;
     }
 
+    & button + section {
+      // chart section
+      margin-top: -${SIZES.LG * 3}px;
+    }
+
     & .floating-button {
       position: sticky;
-      top: ${(props) =>
-        props.$showBottomBar ? "100vh" : "calc(100vh - 80px)"};
+      top: calc(100vh - 80px);
+      /* top: ${(props) =>
+        props.$showBottomBar ? "100vh" : "calc(100vh - 80px)"};*/
       left: 100%;
       opacity: ${(props) => (props.$showBottomBar ? 0 : 1)};
     }

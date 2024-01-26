@@ -1,21 +1,28 @@
 import styled from "styled-components";
 import { FiCheck } from "react-icons/fi";
 import { COLORS, SIZES } from "../../global/constants";
-import { useState } from "react";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 import { useRecoilState } from "recoil";
 
 export default function Input_Checkbox({
   $id,
   $default,
+  onClick,
 }: {
   $id?: string;
   $default?: boolean;
+  onClick?: () => void;
 }) {
-  const [isSelected, setIsSelected] = useState($default ? true : false);
   const [selectedExpenseId, setSelectedExpenseId] = useRecoilState(
     selectedExpenseIdAtom,
   );
+
+  let isSelected = $default === undefined ? false : $default;
+  if ($id) {
+    const matchedId = selectedExpenseId.find((id) => id === $id);
+    if (matchedId) isSelected = true;
+  }
+  //console.log($id, isSelected);
 
   const handleClick = () => {
     if ($id && !isSelected) {
@@ -28,12 +35,12 @@ export default function Input_Checkbox({
       const filteredSelectedId = newSelectedId.filter((id) => id !== $id);
       setSelectedExpenseId(filteredSelectedId);
     }
-    setIsSelected(!isSelected);
+    //setIsSelected(!isSelected);
   };
   // console.log($id, selectedExpenseId);
 
   return (
-    <Checkbox onClick={() => handleClick()} $selected={isSelected}>
+    <Checkbox onClick={onClick ? onClick : handleClick} $selected={isSelected}>
       {isSelected && <FiCheck strokeWidth={4} size={14} />}
     </Checkbox>
   );

@@ -12,7 +12,6 @@ export default function Button_Boxtype({
   type?: string;
   disabled?: boolean | undefined;
 }) {
-  console.log(disabled);
   return (
     <>
       {type && type === TYPES.SUBMIT && typeof children === "string" && (

@@ -1,12 +1,18 @@
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { COLORS, LABELS, SIZES } from "../../global/constants";
 import Button_Boxtype from "../basic/Button.boxType";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 import Input_Checkbox from "../basic/Input.checkbox";
 
 export default function ListActionBar() {
-  const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
+  const [selectedExpenseId, setSelectedExpenseId] = useRecoilState(
+    selectedExpenseIdAtom,
+  );
+
+  function handleClick() {
+    setSelectedExpenseId([]);
+  }
 
   return (
     <ActionBarContainer
@@ -14,9 +20,9 @@ export default function ListActionBar() {
       $selectedNum={selectedExpenseId.length}
     >
       <div className="bar-info">
-        <Input_Checkbox $default={true} />
+        <Input_Checkbox $default={true} onClick={handleClick} />
         <span>
-          <strong>{selectedExpenseId.length}</strong>개의 지출내역
+          <strong>{selectedExpenseId.length}</strong>개가 선택됨
         </span>
       </div>
       <div className="button-group">
@@ -45,6 +51,8 @@ const ActionBarContainer = styled.div<{
   padding: ${SIZES.XXS}px ${SIZES.XS}px ${SIZES.XL}px ${SIZES.SM}px;
   align-items: center;
   background-color: ${COLORS.BASIC_WHITE};
+  box-shadow: 0 -6px 7px -10px ${COLORS.GRAY_08_OVERAY};
+  border-top: 1px solid ${COLORS.GRAY_01_OVERAY};
   z-index: 1;
 
   transition: all 150ms ease-out;
@@ -61,6 +69,11 @@ const ActionBarContainer = styled.div<{
     flex-grow: 1;
     gap: ${SIZES.SM / 4}px;
     align-items: flex-end;
+
+    & span {
+      font-size: ${SIZES.MD}px;
+      line-height: ${SIZES.MD}px;
+    }
   }
 
   & .button-group {
