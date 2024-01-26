@@ -49,7 +49,13 @@ const assetController = {
 
   getAsset: asyncHandler(async (req: express.Request, res: Response) => {
     const { owner, startDate, endDate } = req.query;
-    res.json({ owner, startDate, endDate });
+
+    const assets = await assetService.getAssets({
+      owner: owner as string,
+      startDate: startDate,
+      endDate: endDate,
+    });
+    res.json(assets);
   }),
 
   getAssetAmounts: asyncHandler(async (req: express.Request, res: Response) => {

@@ -48,6 +48,10 @@ export const SIZES = {
   MODAL_MIN_HEIGHT: 280,
 } as const;
 
+export const VALUES = {
+  ASSET_AMOUNTS_UNIT: 100000,
+} as const;
+
 export const URLS = {
   DEFAULT_PROFILE: "/img-default-profile.png",
   FEATURE_IMAGE_01: "/img-feature-01.png",
@@ -94,11 +98,12 @@ export const LABELS = {
   LABEL_GOTO_LOGIN: "로그인 하러가기",
   LABEL_JOIN: "5초만에 시작하기",
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
-  LABEL_LOGINPAGE_TITLE: "지금 로그인하고 \n자산 관리를 시작해보세요.",
+  LABEL_LOGINPAGE_TITLE: "지금 자산 관리를 시작해보세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
   LABEL_CANCEL: "취소",
   LABEL_ADD_EXPENSE: "지출 내역 추가",
   LABEL_ADD_ASSET: "자산 항목 추가",
+  LABEL_EDIT_ASSET: "자산 정보 수정",
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
@@ -118,4 +123,5 @@ export const LABELS = {
   FEATURE_03_DESC:
     "멤버를 초대해서 함께 자산을 관리하거나 권한을 부여해서 그룹 단위로 관리해보세요.",
   MESSAGE_NO_EXPENSES: "지출 내역이 없습니다.",
+  MESSAGE_NO_ASSETS: "자산 항목이 없습니다.",
 } as const;

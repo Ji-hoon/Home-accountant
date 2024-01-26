@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES, COLORS } from "../../global/constants";
+import { SIZES } from "../../global/constants";
 
 export default function Layout_HorizontalView({
   children,
@@ -31,7 +31,8 @@ const HorizontalViewContainer = styled.section`
     max-width: ${SIZES.MAX_WIDTH / 2}px;
     margin: 0 auto;
 
-    & ul {
+    & > ul,
+    & section {
       min-height: calc(100vh - 162px);
       margin: -${SIZES.LG * 3}px 0 0;
       padding: 0 0 ${SIZES.XL * 3}px;
@@ -50,17 +51,5 @@ const HorizontalViewContainer = styled.section`
 
   & .advertise-container {
     padding: ${SIZES.LG}px ${SIZES.MD}px ${SIZES.XL * 3}px;
-
-    & img {
-      width: 160px;
-      border-radius: 5px;
-      border: 1px solid ${COLORS.GRAY_01};
-      position: sticky;
-      top: 100px;
-
-      @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_X_LARGE}px) {
-        display: none;
-      }
-    }
   }
 `;

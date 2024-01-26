@@ -27,14 +27,18 @@ export function useAssets({
 
   const period = [startDate, endDate];
 
-  const { data, refetch } = useSuspenseQuery({
+  const results = useSuspenseQuery({
     queryKey: [queryKeys.assetAmounts],
-    queryFn: () =>
-      assetsAPI.totalAssetAmounts({
-        owner,
-        period,
-      }),
+    queryFn: async () => {
+      const [amounts, assetResponse] = await Promise.all([
+        assetsAPI.totalAssetAmounts({ owner, period }),
+        assetsAPI.get({ owner, period }),
+      ]);
+      return { amounts, assetResponse };
+    },
   });
+
+  const { data, refetch } = results;
 
   useEffect(() => {
     refetch();
@@ -49,7 +53,7 @@ export function useAssets({
     onSuccess: () => {
       //console.log(data.data.message);
       //invalidateExpenseQuery();
-      //refetch();
+      refetch();
     },
     onError: (err) => {
       console.log(err);
