@@ -1,3 +1,5 @@
+import { ChartData } from "../pages/Main/subpages/Assets/Chart/Assets.Chart.hooks";
+
 export type dialogType = {
   isOpen: boolean;
   content:
@@ -23,6 +25,8 @@ export type dialogLayoutType = {
   defaultValue?: undefined | string;
   options?: undefined | string[];
   readonly?: boolean;
+  hidden?: boolean;
+  data?: ChartData;
 };
 
 export type InputFormType = {
@@ -49,7 +53,7 @@ export type AssetType = {
   owner: string;
   assetType: string;
   assetHistory: {
-    date: Date;
+    date: Date | string;
     amounts: number;
   };
 };

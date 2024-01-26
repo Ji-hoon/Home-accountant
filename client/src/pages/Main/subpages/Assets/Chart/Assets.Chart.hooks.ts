@@ -1,17 +1,17 @@
 import { ComputedDatum } from "@nivo/bar";
 import { AssetType, dialogLayoutType } from "../../../../../global/customType";
 import { useHandleDialog } from "../../../../../components/hooks/useHandleDialog";
-import { LABELS, TYPES } from "../../../../../global/constants";
+import { LABELS, TYPES, VALUES } from "../../../../../global/constants";
 import { EditAssetLayout } from "../../../../../global/layout";
 
 export type ChartData = {
-  [key: string]: number;
+  [key: string]: number | string;
 };
 
 interface AssetData {
   [key: string]: {
     owner: string;
-    [key: string]: number | string;
+    [key: string]: number | string | Date;
   };
 }
 
@@ -37,6 +37,7 @@ export function useChart({
         owner: datum.indexValue as string,
         name: datum.id as string,
         amounts: datum.value as number,
+        data: datum.data,
       }) as dialogLayoutType[],
     });
   }
@@ -49,13 +50,16 @@ export function useChart({
           _id: string;
         },
       ) => {
-        const { owner, name, assetType, amounts } = asset;
+        const { owner, name, assetType, amounts, _id, assetHistory } = asset;
         if (!Object.prototype.hasOwnProperty.call(acc, owner)) {
           acc[owner] = { owner };
         }
 
         if (!Object.prototype.hasOwnProperty.call(acc[owner], name)) {
-          acc[owner][`${name} (${assetType})`] = parseInt(amounts) / 100000;
+          acc[owner][`${name} (${assetType})`] =
+            parseInt(amounts) / VALUES.ASSET_AMOUNTS_UNIT;
+          acc[owner][`${assetType}_id`] = _id;
+          acc[owner][`${assetType}_date`] = assetHistory.date;
         }
 
         return acc;

@@ -4,7 +4,11 @@ import {
   currentDialogAtom,
   dateUnitAtom,
 } from "../../atoms/globalAtoms";
-import { ExpenseType, dialogLayoutType } from "../../global/customType";
+import {
+  ExpenseType,
+  AssetType,
+  dialogLayoutType,
+} from "../../global/customType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
 import { format, parse } from "date-fns";
@@ -57,7 +61,7 @@ export function useHandleDialog() {
   }: {
     action: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: ExpenseType | any; //TODO: submit으로 들어오는 타입들 추가하기
+    data: ExpenseType | AssetType | any; //TODO: submit으로 들어오는 타입들 추가하기
   }) {
     if (action === LABELS.LABEL_ADD_EXPENSE) {
       const result = await addExpense({

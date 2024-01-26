@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../../../../global/constants.ts";
+import { COLORS, SIZES, VALUES } from "../../../../../global/constants.ts";
 import { BarTooltipProps } from "@nivo/bar";
 import { ChartData } from "./Assets.Chart.hooks.ts";
 
@@ -12,7 +12,9 @@ export default function CustomTooltip(tooltip: BarTooltipProps<ChartData>) {
           {tooltip.id} - {tooltip.indexValue}
         </span>
       </p>
-      <span>{(tooltip.value * 100000).toLocaleString()}원</span>
+      <span>
+        {(tooltip.value * VALUES.ASSET_AMOUNTS_UNIT).toLocaleString()}원
+      </span>
     </CustomTooltipContainer>
   );
 }

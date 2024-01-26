@@ -1,3 +1,6 @@
+import { ChartData } from "../pages/Main/subpages/Assets/Chart/Assets.Chart.hooks";
+import { VALUES } from "./constants";
+
 export const CreateExpenseLayout = [
   {
     title: "지출 금액 (원)",
@@ -78,18 +81,38 @@ export const EditAssetLayout = ({
   owner,
   name,
   amounts,
+  data,
 }: {
   owner: string;
   name: string;
   amounts: number;
+  data: ChartData;
 }) => {
+  const assetName = name.split(" (")[0];
+  const assetType = name.split(" (")[1].replace(")", "");
+  const assetId = Object.keys(data)
+    .filter((key) => {
+      return typeof data[key] === "string";
+    })
+    .filter((key) => {
+      if (key.includes(assetType) && key.includes("id")) return data[key];
+    });
+  const assetDate = Object.keys(data)
+    .filter((key) => {
+      return typeof data[key] === "string";
+    })
+    .filter((key) => {
+      if (key.includes(assetType) && key.includes("date")) return data[key];
+    });
+  //console.log(assetId, assetDate);
+
   return [
     {
       title: "자산 금액 (원)",
       fieldName: "amounts",
       type: "number",
       placeholder: "숫자만 입력해주세요.",
-      defaultValue: amounts * 100000,
+      defaultValue: amounts * VALUES.ASSET_AMOUNTS_UNIT,
       readonly: false,
     },
     {
@@ -97,7 +120,7 @@ export const EditAssetLayout = ({
       fieldName: "name",
       type: "text",
       placeholder: "자산 이름을 입력해주세요.",
-      defaultValue: name.split(" (")[0],
+      defaultValue: assetName,
       readonly: false,
     },
     {
@@ -106,7 +129,7 @@ export const EditAssetLayout = ({
       type: "selectbox",
       placeholder: "",
       options: ["현금", "주식", "보험금", "비트코인", "부동산"],
-      defaultValue: name.split(" (")[1].replace(")", ""),
+      defaultValue: assetType,
       readonly: true,
     },
     {
@@ -117,6 +140,24 @@ export const EditAssetLayout = ({
       options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
       defaultValue: owner,
       readonly: true,
+    },
+    {
+      title: "자산 id",
+      fieldName: "assets_id",
+      type: "text",
+      placeholder: "",
+      defaultValue: data[assetId[0]],
+      readonly: true,
+      hidden: true,
+    },
+    {
+      title: "자산 date",
+      fieldName: "assets_date",
+      type: "text",
+      placeholder: "",
+      defaultValue: data[assetDate[0]],
+      readonly: true,
+      hidden: true,
     },
   ];
 };

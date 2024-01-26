@@ -48,6 +48,10 @@ export const SIZES = {
   MODAL_MIN_HEIGHT: 280,
 } as const;
 
+export const VALUES = {
+  ASSET_AMOUNTS_UNIT: 100000,
+} as const;
+
 export const URLS = {
   DEFAULT_PROFILE: "/img-default-profile.png",
   FEATURE_IMAGE_01: "/img-feature-01.png",

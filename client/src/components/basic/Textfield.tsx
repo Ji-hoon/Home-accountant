@@ -17,6 +17,7 @@ export default function Textfield({
   defaultValue,
   options,
   readonly,
+  hidden,
 }: dialogLayoutType) {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function Textfield({
   //console.log(fieldName, watch(fieldName));
 
   return (
-    <TextFieldLayout>
+    <TextFieldLayout hidden={hidden}>
       <label>{title}</label>
       {(type === "text" || type === "number") && (
         <input
@@ -39,6 +40,7 @@ export default function Textfield({
           type={type}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          disabled={readonly}
         />
       )}
       {type === "selectbox" && (
@@ -82,12 +84,18 @@ export default function Textfield({
   );
 }
 
-const TextFieldLayout = styled.div`
+const TextFieldLayout = styled.div<{
+  hidden: boolean | undefined;
+}>`
   display: flex;
   flex-direction: column;
   gap: ${SIZES.SM / 2}px;
   text-align: left;
-  position: static;
+
+  position: ${(props) => (props.hidden !== undefined ? "absolute" : "static")};
+  visibility: ${(props) => (props.hidden !== undefined ? "hidden" : "visible")};
+  height: ${(props) => (props.hidden !== undefined ? "0px" : "auto")};
+  pointer-events: ${(props) => (props.hidden !== undefined ? "none" : "auto")};
 
   & label {
     font-weight: bold;
