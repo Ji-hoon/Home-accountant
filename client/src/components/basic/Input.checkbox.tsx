@@ -24,7 +24,8 @@ export default function Input_Checkbox({
   }
   //console.log($id, isSelected);
 
-  const handleClick = () => {
+  const handleClick = (event: React.SyntheticEvent) => {
+    event.stopPropagation();
     if ($id && !isSelected) {
       const newSelectedId = [...selectedExpenseId, $id];
       setSelectedExpenseId(newSelectedId);
@@ -40,7 +41,12 @@ export default function Input_Checkbox({
   // console.log($id, selectedExpenseId);
 
   return (
-    <Checkbox onClick={onClick ? onClick : handleClick} $selected={isSelected}>
+    <Checkbox
+      onClick={(event: React.SyntheticEvent) =>
+        onClick ? onClick() : handleClick(event)
+      }
+      $selected={isSelected}
+    >
       {isSelected && <FiCheck strokeWidth={4} size={14} />}
     </Checkbox>
   );

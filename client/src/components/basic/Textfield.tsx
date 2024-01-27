@@ -28,8 +28,6 @@ export default function Textfield({
     setCalendarOpen(!calendarOpen);
   };
 
-  //console.log(fieldName, watch(fieldName));
-
   return (
     <TextFieldLayout hidden={hidden}>
       <label>{title}</label>
@@ -70,7 +68,11 @@ export default function Textfield({
           type={type}
           readOnly={true}
           placeholder={placeholder}
-          value={format(selectedDay, "yyyy-MM-dd")}
+          value={
+            defaultValue === ""
+              ? format(selectedDay, "yyyy-MM-dd")
+              : format(defaultValue as unknown as Date, "yyyy-MM-dd")
+          }
           onClick={() => setCalendarOpen(!calendarOpen)}
         />
       )}

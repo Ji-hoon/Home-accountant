@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import { SIZES, COLORS } from "../../global/constants";
+import { SIZES, COLORS, TYPES, LABELS } from "../../global/constants";
 import { ExpenseType } from "../../global/customType";
 import { format } from "date-fns";
 import Input_Checkbox from "../basic/Input.checkbox";
+import { useHandleDialog } from "../hooks/useHandleDialog";
+import { dialogLayoutType } from "../../global/customType";
+import { EditExpenseLayout } from "../../global/layout";
 
 export default function ListItem_ExpenseType({
   $item,
@@ -11,9 +14,22 @@ export default function ListItem_ExpenseType({
     _id: string;
   };
 }) {
+  const { showDialog } = useHandleDialog();
+
+  function handleClick(event: React.SyntheticEvent) {
+    event.stopPropagation();
+    showDialog({
+      type: TYPES.MODAL_DOUBLE_COL, //삭제는 POPUP
+      title: LABELS.LABEL_EDIT_EXPENSE,
+      layout: EditExpenseLayout({ $item }) as dialogLayoutType[],
+    });
+  }
   return (
     <li>
-      <ListItemContainer id={$item._id}>
+      <ListItemContainer
+        id={$item._id}
+        onClick={(event: React.SyntheticEvent) => handleClick(event)}
+      >
         <div>
           <Input_Checkbox $id={$item._id} />
         </div>
@@ -50,6 +66,7 @@ const ListItemContainer = styled.div`
   border-radius: ${SIZES.XXS / 2}px;
   -webkit-transition: all 200ms ease-out;
   transition: all 200ms ease-out;
+  cursor: pointer;
 
   &:hover {
     background-color: ${COLORS.GRAY_01};

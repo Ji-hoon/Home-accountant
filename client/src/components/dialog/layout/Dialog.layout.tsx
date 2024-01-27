@@ -3,7 +3,7 @@ import Textfield from "../../basic/Textfield";
 import { SIZES } from "../../../global/constants";
 import { dialogLayoutType } from "../../../global/customType";
 
-export default function DoubleColumnLayout({
+export default function DialogLayout({
   layout,
   type,
 }: {
