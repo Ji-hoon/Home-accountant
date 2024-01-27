@@ -107,6 +107,33 @@ const expenseService = {
     };
     return await expenseModel.create(newExpense);
   },
+
+  async updateExpense({
+    amounts,
+    businessName,
+    date,
+    category,
+    owner,
+    isRecurring,
+    expenseId,
+  }: ExpenseType & { expenseId: string }) {
+    //const currentExpense = await expenseModel.findOne({ _id: expenseId });
+    const updatedExpense = await expenseModel.findByIdAndUpdate(
+      { _id: expenseId },
+      {
+        amounts,
+        businessName,
+        date,
+        category,
+        owner,
+        isRecurring,
+      },
+      {
+        new: true,
+      },
+    );
+    return updatedExpense;
+  },
 };
 
 export default expenseService;

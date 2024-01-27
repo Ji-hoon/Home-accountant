@@ -56,6 +56,38 @@ const expenseController = {
       res.json(expenses[0].totalAmounts);
     },
   ),
+
+  updateExpense: asyncHandler(async (req: express.Request, res: Response) => {
+    const requestBody = {
+      amounts: req.body.amounts as number,
+      businessName: req.body.businessName as string,
+      date: req.body.date as Date,
+      category: req.body.category as string,
+      owner: req.body.owner as string,
+      isRecurring: req.body.isRecurring as boolean,
+      expenseId: req.query.expenseId as string,
+    };
+
+    if (!(requestBody as ExpenseType & { expenseId: string })) {
+      throw new CustomError({
+        status: 400,
+        message: "요청 항목이 다릅니다.",
+      });
+    }
+
+    const result = await expenseService.updateExpense(requestBody);
+
+    if (!result) {
+      throw new CustomError({
+        status: 400,
+        message: "자산 항목 수정에 실패했습니다.",
+      });
+    }
+    res.status(200).json({
+      message: "자산 항목 수정에 성공했습니다.",
+      asset: result,
+    });
+  }),
 };
 
 export default expenseController;
