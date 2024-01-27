@@ -88,6 +88,18 @@ const expenseController = {
       asset: result,
     });
   }),
+
+  deleteExpense: asyncHandler(async (req: express.Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+      throw new CustomError({
+        status: 400,
+        message: "요청에 필요한 정보가 부족합니다.",
+      });
+    }
+    const result = await expenseService.deleteExpense({ id });
+    if (result) res.status(204).end();
+  }),
 };
 
 export default expenseController;

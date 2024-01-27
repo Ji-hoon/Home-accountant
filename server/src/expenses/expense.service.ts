@@ -134,6 +134,13 @@ const expenseService = {
     );
     return updatedExpense;
   },
+
+  async deleteExpense({ id }: { id: string }) {
+    const deleteFeedResult = await expenseModel.findByIdAndDelete(id);
+
+    if (!deleteFeedResult) throw new Error("삭제 실패");
+    return deleteFeedResult;
+  },
 };
 
 export default expenseService;
