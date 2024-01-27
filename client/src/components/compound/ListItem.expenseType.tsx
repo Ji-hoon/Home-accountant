@@ -13,17 +13,28 @@ export default function ListItem_ExpenseType({
 }) {
   return (
     <li>
-      <ListItemContainer>
+      <ListItemContainer id={$item._id}>
         <div>
           <Input_Checkbox $id={$item._id} />
         </div>
         <div className="expense-info">
-          <h4>{$item.businessName}</h4>
-          <p>{format($item.date, "yyyy-MM-dd")}</p>
+          <h4 className="businessName" id={$item.businessName}>
+            {$item.businessName}
+            <span className="category" id={$item.category}>
+              {$item.category}
+            </span>
+          </h4>
+          <p className="date" id={$item.date as unknown as string}>
+            {format($item.date, "yyyy-MM-dd")}
+          </p>
         </div>
         <div className="expense-value">
-          <p>{$item.owner}</p>
-          <h4>{$item.amounts.toLocaleString()}원</h4>
+          <p className="owner" id={$item.owner}>
+            {$item.owner}
+          </p>
+          <h4 className="amounts" id={$item.amounts}>
+            {$item.amounts.toLocaleString()}원
+          </h4>
         </div>
       </ListItemContainer>
     </li>
@@ -74,6 +85,21 @@ const ListItemContainer = styled.div`
     margin: 0;
     font-size: ${SIZES.MD}px;
     color: ${COLORS.GRAY_10};
+    display: flex;
+    gap: ${SIZES.XXS / 2}px;
+    align-items: flex-start;
+
+    & span {
+      //TODO: 중복 사용 시 capsule label 컴포넌트로 구현 필요
+      text-align: center;
+      font-size: ${SIZES.XS}px;
+      line-height: ${SIZES.MD}px;
+      font-weight: 500;
+      background-color: rgb(248 198 249 / 30%);
+      color: #bb73bd; // ${COLORS.VARIATION_PINK};
+      padding: 2px 7px 2px 6px;
+      border-radius: ${SIZES.XS}px;
+    }
   }
 
   & p {
