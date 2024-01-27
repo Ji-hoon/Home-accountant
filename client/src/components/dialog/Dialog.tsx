@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import DialogPortal from "./Dialog.Portal";
 import { useRecoilValue } from "recoil";
-import { currentDialogAtom } from "../../atoms/globalAtoms";
+import {
+  currentDialogAtom,
+  selectedExpenseIdAtom,
+} from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
 import { useHandleDialog } from "../hooks/useHandleDialog";
 import DialogLayout from "./layout/Dialog.layout";
@@ -14,6 +17,7 @@ import { InputFormType } from "../../global/customType";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
+  const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
   const { hideDialog, getDialogFormData, submitDialog } = useHandleDialog();
   const dialogFormRef = useRef<HTMLFormElement>(null);
 
@@ -24,6 +28,15 @@ export default function Dialog() {
     if (dialogFormRef.current) {
       const currentFormData = getDialogFormData(dialogFormRef.current);
       console.log("submit!", index, currentFormData);
+
+      if (selectedExpenseId.length > 0) {
+        const result = await submitDialog({
+          action: dialog.content[index].title,
+          data: selectedExpenseId,
+        });
+        if (result?.status === 204) hideDialog({ order: index });
+        return;
+      }
 
       const result = await submitDialog({
         action: dialog.content[index].title,
@@ -81,7 +94,9 @@ export default function Dialog() {
                     //console.log(dialogFormRef.current);
                   }}
                   type={TYPES.SUBMIT}
-                  isAlert={item.title.includes(LABELS.LABEL_DELETE)}
+                  isAlert={
+                    item.title.includes(LABELS.LABEL_DELETE) ? "true" : ""
+                  }
                 >
                   {item.title}
                 </Button_Boxtype>

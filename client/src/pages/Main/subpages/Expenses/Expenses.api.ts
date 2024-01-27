@@ -58,6 +58,41 @@ const expenseAPI = {
 
     return response.data;
   },
+
+  async update({
+    amounts,
+    category,
+    businessName,
+    owner,
+    date,
+    isRecurring,
+    expenseId,
+  }: ExpenseType & { expenseId: string }) {
+    const response = await axiosInstance.put(
+      `/expenses/${expenseId}`,
+      {
+        amounts,
+        category,
+        businessName,
+        owner,
+        date,
+        isRecurring,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    //console.log(response);
+    return response;
+  },
+
+  async delete({ expenseId }: { expenseId: string }) {
+    const response = await axiosInstance.delete(`/expenses/${expenseId}`, {
+      withCredentials: true,
+    });
+    //console.log(response);
+    return response;
+  },
 };
 
 export default expenseAPI;

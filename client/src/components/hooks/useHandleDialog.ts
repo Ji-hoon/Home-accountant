@@ -21,7 +21,7 @@ export function useHandleDialog() {
   const dateUnit = useRecoilValue(dateUnitAtom);
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
   //console.log("dialog: ",currentDate);
-  const { addExpense } = useExpenses({
+  const { addExpense, updateExpense, deleteExpense } = useExpenses({
     owner: "",
     currentDate,
     unit: dateUnit,
@@ -103,18 +103,25 @@ export function useHandleDialog() {
       if (result) return result;
     }
 
-    // if (action === LABELS.LABEL_EDIT_EXPENSE) {
-    //   const result = await updateExpense({
-    //     expenseId: data.expense_id,
-    //     amounts: data.amounts,
-    //     category: data.category,
-    //     businessName: data.businessName,
-    //     owner: data.owner,
-    //     date: parse(data.date, "yyyy-MM-dd", new Date()),
-    //     isRecurring: data.isRecurring,
-    //   });
-    //   if (result) return result;
-    // }
+    if (action === LABELS.LABEL_EDIT_EXPENSE) {
+      const result = await updateExpense({
+        expenseId: data.expense_id,
+        amounts: data.amounts,
+        category: data.category,
+        businessName: data.businessName,
+        owner: data.owner,
+        date: parse(data.date, "yyyy-MM-dd", new Date()),
+        isRecurring: data.isRecurring,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_DELETE_EXPENSE) {
+      const result = await deleteExpense({
+        expenseId: data[0],
+      });
+      if (result) return result;
+    }
   }
 
   function getDialogFormData(dialogForm: HTMLFormElement) {

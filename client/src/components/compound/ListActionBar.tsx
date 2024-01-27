@@ -50,7 +50,7 @@ export default function ListActionBar() {
         </Button_Boxtype> */}
         <Button_Boxtype
           type={TYPES.SUBMIT}
-          isAlert={true}
+          isAlert="true"
           onClick={handleDeleteClick}
         >
           {LABELS.LABEL_DELETE}
