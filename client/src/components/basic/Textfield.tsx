@@ -74,6 +74,7 @@ export default function Textfield({
           type={type}
           readOnly={true}
           placeholder={placeholder}
+          id={selectedDay as unknown as string}
           value={format(selectedDay, "yyyy-MM-dd")}
           onClick={() => setCalendarOpen(!calendarOpen)}
         />

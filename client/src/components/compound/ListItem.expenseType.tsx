@@ -6,6 +6,7 @@ import Input_Checkbox from "../basic/Input.checkbox";
 import { useHandleDialog } from "../hooks/useHandleDialog";
 import { dialogLayoutType } from "../../global/customType";
 import { EditExpenseLayout } from "../../global/layout";
+import { FiCoffee, FiInstagram } from "react-icons/fi";
 
 export default function ListItem_ExpenseType({
   $item,
@@ -37,6 +38,8 @@ export default function ListItem_ExpenseType({
           <h4 className="businessName" id={$item.businessName}>
             {$item.businessName}
             <span className="category" id={$item.category}>
+              {$item.category === "식비" && <FiCoffee />}
+              {$item.category === "문화생활" && <FiInstagram />}
               {$item.category}
             </span>
           </h4>
@@ -103,19 +106,22 @@ const ListItemContainer = styled.div`
     font-size: ${SIZES.MD}px;
     color: ${COLORS.GRAY_10};
     display: flex;
-    gap: ${SIZES.XXS / 2}px;
+    gap: ${SIZES.XS / 2}px;
     align-items: flex-start;
 
     & span {
       //TODO: 중복 사용 시 capsule label 컴포넌트로 구현 필요
+      display: flex;
+      align-items: center;
+      gap: 3px;
       text-align: center;
       font-size: ${SIZES.XS}px;
       line-height: ${SIZES.MD}px;
       font-weight: 500;
       background-color: rgb(248 198 249 / 30%);
       color: #bb73bd; // ${COLORS.VARIATION_PINK};
-      padding: 2px 7px 2px 6px;
-      border-radius: ${SIZES.XS}px;
+      padding: 2px 8px;
+      border-radius: 12px;
     }
   }
 

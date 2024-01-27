@@ -51,7 +51,7 @@ const ActionBarContainer = styled.div<{
   display: flex;
   position: sticky;
   height: 84px;
-  padding: ${SIZES.XXS}px ${SIZES.XS}px ${SIZES.XL}px ${SIZES.SM}px;
+  padding: ${SIZES.SM}px ${SIZES.XS}px ${SIZES.SM}px ${SIZES.SM}px;
   align-items: center;
   background-color: ${COLORS.BASIC_WHITE};
   box-shadow: 0 -6px 7px -10px ${COLORS.GRAY_08_OVERAY};
