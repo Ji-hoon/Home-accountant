@@ -13,6 +13,7 @@ import ExpenseList from "./Expenses/Expenses.infiniteList";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Banner from "../../../components/banner/Banner";
+import ListActionBar from "../../../components/compound/ListActionBar";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -29,16 +30,16 @@ export default function Expenses_SubPage() {
       setCurrentOwner("밀크티");
       setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) {
-      setCurrentOwner("");
+      //setCurrentOwner("");
       setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_WEEK) {
-      setCurrentOwner("");
+      //setCurrentOwner("");
       setDateUnit(TYPES.TYPE_UNIT_WEEK);
     }
     //console.log(dateUnit);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentOwner, location, currentDate, dateUnit]);
+  }, [location, dateUnit]);
 
   return (
     <>
@@ -79,6 +80,7 @@ export default function Expenses_SubPage() {
             })
           }
         />
+        <ListActionBar />
         <ExpenseList
           $owner={currentOwner}
           $currentDate={currentDate}

@@ -118,7 +118,6 @@ const ListHeaderContainer = styled.div<{
 
   & .header-navigation-container {
     display: flex;
-    gap: ${SIZES.XXS / 4}px;
     align-items: center;
     margin-left: -${SIZES.XS / 2}px;
 

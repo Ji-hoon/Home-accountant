@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { dialogType } from "../global/customType";
+import { dialogType, selectedExpenseType } from "../global/customType";
 
 export const isLoginAtom = atom({
   key: "isLogin",
@@ -35,4 +35,9 @@ export const dateUnitAtom = atom({
 export const calendarOpenAtom = atom({
   key: "calendarOpen",
   default: false,
+});
+
+export const selectedExpenseIdAtom = atom<selectedExpenseType>({
+  key: "selectedExpense",
+  default: [],
 });

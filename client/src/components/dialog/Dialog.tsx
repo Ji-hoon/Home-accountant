@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import DialogPortal from "./Dialog.Portal";
 import { useRecoilValue } from "recoil";
-import { currentDialogAtom } from "../../atoms/globalAtoms";
+import {
+  currentDialogAtom,
+  selectedExpenseIdAtom,
+} from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
 import { useHandleDialog } from "../hooks/useHandleDialog";
-import DoubleColumnLayout from "./layout/DoubleColumnModal.layout";
+import DialogLayout from "./layout/Dialog.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
@@ -14,6 +17,7 @@ import { InputFormType } from "../../global/customType";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
+  const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
   const { hideDialog, getDialogFormData, submitDialog } = useHandleDialog();
   const dialogFormRef = useRef<HTMLFormElement>(null);
 
@@ -24,6 +28,15 @@ export default function Dialog() {
     if (dialogFormRef.current) {
       const currentFormData = getDialogFormData(dialogFormRef.current);
       console.log("submit!", index, currentFormData);
+
+      if (selectedExpenseId.length > 0) {
+        const result = await submitDialog({
+          action: dialog.content[index].title,
+          data: selectedExpenseId,
+        });
+        if (result?.status === 204) hideDialog({ order: index });
+        return;
+      }
 
       const result = await submitDialog({
         action: dialog.content[index].title,
@@ -47,6 +60,7 @@ export default function Dialog() {
               }}
             />
             <ModalLayoutContainer
+              $type={item.type}
               ref={dialogFormRef}
               onSubmit={handleSubmit(onSubmit)}
             >
@@ -63,7 +77,7 @@ export default function Dialog() {
               </section>
 
               <section className="modal-contents">
-                <DoubleColumnLayout type={item.type} layout={item.layout} />
+                <DialogLayout type={item.type} layout={item.layout} />
               </section>
               <section className="modal-actions">
                 <Button_Boxtype
@@ -80,6 +94,9 @@ export default function Dialog() {
                     //console.log(dialogFormRef.current);
                   }}
                   type={TYPES.SUBMIT}
+                  isAlert={
+                    item.title.includes(LABELS.LABEL_DELETE) ? "true" : ""
+                  }
                 >
                   {item.title}
                 </Button_Boxtype>
@@ -113,7 +130,9 @@ const BackdropModal = styled.div`
   z-index: 99;
 `;
 
-const ModalLayoutContainer = styled.form`
+const ModalLayoutContainer = styled.form<{
+  $type: string;
+}>`
   position: absolute;
   z-index: 101;
   background-color: ${COLORS.BASIC_WHITE};
@@ -128,7 +147,7 @@ const ModalLayoutContainer = styled.form`
   flex-direction: column;
 
   & .modal-header {
-    display: flex;
+    display: ${(props) => (props.$type === "POPUP" ? "none" : "flex")};
     align-items: center;
     gap: ${SIZES.SM / 2}px;
     padding: ${SIZES.XXS}px;
@@ -154,6 +173,8 @@ const ModalLayoutContainer = styled.form`
   & .modal-contents {
     overflow-y: auto;
     padding: ${SIZES.XXS}px ${SIZES.XL}px ${SIZES.XXL}px;
+    padding-top: ${(props) =>
+      props.$type === "POPUP" ? `${SIZES.XXL + SIZES.XS}px` : `${SIZES.XXS}px`};
   }
 
   & .modal-actions {
@@ -161,10 +182,6 @@ const ModalLayoutContainer = styled.form`
     justify-content: center;
     gap: ${SIZES.SM / 2}px;
     padding: ${SIZES.XXS}px ${SIZES.XXS}px ${SIZES.MD}px;
-
-    & .submit {
-      background-color: ${COLORS.BRAND_LIGHT};
-    }
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {

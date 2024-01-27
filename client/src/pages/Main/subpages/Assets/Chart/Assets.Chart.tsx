@@ -141,12 +141,12 @@ export default function Chart({
         </ChartContainer>
       )}
       {resultArray.length === 0 && (
-        <ul>
+        <section>
           <Empty
             icon={<FiAlertTriangle />}
             message={LABELS.MESSAGE_NO_ASSETS}
           />
-        </ul>
+        </section>
       )}
     </>
   );

@@ -7,7 +7,7 @@ import Calendar from "../util/Calendar";
 
 import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Textfield({
   title,
@@ -15,6 +15,7 @@ export default function Textfield({
   type,
   placeholder,
   defaultValue,
+  defaultDate,
   options,
   readonly,
   hidden,
@@ -28,7 +29,10 @@ export default function Textfield({
     setCalendarOpen(!calendarOpen);
   };
 
-  //console.log(fieldName, watch(fieldName));
+  useEffect(() => {
+    if (defaultDate !== undefined) setSelectedDay(defaultDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <TextFieldLayout hidden={hidden}>
@@ -70,6 +74,7 @@ export default function Textfield({
           type={type}
           readOnly={true}
           placeholder={placeholder}
+          id={selectedDay as unknown as string}
           value={format(selectedDay, "yyyy-MM-dd")}
           onClick={() => setCalendarOpen(!calendarOpen)}
         />

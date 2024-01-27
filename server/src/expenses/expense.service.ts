@@ -107,6 +107,40 @@ const expenseService = {
     };
     return await expenseModel.create(newExpense);
   },
+
+  async updateExpense({
+    amounts,
+    businessName,
+    date,
+    category,
+    owner,
+    isRecurring,
+    expenseId,
+  }: ExpenseType & { expenseId: string }) {
+    //const currentExpense = await expenseModel.findOne({ _id: expenseId });
+    const updatedExpense = await expenseModel.findByIdAndUpdate(
+      { _id: expenseId },
+      {
+        amounts,
+        businessName,
+        date,
+        category,
+        owner,
+        isRecurring,
+      },
+      {
+        new: true,
+      },
+    );
+    return updatedExpense;
+  },
+
+  async deleteExpense({ id }: { id: string }) {
+    const deleteFeedResult = await expenseModel.findByIdAndDelete(id);
+
+    if (!deleteFeedResult) throw new Error("삭제 실패");
+    return deleteFeedResult;
+  },
 };
 
 export default expenseService;

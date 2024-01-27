@@ -6,6 +6,8 @@ import { ExpenseType } from "../../../../global/customType";
 import { useIntersectionObserver } from "../../../../components/hooks/useIntersectionObserver";
 import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 import { TYPES } from "../../../../global/constants";
+import { useSetRecoilState } from "recoil";
+import { selectedExpenseIdAtom } from "../../../../atoms/globalAtoms";
 
 export function useExpenses({
   owner,
@@ -16,6 +18,7 @@ export function useExpenses({
   currentDate: Date;
   unit: string;
 }) {
+  const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
   let startDate;
   let endDate;
 
@@ -30,7 +33,7 @@ export function useExpenses({
   const period = [startDate, endDate];
   //console.log(startDate, endDate);
 
-  const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
+  const limit = 7; // 한 번에 불러올 지출 내역 목록 갯수
 
   const results = useSuspenseInfiniteQuery({
     queryKey: [queryKeys.expense],
@@ -91,5 +94,54 @@ export function useExpenses({
     },
   }).mutateAsync;
 
-  return { addExpense, ...data, setTarget, hasNextPage };
+  const updateExpense = useMutation({
+    mutationFn: expenseAPI.update,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: (data) => {
+      console.log(data.data.message);
+      invalidateExpenseQuery();
+      refetch();
+    },
+    onError: (err) => {
+      console.log(err);
+      // toast.error(
+      //   err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      // );
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+    },
+  }).mutateAsync;
+
+  const deleteExpense = useMutation({
+    mutationFn: expenseAPI.delete,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: () => {
+      invalidateExpenseQuery();
+      refetch();
+    },
+    onError: (err) => {
+      console.log(err);
+      // toast.error(
+      //   err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      // );
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+      setSelectedExpenseId([]);
+    },
+  }).mutateAsync;
+
+  return {
+    addExpense,
+    updateExpense,
+    deleteExpense,
+    ...data,
+    setTarget,
+    hasNextPage,
+  };
 }

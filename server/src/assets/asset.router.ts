@@ -9,6 +9,6 @@ assetRouter.get("/", assetController.getAsset);
 
 assetRouter.get("/amounts", assetController.getAssetAmounts);
 
-assetRouter.put("/", assetController.updateAsset);
+assetRouter.put("/:id", assetController.updateAsset);
 
 export default assetRouter;

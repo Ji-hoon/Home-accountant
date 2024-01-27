@@ -23,8 +23,8 @@ const FloatingtypeButton = styled.button`
   outline: none;
   border-radius: ${SIZES.LG * 3}px;
   cursor: pointer;
-  -webkit-transition: all 200ms ease-out;
-  transition: all 200ms ease-out;
+  -webkit-transition: all 150ms ease-out;
+  transition: all 150ms ease-out;
 
   display: flex;
   justify-content: center;

@@ -7,6 +7,10 @@ expenseRouter.post("/", expenseController.addExpense);
 
 expenseRouter.get("/", expenseController.getExpense);
 
+expenseRouter.put("/:id", expenseController.updateExpense);
+
+expenseRouter.delete("/:id", expenseController.deleteExpense);
+
 expenseRouter.get("/amounts", expenseController.getExpensesAmount);
 
 export default expenseRouter;

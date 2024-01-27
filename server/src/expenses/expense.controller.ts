@@ -56,6 +56,50 @@ const expenseController = {
       res.json(expenses[0].totalAmounts);
     },
   ),
+
+  updateExpense: asyncHandler(async (req: express.Request, res: Response) => {
+    const requestBody = {
+      amounts: req.body.amounts as number,
+      businessName: req.body.businessName as string,
+      date: req.body.date as Date,
+      category: req.body.category as string,
+      owner: req.body.owner as string,
+      isRecurring: req.body.isRecurring as boolean,
+      expenseId: req.params.id as string,
+    };
+
+    if (!(requestBody as ExpenseType & { expenseId: string })) {
+      throw new CustomError({
+        status: 400,
+        message: "요청 항목이 다릅니다.",
+      });
+    }
+
+    const result = await expenseService.updateExpense(requestBody);
+
+    if (!result) {
+      throw new CustomError({
+        status: 400,
+        message: "지출 내역 수정에 실패했습니다.",
+      });
+    }
+    res.status(200).json({
+      message: "지출 내역 수정에 성공했습니다.",
+      asset: result,
+    });
+  }),
+
+  deleteExpense: asyncHandler(async (req: express.Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+      throw new CustomError({
+        status: 400,
+        message: "요청에 필요한 정보가 부족합니다.",
+      });
+    }
+    const result = await expenseService.deleteExpense({ id });
+    if (result) res.status(204).end();
+  }),
 };
 
 export default expenseController;

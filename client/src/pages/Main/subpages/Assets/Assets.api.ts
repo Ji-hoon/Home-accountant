@@ -56,7 +56,7 @@ const assetsAPI = {
     assetDate,
   }: AssetUpdateType) {
     const response = await axiosInstance.put(
-      `/assets?assetId=${assetId}`,
+      `/assets/${assetId}`,
       {
         amounts,
         name,

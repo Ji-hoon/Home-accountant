@@ -45,6 +45,7 @@ export const SIZES = {
   MEDIA_QUERY_BP_LARGE: 740,
   MODAL_WIDTH_LARGE: 640,
   MODAL_WIDTH_MEDIUM: 500,
+  MODAL_WIDTH_SMALL: 360,
   MODAL_MIN_HEIGHT: 280,
 } as const;
 
@@ -101,9 +102,12 @@ export const LABELS = {
   LABEL_LOGINPAGE_TITLE: "지금 자산 관리를 시작해보세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
   LABEL_CANCEL: "취소",
+  LABEL_DELETE: "삭제",
   LABEL_ADD_EXPENSE: "지출 내역 추가",
   LABEL_ADD_ASSET: "자산 항목 추가",
   LABEL_EDIT_ASSET: "자산 정보 수정",
+  LABEL_EDIT_EXPENSE: "지출 내역 수정",
+  LABEL_DELETE_EXPENSE: "지출 내역 삭제",
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",

@@ -6,7 +6,7 @@ export type dialogType = {
     | {
         type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
         title: string; // 타이틀 텍스트
-        layout: Array<dialogLayoutType> | [];
+        layout: Array<dialogLayoutType> | popupLayoutType | [];
       }[]
     | [];
 };
@@ -23,10 +23,15 @@ export type dialogLayoutType = {
   type: string;
   placeholder: string;
   defaultValue?: undefined | string;
+  defaultDate?: Date;
   options?: undefined | string[];
   readonly?: boolean;
   hidden?: boolean;
   data?: ChartData;
+};
+
+export type popupLayoutType = {
+  description: string;
 };
 
 export type InputFormType = {
@@ -84,3 +89,5 @@ export type expenseQueryType = {
   >;
   nextCursor: number;
 };
+
+export type selectedExpenseType = string[];
