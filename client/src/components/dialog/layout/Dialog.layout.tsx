@@ -21,6 +21,7 @@ export default function DialogLayout({
             type={item.type}
             placeholder={item.placeholder}
             defaultValue={item.defaultValue}
+            defaultDate={item.defaultDate}
             options={item.options}
             readonly={item.readonly}
             hidden={item.hidden}

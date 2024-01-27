@@ -36,7 +36,6 @@ export const CreateExpenseLayout = [
     fieldName: "date",
     type: "date",
     placeholder: "지출 날짜를 입력해주세요.",
-    defaultValue: "",
   },
   {
     title: "정기 지출 여부",
@@ -206,8 +205,7 @@ export const EditExpenseLayout = ({
       title: "지출 날짜",
       fieldName: "date",
       type: "date",
-      placeholder: "",
-      defaultValue: $item.date,
+      defaultDate: new Date($item.date), //NOTE: ISO 8601 형식의 문자열을 Date 타입으로 전환
     },
     {
       title: "정기 지출 여부",
@@ -216,6 +214,15 @@ export const EditExpenseLayout = ({
       placeholder: "",
       defaultValue: $item.isRecurring,
       options: ["일시불"], //TODO: 추후 구현 ["할부", "정기 결제"],
+    },
+    {
+      title: "지출 내역 id",
+      fieldName: "expense_id",
+      type: "text",
+      placeholder: "",
+      defaultValue: $item._id,
+      readonly: true,
+      hidden: true,
     },
   ];
 };

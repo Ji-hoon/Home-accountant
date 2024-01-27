@@ -23,6 +23,7 @@ export type dialogLayoutType = {
   type: string;
   placeholder: string;
   defaultValue?: undefined | string;
+  defaultDate?: Date;
   options?: undefined | string[];
   readonly?: boolean;
   hidden?: boolean;
