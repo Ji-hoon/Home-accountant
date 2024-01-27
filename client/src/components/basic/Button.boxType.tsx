@@ -6,11 +6,13 @@ export default function Button_Boxtype({
   onClick,
   type,
   disabled,
+  isAlert,
 }: {
   children: React.ReactElement | string;
   onClick?: (e: React.SyntheticEvent) => void;
   type?: string;
   disabled?: boolean | undefined;
+  isAlert?: boolean | undefined;
 }) {
   return (
     <>
@@ -21,10 +23,16 @@ export default function Button_Boxtype({
           onClick={onClick}
           value={children}
           disabled={disabled}
+          alert={isAlert}
         />
       )}
       {type !== TYPES.SUBMIT && (
-        <BoxtypeButton className={type} onClick={onClick} disabled={disabled}>
+        <BoxtypeButton
+          className={type}
+          onClick={onClick}
+          disabled={disabled}
+          alert={isAlert}
+        >
           {children}
         </BoxtypeButton>
       )}
@@ -33,7 +41,9 @@ export default function Button_Boxtype({
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-const BoxtypeButton = styled.button`
+const BoxtypeButton = styled.button<{
+  alert: boolean | undefined;
+}>`
   border: none;
   border-radius: 5px;
   outline: none;
@@ -71,7 +81,9 @@ const BoxtypeButton = styled.button`
 `;
 
 // eslint-disable-next-line react-refresh/only-export-components
-const BoxtypeSubmitButton = styled.input`
+const BoxtypeSubmitButton = styled.input<{
+  alert: boolean | undefined;
+}>`
   border: none;
   border-radius: 5px;
   outline: none;
@@ -79,8 +91,11 @@ const BoxtypeSubmitButton = styled.input`
   font-size: ${SIZES.SM}px;
   line-height: ${SIZES.LG}px;
   font-weight: 700;
-  background-color: ${COLORS.GRAY_01};
-  color: ${COLORS.GRAY_10};
+
+  background-color: ${(props) =>
+    props.alert === true ? COLORS.VARIATION_RED : COLORS.BRAND_LIGHT};
+  color: ${(props) =>
+    props.alert === true ? COLORS.BASIC_WHITE : COLORS.GRAY_10};
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -81,6 +81,7 @@ export default function Dialog() {
                     //console.log(dialogFormRef.current);
                   }}
                   type={TYPES.SUBMIT}
+                  isAlert={item.title.includes(LABELS.LABEL_DELETE)}
                 >
                   {item.title}
                 </Button_Boxtype>
@@ -157,11 +158,8 @@ const ModalLayoutContainer = styled.form<{
   & .modal-contents {
     overflow-y: auto;
     padding: ${SIZES.XXS}px ${SIZES.XL}px ${SIZES.XXL}px;
-
-    &:nth-child(1) {
-      //NOTE: modal-header가 없을 때 여백 처리
-      padding-top: ${SIZES.XXL}px;
-    }
+    padding-top: ${(props) =>
+      props.$type === "POPUP" ? `${SIZES.XXL + SIZES.XS}px` : `${SIZES.XXS}px`};
   }
 
   & .modal-actions {
@@ -169,10 +167,6 @@ const ModalLayoutContainer = styled.form<{
     justify-content: center;
     gap: ${SIZES.SM / 2}px;
     padding: ${SIZES.XXS}px ${SIZES.XXS}px ${SIZES.MD}px;
-
-    & .submit {
-      background-color: ${COLORS.BRAND_LIGHT};
-    }
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {

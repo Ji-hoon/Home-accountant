@@ -1,33 +1,42 @@
 import styled from "styled-components";
 import Textfield from "../../basic/Textfield";
 import { SIZES } from "../../../global/constants";
-import { dialogLayoutType } from "../../../global/customType";
+import { dialogLayoutType, popupLayoutType } from "../../../global/customType";
 
 export default function DialogLayout({
   layout,
   type,
 }: {
-  layout: dialogLayoutType[];
+  layout: dialogLayoutType[] | popupLayoutType;
   type: string;
 }) {
   return (
-    <DoubleColumnLayoutContainer type={type}>
-      {layout.length > 0 &&
-        layout.map((item, index) => (
-          <Textfield
-            key={index}
-            fieldName={item.fieldName}
-            title={item.title}
-            type={item.type}
-            placeholder={item.placeholder}
-            defaultValue={item.defaultValue}
-            defaultDate={item.defaultDate}
-            options={item.options}
-            readonly={item.readonly}
-            hidden={item.hidden}
-          />
-        ))}
-    </DoubleColumnLayoutContainer>
+    <>
+      {Array.isArray(layout) && (
+        <DoubleColumnLayoutContainer type={type}>
+          {layout.length > 0 &&
+            layout.map((item, index) => (
+              <Textfield
+                key={index}
+                fieldName={item.fieldName}
+                title={item.title}
+                type={item.type}
+                placeholder={item.placeholder}
+                defaultValue={item.defaultValue}
+                defaultDate={item.defaultDate}
+                options={item.options}
+                readonly={item.readonly}
+                hidden={item.hidden}
+              />
+            ))}
+        </DoubleColumnLayoutContainer>
+      )}
+      {Array.isArray(layout) === false && (
+        <PopupLayoutContainer>
+          <h4>{layout.description}</h4>
+        </PopupLayoutContainer>
+      )}
+    </>
   );
 }
 
@@ -53,5 +62,13 @@ const DoubleColumnLayoutContainer = styled.div<{
     & > div {
       width: 100%;
     }
+  }
+`;
+
+const PopupLayoutContainer = styled.div`
+  width: ${SIZES.MODAL_WIDTH_SMALL}px;
+
+  & h4 {
+    margin: 0;
   }
 `;

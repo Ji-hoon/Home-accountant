@@ -9,6 +9,7 @@ import {
   AssetType,
   AssetUpdateType,
   dialogLayoutType,
+  popupLayoutType,
 } from "../../global/customType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
@@ -38,7 +39,7 @@ export function useHandleDialog() {
   }: {
     type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
     title: string;
-    layout: dialogLayoutType[];
+    layout: dialogLayoutType[] | popupLayoutType;
   }) {
     const newModal = {
       isOpen: true,

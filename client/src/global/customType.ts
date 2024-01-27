@@ -6,7 +6,7 @@ export type dialogType = {
     | {
         type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
         title: string; // 타이틀 텍스트
-        layout: Array<dialogLayoutType> | [];
+        layout: Array<dialogLayoutType> | popupLayoutType | [];
       }[]
     | [];
 };
@@ -28,6 +28,10 @@ export type dialogLayoutType = {
   readonly?: boolean;
   hidden?: boolean;
   data?: ChartData;
+};
+
+export type popupLayoutType = {
+  description: string;
 };
 
 export type InputFormType = {
