@@ -24,8 +24,8 @@ const NavigationMenutypeContainer = styled.nav`
     border-top-right-radius: 5px;
     background-color: ${COLORS.BRAND_DEEP};
 
-    -webkit-transform: translate(-24px, 0);
-    transform: translate(-24px, 0);
+    -webkit-transform: translate(-24px, 1px);
+    transform: translate(-24px, 1px);
 
     -webkit-transition: all 100ms ease-out;
     transition: all 200ms ease-out;

@@ -101,6 +101,19 @@ export function useHandleDialog() {
       });
       if (result) return result;
     }
+
+    // if (action === LABELS.LABEL_EDIT_EXPENSE) {
+    //   const result = await updateExpense({
+    //     expenseId: data.expense_id,
+    //     amounts: data.amounts,
+    //     category: data.category,
+    //     businessName: data.businessName,
+    //     owner: data.owner,
+    //     date: parse(data.date, "yyyy-MM-dd", new Date()),
+    //     isRecurring: data.isRecurring,
+    //   });
+    //   if (result) return result;
+    // }
   }
 
   function getDialogFormData(dialogForm: HTMLFormElement) {

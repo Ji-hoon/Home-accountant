@@ -30,7 +30,7 @@ export function useExpenses({
   const period = [startDate, endDate];
   //console.log(startDate, endDate);
 
-  const limit = 5; // 한 번에 불러올 지출 내역 목록 갯수
+  const limit = 7; // 한 번에 불러올 지출 내역 목록 갯수
 
   const results = useSuspenseInfiniteQuery({
     queryKey: [queryKeys.expense],

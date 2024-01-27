@@ -39,7 +39,7 @@ export default function Expenses_SubPage() {
     //console.log(dateUnit);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentOwner, location, currentDate, dateUnit]);
+  }, [location, dateUnit]);
 
   return (
     <>

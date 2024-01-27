@@ -164,9 +164,9 @@ export const EditAssetLayout = ({
 };
 
 export const EditExpenseLayout = ({
-  $item,
+  item,
 }: {
-  $item: ExpenseType & {
+  item: ExpenseType & {
     _id: string;
   };
 }) => {
@@ -176,14 +176,14 @@ export const EditExpenseLayout = ({
       fieldName: "amounts",
       type: "number",
       placeholder: "숫자만 입력해주세요.",
-      defaultValue: $item.amounts,
+      defaultValue: item.amounts,
     },
     {
       title: "카테고리",
       fieldName: "category",
       type: "selectbox",
       placeholder: "",
-      defaultValue: $item.category,
+      defaultValue: item.category,
       options: ["식비", "문화생활"],
     },
     {
@@ -191,28 +191,28 @@ export const EditExpenseLayout = ({
       fieldName: "businessName",
       type: "text",
       placeholder: "상호명을 입력해주세요.",
-      defaultValue: $item.businessName,
+      defaultValue: item.businessName,
     },
     {
       title: "멤버",
       fieldName: "owner",
       type: "selectbox",
       placeholder: "",
-      defaultValue: $item.owner,
+      defaultValue: item.owner,
       options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
     },
     {
       title: "지출 날짜",
       fieldName: "date",
       type: "date",
-      defaultDate: new Date($item.date), //NOTE: ISO 8601 형식의 문자열을 Date 타입으로 전환
+      defaultDate: new Date(item.date), //NOTE: ISO 8601 형식의 문자열을 Date 타입으로 전환
     },
     {
       title: "정기 지출 여부",
       fieldName: "isRecurring",
       type: "selectbox",
       placeholder: "",
-      defaultValue: $item.isRecurring,
+      defaultValue: item.isRecurring,
       options: ["일시불"], //TODO: 추후 구현 ["할부", "정기 결제"],
     },
     {
@@ -220,7 +220,7 @@ export const EditExpenseLayout = ({
       fieldName: "expense_id",
       type: "text",
       placeholder: "",
-      defaultValue: $item._id,
+      defaultValue: item._id,
       readonly: true,
       hidden: true,
     },

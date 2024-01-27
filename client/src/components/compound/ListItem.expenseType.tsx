@@ -1,35 +1,25 @@
 import styled from "styled-components";
-import { SIZES, COLORS, TYPES, LABELS } from "../../global/constants";
+import { SIZES, COLORS } from "../../global/constants";
 import { ExpenseType } from "../../global/customType";
 import { format } from "date-fns";
 import Input_Checkbox from "../basic/Input.checkbox";
-import { useHandleDialog } from "../hooks/useHandleDialog";
-import { dialogLayoutType } from "../../global/customType";
-import { EditExpenseLayout } from "../../global/layout";
+
 import { FiCoffee, FiInstagram } from "react-icons/fi";
 
 export default function ListItem_ExpenseType({
   $item,
+  onClick,
 }: {
   $item: ExpenseType & {
     _id: string;
   };
+  onClick: (event: React.SyntheticEvent) => void;
 }) {
-  const { showDialog } = useHandleDialog();
-
-  function handleClick(event: React.SyntheticEvent) {
-    event.stopPropagation();
-    showDialog({
-      type: TYPES.MODAL_DOUBLE_COL, //삭제는 POPUP
-      title: LABELS.LABEL_EDIT_EXPENSE,
-      layout: EditExpenseLayout({ $item }) as dialogLayoutType[],
-    });
-  }
   return (
     <li>
       <ListItemContainer
         id={$item._id}
-        onClick={(event: React.SyntheticEvent) => handleClick(event)}
+        onClick={(event: React.SyntheticEvent) => onClick(event)}
       >
         <div>
           <Input_Checkbox $id={$item._id} />
