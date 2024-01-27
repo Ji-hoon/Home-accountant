@@ -80,11 +80,11 @@ const expenseController = {
     if (!result) {
       throw new CustomError({
         status: 400,
-        message: "자산 항목 수정에 실패했습니다.",
+        message: "지출 내역 수정에 실패했습니다.",
       });
     }
     res.status(200).json({
-      message: "자산 항목 수정에 성공했습니다.",
+      message: "지출 내역 수정에 성공했습니다.",
       asset: result,
     });
   }),
