@@ -96,7 +96,7 @@ const assetController = {
       name: req.body.name as string,
       assetType: req.body.assetType as string,
       owner: req.body.owner as string,
-      assetId: req.query.assetId as string,
+      assetId: req.params.id as string,
     };
 
     const result = await assetService.updateAsset(requestBody);

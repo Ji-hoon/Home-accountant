@@ -65,7 +65,7 @@ const expenseController = {
       category: req.body.category as string,
       owner: req.body.owner as string,
       isRecurring: req.body.isRecurring as boolean,
-      expenseId: req.query.expenseId as string,
+      expenseId: req.params.id as string,
     };
 
     if (!(requestBody as ExpenseType & { expenseId: string })) {
