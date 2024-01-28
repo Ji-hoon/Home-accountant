@@ -12,7 +12,10 @@ export default function ListItem_MemberType() {
         <Profile url={URLS.DEFAULT_PROFILE} />
       </ListProfileContainer>
       <div className="list-info">
-        <h4>멤버 이름</h4>
+        <h4>
+          멤버 이름
+          <span className="role">소유자</span>
+        </h4>
         <p>멤버 이메일 주소</p>
       </div>
       <Button_Icontype>

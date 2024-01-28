@@ -113,6 +113,11 @@ export const ListItemContainer = styled.div`
       color: #bb73bd; // ${COLORS.VARIATION_PINK};
       padding: 2px 8px;
       border-radius: 12px;
+
+      &.role {
+        background-color: rgb(179 203 252 / 30%); // ${COLORS.VARIATION_BLUE};
+        color: #637eb7; // ${COLORS.VARIATION_BLUE};
+      }
     }
 
     &.amounts {

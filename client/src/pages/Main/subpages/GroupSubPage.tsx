@@ -36,6 +36,9 @@ export default function Group_SubPage() {
           $member={2}
         />
         <Button_Floatingtype
+          $visiblity={
+            location.pathname === PATH.MAIN_GROUP_MEMBER ? true : false
+          }
           onClick={
             () => {}
             // showDialog({
@@ -46,7 +49,15 @@ export default function Group_SubPage() {
           }
         />
         <section>
-          <ListItem_MemberType />
+          {location.pathname === PATH.MAIN_GROUP_MEMBER && (
+            <>
+              <ListItem_MemberType />
+              <ListItem_MemberType />
+            </>
+          )}
+          {location.pathname === PATH.MAIN_GROUP_SETTINGS && (
+            <>그룹 설정 페이지</>
+          )}
         </section>
       </div>
       <div className="advertise-container">
