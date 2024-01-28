@@ -92,4 +92,11 @@ const Checkbox = styled.div<{
     border-color: ${(props) =>
       props.$selected ? COLORS.GRAY_05_OVERAY : COLORS.GRAY_08_OVERAY};
   }
+
+  &:active {
+    -webkit-transform: scale(0.92);
+    transform: scale(0.92);
+    -webkit-box-shadow: 0 1px 3px 0 transparent;
+    box-shadow: 0 1px 3px 0 transparent;
+  }
 `;
