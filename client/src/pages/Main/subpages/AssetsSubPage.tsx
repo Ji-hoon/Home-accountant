@@ -62,7 +62,7 @@ export default function Assets_SubPage() {
         <Button_Floatingtype
           onClick={() =>
             showDialog({
-              type: TYPES.MODAL_SINGLE_COL,
+              type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_ASSET,
               layout: CreateAssetLayout as dialogLayoutType[],
             })

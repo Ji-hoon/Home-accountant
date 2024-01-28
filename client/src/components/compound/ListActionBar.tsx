@@ -24,7 +24,7 @@ export default function ListActionBar() {
       type: TYPES.POPUP, //삭제는 POPUP
       title: LABELS.LABEL_DELETE_EXPENSE,
       layout: {
-        description: "지출내역을 삭제할까요?",
+        description: LABELS.DESC_DELETE_EXPENSE,
       } as popupLayoutType,
     });
   }

@@ -113,6 +113,10 @@ const ListItemContainer = styled.div`
       padding: 2px 8px;
       border-radius: 12px;
     }
+
+    &.amounts {
+      gap: 0;
+    }
   }
 
   & p {

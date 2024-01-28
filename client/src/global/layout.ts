@@ -55,18 +55,18 @@ export const CreateAssetLayout = [
     placeholder: "숫자만 입력해주세요.",
   },
   {
-    title: "자산 이름",
-    fieldName: "name",
-    type: "text",
-    placeholder: "자산 이름을 입력해주세요.",
-  },
-  {
     title: "자산 타입",
     fieldName: "assetType",
     type: "selectbox",
     placeholder: "자산 타입을 선택해주세요..",
     defaultValue: "",
     options: ["현금", "주식", "보험금", "비트코인", "부동산"],
+  },
+  {
+    title: "자산 이름",
+    fieldName: "name",
+    type: "text",
+    placeholder: "자산 이름을 입력해주세요.",
   },
   {
     title: "멤버",
@@ -117,14 +117,6 @@ export const EditAssetLayout = ({
       readonly: false,
     },
     {
-      title: "자산 이름",
-      fieldName: "name",
-      type: "text",
-      placeholder: "자산 이름을 입력해주세요.",
-      defaultValue: assetName,
-      readonly: false,
-    },
-    {
       title: "자산 타입",
       fieldName: "assetType",
       type: "selectbox",
@@ -132,6 +124,14 @@ export const EditAssetLayout = ({
       options: ["현금", "주식", "보험금", "비트코인", "부동산"],
       defaultValue: assetType,
       readonly: true,
+    },
+    {
+      title: "자산 이름",
+      fieldName: "name",
+      type: "text",
+      placeholder: "자산 이름을 입력해주세요.",
+      defaultValue: assetName,
+      readonly: false,
     },
     {
       title: "멤버",

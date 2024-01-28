@@ -141,13 +141,13 @@ const TextFieldLayout = styled.div<{
   & .calendar-container {
     position: absolute;
     margin: 0 !important;
-    top: -${SIZES.SM / 2}px;
-    left: ${SIZES.XL}px;
+    top: -${SIZES.XXL - 2}px;
+    left: ${SIZES.XL - 2}px;
     z-index: 1;
 
     @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
       position: absolute;
-      top: 160px;
+      top: 150px;
     }
   }
 `;
