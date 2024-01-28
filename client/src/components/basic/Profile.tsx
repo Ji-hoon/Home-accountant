@@ -24,10 +24,15 @@ const ProfileContainer = styled.div`
   & img {
     object-fit: cover;
     width: 100%;
+    height: 100%;
   }
 
   &:hover {
-    -webkit-box-shadow: 0 0 0 3px ${COLORS.BRAND_DEEP};
-    box-shadow: 0 0 0 3px ${COLORS.BRAND_DEEP};
+    -webkit-box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
+    box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
+  }
+
+  &:active {
+    filter: brightness(0.95);
   }
 `;

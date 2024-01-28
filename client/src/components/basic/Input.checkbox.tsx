@@ -68,9 +68,16 @@ const Checkbox = styled.div<{
   cursor: pointer;
   color: ${COLORS.BASIC_WHITE};
   padding: 1px 1px;
+
+  -webkit-transition: all 150ms ease-out;
+  transition: all 150ms ease-out;
+
   background-color: ${(props) =>
     props.$selected ? COLORS.BRAND_DEEP : COLORS.BASIC_WHITE};
-  box-shadow: 0 1px 3px 0 ${COLORS.GRAY_05_OVERAY};
+  box-shadow: ${(props) =>
+    props.$selected
+      ? `0 1px 3px 0 transparent`
+      : `0 1px 3px 0 ${COLORS.GRAY_05_OVERAY}`};
 
   &:before {
     content: "";

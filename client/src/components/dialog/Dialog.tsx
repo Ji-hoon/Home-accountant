@@ -136,7 +136,7 @@ const ModalLayoutContainer = styled.form<{
   position: absolute;
   z-index: 101;
   background-color: ${COLORS.BASIC_WHITE};
-  box-shadow: 0 2px 7px 0 ${COLORS.GRAY_02_OVERAY};
+  box-shadow: 0 2px 7px 0 ${COLORS.GRAY_07_OVERAY};
   max-width: ${SIZES.MAX_WIDTH * 0.65}px;
   // max-height: calc(100% - 120px);
   border-radius: 12px;
@@ -166,7 +166,12 @@ const ModalLayoutContainer = styled.form<{
     }
 
     & button {
-      padding: ${SIZES.XS}px;
+      padding: ${SIZES.SM / 2}px;
+
+      & svg {
+        width: ${SIZES.XL}px;
+        height: ${SIZES.XL}px;
+      }
     }
   }
 

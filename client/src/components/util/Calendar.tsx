@@ -36,7 +36,7 @@ const CalendarContainer = styled.div`
     background-color: #fff;
     /* width: calc(50% - 36px); */
     z-index: 1;
-    box-shadow: 0 1px 5px 0 ${COLORS.GRAY_05_OVERAY};
+    box-shadow: 0 1px 5px 0 ${COLORS.GRAY_07_OVERAY};
     border-radius: 5px;
 
     & .rdp-day_selected {

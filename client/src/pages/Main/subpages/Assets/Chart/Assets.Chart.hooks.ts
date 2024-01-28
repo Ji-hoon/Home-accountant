@@ -30,7 +30,7 @@ export function useChart({
     },
   ) {
     showDialog({
-      type: TYPES.MODAL_SINGLE_COL,
+      type: TYPES.MODAL_DOUBLE_COL,
       title: LABELS.LABEL_EDIT_ASSET,
       layout: EditAssetLayout({
         owner: datum.indexValue as string,
