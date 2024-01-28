@@ -79,6 +79,8 @@ export const PATH = {
   MAIN_ASSETS_BY_MONTH: "/main/assets/monthly",
   MAIN_ASSETS_BY_YEAR: "/main/assets/annualy",
   MAIN_ASSETS_BY_MEMBER: "/main/assets/member",
+  MAIN_GROUP_MEMBER: "/main/group/member",
+  MAIN_GROUP_SETTINGS: "/main/group/settings",
 } as const;
 
 export const TYPES = {
@@ -89,6 +91,7 @@ export const TYPES = {
   POPUP: "POPUP",
   EXPENSES: "EXPENSES",
   ASSETS: "ASSETS",
+  GROUP: "GROUP",
   TYPE_UNIT_WEEK: "WEEK",
   TYPE_UNIT_MONTH: "MONTH",
   TYPE_UNIT_YEAR: "YEAR",
@@ -114,6 +117,8 @@ export const LABELS = {
   NAVIGATION_MENU_ASSETS_BY_MONTH: "월간 자산 조회",
   NAVIGATION_MENU_ASSETS_BY_YEAR: "연간 자산 조회",
   NAVIGATION_MENU_ASSETS_BY_MEMBER: "멤버별 자산 조회",
+  NAVIGATION_MENU_GROUP_MEMBER: "멤버 관리",
+  NAVIGATION_MENU_GROUP_SETTINGS: "그룹 관리",
   HEADER_MENU_EXPENSES: "지출 내역",
   HEADER_MENU_ASSETS: "자산 조회",
   HEADER_MENU_GROUP_MGMT: "그룹 관리",

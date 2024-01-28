@@ -54,6 +54,16 @@ const router = createBrowserRouter([
       {
         path: PATH.MAIN_GROUP,
         element: <MainPage />,
+        children: [
+          {
+            path: PATH.MAIN_GROUP_MEMBER,
+            element: <MainPage />,
+          },
+          {
+            path: PATH.MAIN_GROUP_SETTINGS,
+            element: <MainPage />,
+          },
+        ],
       },
       {
         path: PATH.LOGIN,

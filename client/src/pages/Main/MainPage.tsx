@@ -5,6 +5,7 @@ import { isLoginAtom } from "../../atoms/globalAtoms";
 import Layout_HorizontalView from "../../components/layout/Layout.horizontalView";
 import Expenses_SubPage from "./subpages/ExpensesSubPage";
 import Assets_SubPage from "./subpages/AssetsSubPage";
+import Group_SubPage from "./subpages/GroupSubPage";
 
 export default function MainPage() {
   const location = useLocation();
@@ -17,6 +18,9 @@ export default function MainPage() {
       )}
       {location.pathname == PATH.MAIN_ASSETS && (
         <Navigate to={PATH.MAIN_ASSETS_BY_MONTH} />
+      )}
+      {location.pathname == PATH.MAIN_GROUP && (
+        <Navigate to={PATH.MAIN_GROUP_MEMBER} />
       )}
       {isLogin && (
         <Layout_HorizontalView>
@@ -35,6 +39,10 @@ export default function MainPage() {
             )}
             {location.pathname === PATH.MAIN_ASSETS_BY_YEAR && (
               <Assets_SubPage />
+            )}
+            {location.pathname === PATH.MAIN_GROUP_MEMBER && <Group_SubPage />}
+            {location.pathname === PATH.MAIN_GROUP_SETTINGS && (
+              <Group_SubPage />
             )}
           </>
         </Layout_HorizontalView>
