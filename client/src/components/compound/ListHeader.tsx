@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { SIZES, COLORS, PATH, TYPES } from "../../global/constants";
+import { SIZES, COLORS, PATH, TYPES, LABELS } from "../../global/constants";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
 import { useHandleDate } from "../hooks/useHandleDate";
@@ -108,9 +108,17 @@ export default function ListHeader({
             )}
           </ListHeaderContainer>
         )}
+      {$type === TYPES.MEMBER && (
+        <ListHeaderContainer $type={$type}>
+          <h3>
+            {LABELS.NAVIGATION_MENU_GROUP_MEMBER} (
+            {$member !== undefined ? $member : 0})
+          </h3>
+        </ListHeaderContainer>
+      )}
       {$type === TYPES.GROUP && (
         <ListHeaderContainer $type={$type}>
-          <h3>전체 멤버 ({$member !== undefined ? $member : 0})</h3>
+          <h3>{LABELS.NAVIGATION_MENU_GROUP_SETTINGS}</h3>
         </ListHeaderContainer>
       )}
     </>
@@ -171,6 +179,6 @@ const ListHeaderContainer = styled.div<{
     margin: 0;
     font-size: inherit;
     line-height: ${SIZES.XXL}px;
-    padding: ${SIZES.XXS / 3}px ${SIZES.XXS}px;
+    padding: 2px ${SIZES.XXS}px;
   }
 `;

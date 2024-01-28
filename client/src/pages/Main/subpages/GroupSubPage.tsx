@@ -5,6 +5,7 @@ import Button_Boxtype from "../../../components/basic/Button.boxType";
 import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import Banner from "../../../components/banner/Banner";
+import ListItem_MemberType from "../../../components/compound/ListItem.memberType";
 
 export default function Group_SubPage() {
   return (
@@ -26,7 +27,14 @@ export default function Group_SubPage() {
         </Navigation_ListType>
       </div>
       <div className="list-container">
-        <ListHeader $type={TYPES.GROUP} $member={2} />
+        <ListHeader
+          $type={
+            location.pathname === PATH.MAIN_GROUP_MEMBER
+              ? TYPES.MEMBER
+              : TYPES.GROUP
+          }
+          $member={2}
+        />
         <Button_Floatingtype
           onClick={
             () => {}
@@ -37,7 +45,9 @@ export default function Group_SubPage() {
             // })
           }
         />
-        <section>서브 페이지 목록</section>
+        <section>
+          <ListItem_MemberType />
+        </section>
       </div>
       <div className="advertise-container">
         <Banner />
