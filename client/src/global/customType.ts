@@ -6,12 +6,12 @@ export type dialogType = {
     | {
         type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
         title: string; // 타이틀 텍스트
-        layout: Array<dialogLayoutType> | popupLayoutType | [];
+        layout: Array<FormListLayoutType> | popupLayoutType | [];
       }[]
     | [];
 };
 
-export type dialogLayoutType = {
+export type FormListLayoutType = {
   title: string;
   fieldName:
     | "amounts"
@@ -91,3 +91,10 @@ export type expenseQueryType = {
 };
 
 export type selectedExpenseType = string[];
+
+export type memberType = {
+  memberId: string;
+  nickname: string;
+  profileImgUrl: string;
+  role: string;
+};

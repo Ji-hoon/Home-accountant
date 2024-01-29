@@ -2,22 +2,28 @@ import Profile from "../basic/Profile";
 
 import styled from "styled-components";
 import { ListItemContainer } from "./ListItem.expenseType";
-import { URLS, SIZES } from "../../global/constants";
+import { SIZES } from "../../global/constants";
+import { memberType } from "../../global/customType";
 // import Button_Icontype from "../basic/Button.iconType";
 // import { FiMoreHorizontal } from "react-icons/fi";
 
-export default function ListItem_MemberType() {
+export default function ListItem_MemberType({
+  memberId,
+  nickname,
+  role,
+  profileImgUrl,
+}: memberType) {
   return (
     <ListItemContainer>
       <ListProfileContainer>
-        <Profile url={URLS.DEFAULT_PROFILE} />
+        <Profile url={profileImgUrl} />
       </ListProfileContainer>
       <div className="list-info">
         <h4>
-          멤버 이름
-          <span className="role">소유자</span>
+          {nickname}
+          <span className="role">{role}</span>
         </h4>
-        <p>멤버 이메일 주소</p>
+        <p>id: {memberId}</p>
       </div>
       {/* <Button_Icontype> //TODO: 멤버 더보기 메뉴는 추후 구현
         <FiMoreHorizontal />
