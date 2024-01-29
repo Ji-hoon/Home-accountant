@@ -15,11 +15,18 @@ const UserSchema = new Schema<UserSchemaType>(
       required: true,
       type: String,
     },
-    group: {
-      type: [Schema.Types.ObjectId],
-      ref: "feed",
-      required: true,
-    },
+    group: [
+      {
+        groupId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+        },
+        role: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
