@@ -79,6 +79,8 @@ export const PATH = {
   MAIN_ASSETS_BY_MONTH: "/main/assets/monthly",
   MAIN_ASSETS_BY_YEAR: "/main/assets/annualy",
   MAIN_ASSETS_BY_MEMBER: "/main/assets/member",
+  MAIN_GROUP_MEMBER: "/main/group/member",
+  MAIN_GROUP_SETTINGS: "/main/group/settings",
 } as const;
 
 export const TYPES = {
@@ -89,6 +91,8 @@ export const TYPES = {
   POPUP: "POPUP",
   EXPENSES: "EXPENSES",
   ASSETS: "ASSETS",
+  MEMBER: "MEMBER",
+  GROUP: "GROUP",
   TYPE_UNIT_WEEK: "WEEK",
   TYPE_UNIT_MONTH: "MONTH",
   TYPE_UNIT_YEAR: "YEAR",
@@ -108,12 +112,15 @@ export const LABELS = {
   LABEL_EDIT_ASSET: "자산 정보 수정",
   LABEL_EDIT_EXPENSE: "지출 내역 수정",
   LABEL_DELETE_EXPENSE: "지출 내역 삭제",
+  LABEL_UPDATE_GROUP_INFO: "그룹 정보 변경",
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
   NAVIGATION_MENU_ASSETS_BY_MONTH: "월간 자산 조회",
   NAVIGATION_MENU_ASSETS_BY_YEAR: "연간 자산 조회",
   NAVIGATION_MENU_ASSETS_BY_MEMBER: "멤버별 자산 조회",
+  NAVIGATION_MENU_GROUP_MEMBER: "참여 멤버",
+  NAVIGATION_MENU_GROUP_SETTINGS: "그룹 정보",
   HEADER_MENU_EXPENSES: "지출 내역",
   HEADER_MENU_ASSETS: "자산 조회",
   HEADER_MENU_GROUP_MGMT: "그룹 관리",
@@ -128,5 +135,6 @@ export const LABELS = {
     "멤버를 초대해서 함께 자산을 관리하거나 권한을 부여해서 그룹 단위로 관리해보세요.",
   MESSAGE_NO_EXPENSES: "지출 내역이 없습니다.",
   MESSAGE_NO_ASSETS: "자산 항목이 없습니다.",
+  MESSAGE_NO_MEMBERS: "표시할 멤버가 없습니다.",
   DESC_DELETE_EXPENSE: "선택하신 지출내역을 삭제할까요?",
 } as const;

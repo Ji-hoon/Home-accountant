@@ -5,7 +5,7 @@ import { LABELS, TYPES } from "../../../../global/constants";
 import { useExpenses } from "./Expenses.hooks";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 import { EditExpenseLayout } from "../../../../global/layout";
-import { ExpenseType, dialogLayoutType } from "../../../../global/customType";
+import { ExpenseType, FormListLayoutType } from "../../../../global/customType";
 
 export default function Expenses_List({
   $owner,
@@ -35,7 +35,7 @@ export default function Expenses_List({
     showDialog({
       type: TYPES.MODAL_DOUBLE_COL, //삭제는 POPUP
       title: LABELS.LABEL_EDIT_EXPENSE,
-      layout: EditExpenseLayout({ item }) as dialogLayoutType[],
+      layout: EditExpenseLayout({ item }) as FormListLayoutType[],
     });
   }
   return (

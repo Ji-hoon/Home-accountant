@@ -6,12 +6,12 @@ export type dialogType = {
     | {
         type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
         title: string; // 타이틀 텍스트
-        layout: Array<dialogLayoutType> | popupLayoutType | [];
+        layout: Array<FormListLayoutType> | popupLayoutType | [];
       }[]
     | [];
 };
 
-export type dialogLayoutType = {
+export type FormListLayoutType = {
   title: string;
   fieldName:
     | "amounts"
@@ -19,10 +19,18 @@ export type dialogLayoutType = {
     | "businessName"
     | "owner"
     | "date"
-    | "isRecurring";
+    | "isRecurring"
+    | "assetType"
+    | "assets_id"
+    | "assets_date"
+    | "expense_id"
+    | "groupName"
+    | "groupId"
+    | "groupMembers"
+    | "invitationLink";
   type: string;
-  placeholder: string;
-  defaultValue?: undefined | string;
+  placeholder?: string;
+  defaultValue?: string;
   defaultDate?: Date;
   options?: undefined | string[];
   readonly?: boolean;
@@ -41,6 +49,14 @@ export type InputFormType = {
   owner?: string | undefined;
   date?: string | undefined;
   isRecurring?: string | undefined;
+  groupName?: string | undefined;
+  groupId?: string | undefined;
+  groupMembers?: string | undefined;
+  invitationLink?: string | undefined;
+  assetType?: string | undefined;
+  assets_id?: string | undefined;
+  assets_date?: string | undefined;
+  expense_id?: string | undefined;
 };
 
 export type ExpenseType = {
@@ -91,3 +107,17 @@ export type expenseQueryType = {
 };
 
 export type selectedExpenseType = string[];
+
+export type memberType = {
+  memberId: string;
+  nickname: string;
+  profileImgUrl: string;
+  role: string;
+};
+
+export type groupInfoType = {
+  id: string;
+  code: string;
+  name: string;
+  members: memberType[] | [];
+};

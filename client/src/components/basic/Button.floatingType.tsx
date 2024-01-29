@@ -4,18 +4,26 @@ import { SIZES, COLORS } from "../../global/constants";
 
 export default function Button_Floatingtype({
   onClick,
+  $visiblity,
 }: {
   onClick?: (e: React.SyntheticEvent) => void;
+  $visiblity?: boolean | undefined;
 }) {
   return (
-    <FloatingtypeButton className="floating-button" onClick={onClick}>
+    <FloatingtypeButton
+      $visiblity={$visiblity}
+      className="floating-button"
+      onClick={onClick}
+    >
       <FiPlus strokeWidth="2" />
     </FloatingtypeButton>
   );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-const FloatingtypeButton = styled.button`
+const FloatingtypeButton = styled.button<{
+  $visiblity: boolean | undefined;
+}>`
   width: ${SIZES.LG * 3}px;
   height: ${SIZES.LG * 3}px;
   background-color: ${COLORS.BRAND_LIGHT};
@@ -32,6 +40,7 @@ const FloatingtypeButton = styled.button`
   z-index: 1;
 
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_02_OVERAY};
+  visibility: ${(props) => (props.$visiblity === false ? "hidden" : "visible")};
 
   & svg {
     width: ${SIZES.MD * 2}px;

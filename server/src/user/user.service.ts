@@ -1,15 +1,11 @@
+import { Types } from "mongoose";
 import { UserType } from "../type/global.js";
 import UserModel from "./user.model.js";
-// import {
-//   generateNickname,
-//   generateRandomProfile,
-// } from "../utils/randomizeContent.js";
 
 const userService = {
-  async getUser(_id: string) {
-    return UserModel.findOne({ _id });
+  async getUser(_id: Types.ObjectId) {
+    return UserModel.findById(_id);
   },
-
   /** nickname 기준으로 탐색 */
   async getUsersByQuery(props: {
     query: string;

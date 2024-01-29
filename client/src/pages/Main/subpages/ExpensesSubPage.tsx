@@ -7,7 +7,7 @@ import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
-import { dialogLayoutType } from "../../../global/customType";
+import { FormListLayoutType } from "../../../global/customType";
 import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
@@ -76,7 +76,7 @@ export default function Expenses_SubPage() {
             showDialog({
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_EXPENSE,
-              layout: CreateExpenseLayout as dialogLayoutType[],
+              layout: CreateExpenseLayout as FormListLayoutType[],
             })
           }
         />

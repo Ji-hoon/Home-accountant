@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { COLORS, SIZES } from "../../global/constants";
-import { InputFormType, dialogLayoutType } from "../../global/customType";
+import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 import Calendar from "../util/Calendar";
@@ -19,7 +19,7 @@ export default function Textfield({
   options,
   readonly,
   hidden,
-}: dialogLayoutType) {
+}: FormListLayoutType) {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
   const { register } = useForm<InputFormType>();
@@ -44,7 +44,7 @@ export default function Textfield({
           type={type}
           placeholder={placeholder}
           defaultValue={defaultValue}
-          disabled={readonly}
+          readOnly={readonly}
         />
       )}
       {type === "selectbox" && (
@@ -121,11 +121,15 @@ const TextFieldLayout = styled.div<{
     -webkit-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
 
-    &:focus {
+    &:not([readonly]):focus {
       background-color: ${COLORS.GRAY_01_OVERAY};
     }
     &:disabled {
       cursor: not-allowed;
+    }
+    &[readonly][type="text"] {
+      color: ${COLORS.GRAY_03};
+      cursor: auto;
     }
   }
 

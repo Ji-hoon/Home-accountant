@@ -6,6 +6,7 @@ import Input_Checkbox from "../basic/Input.checkbox";
 
 import { FiCoffee, FiInstagram } from "react-icons/fi";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default function ListItem_ExpenseType({
   $item,
   onClick,
@@ -24,7 +25,7 @@ export default function ListItem_ExpenseType({
         <div>
           <Input_Checkbox $id={$item._id} />
         </div>
-        <div className="expense-info">
+        <div className="list-info">
           <h4 className="businessName" id={$item.businessName}>
             {$item.businessName}
             <span className="category" id={$item.category}>
@@ -51,7 +52,7 @@ export default function ListItem_ExpenseType({
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-const ListItemContainer = styled.div`
+export const ListItemContainer = styled.div`
   display: flex;
   gap: ${SIZES.XS / 2}px;
   padding: ${SIZES.SM}px ${SIZES.SM}px;
@@ -72,7 +73,7 @@ const ListItemContainer = styled.div`
     cursor: pointer;
   }
 
-  & .expense-info {
+  & .list-info {
     flex-grow: 1;
     text-align: left;
     display: flex;
@@ -112,6 +113,11 @@ const ListItemContainer = styled.div`
       color: #bb73bd; // ${COLORS.VARIATION_PINK};
       padding: 2px 8px;
       border-radius: 12px;
+
+      &.role {
+        background-color: rgb(179 203 252 / 30%); // ${COLORS.VARIATION_BLUE};
+        color: #637eb7; // ${COLORS.VARIATION_BLUE};
+      }
     }
 
     &.amounts {

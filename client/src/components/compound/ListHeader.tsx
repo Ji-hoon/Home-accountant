@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { SIZES, COLORS, PATH, TYPES } from "../../global/constants";
+import { SIZES, COLORS, PATH, TYPES, LABELS } from "../../global/constants";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import Button_Icontype from "../basic/Button.iconType";
 import { useHandleDate } from "../hooks/useHandleDate";
@@ -16,11 +16,13 @@ export default function ListHeader({
   $unit,
   $type,
   $owner,
+  $member,
 }: {
-  $currentDate: Date;
-  $unit: string;
-  $type: string;
-  $owner: string;
+  $currentDate?: Date;
+  $unit?: string;
+  $type?: string;
+  $owner?: string;
+  $member?: number;
 }) {
   //console.log("header: ", $currentDate);
   const {
@@ -37,65 +39,89 @@ export default function ListHeader({
 
   const location = useLocation();
 
-  const startDay = startOfWeek($currentDate, { weekStartsOn: 1 });
+  const startDay = startOfWeek(
+    $currentDate !== undefined ? $currentDate : new Date(),
+    { weekStartsOn: 1 },
+  );
   const getEndDay = addDays(startDay, 6);
 
   return (
-    <ListHeaderContainer $type={$type}>
-      <div className="header-navigation-container">
-        <Button_Icontype
-          onClick={() => {
-            if ($unit === TYPES.TYPE_UNIT_MONTH) subMonth();
-            else if ($unit === TYPES.TYPE_UNIT_WEEK) subWeek();
-            else if ($unit === TYPES.TYPE_UNIT_YEAR) subYear();
-          }}
-        >
-          <FiChevronLeft strokeWidth="3" />
-        </Button_Icontype>
-        <Button_Boxtype onClick={() => setCalendarOpen(!calendarOpen)}>
-          <>
-            {$unit === TYPES.TYPE_UNIT_WEEK &&
-              `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
-            {$unit === TYPES.TYPE_UNIT_MONTH &&
-              format($currentDate, "yyyy년 M월")}
-            {$unit === TYPES.TYPE_UNIT_YEAR && format($currentDate, "yyyy년")}
-          </>
-        </Button_Boxtype>
-        <Button_Icontype
-          onClick={() => {
-            if ($unit === TYPES.TYPE_UNIT_MONTH) addMonth();
-            else if ($unit === TYPES.TYPE_UNIT_WEEK) addWeek();
-            else if ($unit === TYPES.TYPE_UNIT_YEAR) addYear();
-          }}
-        >
-          <FiChevronRight strokeWidth="3" />
-        </Button_Icontype>
-      </div>
-      <div className="header-value-container">
-        {location.pathname.includes(PATH.MAIN_EXPENSES) && (
-          <Expenses_Amounts
-            $currentDate={$currentDate}
-            $unit={$unit}
-            $owner={$owner}
-          />
+    <>
+      {$currentDate !== undefined &&
+        $unit !== undefined &&
+        $type !== undefined &&
+        $owner !== undefined && (
+          <ListHeaderContainer $type={$type}>
+            <div className="header-navigation-container">
+              <Button_Icontype
+                onClick={() => {
+                  if ($unit === TYPES.TYPE_UNIT_MONTH) subMonth();
+                  else if ($unit === TYPES.TYPE_UNIT_WEEK) subWeek();
+                  else if ($unit === TYPES.TYPE_UNIT_YEAR) subYear();
+                }}
+              >
+                <FiChevronLeft strokeWidth="3" />
+              </Button_Icontype>
+              <Button_Boxtype onClick={() => setCalendarOpen(!calendarOpen)}>
+                <>
+                  {$unit === TYPES.TYPE_UNIT_WEEK &&
+                    `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
+                  {$unit === TYPES.TYPE_UNIT_MONTH &&
+                    format($currentDate, "yyyy년 M월")}
+                  {$unit === TYPES.TYPE_UNIT_YEAR &&
+                    format($currentDate, "yyyy년")}
+                </>
+              </Button_Boxtype>
+              <Button_Icontype
+                onClick={() => {
+                  if ($unit === TYPES.TYPE_UNIT_MONTH) addMonth();
+                  else if ($unit === TYPES.TYPE_UNIT_WEEK) addWeek();
+                  else if ($unit === TYPES.TYPE_UNIT_YEAR) addYear();
+                }}
+              >
+                <FiChevronRight strokeWidth="3" />
+              </Button_Icontype>
+            </div>
+            <div className="header-value-container">
+              {location.pathname.includes(PATH.MAIN_EXPENSES) && (
+                <Expenses_Amounts
+                  $currentDate={$currentDate}
+                  $unit={$unit}
+                  $owner={$owner}
+                />
+              )}
+              {location.pathname.includes(PATH.MAIN_ASSETS) && (
+                <Assets_Amounts
+                  $currentDate={$currentDate}
+                  $unit={$unit}
+                  $owner={$owner}
+                />
+              )}
+            </div>
+            {calendarOpen && (
+              <div className="header-calendar-container">
+                <Calendar
+                  $currentDate={$currentDate}
+                  $clickHandler={handleDayClick}
+                />
+              </div>
+            )}
+          </ListHeaderContainer>
         )}
-        {location.pathname.includes(PATH.MAIN_ASSETS) && (
-          <Assets_Amounts
-            $currentDate={$currentDate}
-            $unit={$unit}
-            $owner={$owner}
-          />
-        )}
-      </div>
-      {calendarOpen && (
-        <div className="header-calendar-container">
-          <Calendar
-            $currentDate={$currentDate}
-            $clickHandler={handleDayClick}
-          />
-        </div>
+      {$type === TYPES.MEMBER && (
+        <ListHeaderContainer $type={$type}>
+          <h3>
+            {LABELS.NAVIGATION_MENU_GROUP_MEMBER} (
+            {$member !== undefined ? $member : 0})
+          </h3>
+        </ListHeaderContainer>
       )}
-    </ListHeaderContainer>
+      {$type === TYPES.GROUP && (
+        <ListHeaderContainer $type={$type}>
+          <h3>{LABELS.NAVIGATION_MENU_GROUP_SETTINGS}</h3>
+        </ListHeaderContainer>
+      )}
+    </>
   );
 }
 
@@ -147,5 +173,12 @@ const ListHeaderContainer = styled.div<{
     position: absolute;
     top: ${SIZES.XXL * 2 + 4}px;
     left: 0;
+  }
+
+  & h3 {
+    margin: 0;
+    font-size: inherit;
+    line-height: ${SIZES.XXL}px;
+    padding: 2px ${SIZES.XXS}px;
   }
 `;

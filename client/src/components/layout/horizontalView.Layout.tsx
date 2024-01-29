@@ -3,7 +3,7 @@ import { SIZES } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 
-export default function Layout_HorizontalView({
+export default function HorizontalViewLayout({
   children,
 }: {
   children?: JSX.Element;

@@ -4,6 +4,7 @@ import { CustomError } from "../middleware/errorHandler.js";
 import express, { Response } from "express";
 import authService from "./auth.service.js";
 import userService from "../user/user.service.js";
+import groupService from "../group/group.service.js";
 
 const authController = {
   getKakaoAuthCode: asyncHandler(
@@ -31,7 +32,7 @@ const authController = {
       console.log("result: ", result);
       res.cookie("service_token", token, { path: "/", httpOnly: true });
       res.redirect(
-        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}&profile=${result.user.profileImgUrl}`,
+        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}&profile=${result.user.profileImgUrl}&group=${result.user.groups[0]}`,
       );
     },
   ),
@@ -56,16 +57,28 @@ const authController = {
   }),
   handleJoin: asyncHandler(async (req: express.Request, res: Response) => {
     const { snsId, nickname, profileImgUrl } = req.body;
-    const result = await userService.signUp(snsId, nickname, profileImgUrl);
-    if (!result) {
+    const newUser = await userService.signUp(snsId, nickname, profileImgUrl);
+    if (!newUser) {
       throw new CustomError({
         status: 400,
         message: "회원 가입에 실패했습니다.",
       });
     }
+
+    const newGroup = await groupService.addGroup({
+      groupId: newUser.snsId,
+      userId: newUser._id,
+      nickname: newUser.nickname,
+    });
+
+    if (newGroup) {
+      newUser.groups.push(newGroup._id);
+      await newUser.save();
+    }
+
     res.status(201).json({
       message: "회원 가입에 성공했습니다.",
-      user: result,
+      user: newUser,
     });
   }),
   handleLogout: asyncHandler(async (req: express.Request, res: Response) => {

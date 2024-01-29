@@ -23,7 +23,7 @@ export default function Button_Boxtype({
           onClick={onClick}
           value={children}
           disabled={disabled}
-          alert={isAlert}
+          $alert={isAlert}
         />
       )}
       {type !== TYPES.SUBMIT && (
@@ -31,7 +31,7 @@ export default function Button_Boxtype({
           className={type}
           onClick={onClick}
           disabled={disabled}
-          alert={isAlert}
+          $alert={isAlert}
         >
           {children}
         </BoxtypeButton>
@@ -42,7 +42,7 @@ export default function Button_Boxtype({
 
 // eslint-disable-next-line react-refresh/only-export-components
 const BoxtypeButton = styled.button<{
-  alert: string | undefined;
+  $alert: string | undefined;
 }>`
   border: none;
   border-radius: 5px;
@@ -82,7 +82,7 @@ const BoxtypeButton = styled.button<{
 
 // eslint-disable-next-line react-refresh/only-export-components
 const BoxtypeSubmitButton = styled.input<{
-  alert: string | undefined;
+  $alert: string | undefined;
 }>`
   border: none;
   border-radius: 5px;
@@ -93,9 +93,9 @@ const BoxtypeSubmitButton = styled.input<{
   font-weight: 700;
 
   background-color: ${(props) =>
-    props.alert === "true" ? COLORS.VARIATION_RED : COLORS.BRAND_LIGHT};
+    props.$alert === "true" ? COLORS.VARIATION_RED : COLORS.BRAND_LIGHT};
   color: ${(props) =>
-    props.alert === "true" ? COLORS.BASIC_WHITE : COLORS.GRAY_10};
+    props.$alert === "true" ? COLORS.BASIC_WHITE : COLORS.GRAY_10};
   cursor: pointer;
   display: flex;
   align-items: center;
