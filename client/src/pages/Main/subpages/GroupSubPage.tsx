@@ -19,7 +19,7 @@ export default function Group_SubPage() {
   const { data } = useGroups(currentGroupId);
 
   const groupInfo = data.data.groupInfo;
-  console.log(groupInfo);
+  // console.log(groupInfo);
 
   return (
     <>

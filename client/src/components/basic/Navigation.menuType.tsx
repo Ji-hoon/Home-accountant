@@ -17,7 +17,7 @@ const NavigationMenutypeContainer = styled.nav`
   & a:before {
     content: "";
     position: absolute;
-    height: 4px;
+    height: 5px;
     width: 48px;
     bottom: -20px;
     border-top-left-radius: 5px;
@@ -36,8 +36,15 @@ const NavigationMenutypeContainer = styled.nav`
     transform: translate(-24px, -4px);
   }
 
+  & a.active button {
+    font-weight: 700;
+    color: ${COLORS.GRAY_10};
+  }
+
   & button {
+    /* font-weight: 600; */
     background-color: transparent;
+    color: ${COLORS.GRAY_07};
 
     &:hover {
       background-color: ${COLORS.GRAY_01_OVERAY};

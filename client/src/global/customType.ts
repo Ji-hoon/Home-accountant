@@ -93,6 +93,7 @@ export type loginUserType = {
     id: string;
     nickname: string;
     profile: string;
+    currentGroup: string;
   };
 };
 

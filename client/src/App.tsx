@@ -7,7 +7,6 @@ import LoginPage from "./pages/Login/LoginPage.tsx";
 import MainPage from "./pages/Main/MainPage.tsx";
 import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
-import Dialog from "./components/dialog/Dialog.tsx";
 
 const router = createBrowserRouter([
   {
@@ -81,7 +80,6 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <Dialog />
     </>
   );
 }

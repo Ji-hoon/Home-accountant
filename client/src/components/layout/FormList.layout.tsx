@@ -10,7 +10,7 @@ export default function FormListLayout({
   layout: FormListLayoutType[] | popupLayoutType;
   type: string;
 }) {
-  console.log(layout);
+  // console.log(layout);
   return (
     <>
       {Array.isArray(layout) && (
