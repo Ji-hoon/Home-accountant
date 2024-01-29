@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import Textfield from "../../basic/Textfield";
-import { SIZES } from "../../../global/constants";
-import { dialogLayoutType, popupLayoutType } from "../../../global/customType";
+import Textfield from "../basic/Textfield";
+import { SIZES } from "../../global/constants";
+import { FormListLayoutType, popupLayoutType } from "../../global/customType";
 
-export default function DialogLayout({
+export default function FormListLayout({
   layout,
   type,
 }: {
-  layout: dialogLayoutType[] | popupLayoutType;
+  layout: FormListLayoutType[] | popupLayoutType;
   type: string;
 }) {
   return (

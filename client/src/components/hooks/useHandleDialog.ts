@@ -8,7 +8,7 @@ import {
   ExpenseType,
   AssetType,
   AssetUpdateType,
-  dialogLayoutType,
+  FormListLayoutType,
   popupLayoutType,
 } from "../../global/customType";
 import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
@@ -39,7 +39,7 @@ export function useHandleDialog() {
   }: {
     type: "MODAL_DOUBLE_COLUMN" | "MODAL_SINGLE_COLUMN" | "POPUP";
     title: string;
-    layout: dialogLayoutType[] | popupLayoutType;
+    layout: FormListLayoutType[] | popupLayoutType;
   }) {
     const newModal = {
       isOpen: true,

@@ -7,7 +7,7 @@ import {
 } from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
 import { useHandleDialog } from "../hooks/useHandleDialog";
-import DialogLayout from "./layout/Dialog.layout";
+import FormListLayout from "../layout/FormList.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
@@ -77,7 +77,7 @@ export default function Dialog() {
               </section>
 
               <section className="modal-contents">
-                <DialogLayout type={item.type} layout={item.layout} />
+                <FormListLayout type={item.type} layout={item.layout} />
               </section>
               <section className="modal-actions">
                 <Button_Boxtype

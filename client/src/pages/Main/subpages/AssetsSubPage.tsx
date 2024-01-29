@@ -4,7 +4,7 @@ import Navigation_ListType from "../../../components/basic/Navigation.listType";
 import ListHeader from "../../../components/compound/ListHeader";
 import { LABELS, PATH, TYPES } from "../../../global/constants";
 import Button_Boxtype from "../../../components/basic/Button.boxType";
-import { dialogLayoutType } from "../../../global/customType";
+import { FormListLayoutType } from "../../../global/customType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateAssetLayout } from "../../../global/layout";
 import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
@@ -64,7 +64,7 @@ export default function Assets_SubPage() {
             showDialog({
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_ASSET,
-              layout: CreateAssetLayout as dialogLayoutType[],
+              layout: CreateAssetLayout as FormListLayoutType[],
             })
           }
         />

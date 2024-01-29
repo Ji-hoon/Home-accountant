@@ -1,5 +1,8 @@
 import { ComputedDatum } from "@nivo/bar";
-import { AssetType, dialogLayoutType } from "../../../../../global/customType";
+import {
+  AssetType,
+  FormListLayoutType,
+} from "../../../../../global/customType";
 import { useHandleDialog } from "../../../../../components/hooks/useHandleDialog";
 import { LABELS, TYPES, VALUES } from "../../../../../global/constants";
 import { EditAssetLayout } from "../../../../../global/layout";
@@ -37,7 +40,7 @@ export function useChart({
         name: datum.id as string,
         amounts: datum.value as number,
         data: datum.data,
-      }) as dialogLayoutType[],
+      }) as FormListLayoutType[],
     });
   }
 
