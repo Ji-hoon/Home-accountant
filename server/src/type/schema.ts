@@ -5,11 +5,7 @@ export type UserSchemaType = {
   nickname: string;
   snsId: string;
   profileImgUrl: string;
-  group: Array<{
-    groupId: Types.ObjectId;
-    role: string;
-    _id: null;
-  }>;
+  group: Array<Types.ObjectId>;
 };
 
 export type expenseSchemaType = {
