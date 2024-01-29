@@ -20,13 +20,17 @@ export type FormListLayoutType = {
     | "owner"
     | "date"
     | "isRecurring"
+    | "assetType"
+    | "assets_id"
+    | "assets_date"
+    | "expense_id"
     | "groupName"
     | "groupId"
     | "groupMembers"
     | "invitationLink";
   type: string;
-  placeholder: string;
-  defaultValue?: undefined | string;
+  placeholder?: string;
+  defaultValue?: string;
   defaultDate?: Date;
   options?: undefined | string[];
   readonly?: boolean;

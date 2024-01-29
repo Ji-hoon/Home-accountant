@@ -1,6 +1,6 @@
 import { ChartData } from "../pages/Main/subpages/Assets/Chart/Assets.Chart.hooks";
 import { VALUES } from "./constants";
-import { ExpenseType, groupInfoType } from "./customType";
+import { ExpenseType, FormListLayoutType, groupInfoType } from "./customType";
 
 export const CreateExpenseLayout = [
   {
@@ -232,7 +232,7 @@ export const GroupSettingLayout = ({
   code,
   name,
   members,
-}: groupInfoType) => {
+}: groupInfoType): FormListLayoutType[] => {
   return [
     {
       title: "그룹명",
@@ -262,7 +262,7 @@ export const GroupSettingLayout = ({
       fieldName: "groupMembers",
       type: "text",
       placeholder: "",
-      defaultValue: members.length,
+      defaultValue: String(members.length),
       readonly: true,
     },
   ];
