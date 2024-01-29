@@ -15,15 +15,16 @@ export default function LoginPage() {
   const id = searchParams.get("id");
   const nickname = searchParams.get("nickname");
   const profile = searchParams.get("profile");
+  const currentGroup = searchParams.get("group");
 
   useEffect(() => {
-    const currentUser = { id, nickname, profile };
+    const currentUser = { id, nickname, profile, currentGroup };
 
     if (currentUser.id || currentUser.nickname) {
       setIsLogin(true);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
     }
-  }, [id, nickname, profile, setIsLogin]);
+  }, [currentGroup, id, nickname, profile, setIsLogin]);
 
   return (
     <>
