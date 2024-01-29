@@ -53,11 +53,14 @@ const groupController = {
     if (groupInfo === null) {
       throw new CustomError({
         status: 404,
-        message: "그룹을 찾을 수 없습니다.",
+        message: "그룹 업데이트에 실패했습니다.",
       });
     }
 
-    res.json(groupInfo);
+    res.status(200).json({
+      message: "그룹 정보 수정에 성공했습니다.",
+      groupInfo,
+    });
   }),
 };
 
