@@ -44,7 +44,7 @@ export default function Textfield({
           type={type}
           placeholder={placeholder}
           defaultValue={defaultValue}
-          disabled={readonly}
+          readOnly={readonly}
         />
       )}
       {type === "selectbox" && (
@@ -121,11 +121,15 @@ const TextFieldLayout = styled.div<{
     -webkit-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
 
-    &:focus {
+    &:not([readonly]):focus {
       background-color: ${COLORS.GRAY_01_OVERAY};
     }
     &:disabled {
       cursor: not-allowed;
+    }
+    &[readonly] {
+      color: ${COLORS.GRAY_05};
+      cursor: auto;
     }
   }
 

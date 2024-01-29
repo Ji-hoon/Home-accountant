@@ -19,7 +19,11 @@ export type FormListLayoutType = {
     | "businessName"
     | "owner"
     | "date"
-    | "isRecurring";
+    | "isRecurring"
+    | "groupName"
+    | "groupId"
+    | "groupMembers"
+    | "invitationLink";
   type: string;
   placeholder: string;
   defaultValue?: undefined | string;
@@ -41,6 +45,10 @@ export type InputFormType = {
   owner?: string | undefined;
   date?: string | undefined;
   isRecurring?: string | undefined;
+  groupName?: string | undefined;
+  groupId?: string | undefined;
+  groupMembers?: string | undefined;
+  invitationLink?: string | undefined;
 };
 
 export type ExpenseType = {
@@ -97,4 +105,11 @@ export type memberType = {
   nickname: string;
   profileImgUrl: string;
   role: string;
+};
+
+export type groupInfoType = {
+  id: string;
+  code: string;
+  name: string;
+  members: memberType[] | [];
 };

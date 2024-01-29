@@ -112,6 +112,7 @@ export const LABELS = {
   LABEL_EDIT_ASSET: "자산 정보 수정",
   LABEL_EDIT_EXPENSE: "지출 내역 수정",
   LABEL_DELETE_EXPENSE: "지출 내역 삭제",
+  LABEL_SAVE_DIFF: "변경 사항 저장",
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",

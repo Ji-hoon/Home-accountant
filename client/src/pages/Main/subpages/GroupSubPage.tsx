@@ -19,6 +19,7 @@ export default function Group_SubPage() {
   const { results } = useGroups(currentGroupId);
 
   const groupInfo = results.data.data;
+  //console.log(groupInfo);
 
   return (
     <>
@@ -65,13 +66,7 @@ export default function Group_SubPage() {
             <>
               {groupInfo.members.length > 0 &&
                 groupInfo.members.map((member: memberType, index: number) => (
-                  <ListItem_MemberType
-                    key={index}
-                    memberId={member.memberId}
-                    role={member.role}
-                    profileImgUrl={member.profileImgUrl}
-                    nickname={member.nickname}
-                  />
+                  <ListItem_MemberType key={index} {...member} />
                 ))}
               {groupInfo.members.length === 0 && (
                 <Empty
@@ -81,7 +76,9 @@ export default function Group_SubPage() {
               )}
             </>
           )}
-          {location.pathname === PATH.MAIN_GROUP_SETTINGS && <Group_Settings />}
+          {location.pathname === PATH.MAIN_GROUP_SETTINGS && (
+            <Group_Settings {...groupInfo} />
+          )}
         </section>
       </div>
       <div className="advertise-container">

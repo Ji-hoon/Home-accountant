@@ -42,7 +42,6 @@ const groupService = {
     const memberInfo = await Promise.all(
       memberList?.map(async (member) => {
         const user = await UserModel.findById(member.userId);
-        console.log(user);
         return {
           memberId: user?._id,
           nickname: user?.nickname,
@@ -54,6 +53,7 @@ const groupService = {
 
     return {
       id: groupInfo._id,
+      code: groupInfo.code,
       name: groupInfo.name,
       members: memberList.length === 0 ? [] : memberInfo,
     };

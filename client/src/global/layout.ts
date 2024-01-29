@@ -1,6 +1,6 @@
 import { ChartData } from "../pages/Main/subpages/Assets/Chart/Assets.Chart.hooks";
 import { VALUES } from "./constants";
-import { ExpenseType } from "./customType";
+import { ExpenseType, groupInfoType } from "./customType";
 
 export const CreateExpenseLayout = [
   {
@@ -223,6 +223,47 @@ export const EditExpenseLayout = ({
       defaultValue: item._id,
       readonly: true,
       hidden: true,
+    },
+  ];
+};
+
+export const GroupSettingLayout = ({
+  id,
+  code,
+  name,
+  members,
+}: groupInfoType) => {
+  return [
+    {
+      title: "그룹명",
+      fieldName: "groupName",
+      type: "text",
+      placeholder: "그룹명을 입력해주세요.",
+      defaultValue: name,
+    },
+    {
+      title: "초대링크",
+      fieldName: "invitationLink",
+      type: "text",
+      placeholder: "",
+      defaultValue: `${import.meta.env.VITE_BACKEND_URL}/invite/${code}`,
+      readonly: true,
+    },
+    {
+      title: "그룹 id",
+      fieldName: "groupId",
+      type: "text",
+      placeholder: "",
+      defaultValue: id,
+      readonly: true,
+    },
+    {
+      title: "멤버 수",
+      fieldName: "groupMembers",
+      type: "text",
+      placeholder: "",
+      defaultValue: members.length,
+      readonly: true,
     },
   ];
 };
