@@ -18,8 +18,8 @@ export default function Group_SubPage() {
 
   const { results } = useGroups(currentGroupId);
 
-  const groupInfo = results.data.data;
-  //console.log(groupInfo);
+  const groupInfo = results.data.data.groupInfo;
+  console.log(groupInfo);
 
   return (
     <>

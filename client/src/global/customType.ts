@@ -53,6 +53,10 @@ export type InputFormType = {
   groupId?: string | undefined;
   groupMembers?: string | undefined;
   invitationLink?: string | undefined;
+  assetType?: string | undefined;
+  assets_id?: string | undefined;
+  assets_date?: string | undefined;
+  expense_id?: string | undefined;
 };
 
 export type ExpenseType = {
