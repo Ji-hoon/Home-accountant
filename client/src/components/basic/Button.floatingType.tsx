@@ -11,7 +11,7 @@ export default function Button_Floatingtype({
 }) {
   return (
     <FloatingtypeButton
-      visiblity={$visiblity}
+      $visiblity={$visiblity}
       className="floating-button"
       onClick={onClick}
     >
@@ -22,7 +22,7 @@ export default function Button_Floatingtype({
 
 // eslint-disable-next-line react-refresh/only-export-components
 const FloatingtypeButton = styled.button<{
-  visiblity: boolean | undefined;
+  $visiblity: boolean | undefined;
 }>`
   width: ${SIZES.LG * 3}px;
   height: ${SIZES.LG * 3}px;
@@ -40,7 +40,7 @@ const FloatingtypeButton = styled.button<{
   z-index: 1;
 
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_02_OVERAY};
-  visibility: ${(props) => (props.visiblity === true ? "visible" : "hidden")};
+  visibility: ${(props) => (props.$visiblity === false ? "hidden" : "visible")};
 
   & svg {
     width: ${SIZES.MD * 2}px;

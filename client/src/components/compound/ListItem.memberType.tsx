@@ -1,9 +1,10 @@
 import Profile from "../basic/Profile";
-import { FiMoreHorizontal } from "react-icons/fi";
+
 import styled from "styled-components";
 import { ListItemContainer } from "./ListItem.expenseType";
 import { URLS, SIZES } from "../../global/constants";
-import Button_Icontype from "../basic/Button.iconType";
+// import Button_Icontype from "../basic/Button.iconType";
+// import { FiMoreHorizontal } from "react-icons/fi";
 
 export default function ListItem_MemberType() {
   return (
@@ -18,9 +19,9 @@ export default function ListItem_MemberType() {
         </h4>
         <p>멤버 이메일 주소</p>
       </div>
-      <Button_Icontype>
+      {/* <Button_Icontype> //TODO: 멤버 더보기 메뉴는 추후 구현
         <FiMoreHorizontal />
-      </Button_Icontype>
+      </Button_Icontype> */}
     </ListItemContainer>
   );
 }

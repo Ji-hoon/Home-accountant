@@ -37,7 +37,7 @@ export default function Group_SubPage() {
         />
         <Button_Floatingtype
           $visiblity={
-            location.pathname === PATH.MAIN_GROUP_MEMBER ? true : false
+            location.pathname === PATH.MAIN_GROUP_SETTINGS ? false : true
           }
           onClick={
             () => {}
