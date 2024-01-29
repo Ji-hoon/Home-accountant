@@ -30,3 +30,13 @@ export type assetSchemaType = {
     _id: null;
   }>;
 };
+
+export type groupSchemaType = {
+  _id: Types.ObjectId;
+  name: string;
+  member: Array<{
+    userId: Types.ObjectId;
+    role: string;
+  }>;
+  code: string;
+};
