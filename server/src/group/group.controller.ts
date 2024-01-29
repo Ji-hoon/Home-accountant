@@ -28,8 +28,18 @@ const groupController = {
     });
   }),
   getGroup: asyncHandler(async (req: express.Request, res: Response) => {
-    const requestBody = req.body;
-    res.json(requestBody);
+    const { id } = req.params;
+
+    const groupInfo = await groupService.getGroup(id);
+
+    if (groupInfo === null) {
+      throw new CustomError({
+        status: 404,
+        message: "그룹을 찾을 수 없습니다.",
+      });
+    }
+
+    res.json(groupInfo);
   }),
 };
 

@@ -11,7 +11,7 @@ const GroupSchema = new Schema<groupSchemaType>(
       required: true,
       type: String,
     },
-    member: [
+    members: [
       {
         userId: {
           required: true,

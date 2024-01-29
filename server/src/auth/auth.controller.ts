@@ -32,7 +32,7 @@ const authController = {
       console.log("result: ", result);
       res.cookie("service_token", token, { path: "/", httpOnly: true });
       res.redirect(
-        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}&profile=${result.user.profileImgUrl}&group=${result.user.group[0]}`,
+        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}&profile=${result.user.profileImgUrl}&group=${result.user.groups[0]}`,
       );
     },
   ),
@@ -72,7 +72,7 @@ const authController = {
     });
 
     if (newGroup) {
-      newUser.group.push(newGroup._id);
+      newUser.groups.push(newGroup._id);
       await newUser.save();
     }
 
