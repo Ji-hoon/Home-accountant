@@ -16,9 +16,9 @@ export default function Group_SubPage() {
   const currentUser = localStorage.getItem("currentUser");
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
 
-  const { results } = useGroups(currentGroupId);
+  const { data } = useGroups(currentGroupId);
 
-  const groupInfo = results.data.data.groupInfo;
+  const groupInfo = data.data.groupInfo;
   console.log(groupInfo);
 
   return (

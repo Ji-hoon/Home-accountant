@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import FormListLayout from "../../../../components/layout/FormList.layout";
 import { TYPES, SIZES, LABELS } from "../../../../global/constants";
-import { groupInfoType } from "../../../../global/customType";
+import { InputFormType, groupInfoType } from "../../../../global/customType";
 
 import { GroupSettingLayout } from "../../../../global/layout";
 import Button_Boxtype from "../../../../components/basic/Button.boxType";
+import { useForm } from "react-hook-form";
+import { useRef } from "react";
+import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 
 export default function Group_Settings({
   id,
@@ -13,21 +16,33 @@ export default function Group_Settings({
   members,
 }: groupInfoType) {
   //console.log(id, code, name, members);
+  const groupFormRef = useRef<HTMLFormElement>(null);
+  const { handleSubmit } = useForm<InputFormType>();
+  const { getDialogFormData, submitDialog } = useHandleDialog();
+
+  async function onSubmit() {
+    if (groupFormRef.current) {
+      const currentFormData = getDialogFormData(groupFormRef.current);
+      console.log("submit!", currentFormData);
+
+      await submitDialog({
+        action: LABELS.LABEL_UPDATE_GROUP_INFO,
+        data: currentFormData,
+      });
+    }
+  }
+
   return (
-    <SettingLayoutContainer>
+    <SettingLayoutContainer
+      ref={groupFormRef}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <FormListLayout
         type={TYPES.MODAL_SINGLE_COL}
         layout={GroupSettingLayout({ id, code, name, members })}
       />
-      <Button_Boxtype
-        onClick={(event: React.SyntheticEvent) => {
-          event.preventDefault();
-          //setIndex(index);
-          //console.log(dialogFormRef.current);
-        }}
-        type={TYPES.SUBMIT}
-      >
-        {LABELS.LABEL_SAVE_DIFF}
+      <Button_Boxtype type={TYPES.SUBMIT}>
+        {LABELS.LABEL_UPDATE_GROUP_INFO}
       </Button_Boxtype>
     </SettingLayoutContainer>
   );

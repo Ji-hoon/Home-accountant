@@ -15,11 +15,15 @@ import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
 import { LABELS } from "../../global/constants";
 import { format, parse } from "date-fns";
 import { useAssets } from "../../pages/Main/subpages/Assets/Assets.hooks";
+import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
 
 export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
   const dateUnit = useRecoilValue(dateUnitAtom);
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+  const currentUser = localStorage.getItem("currentUser");
+  const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
+
   //console.log("dialog: ",currentDate);
   const { addExpense, updateExpense, deleteExpense } = useExpenses({
     owner: "",
@@ -31,6 +35,7 @@ export function useHandleDialog() {
     currentDate,
     unit: dateUnit,
   });
+  const { updateGroup } = useGroups(currentGroupId);
 
   function showDialog({
     type,
@@ -119,6 +124,14 @@ export function useHandleDialog() {
     if (action === LABELS.LABEL_DELETE_EXPENSE) {
       const result = await deleteExpense({
         expenseId: data[0],
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_UPDATE_GROUP_INFO) {
+      const result = await updateGroup({
+        id: currentGroupId,
+        name: data.groupName,
       });
       if (result) return result;
     }

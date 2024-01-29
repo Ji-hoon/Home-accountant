@@ -127,7 +127,7 @@ const TextFieldLayout = styled.div<{
     &:disabled {
       cursor: not-allowed;
     }
-    &[readonly] {
+    &[readonly][type="text"] {
       color: ${COLORS.GRAY_03};
       cursor: auto;
     }
