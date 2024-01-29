@@ -7,4 +7,6 @@ groupRouter.post("/", groupController.addGroup);
 
 groupRouter.get("/:id", groupController.getGroup);
 
+groupRouter.put("/:id", groupController.updateGroup);
+
 export default groupRouter;

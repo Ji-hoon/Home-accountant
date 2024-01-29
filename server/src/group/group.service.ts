@@ -1,11 +1,11 @@
-import groupModel from "./group.model.js";
 import { GroupCreateType } from "../type/global.js";
 import { CustomError } from "../middleware/errorHandler.js";
 import UserModel from "../user/user.model.js";
+import GroupModel from "./group.model.js";
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
-    const existGroup = await groupModel.findOne({
+    const existGroup = await GroupModel.findOne({
       code: groupId,
     });
 
@@ -27,12 +27,12 @@ const groupService = {
       },
     };
 
-    const newGroup = await groupModel.create(groupData);
+    const newGroup = await GroupModel.create(groupData);
 
     return newGroup;
   },
   async getGroup(id: string) {
-    const groupInfo = await groupModel.findById(id);
+    const groupInfo = await GroupModel.findById(id);
 
     if (!groupInfo) {
       return null;
@@ -57,6 +57,16 @@ const groupService = {
       name: groupInfo.name,
       members: memberList.length === 0 ? [] : memberInfo,
     };
+  },
+  async updateGroup(id: string, name: string) {
+    const group = await GroupModel.findOneAndUpdate(
+      { _id: id },
+      {
+        name,
+      },
+      { new: true },
+    );
+    return group;
   },
 };
 

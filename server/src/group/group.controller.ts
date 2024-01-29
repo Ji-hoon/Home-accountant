@@ -39,6 +39,24 @@ const groupController = {
       });
     }
 
+    res.status(201).json({
+      message: "그룹 조회에 성공했습니다.",
+      groupInfo,
+    });
+  }),
+  updateGroup: asyncHandler(async (req: express.Request, res: Response) => {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const groupInfo = await groupService.updateGroup(id, name);
+
+    if (groupInfo === null) {
+      throw new CustomError({
+        status: 404,
+        message: "그룹을 찾을 수 없습니다.",
+      });
+    }
+
     res.json(groupInfo);
   }),
 };
