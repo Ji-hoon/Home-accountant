@@ -2,7 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { PATH } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
-import Layout_HorizontalView from "../../components/layout/Layout.horizontalView";
+import HorizontalViewLayout from "../../components/layout/horizontalView.Layout";
 import Expenses_SubPage from "./subpages/ExpensesSubPage";
 import Assets_SubPage from "./subpages/AssetsSubPage";
 import Group_SubPage from "./subpages/GroupSubPage";
@@ -23,7 +23,7 @@ export default function MainPage() {
         <Navigate to={PATH.MAIN_GROUP_MEMBER} />
       )}
       {isLogin && (
-        <Layout_HorizontalView>
+        <HorizontalViewLayout>
           <>
             {location.pathname === PATH.MAIN_EXPENSES_BY_WEEK && (
               <Expenses_SubPage />
@@ -45,7 +45,7 @@ export default function MainPage() {
               <Group_SubPage />
             )}
           </>
-        </Layout_HorizontalView>
+        </HorizontalViewLayout>
       )}
       {!isLogin && <Navigate to={PATH.LOGIN} />}
     </>
