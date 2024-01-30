@@ -20,6 +20,7 @@ export type AssetType = {
   name: string;
   assetType: string; //TODO: Types.ObjectId로 변경 필요
   owner: string; //TODO: Types.ObjectId 로 변경 필요
+  groupId: string;
   assetHistory: {
     date: string | Date; //api 요청만 string으로 받고, data 저장 시에는 date로 parsing 해서 저장.
     amounts: number;

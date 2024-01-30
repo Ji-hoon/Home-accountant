@@ -37,11 +37,12 @@ const assetsAPI = {
     currentGroupId: string;
     period: Array<Date | undefined>;
   }) {
-    const url = `/assets/amounts?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
-    const response = await axiosInstance.get(url);
-    //console.log(url, response);
+    if (currentGroupId) {
+      const url = `/assets/amounts?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
+      const response = await axiosInstance.get(url);
 
-    return response.data;
+      return response.data;
+    }
   },
 
   async get({
@@ -53,10 +54,12 @@ const assetsAPI = {
     currentGroupId: string;
     period: Array<Date | undefined>;
   }) {
-    const url = `/assets?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
-    const response = await axiosInstance.get(url);
+    if (currentGroupId) {
+      const url = `/assets?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
+      const response = await axiosInstance.get(url);
 
-    return response.data;
+      return response.data;
+    }
   },
 
   async update({

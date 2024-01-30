@@ -13,6 +13,7 @@ const assetController = {
       amounts: req.body.amounts as number,
       name: req.body.name as string,
       owner: req.body.owner as string,
+      groupId: req.body.currentGroupId,
       assetType: req.body.assetType as string,
       assetHistory: [
         {
@@ -49,10 +50,11 @@ const assetController = {
   }),
 
   getAsset: asyncHandler(async (req: express.Request, res: Response) => {
-    const { owner, startDate, endDate } = req.query;
+    const { owner, currentGroupId, startDate, endDate } = req.query;
 
     const assets = await assetService.getAssets({
       owner: owner as string,
+      groupId: currentGroupId,
       startDate: startDate,
       endDate: endDate,
     });
@@ -60,9 +62,10 @@ const assetController = {
   }),
 
   getAssetAmounts: asyncHandler(async (req: express.Request, res: Response) => {
-    const { owner, startDate, endDate } = req.query;
+    const { owner, currentGroupId, startDate, endDate } = req.query;
     const assets = await assetService.getAssetsByOption({
       owner: owner as string,
+      groupId: currentGroupId,
       startDate: startDate,
       endDate: endDate,
     });
