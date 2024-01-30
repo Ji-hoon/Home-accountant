@@ -63,9 +63,10 @@ const FeatureSectionContainer = styled.section`
   }
 
   & p {
-    font-size: ${SIZES.XL}px;
-    line-height: ${SIZES.XXL}px;
+    font-size: ${SIZES.LG}px;
+    line-height: ${SIZES.XL + 4}px;
     margin: 0;
+    color: ${COLORS.GRAY_07};
   }
 
   & div {
