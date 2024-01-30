@@ -23,6 +23,7 @@ const groupService = {
       members: {
         userId: userId,
         role: "OWNER",
+        joinedAt: new Date(),
         _id: null,
       },
     };
@@ -30,6 +31,44 @@ const groupService = {
     const newGroup = await GroupModel.create(groupData);
 
     return newGroup;
+  },
+  async addMemberToGroup({
+    groupId,
+    userId,
+  }: Omit<GroupCreateType, "nickname">) {
+    const existGroup = await GroupModel.findOne({
+      code: groupId,
+    });
+
+    if (!existGroup) {
+      //TODO: controller로 에러 처리 이관 필요
+      throw new CustomError({
+        status: 400,
+        message: "그룹이 존재하지 않습니다.",
+      });
+    }
+
+    const existUser = existGroup.members.find(
+      (member) => member.userId === userId,
+    );
+
+    if (existUser) {
+      throw new CustomError({
+        status: 400,
+        message: "이미 가입된 멤버입니다.",
+      });
+    }
+
+    const newMember = {
+      userId,
+      joinedAt: new Date(),
+      role: "MEMBER",
+      _id: null,
+    };
+    existGroup.members.push(newMember);
+    await existGroup.save();
+
+    return newMember;
   },
   async getGroup(id: string) {
     const groupInfo = await GroupModel.findById(id);
@@ -47,6 +86,7 @@ const groupService = {
           nickname: user?.nickname,
           profileImgUrl: user?.profileImgUrl,
           role: member.role,
+          joinedAt: member.joinedAt,
         };
       }),
     );
