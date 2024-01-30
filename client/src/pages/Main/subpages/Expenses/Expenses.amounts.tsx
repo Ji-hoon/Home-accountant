@@ -23,7 +23,6 @@ export default function Expenses_Amounts({
     unit: $unit,
   });
   const amounts = pages[0]?.amounts;
-  console.log(fetchStatus);
 
   return (
     <ValueWrapper>

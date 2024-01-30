@@ -21,7 +21,7 @@ export default function Chart({
   $unit: string;
 }) {
   const currentUser = useRecoilValue(currentUserAtom);
-  const { data } = useAssets({
+  const { data, fetchStatus } = useAssets({
     owner: $owner,
     currentGroupId: currentUser.currentGroup,
     currentDate: $currentDate,
@@ -63,7 +63,10 @@ export default function Chart({
   return (
     <>
       {resultArray.length > 0 && (
-        <ChartContainer ref={chartRef}>
+        <ChartContainer
+          ref={chartRef}
+          className={fetchStatus === "fetching" ? "fetching" : ""}
+        >
           <ResponsiveBar<
             ChartData & {
               owner: string;
