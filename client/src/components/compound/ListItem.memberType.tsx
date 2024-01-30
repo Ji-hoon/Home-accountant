@@ -3,13 +3,13 @@ import Profile from "../basic/Profile";
 
 import styled from "styled-components";
 import { ListItemContainer } from "./ListItem.expenseType";
-import { LABELS, SIZES } from "../../global/constants";
+import { LABELS, SIZES, COLORS } from "../../global/constants";
 import { memberType } from "../../global/customType";
 import { format } from "date-fns";
 import { FiCalendar } from "react-icons/fi";
 
-// import Button_Icontype from "../basic/Button.iconType";
-// import { FiMoreHorizontal } from "react-icons/fi";
+import Button_Icontype from "../basic/Button.iconType";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 export default function ListItem_MemberType({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,16 +27,23 @@ export default function ListItem_MemberType({
       <div className="list-info">
         <h4>
           {nickname}
-          <RoleLabel className="role" $type={role}></RoleLabel>
+          {role === "OWNER" && (
+            <RoleLabel className="role" $type={role}></RoleLabel>
+          )}
         </h4>
         <JoinedDateField>
+          <span>{LABELS.LABEL_GROUP_JOINED_DATE} :</span>
           <FiCalendar />
-          <span>가입일 : {format(joinedAt, "yyyy-MM-dd")}</span>
+          <span title={format(joinedAt, "yyyy년 MM월 dd일")}>
+            {format(joinedAt, "yyyy년 MM월 dd일 HH:MM")}
+          </span>
         </JoinedDateField>
       </div>
-      {/* <Button_Icontype> //TODO: 멤버 더보기 메뉴는 추후 구현
-        <FiMoreHorizontal />
-      </Button_Icontype> */}
+      {role !== "OWNER" && (
+        <Button_Icontype>
+          <FiMoreHorizontal />
+        </Button_Icontype>
+      )}
     </ListItemContainer>
   );
 }
@@ -53,6 +60,10 @@ const JoinedDateField = styled.p`
   display: flex;
   align-items: center;
   gap: 4px;
+  & > span:nth-child(1) {
+    font-weight: 500;
+    color: ${COLORS.GRAY_05};
+  }
 `;
 
 const RoleLabel = styled.span<{
