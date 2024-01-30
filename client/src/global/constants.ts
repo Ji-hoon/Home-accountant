@@ -113,6 +113,7 @@ export const LABELS = {
   LABEL_EDIT_EXPENSE: "지출 내역 수정",
   LABEL_DELETE_EXPENSE: "지출 내역 삭제",
   LABEL_UPDATE_GROUP_INFO: "그룹 정보 변경",
+  LABEL_GROUP_JOINED_DATE: "가입일",
   NAVIGATION_MENU_EXPENSES_BY_WEEK: "주간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MONTH: "월간 지출 내역",
   NAVIGATION_MENU_EXPENSES_BY_MEMBER: "멤버별 지출 내역",
@@ -137,4 +138,6 @@ export const LABELS = {
   MESSAGE_NO_ASSETS: "자산 항목이 없습니다.",
   MESSAGE_NO_MEMBERS: "표시할 멤버가 없습니다.",
   DESC_DELETE_EXPENSE: "선택하신 지출내역을 삭제할까요?",
+  ROLE_OWNER: "그룹 관리자",
+  ROLE_MEMBER: "그룹 멤버",
 } as const;

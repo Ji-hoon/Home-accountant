@@ -38,7 +38,9 @@ export type groupSchemaType = {
   name: string;
   members: Array<{
     userId: Types.ObjectId;
+    joinedAt: Date;
     role: string;
+    _id: null;
   }>;
   code: string;
 };

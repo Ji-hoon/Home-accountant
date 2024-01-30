@@ -21,6 +21,10 @@ const GroupSchema = new Schema<groupSchemaType>(
           required: true,
           type: String,
         },
+        joinedAt: {
+          required: true,
+          type: Date,
+        },
       },
     ],
   },

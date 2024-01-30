@@ -116,6 +116,7 @@ export type memberType = {
   nickname: string;
   profileImgUrl: string;
   role: string;
+  joinedAt: Date;
 };
 
 export type groupInfoType = {

@@ -9,4 +9,6 @@ groupRouter.get("/:id", groupController.getGroup);
 
 groupRouter.put("/:id", groupController.updateGroup);
 
+groupRouter.put("/:id/:userId", groupController.addMemberToGroup);
+
 export default groupRouter;

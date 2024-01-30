@@ -2,6 +2,8 @@ import { GroupCreateType } from "../type/global.js";
 import { CustomError } from "../middleware/errorHandler.js";
 import UserModel from "../user/user.model.js";
 import GroupModel from "./group.model.js";
+import { Types } from "mongoose";
+const ObjectId = Types.ObjectId;
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -21,8 +23,9 @@ const groupService = {
       name: `${nickname}님의 가계부`,
       code: groupId,
       members: {
-        userId: userId,
+        userId: new ObjectId(userId as string),
         role: "OWNER",
+        joinedAt: new Date(),
         _id: null,
       },
     };
@@ -30,6 +33,47 @@ const groupService = {
     const newGroup = await GroupModel.create(groupData);
 
     return newGroup;
+  },
+  async addMemberToGroup({
+    groupId,
+    userId,
+  }: Omit<GroupCreateType, "nickname">) {
+    const existGroup = await GroupModel.findOne({
+      _id: groupId,
+    });
+
+    if (!existGroup) {
+      //TODO: controller로 에러 처리 이관 필요
+      throw new CustomError({
+        status: 400,
+        message: "그룹이 존재하지 않습니다.",
+      });
+    }
+
+    const existUser = await GroupModel.aggregate([
+      { $match: { _id: groupId } },
+      { $unwind: "$members" },
+      { $match: { "members.userId": new ObjectId(userId as string) } },
+    ]);
+    console.log(existUser);
+
+    if (existUser) {
+      throw new CustomError({
+        status: 400,
+        message: "이미 가입된 멤버입니다.",
+      });
+    }
+
+    const newMember = {
+      userId: new ObjectId(userId as string),
+      joinedAt: new Date(),
+      role: "MEMBER",
+      _id: null,
+    };
+    existGroup.members.push(newMember);
+    await existGroup.save();
+
+    return newMember;
   },
   async getGroup(id: string) {
     const groupInfo = await GroupModel.findById(id);
@@ -47,6 +91,7 @@ const groupService = {
           nickname: user?.nickname,
           profileImgUrl: user?.profileImgUrl,
           role: member.role,
+          joinedAt: member.joinedAt,
         };
       }),
     );

@@ -67,7 +67,7 @@ const authController = {
 
     const newGroup = await groupService.addGroup({
       groupId: newUser.snsId,
-      userId: newUser._id,
+      userId: newUser._id as unknown as string,
       nickname: newUser.nickname,
     });
 
