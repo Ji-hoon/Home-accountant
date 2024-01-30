@@ -26,6 +26,7 @@ export default function RootPage() {
         currentGroup: result.currentGroup,
       });
     }
+    //console.log(result);
   });
 
   return (

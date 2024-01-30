@@ -3,13 +3,21 @@ import { axiosInstance } from "../../../../global/axiosInstance";
 import { AssetType, AssetUpdateType } from "../../../../global/customType";
 
 const assetsAPI = {
-  async add({ amounts, name, owner, assetType, assetHistory }: AssetType) {
+  async add({
+    amounts,
+    name,
+    owner,
+    currentGroupId,
+    assetType,
+    assetHistory,
+  }: AssetType) {
     const response = await axiosInstance.post(
       `/assets`,
       {
         amounts,
         name,
         owner,
+        currentGroupId,
         assetType,
         assetHistory,
       },
@@ -22,12 +30,14 @@ const assetsAPI = {
 
   async totalAssetAmounts({
     owner,
+    currentGroupId,
     period,
   }: {
     owner: string;
+    currentGroupId: string;
     period: Array<Date | undefined>;
   }) {
-    const url = `/assets/amounts?owner=${owner}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const url = `/assets/amounts?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
     const response = await axiosInstance.get(url);
     //console.log(url, response);
 
@@ -36,12 +46,14 @@ const assetsAPI = {
 
   async get({
     owner,
+    currentGroupId,
     period,
   }: {
     owner: string;
+    currentGroupId: string;
     period: Array<Date | undefined>;
   }) {
-    const url = `/assets?owner=${owner}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const url = `/assets?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period[1] && format(period[1], "yyyy-MM-dd")}`;
     const response = await axiosInstance.get(url);
 
     return response.data;

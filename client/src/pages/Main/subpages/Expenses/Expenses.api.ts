@@ -8,6 +8,7 @@ const expenseAPI = {
     category,
     businessName,
     owner,
+    currentGroupId,
     date,
     isRecurring,
   }: ExpenseType) {
@@ -18,6 +19,7 @@ const expenseAPI = {
         category,
         businessName,
         owner,
+        currentGroupId,
         date,
         isRecurring,
       },
@@ -31,16 +33,18 @@ const expenseAPI = {
 
   async get({
     owner,
+    currentGroupId,
     cursor,
     limit,
     period,
   }: {
     owner: string;
+    currentGroupId: string;
     cursor: number;
     limit: number;
     period: Array<Date | undefined> | undefined;
   }) {
-    const url = `/expenses?owner=${owner}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const url = `/expenses?owner=${owner}&currentGroupId=${currentGroupId}&cursor=${cursor}&limit=${limit}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
     const response = await axiosInstance.get(url);
     console.log(url);
     return { response, nextCursor: cursor + limit };
@@ -48,12 +52,14 @@ const expenseAPI = {
 
   async totalAmounts({
     owner,
+    currentGroupId,
     period,
   }: {
     owner: string;
+    currentGroupId: string;
     period?: Array<Date | undefined> | undefined;
   }) {
-    const url = `/expenses/amounts?owner=${owner}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
+    const url = `/expenses/amounts?owner=${owner}&currentGroupId=${currentGroupId}&startDate=${period && period[0] && format(period[0], "yyyy-MM-dd")}&endDate=${period && period[1] && format(period[1], "yyyy-MM-dd")}`;
     const response = await axiosInstance.get(url);
 
     return response.data;
@@ -67,7 +73,7 @@ const expenseAPI = {
     date,
     isRecurring,
     expenseId,
-  }: ExpenseType & { expenseId: string }) {
+  }: Omit<ExpenseType, "currentGroupId"> & { expenseId: string }) {
     const response = await axiosInstance.put(
       `/expenses/${expenseId}`,
       {

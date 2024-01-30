@@ -13,10 +13,12 @@ export function useExpenses({
   owner,
   currentDate,
   unit,
+  currentGroupId,
 }: {
   owner: string;
   currentDate: Date;
   unit: string;
+  currentGroupId: string;
 }) {
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
   let startDate;
@@ -39,8 +41,14 @@ export function useExpenses({
     queryKey: [queryKeys.expense],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
-        expenseAPI.totalAmounts({ owner, period }),
-        expenseAPI.get({ owner, cursor: pageParam as number, limit, period }),
+        expenseAPI.totalAmounts({ owner, currentGroupId, period }),
+        expenseAPI.get({
+          owner,
+          currentGroupId,
+          cursor: pageParam as number,
+          limit,
+          period,
+        }),
       ]);
       const expenses = expensesResponse.response.data as (ExpenseType & {
         _id: string;
