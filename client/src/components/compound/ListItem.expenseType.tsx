@@ -85,6 +85,7 @@ export const ListItemContainer = styled.div`
     text-align: right;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     gap: ${SIZES.XXS / 2}px;
 
     & h4:before {
