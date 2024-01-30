@@ -8,6 +8,7 @@ import { EditExpenseLayout } from "../../../../global/layout";
 import { ExpenseType, FormListLayoutType } from "../../../../global/customType";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../../../../atoms/globalAtoms";
+import Skeleton_ExpenseListItem from "../../../../components/skeleton/Skeleton.expenseListItem";
 
 export default function Expenses_List({
   $owner,
@@ -53,7 +54,9 @@ export default function Expenses_List({
           />
         ))}
       {hasNextPage && (
-        <div ref={setTarget}>리스트 마지막 TODO: list skeleton으로 변경</div>
+        <li ref={setTarget} className="skeleton-item">
+          <Skeleton_ExpenseListItem />
+        </li>
       )}
       {expenseList.length === 0 && (
         <Empty

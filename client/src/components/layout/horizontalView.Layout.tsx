@@ -51,6 +51,10 @@ const HorizontalViewContainer = styled.section<{
       display: flex;
       flex-direction: column;
       gap: ${SIZES.XXS / 3}px;
+
+      & li.skeleton-item {
+        margin-bottom: -70px;
+      }
     }
 
     & button + section {

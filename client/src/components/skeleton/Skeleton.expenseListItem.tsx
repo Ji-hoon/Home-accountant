@@ -6,7 +6,7 @@ import { SIZES, COLORS } from "../../global/constants";
 export default function Skeleton_ExpenseListItem() {
   return (
     <DummyListContainer>
-      <DummyCheckbox />
+      <div></div>
       <div className="list-info">
         <h4 className="businessName">업장명슬롯</h4>
         <p className="date">날짜슬롯</p>
@@ -22,12 +22,22 @@ export default function Skeleton_ExpenseListItem() {
 const DummyListContainer = styled(ListItemContainer)`
   //pointer-events: none;
 
+  & div:nth-child(1) {
+    width: ${SIZES.LG}px;
+    height: ${SIZES.LG}px;
+    background-color: ${COLORS.GRAY_01_OVERAY};
+    border-radius: 4px;
+    -webkit-animation: blink 1.5s 50ms ease-in infinite;
+    animation: blink 1.5s 50ms ease-in infinite;
+  }
   & h4 {
     height: ${SIZES.LG}px;
     font-size: 0;
     background-color: ${COLORS.GRAY_01_OVERAY};
     border-radius: 4px;
     width: 200px;
+    -webkit-animation: blink 1.5s 200ms infinite;
+    animation: blink 1.5s 200ms infinite;
   }
 
   & p {
@@ -36,6 +46,8 @@ const DummyListContainer = styled(ListItemContainer)`
     background-color: ${COLORS.GRAY_01_OVERAY};
     border-radius: 4px;
     width: 100px;
+    -webkit-animation: blink 1.5s 100ms ease-in infinite;
+    animation: blink 1.5s 100ms ease-in infinite;
   }
 
   & .expense-value {
@@ -46,11 +58,16 @@ const DummyListContainer = styled(ListItemContainer)`
       width: 80px;
     }
   }
-`;
 
-const DummyCheckbox = styled.div`
-  width: ${SIZES.LG}px;
-  height: ${SIZES.LG}px;
-  background-color: ${COLORS.GRAY_01_OVERAY};
-  border-radius: 4px;
+  @keyframes blink {
+    0% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.45;
+    }
+  }
 `;
