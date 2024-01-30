@@ -103,6 +103,10 @@ const groupService = {
       members: memberList.length === 0 ? [] : memberInfo,
     };
   },
+  async getGroupByCode(code: string) {
+    const group = await GroupModel.findOne({ code }, "name");
+    return group;
+  },
   async updateGroup(id: string, name: string) {
     const group = await GroupModel.findOneAndUpdate(
       { _id: id },

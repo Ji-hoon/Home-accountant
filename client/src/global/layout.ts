@@ -246,7 +246,7 @@ export const GroupSettingLayout = ({
       fieldName: "invitationLink",
       type: "text",
       placeholder: "",
-      defaultValue: `${import.meta.env.VITE_BACKEND_URL}/invite/${code}`,
+      defaultValue: `${import.meta.env.VITE_BACKEND_URL}/invite?code=${code}`,
       readonly: true,
     },
     {

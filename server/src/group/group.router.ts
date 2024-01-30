@@ -7,6 +7,8 @@ groupRouter.post("/", groupController.addGroup);
 
 groupRouter.get("/:id", groupController.getGroup);
 
+groupRouter.get("/", groupController.getGroupByCode);
+
 groupRouter.put("/:id", groupController.updateGroup);
 
 groupRouter.put("/:id/:userId", groupController.addMemberToGroup);
