@@ -63,7 +63,16 @@ export function useExpenses({
     },
   });
 
-  const { data, isError, refetch, fetchNextPage, hasNextPage } = results;
+  // console.log(results.fetchStatus);
+  const {
+    data,
+    isError,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    fetchStatus,
+    isFetchingNextPage,
+  } = results;
 
   const { setTarget } = useIntersectionObserver({
     onIntersect: fetchNextPage,
@@ -151,5 +160,7 @@ export function useExpenses({
     ...data,
     setTarget,
     hasNextPage,
+    fetchStatus,
+    isFetchingNextPage,
   };
 }
