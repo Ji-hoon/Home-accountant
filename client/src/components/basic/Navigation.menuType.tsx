@@ -18,22 +18,22 @@ const NavigationMenutypeContainer = styled.nav`
     content: "";
     position: absolute;
     height: 5px;
-    width: 48px;
+    width: 64px;
     bottom: -20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-color: ${COLORS.BRAND_DEEP};
 
-    -webkit-transform: translate(-24px, 1px);
-    transform: translate(-24px, 1px);
+    -webkit-transform: translate(-32px, 1px);
+    transform: translate(-32px, 1px);
 
     -webkit-transition: all 100ms ease-out;
     transition: all 200ms ease-out;
   }
 
   & a.active:before {
-    -webkit-transform: translate(-24px, -4px);
-    transform: translate(-24px, -4px);
+    -webkit-transform: translate(-32px, -4px);
+    transform: translate(-32px, -4px);
   }
 
   & a.active button {
@@ -42,12 +42,13 @@ const NavigationMenutypeContainer = styled.nav`
   }
 
   & button {
-    /* font-weight: 600; */
+    font-weight: 600;
     background-color: transparent;
-    color: ${COLORS.GRAY_07};
+    color: ${COLORS.GRAY_08};
 
     &:hover {
       background-color: ${COLORS.GRAY_01_OVERAY};
+      color: ${COLORS.GRAY_10};
     }
     &:active {
       background-color: ${COLORS.GRAY_03_OVERAY};
