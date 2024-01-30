@@ -13,10 +13,12 @@ export function useExpenses({
   owner,
   currentDate,
   unit,
+  currentGroupId,
 }: {
   owner: string;
   currentDate: Date;
   unit: string;
+  currentGroupId: string;
 }) {
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
   let startDate;
@@ -39,18 +41,24 @@ export function useExpenses({
     queryKey: [queryKeys.expense],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
-        expenseAPI.totalAmounts({ owner, period }),
-        expenseAPI.get({ owner, cursor: pageParam as number, limit, period }),
+        expenseAPI.totalAmounts({ owner, currentGroupId, period }),
+        expenseAPI.get({
+          owner,
+          currentGroupId,
+          cursor: pageParam as number,
+          limit,
+          period,
+        }),
       ]);
-      const expenses = expensesResponse.response.data as (ExpenseType & {
+      const expenses = expensesResponse?.response.data as (ExpenseType & {
         _id: string;
       })[];
-      const nextCursor = expensesResponse.nextCursor;
+      const nextCursor = expensesResponse?.nextCursor;
       return { amounts, expenses, nextCursor };
     },
     initialPageParam: 0,
     getNextPageParam: ({ expenses, nextCursor }) => {
-      if (expenses.length === 0) return null;
+      if (expenses?.length === 0) return null;
       return nextCursor;
     },
   });
@@ -79,7 +87,7 @@ export function useExpenses({
       //setisLoading(!isLoading);
     },
     onSuccess: (data) => {
-      console.log(data.data.message);
+      console.log(data?.data.message);
       invalidateExpenseQuery();
       refetch();
     },

@@ -1,4 +1,6 @@
 import { useExpenses } from "../Expenses/Expenses.hooks";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../../../../atoms/globalAtoms";
 
 export default function Expenses_Amounts({
   $currentDate,
@@ -9,8 +11,10 @@ export default function Expenses_Amounts({
   $unit: string;
   $owner: string;
 }) {
+  const currentUser = useRecoilValue(currentUserAtom);
   const { pages } = useExpenses({
     owner: $owner,
+    currentGroupId: currentUser.currentGroup,
     currentDate: $currentDate,
     unit: $unit,
   });

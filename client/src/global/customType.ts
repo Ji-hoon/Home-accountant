@@ -64,6 +64,7 @@ export type ExpenseType = {
   category: string;
   businessName: string;
   owner: string;
+  currentGroupId: string;
   date: Date;
   isRecurring: string;
 };
@@ -72,6 +73,7 @@ export type AssetType = {
   amounts: string;
   name: string;
   owner: string;
+  currentGroupId: string;
   assetType: string;
   assetHistory: {
     date: Date | string;
@@ -93,6 +95,7 @@ export type loginUserType = {
     id: string;
     nickname: string;
     profile: string;
+    currentGroup: string;
   };
 };
 

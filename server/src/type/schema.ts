@@ -24,6 +24,7 @@ export type assetSchemaType = {
   name: string;
   assetType: string; //TODO: Types.ObjectId로 변경 필요
   owner: string; //TODO: Types.ObjectId 로 변경 필요
+  groupId: Types.ObjectId;
   assetHistory: Array<{
     date: Date;
     amounts: number;

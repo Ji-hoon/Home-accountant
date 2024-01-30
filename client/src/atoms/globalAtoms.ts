@@ -11,6 +11,7 @@ export const currentUserAtom = atom({
   default: {
     userId: "",
     nickname: "",
+    currentGroup: "",
   },
 });
 

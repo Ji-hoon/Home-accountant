@@ -7,6 +7,7 @@ import { isLoginAtom, currentUserAtom } from "../../atoms/globalAtoms";
 import { PATH } from "../../global/constants";
 import { useLayoutEffect } from "react";
 import { loginUserType } from "../../global/customType";
+import Dialog from "../../components/dialog/Dialog";
 
 export default function RootPage() {
   const location = useLocation();
@@ -19,9 +20,13 @@ export default function RootPage() {
   useLayoutEffect(() => {
     if (result.id) {
       setIsLogin(true);
-      setCurrentUser({ userId: result.id, nickname: result.nickname });
-      //console.log(result);
+      setCurrentUser({
+        userId: result.id,
+        nickname: result.nickname,
+        currentGroup: result.currentGroup,
+      });
     }
+    //console.log(result);
   });
 
   return (
@@ -29,6 +34,7 @@ export default function RootPage() {
       <Header user={result} />
       <Outlet />
       {(currentPath === PATH.ROOT || currentPath === PATH.LOGIN) && <Footer />}
+      {result.id && <Dialog />}
     </>
   );
 }

@@ -11,15 +11,15 @@ import { memberType } from "../../../global/customType";
 import Empty from "../../../components/common/Empty";
 import { FiAlertTriangle } from "react-icons/fi";
 import Group_Settings from "./Group/Group.settings";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../../../atoms/globalAtoms";
 
 export default function Group_SubPage() {
-  const currentUser = localStorage.getItem("currentUser");
-  const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
-
-  const { data } = useGroups(currentGroupId);
+  const currentUser = useRecoilValue(currentUserAtom);
+  const { data } = useGroups(currentUser.currentGroup);
 
   const groupInfo = data.data.groupInfo;
-  console.log(groupInfo);
+  // console.log(groupInfo);
 
   return (
     <>

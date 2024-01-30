@@ -3,21 +3,32 @@ import { AssetType, AssetUpdateType } from "../type/global.js";
 import { ParsedQs } from "qs";
 import { parseStringyyyyMMddToDate } from "../utils/parseDate.js";
 import { CustomError } from "../middleware/errorHandler.js";
+import { Types } from "mongoose";
+const ObjectId = Types.ObjectId;
 
 const assetService = {
   async getAssets({
     owner,
+    groupId,
     startDate,
     endDate,
   }: {
     owner: string;
+    groupId: string | ParsedQs | string[] | ParsedQs[] | undefined;
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
     const startDateFormat = parseStringyyyyMMddToDate(startDate as string);
     const endDateFormat = parseStringyyyyMMddToDate(endDate as string);
 
-    const target = owner ? { owner: owner } : {};
+    const target = owner
+      ? {
+          owner: owner,
+          groupId: new ObjectId(groupId as string),
+        }
+      : {
+          groupId: new ObjectId(groupId as string),
+        };
 
     const result = await assetModel.aggregate([
       { $unwind: "$assetHistory" },
@@ -49,10 +60,12 @@ const assetService = {
   async getAssetsByOption({
     //TODO: 추후 owner가 아닌 group으로도 조회 가능하게 변경
     owner,
+    groupId,
     startDate,
     endDate,
   }: {
     owner?: string;
+    groupId: string | ParsedQs | string[] | ParsedQs[] | undefined;
     startDate: string | ParsedQs | undefined | string[] | ParsedQs[];
     endDate: string | ParsedQs | undefined | string[] | ParsedQs[];
   }) {
@@ -62,8 +75,11 @@ const assetService = {
     const target = owner
       ? {
           owner: owner,
+          groupId: new ObjectId(groupId as string),
         }
-      : {};
+      : {
+          groupId: new ObjectId(groupId as string),
+        };
 
     return await assetModel.aggregate([
       {
@@ -100,12 +116,20 @@ const assetService = {
     ]);
   },
 
-  async addAsset({ amounts, name, assetType, owner, assetHistory }: AssetType) {
+  async addAsset({
+    amounts,
+    name,
+    assetType,
+    owner,
+    groupId,
+    assetHistory,
+  }: AssetType) {
     const newAsset = {
       amounts,
       name,
       assetType,
       owner,
+      groupId,
       assetHistory,
     };
     const asset = await assetModel.findOne({

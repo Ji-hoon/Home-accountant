@@ -9,10 +9,12 @@ export function useAssets({
   owner,
   currentDate,
   unit,
+  currentGroupId,
 }: {
   owner: string;
   currentDate: Date;
   unit: string;
+  currentGroupId: string;
 }) {
   let startDate;
   let endDate;
@@ -31,8 +33,8 @@ export function useAssets({
     queryKey: [queryKeys.assetAmounts],
     queryFn: async () => {
       const [amounts, assetResponse] = await Promise.all([
-        assetsAPI.totalAssetAmounts({ owner, period }),
-        assetsAPI.get({ owner, period }),
+        assetsAPI.totalAssetAmounts({ owner, currentGroupId, period }),
+        assetsAPI.get({ owner, currentGroupId, period }),
       ]);
       return { amounts, assetResponse };
     },

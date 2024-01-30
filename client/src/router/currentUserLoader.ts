@@ -4,7 +4,7 @@ export function currentUserLoader() {
   let result = {};
   if (currentUser) {
     result = JSON.parse(currentUser);
-    return { result };
+    //console.log(result);
   }
 
   return { result };

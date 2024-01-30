@@ -20,6 +20,11 @@ const AssetSchema = new Schema<assetSchemaType>(
       type: String, //TODO: Schema.Types.ObjectId로 변경
       ref: "user",
     },
+    groupId: {
+      required: true,
+      type: Schema.Types.ObjectId,
+      ref: "groups",
+    },
     assetHistory: [
       {
         date: {

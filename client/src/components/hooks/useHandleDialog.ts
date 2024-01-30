@@ -21,6 +21,7 @@ export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
   const dateUnit = useRecoilValue(dateUnitAtom);
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+  //const currentUser = useRecoilValue(currentUserAtom);
   const currentUser = localStorage.getItem("currentUser");
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
 
@@ -29,11 +30,13 @@ export function useHandleDialog() {
     owner: "",
     currentDate,
     unit: dateUnit,
+    currentGroupId,
   });
   const { addAsset, updateAsset } = useAssets({
     owner: "",
     currentDate,
     unit: dateUnit,
+    currentGroupId,
   });
   const { updateGroup } = useGroups(currentGroupId);
 
@@ -76,6 +79,7 @@ export function useHandleDialog() {
         category: data.category,
         businessName: data.businessName,
         owner: data.owner,
+        currentGroupId,
         date: parse(data.date, "yyyy-MM-dd", new Date()),
         isRecurring: data.isRecurring,
       });
@@ -87,6 +91,7 @@ export function useHandleDialog() {
         amounts: data.amounts,
         name: data.name,
         owner: data.owner,
+        currentGroupId,
         assetType: data.assetType,
         assetHistory: {
           date: format(new Date(), "yyyy-MM-dd"),
