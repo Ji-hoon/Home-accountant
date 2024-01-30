@@ -50,15 +50,15 @@ export function useExpenses({
           period,
         }),
       ]);
-      const expenses = expensesResponse.response.data as (ExpenseType & {
+      const expenses = expensesResponse?.response.data as (ExpenseType & {
         _id: string;
       })[];
-      const nextCursor = expensesResponse.nextCursor;
+      const nextCursor = expensesResponse?.nextCursor;
       return { amounts, expenses, nextCursor };
     },
     initialPageParam: 0,
     getNextPageParam: ({ expenses, nextCursor }) => {
-      if (expenses.length === 0) return null;
+      if (expenses?.length === 0) return null;
       return nextCursor;
     },
   });
@@ -87,7 +87,7 @@ export function useExpenses({
       //setisLoading(!isLoading);
     },
     onSuccess: (data) => {
-      console.log(data.data.message);
+      console.log(data?.data.message);
       invalidateExpenseQuery();
       refetch();
     },

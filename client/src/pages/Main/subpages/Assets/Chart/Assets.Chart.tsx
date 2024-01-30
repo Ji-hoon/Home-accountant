@@ -8,6 +8,8 @@ import Empty from "../../../../../components/common/Empty.tsx";
 import { LABELS } from "../../../../../global/constants.ts";
 import { FiAlertTriangle } from "react-icons/fi";
 import { throttle } from "lodash";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../../../../../atoms/globalAtoms";
 
 export default function Chart({
   $owner,
@@ -18,8 +20,10 @@ export default function Chart({
   $currentDate: Date;
   $unit: string;
 }) {
+  const currentUser = useRecoilValue(currentUserAtom);
   const { data } = useAssets({
     owner: $owner,
+    currentGroupId: currentUser.currentGroup,
     currentDate: $currentDate,
     unit: $unit,
   });

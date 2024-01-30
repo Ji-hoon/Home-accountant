@@ -6,6 +6,8 @@ import { useExpenses } from "./Expenses.hooks";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 import { EditExpenseLayout } from "../../../../global/layout";
 import { ExpenseType, FormListLayoutType } from "../../../../global/customType";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../../../../atoms/globalAtoms";
 
 export default function Expenses_List({
   $owner,
@@ -16,8 +18,10 @@ export default function Expenses_List({
   $currentDate: Date;
   $unit: string;
 }) {
+  const currentUser = useRecoilValue(currentUserAtom);
   const { pages, setTarget, hasNextPage } = useExpenses({
     owner: $owner,
+    currentGroupId: currentUser.currentGroup,
     currentDate: $currentDate,
     unit: $unit,
   });
@@ -48,7 +52,9 @@ export default function Expenses_List({
             $item={item}
           />
         ))}
-      {hasNextPage && <div ref={setTarget}>리스트 마지막</div>}
+      {hasNextPage && (
+        <div ref={setTarget}>리스트 마지막 TODO: list skeleton으로 변경</div>
+      )}
       {expenseList.length === 0 && (
         <Empty
           icon={<FiAlertTriangle />}
