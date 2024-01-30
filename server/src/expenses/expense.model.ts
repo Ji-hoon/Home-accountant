@@ -24,6 +24,11 @@ const ExpenseSchema = new Schema<expenseSchemaType>(
       type: String, //TODO: Schema.Types.ObjectId로 변경
       ref: "user",
     },
+    groupId: {
+      required: true,
+      type: Schema.Types.ObjectId,
+      ref: "groups",
+    },
     isRecurring: {
       required: true,
       type: String,

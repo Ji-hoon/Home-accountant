@@ -15,6 +15,7 @@ export type expenseSchemaType = {
   date: Date;
   category?: string; //TODO: Types.ObjectId 로 변경
   owner: string; //TODO: Types.ObjectId 로 변경
+  groupId: Types.ObjectId;
   isRecurring: string;
 };
 

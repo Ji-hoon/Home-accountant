@@ -7,7 +7,16 @@ import { ExpenseType } from "../type/global.js";
 
 const expenseController = {
   addExpense: asyncHandler(async (req: express.Request, res: Response) => {
-    const requestBody = req.body;
+    const requestBody = {
+      amounts: req.body.amounts as number,
+      category: req.body.category as string,
+      businessName: req.body.businessName as string,
+      owner: req.body.owner as string,
+      groupId: req.body.currentGroupId as string,
+      date: req.body.date as Date,
+      isRecurring: req.body.isRecurring as boolean,
+    };
+
     if (!(requestBody as ExpenseType)) {
       throw new CustomError({
         status: 400,
