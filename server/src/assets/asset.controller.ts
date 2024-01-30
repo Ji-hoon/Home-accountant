@@ -77,6 +77,7 @@ const assetController = {
 
     const accExpenses = await expenseService.getExpensesByOption({
       owner: owner as string,
+      groupId: currentGroupId,
       //startDate: format(assets[0].lastDate, "yyyy-MM-dd"),
       startDate: startDate,
       endDate: endDate,

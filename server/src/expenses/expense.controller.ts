@@ -28,9 +28,11 @@ const expenseController = {
     });
   }),
   getExpense: asyncHandler(async (req: express.Request, res: Response) => {
-    const { owner, cursor, limit, startDate, endDate } = req.query;
+    const { owner, currentGroupId, cursor, limit, startDate, endDate } =
+      req.query;
     const expenses = await expenseService.getExpenses({
       owner: owner as string,
+      groupId: currentGroupId,
       cursor: Number(cursor),
       limit: Number(limit),
       startDate: startDate,
@@ -41,9 +43,10 @@ const expenseController = {
   }),
   getExpensesAmount: asyncHandler(
     async (req: express.Request, res: Response) => {
-      const { owner, startDate, endDate } = req.query;
+      const { owner, currentGroupId, startDate, endDate } = req.query;
       const expenses = await expenseService.getExpensesByOption({
         owner: owner as string,
+        groupId: currentGroupId,
         startDate: startDate,
         endDate: endDate,
       });
@@ -68,7 +71,9 @@ const expenseController = {
       expenseId: req.params.id as string,
     };
 
-    if (!(requestBody as ExpenseType & { expenseId: string })) {
+    if (
+      !(requestBody as Omit<ExpenseType, "groupId"> & { expenseId: string })
+    ) {
       throw new CustomError({
         status: 400,
         message: "요청 항목이 다릅니다.",

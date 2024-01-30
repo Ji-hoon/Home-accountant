@@ -12,6 +12,7 @@ export type ExpenseType = {
   date: Date;
   category?: string;
   owner: string;
+  groupId: string;
   isRecurring: boolean;
 };
 
