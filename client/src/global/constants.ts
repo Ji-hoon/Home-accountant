@@ -137,4 +137,6 @@ export const LABELS = {
   MESSAGE_NO_ASSETS: "자산 항목이 없습니다.",
   MESSAGE_NO_MEMBERS: "표시할 멤버가 없습니다.",
   DESC_DELETE_EXPENSE: "선택하신 지출내역을 삭제할까요?",
+  ROLE_OWNER: "그룹 관리자",
+  ROLE_MEMBER: "그룹 멤버",
 } as const;
