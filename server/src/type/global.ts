@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 export type UserType = {
   //updateUser 시 사용됨
   nickname: string;
@@ -39,6 +37,6 @@ export type AssetUpdateType = {
 
 export type GroupCreateType = {
   groupId: string; //group 생성 시 필요 (user의 snsId를 groupId로 사용)
-  userId: Types.ObjectId; //user모델의 _id (Types.ObjectId)
+  userId: string; //user모델의 _id (Types.ObjectId)
   nickname: string;
 };

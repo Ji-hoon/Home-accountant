@@ -2,6 +2,8 @@ import { GroupCreateType } from "../type/global.js";
 import { CustomError } from "../middleware/errorHandler.js";
 import UserModel from "../user/user.model.js";
 import GroupModel from "./group.model.js";
+import { Types } from "mongoose";
+const ObjectId = Types.ObjectId;
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -21,7 +23,7 @@ const groupService = {
       name: `${nickname}님의 가계부`,
       code: groupId,
       members: {
-        userId: userId,
+        userId: new ObjectId(userId as string),
         role: "OWNER",
         joinedAt: new Date(),
         _id: null,
@@ -37,7 +39,7 @@ const groupService = {
     userId,
   }: Omit<GroupCreateType, "nickname">) {
     const existGroup = await GroupModel.findOne({
-      code: groupId,
+      _id: groupId,
     });
 
     if (!existGroup) {
@@ -48,9 +50,12 @@ const groupService = {
       });
     }
 
-    const existUser = existGroup.members.find(
-      (member) => member.userId === userId,
-    );
+    const existUser = await GroupModel.aggregate([
+      { $match: { _id: groupId } },
+      { $unwind: "$members" },
+      { $match: { "members.userId": new ObjectId(userId as string) } },
+    ]);
+    console.log(existUser);
 
     if (existUser) {
       throw new CustomError({
@@ -60,7 +65,7 @@ const groupService = {
     }
 
     const newMember = {
-      userId,
+      userId: new ObjectId(userId as string),
       joinedAt: new Date(),
       role: "MEMBER",
       _id: null,

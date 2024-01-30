@@ -62,6 +62,16 @@ const groupController = {
       groupInfo,
     });
   }),
+  addMemberToGroup: asyncHandler(
+    async (req: express.Request, res: Response) => {
+      const { id, userId } = req.params;
+      const result = await groupService.addMemberToGroup({
+        groupId: id,
+        userId,
+      });
+      res.json(result);
+    },
+  ),
 };
 
 export default groupController;
