@@ -20,12 +20,13 @@ export default function Expenses_List({
   $unit: string;
 }) {
   const currentUser = useRecoilValue(currentUserAtom);
-  const { pages, setTarget, hasNextPage } = useExpenses({
-    owner: $owner,
-    currentGroupId: currentUser.currentGroup,
-    currentDate: $currentDate,
-    unit: $unit,
-  });
+  const { pages, setTarget, hasNextPage, fetchStatus, isFetchingNextPage } =
+    useExpenses({
+      owner: $owner,
+      currentGroupId: currentUser.currentGroup,
+      currentDate: $currentDate,
+      unit: $unit,
+    });
   const expenseList = pages.flatMap((page) => page.expenses);
 
   const { showDialog } = useHandleDialog();
@@ -44,7 +45,11 @@ export default function Expenses_List({
     });
   }
   return (
-    <ul>
+    <ul
+      className={
+        fetchStatus === "fetching" && !isFetchingNextPage ? "fetching" : ""
+      }
+    >
       {expenseList.length > 0 &&
         expenseList.map((item, index) => (
           <ListItem_ExpenseType
