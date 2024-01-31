@@ -1,8 +1,9 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentDateAtom,
   currentDialogAtom,
   dateUnitAtom,
+  emailListAtom,
 } from "../../atoms/globalAtoms";
 import {
   ExpenseType,
@@ -21,6 +22,7 @@ export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
   const dateUnit = useRecoilValue(dateUnitAtom);
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+  const setEmailList = useSetRecoilState(emailListAtom);
   //const currentUser = useRecoilValue(currentUserAtom);
   const currentUser = localStorage.getItem("currentUser");
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
@@ -63,6 +65,7 @@ export function useHandleDialog() {
       content: newContent.splice(order, 0),
     };
     setDialog(newModal);
+    setEmailList([]);
   }
 
   async function submitDialog({

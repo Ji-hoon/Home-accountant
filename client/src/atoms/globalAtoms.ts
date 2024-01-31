@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { dialogType, selectedExpenseType } from "../global/customType";
+import { dialogType, stringArrayType } from "../global/customType";
 
 export const isLoginAtom = atom({
   key: "isLogin",
@@ -38,7 +38,12 @@ export const calendarOpenAtom = atom({
   default: false,
 });
 
-export const selectedExpenseIdAtom = atom<selectedExpenseType>({
+export const selectedExpenseIdAtom = atom<stringArrayType>({
   key: "selectedExpense",
+  default: [],
+});
+
+export const emailListAtom = atom<stringArrayType>({
+  key: "emailList",
   default: [],
 });
