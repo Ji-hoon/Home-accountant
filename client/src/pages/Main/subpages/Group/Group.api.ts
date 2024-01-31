@@ -24,7 +24,7 @@ const groupsAPI = {
     console.log(groupId, members);
 
     if (members.length > 0) {
-      const url = `/groups/${groupId}/members}`;
+      const url = `/groups/${groupId}/members`;
       const response = await axiosInstance.put(
         url,
         {
