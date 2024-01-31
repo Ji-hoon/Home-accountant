@@ -37,5 +37,21 @@ export function useGroups(currentGroupId: string) {
     },
   }).mutateAsync;
 
-  return { data, updateGroup, fetchStatus };
+  const inviteMemberToGroup = useMutation({
+    mutationFn: groupsAPI.invite,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: () => {
+      //console.log(data.data.message);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+    },
+  }).mutateAsync;
+
+  return { data, updateGroup, fetchStatus, inviteMemberToGroup };
 }

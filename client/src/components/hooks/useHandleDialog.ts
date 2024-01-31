@@ -40,7 +40,7 @@ export function useHandleDialog() {
     unit: dateUnit,
     currentGroupId,
   });
-  const { updateGroup } = useGroups(currentGroupId);
+  const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
 
   function showDialog({
     type,
@@ -140,6 +140,14 @@ export function useHandleDialog() {
       const result = await updateGroup({
         id: currentGroupId,
         name: data.groupName,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_INVITE_MEMBER) {
+      const result = await inviteMemberToGroup({
+        groupId: currentGroupId,
+        members: data,
       });
       if (result) return result;
     }
