@@ -271,7 +271,7 @@ export const GroupSettingLayout = ({
 export const InviteMemberLayout = (code: string): FormListLayoutType[] => {
   return [
     {
-      title: "그룹명",
+      title: "이메일 주소",
       fieldName: "email",
       type: "email",
       placeholder: "이메일 주소를 입력해주세요.",
