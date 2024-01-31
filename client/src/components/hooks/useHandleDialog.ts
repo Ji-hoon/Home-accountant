@@ -131,7 +131,7 @@ export function useHandleDialog() {
 
     if (action === LABELS.LABEL_DELETE_EXPENSE) {
       const result = await deleteExpense({
-        expenseId: data[0],
+        expenseId: data,
       });
       if (result) return result;
     }

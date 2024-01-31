@@ -40,11 +40,11 @@ export default function Dialog() {
         return;
       }
 
-      if (emailList.length > 0) {
+      if (emailList.length > 0 || currentFormData.email) {
         //console.log(emailList);
         const result = await submitDialog({
           action: dialog.content[index].title,
-          data: emailList[0], //TODO: 1명만 초대 발송으로 수정, 추후 n명 구현 필요
+          data: currentFormData.email ? [currentFormData.email] : emailList,
         });
         if (result?.status === 201 || result?.status === 200)
           hideDialog({ order: index });
