@@ -71,7 +71,7 @@ export default function Textfield({
       {type === "email" && emailList.length > 0 && (
         <p className="email-list">
           {emailList.map((email, index) => (
-            <span id={String(index)}>
+            <span id={String(index)} key={index}>
               {email}
               <Button_Icontype
                 onClick={(e: React.SyntheticEvent) => {
