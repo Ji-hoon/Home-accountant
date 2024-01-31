@@ -6,6 +6,7 @@ import { Types } from "mongoose";
 const ObjectId = Types.ObjectId;
 import { createTransport } from "nodemailer";
 import "dotenv/config";
+import { renderMustacheTemplate } from "../utils/renderMustacheTemplate.js";
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -93,18 +94,21 @@ const groupService = {
         pass: process.env.MAILER_PASSWORD,
       },
     });
+    const inviteUrl = `${process.env.FRONTEND_URL}/invite?code=${code}`;
+
+    const template = await renderMustacheTemplate({
+      filePath: "invitation",
+      data: {
+        name: name,
+        inviteUrl: inviteUrl,
+      },
+    });
 
     const mailOptions = {
       from: process.env.MAILER_NAME,
       to: email,
-      subject: `[가계부를 부탁해] ${name}에 초대받았어요.`,
-      html: `
-        <html>
-          <body>
-            <h3>지금 가계부에 가입해보세요!<h3>
-            <p><a href="${process.env.BACKEND_URL}/invite?code=${code}">로그인 하러가기</a></p>
-          </body>
-        </html>`,
+      subject: "[가계부를 부탁해] 💌 초대장이 도착했어요!",
+      html: template,
     };
 
     // 메일 전송

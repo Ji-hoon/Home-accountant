@@ -107,6 +107,7 @@ const groupController = {
         code: groupInfo.code,
         email,
       });
+
       if (result.message) res.status(200).json(result.message);
     },
   ),
