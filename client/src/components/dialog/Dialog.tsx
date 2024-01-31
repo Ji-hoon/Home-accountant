@@ -3,6 +3,7 @@ import DialogPortal from "./Dialog.Portal";
 import { useRecoilValue } from "recoil";
 import {
   currentDialogAtom,
+  emailListAtom,
   selectedExpenseIdAtom,
 } from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
@@ -20,6 +21,7 @@ export default function Dialog() {
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
   const { hideDialog, getDialogFormData, submitDialog } = useHandleDialog();
   const dialogFormRef = useRef<HTMLFormElement>(null);
+  const emailList = useRecoilValue(emailListAtom);
 
   const { handleSubmit } = useForm<InputFormType>();
   const [index, setIndex] = useState(0);
@@ -35,6 +37,17 @@ export default function Dialog() {
           data: selectedExpenseId,
         });
         if (result?.status === 204) hideDialog({ order: index });
+        return;
+      }
+
+      if (emailList.length > 0 || currentFormData.email) {
+        //console.log(emailList);
+        const result = await submitDialog({
+          action: dialog.content[index].title,
+          data: currentFormData.email ? [currentFormData.email] : emailList,
+        });
+        if (result?.status === 201 || result?.status === 200)
+          hideDialog({ order: index });
         return;
       }
 

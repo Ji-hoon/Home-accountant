@@ -163,10 +163,6 @@ const ListHeaderContainer = styled.div<{
   & .header-value-container {
     color: ${(props) =>
       props.$type === "EXPENSES" ? COLORS.VARIATION_RED : COLORS.BRAND_DEEP};
-
-    &:before {
-      content: ${(props) => (props.$type === "EXPENSES" ? '"-"' : '""')};
-    }
   }
 
   & .header-calendar-container {

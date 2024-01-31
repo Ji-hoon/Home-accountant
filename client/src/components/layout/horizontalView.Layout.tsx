@@ -52,8 +52,16 @@ const HorizontalViewContainer = styled.section<{
       flex-direction: column;
       gap: ${SIZES.XXS / 3}px;
 
+      -webkit-transition: opacity 150ms ease-out;
+      transition: opacity 150ms ease-out;
+
       & li.skeleton-item {
         margin-bottom: -70px;
+      }
+
+      &.fetching {
+        opacity: 0.3;
+        pointer-events: none;
       }
     }
 

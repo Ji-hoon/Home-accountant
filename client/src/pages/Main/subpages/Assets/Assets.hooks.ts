@@ -40,7 +40,7 @@ export function useAssets({
     },
   });
 
-  const { data, refetch } = results;
+  const { data, refetch, fetchStatus } = results;
 
   useEffect(() => {
     refetch();
@@ -89,5 +89,5 @@ export function useAssets({
     },
   }).mutateAsync;
 
-  return { addAsset, updateAsset, data };
+  return { addAsset, updateAsset, data, fetchStatus };
 }

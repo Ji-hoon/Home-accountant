@@ -1,8 +1,9 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentDateAtom,
   currentDialogAtom,
   dateUnitAtom,
+  emailListAtom,
 } from "../../atoms/globalAtoms";
 import {
   ExpenseType,
@@ -21,6 +22,7 @@ export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
   const dateUnit = useRecoilValue(dateUnitAtom);
   const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+  const setEmailList = useSetRecoilState(emailListAtom);
   //const currentUser = useRecoilValue(currentUserAtom);
   const currentUser = localStorage.getItem("currentUser");
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
@@ -38,7 +40,7 @@ export function useHandleDialog() {
     unit: dateUnit,
     currentGroupId,
   });
-  const { updateGroup } = useGroups(currentGroupId);
+  const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
 
   function showDialog({
     type,
@@ -63,6 +65,7 @@ export function useHandleDialog() {
       content: newContent.splice(order, 0),
     };
     setDialog(newModal);
+    setEmailList([]);
   }
 
   async function submitDialog({
@@ -128,7 +131,7 @@ export function useHandleDialog() {
 
     if (action === LABELS.LABEL_DELETE_EXPENSE) {
       const result = await deleteExpense({
-        expenseId: data[0],
+        expenseId: data,
       });
       if (result) return result;
     }
@@ -137,6 +140,14 @@ export function useHandleDialog() {
       const result = await updateGroup({
         id: currentGroupId,
         name: data.groupName,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_INVITE_MEMBER) {
+      const result = await inviteMemberToGroup({
+        groupId: currentGroupId,
+        members: data,
       });
       if (result) return result;
     }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../global/constants";
+import { COLORS, SIZES, LABELS } from "../../global/constants";
 import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -8,6 +8,12 @@ import Calendar from "../util/Calendar";
 import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useState, useEffect } from "react";
+import { useEmailInput } from "../hooks/useEmailInput";
+import { useRecoilValue } from "recoil";
+import { emailListAtom } from "../../atoms/globalAtoms";
+import { FiX } from "react-icons/fi";
+import Button_Icontype from "./Button.iconType";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function Textfield({
   title,
@@ -23,11 +29,21 @@ export default function Textfield({
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
   const { register } = useForm<InputFormType>();
+  const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
+  const emailList = useRecoilValue(emailListAtom);
 
   const handleDayClick: DayClickEventHandler = (day) => {
     setSelectedDay(day);
     setCalendarOpen(!calendarOpen);
   };
+
+  function handleTextInput(e: React.KeyboardEvent) {
+    const target = e.target as HTMLInputElement;
+
+    if (target.type === "email" && e.code === "Comma") {
+      handleEmail(target);
+    }
+  }
 
   useEffect(() => {
     if (defaultDate !== undefined) setSelectedDay(defaultDate);
@@ -36,8 +52,15 @@ export default function Textfield({
 
   return (
     <TextFieldLayout hidden={hidden}>
-      <label>{title}</label>
-      {(type === "text" || type === "number") && (
+      <label>
+        {title}
+        {fieldName === "invitationLink" && defaultValue && (
+          <CopyToClipboard text={defaultValue} onCopy={handleLinkCopy}>
+            <a href="#">{LABELS.LABEL_COPY_INVITE_LINK}</a>
+          </CopyToClipboard>
+        )}
+      </label>
+      {(type === "text" || type === "number" || type === "email") && (
         <input
           {...register(fieldName, { required: true })}
           name={fieldName}
@@ -45,7 +68,25 @@ export default function Textfield({
           placeholder={placeholder}
           defaultValue={defaultValue}
           readOnly={readonly}
+          onKeyDown={(e: React.KeyboardEvent) => handleTextInput(e)}
         />
+      )}
+      {type === "email" && emailList.length > 0 && (
+        <p className="email-list">
+          {emailList.map((email, index) => (
+            <span id={String(index)} key={index}>
+              {email}
+              <Button_Icontype
+                onClick={(e: React.SyntheticEvent) => {
+                  e.preventDefault();
+                  handleRemoveEmail(index);
+                }}
+              >
+                <FiX />
+              </Button_Icontype>
+            </span>
+          ))}
+        </p>
       )}
       {type === "selectbox" && (
         <select
@@ -106,6 +147,18 @@ const TextFieldLayout = styled.div<{
     font-weight: bold;
     font-size: ${SIZES.SM}px;
     line-height: ${SIZES.LG}px;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+
+    & a {
+      align-self: flex-end;
+      color: ${COLORS.BRAND_DEEP};
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   & input,
@@ -144,6 +197,7 @@ const TextFieldLayout = styled.div<{
 
   & .calendar-container {
     position: absolute;
+    padding: 4px 0;
     margin: 0 !important;
     top: -${SIZES.XXL - 2}px;
     left: ${SIZES.XL - 2}px;
@@ -152,6 +206,33 @@ const TextFieldLayout = styled.div<{
     @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
       position: absolute;
       top: 150px;
+    }
+  }
+
+  & p.email-list {
+    display: flex;
+    margin: 0;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    & span {
+      text-align: center;
+      font-size: ${SIZES.SM}px;
+      line-height: ${SIZES.LG}px;
+      font-weight: 500;
+      background-color: ${COLORS.GRAY_01_OVERAY};
+      color: ${COLORS.GRAY_07};
+      padding: 4px 6px 4px 14px;
+      border-radius: 20px;
+      gap: 4px;
+      display: flex;
+      align-items: center;
+
+      & button {
+        padding: 4px;
+        color: inherit;
+        border-radius: inherit;
+      }
     }
   }
 `;

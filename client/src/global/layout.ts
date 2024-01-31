@@ -246,7 +246,7 @@ export const GroupSettingLayout = ({
       fieldName: "invitationLink",
       type: "text",
       placeholder: "",
-      defaultValue: `${import.meta.env.VITE_BACKEND_URL}/invite/${code}`,
+      defaultValue: `${import.meta.env.VITE_FRONTEND_URL}/invite?code=${code}`,
       readonly: true,
     },
     {
@@ -263,6 +263,25 @@ export const GroupSettingLayout = ({
       type: "text",
       placeholder: "",
       defaultValue: String(members.length),
+      readonly: true,
+    },
+  ];
+};
+
+export const InviteMemberLayout = (code: string): FormListLayoutType[] => {
+  return [
+    {
+      title: "이메일 주소",
+      fieldName: "email",
+      type: "email",
+      placeholder: "이메일 주소를 입력해주세요.",
+    },
+    {
+      title: "초대링크",
+      fieldName: "invitationLink",
+      type: "text",
+      placeholder: "",
+      defaultValue: `${import.meta.env.VITE_FRONTEND_URL}/invite?code=${code}`,
       readonly: true,
     },
   ];

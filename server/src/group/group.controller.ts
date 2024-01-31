@@ -44,6 +44,23 @@ const groupController = {
       groupInfo,
     });
   }),
+  getGroupByCode: asyncHandler(async (req: express.Request, res: Response) => {
+    const { code } = req.query;
+
+    const groupInfo = await groupService.getGroupByCode(code as string);
+
+    if (groupInfo === null) {
+      throw new CustomError({
+        status: 404,
+        message: "그룹을 찾을 수 없습니다.",
+      });
+    }
+
+    res.status(201).json({
+      message: "그룹 조회에 성공했습니다.",
+      groupInfo,
+    });
+  }),
   updateGroup: asyncHandler(async (req: express.Request, res: Response) => {
     const { id } = req.params;
     const { name } = req.body;
@@ -70,6 +87,28 @@ const groupController = {
         userId,
       });
       res.json(result);
+    },
+  ),
+  inviteMemberToGroup: asyncHandler(
+    async (req: express.Request, res: Response) => {
+      const { id } = req.params;
+      const { email } = req.body;
+
+      const groupInfo = await groupService.getGroup(id);
+      if (!groupInfo) {
+        throw new CustomError({
+          status: 404,
+          message: "그룹을 찾을 수 없습니다.",
+        });
+      }
+
+      const result = await groupService.inviteMemberToGroup({
+        name: groupInfo.name,
+        code: groupInfo.code,
+        email,
+      });
+
+      if (result.message) res.status(200).json(result.message);
     },
   ),
 };

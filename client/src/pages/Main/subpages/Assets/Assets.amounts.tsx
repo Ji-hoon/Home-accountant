@@ -1,6 +1,8 @@
 import { useAssets } from "./Assets.hooks";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../../../../atoms/globalAtoms";
+import { Loader } from "rsuite";
+import { ValueWrapper } from "../Expenses/Expenses.amounts";
 
 export default function Assets_Amounts({
   $currentDate,
@@ -13,7 +15,7 @@ export default function Assets_Amounts({
 }) {
   const currentUser = useRecoilValue(currentUserAtom);
   // 추후 useAssets 커스텀훅을 사용하도록 처리 필요
-  const { data } = useAssets({
+  const { data, fetchStatus } = useAssets({
     owner: $owner,
     currentGroupId: currentUser.currentGroup,
     currentDate: $currentDate,
@@ -21,5 +23,10 @@ export default function Assets_Amounts({
   });
   const amounts = data.amounts;
 
-  return <>{amounts.toLocaleString()}원</>;
+  return (
+    <ValueWrapper>
+      {fetchStatus === "fetching" && <Loader />}
+      <span>{amounts.toLocaleString()}원</span>
+    </ValueWrapper>
+  );
 }

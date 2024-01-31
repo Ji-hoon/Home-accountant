@@ -13,11 +13,13 @@ import { FiAlertTriangle } from "react-icons/fi";
 import Group_Settings from "./Group/Group.settings";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../../../atoms/globalAtoms";
+import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
+import { InviteMemberLayout } from "../../../global/layout";
 
 export default function Group_SubPage() {
   const currentUser = useRecoilValue(currentUserAtom);
-  const { data } = useGroups(currentUser.currentGroup);
-
+  const { data, fetchStatus } = useGroups(currentUser.currentGroup);
+  const { showDialog } = useHandleDialog();
   const groupInfo = data.data.groupInfo;
   // console.log(groupInfo);
 
@@ -52,16 +54,15 @@ export default function Group_SubPage() {
           $visiblity={
             location.pathname === PATH.MAIN_GROUP_SETTINGS ? false : true
           }
-          onClick={
-            () => {}
-            // showDialog({
-            //   type: TYPES.MODAL_DOUBLE_COL,
-            //   title: LABELS.LABEL_ADD_ASSET,
-            //   layout: CreateAssetLayout as FormListLayoutType[],
-            // })
-          }
+          onClick={() => {
+            showDialog({
+              type: TYPES.MODAL_SINGLE_COL,
+              title: LABELS.LABEL_INVITE_MEMBER,
+              layout: InviteMemberLayout(groupInfo.code),
+            });
+          }}
         />
-        <section>
+        <section className={fetchStatus === "fetching" ? "fetching" : ""}>
           {location.pathname === PATH.MAIN_GROUP_MEMBER && (
             <>
               {groupInfo.members.length > 0 &&

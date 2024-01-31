@@ -27,6 +27,7 @@ export type FormListLayoutType = {
     | "groupName"
     | "groupId"
     | "groupMembers"
+    | "email"
     | "invitationLink";
   type: string;
   placeholder?: string;
@@ -57,6 +58,7 @@ export type InputFormType = {
   assets_id?: string | undefined;
   assets_date?: string | undefined;
   expense_id?: string | undefined;
+  email?: string | undefined;
 };
 
 export type ExpenseType = {
@@ -109,7 +111,7 @@ export type expenseQueryType = {
   nextCursor: number;
 };
 
-export type selectedExpenseType = string[];
+export type stringArrayType = string[];
 
 export type memberType = {
   memberId: string;

@@ -4,6 +4,9 @@ import UserModel from "../user/user.model.js";
 import GroupModel from "./group.model.js";
 import { Types } from "mongoose";
 const ObjectId = Types.ObjectId;
+import { createTransport } from "nodemailer";
+import "dotenv/config";
+import { renderMustacheTemplate } from "../utils/renderMustacheTemplate.js";
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -75,6 +78,51 @@ const groupService = {
 
     return newMember;
   },
+  async inviteMemberToGroup({
+    name,
+    code,
+    email,
+  }: {
+    name: string;
+    code: string;
+    email: string;
+  }) {
+    const transporter = createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.MAILER_NAME,
+        pass: process.env.MAILER_PASSWORD,
+      },
+    });
+    const inviteUrl = `${process.env.FRONTEND_URL}/invite?code=${code}`;
+
+    const template = await renderMustacheTemplate({
+      filePath: "invitation",
+      data: {
+        name: name,
+        inviteUrl: inviteUrl,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.MAILER_NAME,
+      to: email,
+      subject: "[가계부를 부탁해] 💌 초대장이 도착했어요!",
+      html: template,
+    };
+
+    // 메일 전송
+    transporter.sendMail(mailOptions, (error) => {
+      if (error) {
+        throw new CustomError({
+          status: 400,
+          message: "메일 발송에 실패했습니다.",
+        });
+      }
+    });
+
+    return { message: "메일이 성공적으로 전송되었습니다." };
+  },
   async getGroup(id: string) {
     const groupInfo = await GroupModel.findById(id);
 
@@ -102,6 +150,10 @@ const groupService = {
       name: groupInfo.name,
       members: memberList.length === 0 ? [] : memberInfo,
     };
+  },
+  async getGroupByCode(code: string) {
+    const group = await GroupModel.findOne({ code }, "name");
+    return group;
   },
   async updateGroup(id: string, name: string) {
     const group = await GroupModel.findOneAndUpdate(

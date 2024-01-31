@@ -8,7 +8,7 @@ export function useGroups(currentGroupId: string) {
     queryFn: () => groupsAPI.get(currentGroupId),
   });
 
-  const { data, refetch } = results;
+  const { data, refetch, fetchStatus } = results;
 
   const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({
@@ -37,5 +37,21 @@ export function useGroups(currentGroupId: string) {
     },
   }).mutateAsync;
 
-  return { data, updateGroup };
+  const inviteMemberToGroup = useMutation({
+    mutationFn: groupsAPI.invite,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: () => {
+      //console.log(data.data.message);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+    },
+  }).mutateAsync;
+
+  return { data, updateGroup, fetchStatus, inviteMemberToGroup };
 }

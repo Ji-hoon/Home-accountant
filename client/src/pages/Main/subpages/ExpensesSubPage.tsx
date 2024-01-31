@@ -10,8 +10,12 @@ import { CreateExpenseLayout } from "../../../global/layout";
 import { FormListLayoutType } from "../../../global/customType";
 import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
-import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  currentDateAtom,
+  dateUnitAtom,
+  selectedExpenseIdAtom,
+} from "../../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Banner from "../../../components/banner/Banner";
 import ListActionBar from "../../../components/compound/ListActionBar";
 
@@ -21,6 +25,7 @@ export default function Expenses_SubPage() {
   const [currentOwner, setCurrentOwner] = useState("");
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const { showDialog } = useHandleDialog();
+  const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
 
   //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
   //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
@@ -37,7 +42,7 @@ export default function Expenses_SubPage() {
       setDateUnit(TYPES.TYPE_UNIT_WEEK);
     }
     //console.log(dateUnit);
-
+    setSelectedExpenseId([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, dateUnit]);
 
