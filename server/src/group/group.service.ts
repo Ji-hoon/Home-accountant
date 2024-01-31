@@ -4,6 +4,8 @@ import UserModel from "../user/user.model.js";
 import GroupModel from "./group.model.js";
 import { Types } from "mongoose";
 const ObjectId = Types.ObjectId;
+import { createTransport } from "nodemailer";
+import "dotenv/config";
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -74,6 +76,48 @@ const groupService = {
     await existGroup.save();
 
     return newMember;
+  },
+  async inviteMemberToGroup({
+    name,
+    code,
+    email,
+  }: {
+    name: string;
+    code: string;
+    email: string;
+  }) {
+    const transporter = createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.MAILER_NAME,
+        pass: process.env.MAILER_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.MAILER_NAME,
+      to: email,
+      subject: `[가계부를 부탁해] ${name}에 초대받았어요.`,
+      html: `
+        <html>
+          <body>
+            <h3>지금 가계부에 가입해보세요!<h3>
+            <p><a href="${process.env.BACKEND_URL}/invite?code=${code}">로그인 하러가기</a></p>
+          </body>
+        </html>`,
+    };
+
+    // 메일 전송
+    transporter.sendMail(mailOptions, (error) => {
+      if (error) {
+        throw new CustomError({
+          status: 400,
+          message: "메일 발송에 실패했습니다.",
+        });
+      }
+    });
+
+    return { message: "메일이 성공적으로 전송되었습니다." };
   },
   async getGroup(id: string) {
     const groupInfo = await GroupModel.findById(id);

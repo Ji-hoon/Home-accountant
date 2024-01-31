@@ -89,6 +89,27 @@ const groupController = {
       res.json(result);
     },
   ),
+  inviteMemberToGroup: asyncHandler(
+    async (req: express.Request, res: Response) => {
+      const { id } = req.params;
+      const { email } = req.body;
+
+      const groupInfo = await groupService.getGroup(id);
+      if (!groupInfo) {
+        throw new CustomError({
+          status: 404,
+          message: "그룹을 찾을 수 없습니다.",
+        });
+      }
+
+      const result = await groupService.inviteMemberToGroup({
+        name: groupInfo.name,
+        code: groupInfo.code,
+        email,
+      });
+      if (result.message) res.status(200).json(result.message);
+    },
+  ),
 };
 
 export default groupController;
