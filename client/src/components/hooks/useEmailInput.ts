@@ -17,5 +17,9 @@ export function useEmailInput() {
     setEmailList(() => newEmailList);
   }
 
-  return { handleEmail, handleRemoveEmail };
+  function handleLinkCopy() {
+    console.log("copied");
+  }
+
+  return { handleEmail, handleRemoveEmail, handleLinkCopy };
 }

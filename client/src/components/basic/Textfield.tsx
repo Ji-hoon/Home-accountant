@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../global/constants";
+import { COLORS, SIZES, LABELS } from "../../global/constants";
 import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -13,6 +13,7 @@ import { useRecoilValue } from "recoil";
 import { emailListAtom } from "../../atoms/globalAtoms";
 import { FiX } from "react-icons/fi";
 import Button_Icontype from "./Button.iconType";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function Textfield({
   title,
@@ -28,7 +29,7 @@ export default function Textfield({
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
   const { register } = useForm<InputFormType>();
-  const { handleEmail, handleRemoveEmail } = useEmailInput();
+  const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
   const emailList = useRecoilValue(emailListAtom);
 
   const handleDayClick: DayClickEventHandler = (day) => {
@@ -53,8 +54,10 @@ export default function Textfield({
     <TextFieldLayout hidden={hidden}>
       <label>
         {title}
-        {fieldName === "invitationLink" && (
-          <a href={defaultValue}>초대링크 복사</a>
+        {fieldName === "invitationLink" && defaultValue && (
+          <CopyToClipboard text={defaultValue} onCopy={handleLinkCopy}>
+            <a href="#">{LABELS.LABEL_COPY_INVITE_LINK}</a>
+          </CopyToClipboard>
         )}
       </label>
       {(type === "text" || type === "number" || type === "email") && (
@@ -150,6 +153,11 @@ const TextFieldLayout = styled.div<{
 
     & a {
       align-self: flex-end;
+      color: ${COLORS.BRAND_DEEP};
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
