@@ -20,7 +20,7 @@ export default function Group_SubPage() {
   const currentUser = useRecoilValue(currentUserAtom);
   const { data, fetchStatus } = useGroups(currentUser.currentGroup);
   const { showDialog } = useHandleDialog();
-  const groupInfo = data.data.groupInfo;
+  const groupInfo = data.data?.groupInfo;
   // console.log(groupInfo);
 
   return (
@@ -48,7 +48,7 @@ export default function Group_SubPage() {
               ? TYPES.MEMBER
               : TYPES.GROUP
           }
-          $member={groupInfo.members.length}
+          $member={groupInfo && groupInfo.members.length}
         />
         <Button_Floatingtype
           $visiblity={
@@ -65,11 +65,12 @@ export default function Group_SubPage() {
         <section className={fetchStatus === "fetching" ? "fetching" : ""}>
           {location.pathname === PATH.MAIN_GROUP_MEMBER && (
             <>
-              {groupInfo.members.length > 0 &&
+              {groupInfo &&
+                groupInfo.members.length > 0 &&
                 groupInfo.members.map((member: memberType, index: number) => (
                   <ListItem_MemberType key={index} {...member} />
                 ))}
-              {groupInfo.members.length === 0 && (
+              {groupInfo && groupInfo.members.length === 0 && (
                 <Empty
                   icon={<FiAlertTriangle />}
                   message={LABELS.MESSAGE_NO_MEMBERS}

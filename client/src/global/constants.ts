@@ -102,11 +102,14 @@ export const TYPES = {
 } as const;
 
 export const LABELS = {
+  LABEL_SERVICE_NAME: "가계부를 부탁해",
+  LABEL_INVITE_TO_GROUP: "그룹에 초대합니다.",
   LABEL_LOGIN: "로그인",
   LABEL_GOTO_LOGIN: "로그인 하러가기",
   LABEL_JOIN: "5초만에 시작하기",
   LABEL_START_TODAY: "자산 관리, 오늘부터 시작해보세요.",
   LABEL_LOGINPAGE_TITLE: "지금 자산 관리를 시작해보세요.",
+  LABEL_LOGINPAGE_TITLE_FROM_INVITE: "그룹에 참여하기 위해 로그인을 해주세요.",
   LABEL_LOGIN_WITH_KAKAO: "카카오 계정으로 로그인",
   LABEL_JOIN_GROUP: "그룹 가입하기",
   LABEL_CANCEL: "취소",
@@ -133,7 +136,7 @@ export const LABELS = {
   HEADER_MENU_GROUP_MGMT: "그룹 관리",
   TAGLINE: "지출 및 자산 관리,\n이제 간편하게 관리하세요.",
   TAGLINE_INVITATION:
-    "그룹에 초대받았어요.\n그룹에 가입하고 자산 관리를 시작해보세요.",
+    "그룹에 초대받았어요.\n그룹에 참여하고 함께 자산 관리를 시작해보세요.",
   FEATURE_01_TITLE: "연동이 필요없는 지출내역 관리",
   FEATURE_02_TITLE: "기간별 자산 현황 조회",
   FEATURE_03_TITLE: "함께하는 자산관리",
