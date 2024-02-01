@@ -14,10 +14,10 @@ export default function InvitationPage() {
   const isLogin = useRecoilValue(isLoginAtom);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  let code = "";
-  const { results } = useInvitation(code as string);
+  let code = searchParams.get("code") as string;
 
-  const groupName = results.data.groupInfo?.name;
+  const { results } = useInvitation(code as string);
+  const groupName = results.data.groupInfo.name;
 
   function handleJoin() {
     if (!isLogin) navigate(PATH.LOGIN);

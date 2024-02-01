@@ -1,4 +1,4 @@
-import { PATH } from "./global/constants.ts";
+import { LABELS, PATH } from "./global/constants.ts";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { currentUserLoader } from "./router/currentUserLoader.ts";
 
@@ -8,6 +8,7 @@ import MainPage from "./pages/Main/MainPage.tsx";
 import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
 import InvitationPage from "./pages/Invitation/InvitationPage.tsx";
+import { Helmet } from "react-helmet";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,21 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <>
+      <Helmet>
+        <title>가계부를 부탁해</title>
+        <meta
+          name="description"
+          property="og:description"
+          content={LABELS.FEATURE_01_DESC}
+        />
+        <meta property="og:url" content={import.meta.env.VITE_FRONTEND_URL} />
+        <meta property="og:site_name" content="가계부를 부탁해" />
+        <meta property="og:title" content={`가계부를 부탁해`} />
+        <meta
+          property="og:image"
+          content="https://github.com/Ji-hoon/Home-accountant/raw/master/client/public/img-logo.png"
+        />
+      </Helmet>
       <RouterProvider router={router} />
     </>
   );
