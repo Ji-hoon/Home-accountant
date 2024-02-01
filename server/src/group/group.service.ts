@@ -54,15 +54,15 @@ const groupService = {
     }
 
     const existUser = await GroupModel.aggregate([
-      { $match: { _id: groupId } },
-      { $unwind: "$members" },
-      { $match: { "members.userId": new ObjectId(userId as string) } },
+      { $match: { _id: new ObjectId(groupId) } },
+      { $unwind: { path: "$members", preserveNullAndEmptyArrays: true } },
+      { $match: { "members.userId": new ObjectId(userId) } },
     ]);
     console.log(existUser);
 
-    if (existUser) {
+    if (existUser.length > 0) {
       throw new CustomError({
-        status: 400,
+        status: 405,
         message: "이미 가입된 멤버입니다.",
       });
     }

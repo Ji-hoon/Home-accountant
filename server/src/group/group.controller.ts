@@ -81,12 +81,16 @@ const groupController = {
   }),
   addMemberToGroup: asyncHandler(
     async (req: express.Request, res: Response) => {
-      const { id, userId } = req.params;
+      const { id } = req.params;
+      const { userId } = req.body;
       const result = await groupService.addMemberToGroup({
         groupId: id,
         userId,
       });
-      res.json(result);
+      res.status(200).json({
+        groupId: id,
+        result,
+      });
     },
   ),
   inviteMemberToGroup: asyncHandler(

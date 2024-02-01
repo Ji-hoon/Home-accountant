@@ -47,3 +47,8 @@ export const emailListAtom = atom<stringArrayType>({
   key: "emailList",
   default: [],
 });
+
+export const prevPathAtom = atom({
+  key: "prevPath",
+  default: "",
+});

@@ -5,11 +5,12 @@ import { LABELS, URLS, SIZES, COLORS, PATH } from "../../global/constants";
 import Button_Boxtype from "../../components/basic/Button.boxType";
 import { Navigate, useSearchParams } from "react-router-dom";
 
-import { useRecoilState } from "recoil";
-import { isLoginAtom } from "../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isLoginAtom, prevPathAtom } from "../../atoms/globalAtoms";
 import { useEffect } from "react";
 
 export default function LoginPage() {
+  const prevPath = useRecoilValue(prevPathAtom);
   const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
@@ -26,6 +27,8 @@ export default function LoginPage() {
     }
   }, [currentGroup, id, nickname, profile, setIsLogin]);
 
+  console.log(prevPath);
+
   return (
     <>
       {isLogin && <Navigate to={PATH.MAIN_EXPENSES} />}
@@ -33,7 +36,11 @@ export default function LoginPage() {
         <>
           <FullContentsLayoutContainer>
             <FiHome />
-            <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
+            <h3>
+              {prevPath === ""
+                ? LABELS.LABEL_LOGINPAGE_TITLE
+                : LABELS.LABEL_LOGINPAGE_TITLE_FROM_INVITE}
+            </h3>
             <a href={URLS.EXTERNAL_KAKAO_LOGIN}>
               <Button_Boxtype title="kakao">
                 {LABELS.LABEL_LOGIN_WITH_KAKAO}
