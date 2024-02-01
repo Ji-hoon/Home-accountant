@@ -7,7 +7,7 @@ import LoginPage from "./pages/Login/LoginPage.tsx";
 import MainPage from "./pages/Main/MainPage.tsx";
 import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
-import InvitationPage from "./pages/Invitation/InvitationPage.tsx";
+import InvitationPage from "./pages/Invitation/InvitationPage";
 import { Helmet } from "react-helmet";
 
 const router = createBrowserRouter([
