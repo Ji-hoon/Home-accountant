@@ -33,7 +33,9 @@ export default function RootPage() {
     <>
       <Header user={result} />
       <Outlet />
-      {(currentPath === PATH.ROOT || currentPath === PATH.LOGIN) && <Footer />}
+      {(currentPath === PATH.ROOT ||
+        currentPath === PATH.LOGIN ||
+        currentPath === PATH.INVITATION) && <Footer />}
       {result.id && <Dialog />}
     </>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FiBell } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { LABELS, PATH, URLS, SIZES, COLORS } from "../../global/constants";
 import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
@@ -12,6 +12,9 @@ import { loginUserType } from "../../global/customType";
 
 export default function Header({ user }: { user?: loginUserType["result"] }) {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
+  const location = useLocation();
+  const currentPath = location.pathname;
+  console.log(currentPath);
 
   return (
     <HeaderRoot $islogin={isLogin.toString()}>
@@ -21,7 +24,7 @@ export default function Header({ user }: { user?: loginUserType["result"] }) {
             <img src="/img-logo.png" />
           </NavLink>
         </div>
-        {isLogin && (
+        {isLogin && !currentPath.includes(PATH.INVITATION) && (
           <>
             <Navigation_MenuType>
               <>

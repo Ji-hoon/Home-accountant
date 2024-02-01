@@ -7,12 +7,15 @@ export default function Button_Boxtype({
   type,
   disabled,
   isAlert,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  title,
 }: {
   children: React.ReactElement | string;
   onClick?: (e: React.SyntheticEvent) => void;
   type?: string;
   disabled?: boolean | undefined;
   isAlert?: string | undefined;
+  title?: string | undefined;
 }) {
   return (
     <>
@@ -32,6 +35,7 @@ export default function Button_Boxtype({
           onClick={onClick}
           disabled={disabled}
           $alert={isAlert}
+          id={title}
         >
           {children}
         </BoxtypeButton>

@@ -7,6 +7,7 @@ import LoginPage from "./pages/Login/LoginPage.tsx";
 import MainPage from "./pages/Main/MainPage.tsx";
 import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
+import InvitationPage from "./pages/Invitation/InvitationPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: PATH.LOGIN,
         element: <LoginPage />,
+      },
+      {
+        path: PATH.INVITATION,
+        element: <InvitationPage />,
       },
     ],
   },
