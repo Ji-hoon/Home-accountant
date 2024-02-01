@@ -17,7 +17,7 @@ export default function InvitationPage() {
   let code = searchParams.get("code") as string;
 
   const { results } = useInvitation(code as string);
-  const groupName = results.data.groupInfo.name;
+  const groupName = results.data.groupInfo?.name;
 
   function handleJoin() {
     if (!isLogin) navigate(PATH.LOGIN);
