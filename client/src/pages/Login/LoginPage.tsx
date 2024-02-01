@@ -31,20 +31,22 @@ export default function LoginPage() {
       {isLogin && <Navigate to={PATH.MAIN_EXPENSES} />}
       {!isLogin && (
         <>
-          <LoginContainer>
+          <FullContentsLayoutContainer>
             <FiHome />
             <h3>{LABELS.LABEL_LOGINPAGE_TITLE}</h3>
             <a href={URLS.EXTERNAL_KAKAO_LOGIN}>
-              <Button_Boxtype>{LABELS.LABEL_LOGIN_WITH_KAKAO}</Button_Boxtype>
+              <Button_Boxtype title="kakao">
+                {LABELS.LABEL_LOGIN_WITH_KAKAO}
+              </Button_Boxtype>
             </a>
-          </LoginContainer>
+          </FullContentsLayoutContainer>
         </>
       )}
     </>
   );
 }
 
-const LoginContainer = styled.section`
+export const FullContentsLayoutContainer = styled.section`
   height: calc(100% - 172px);
   min-height: 240px;
   display: flex;
@@ -65,11 +67,12 @@ const LoginContainer = styled.section`
   & h3 {
     margin: 0;
     font-size: ${SIZES.XL}px;
+    font-weight: 600;
     line-height: ${SIZES.XXL}px;
     white-space: break-spaces;
   }
 
-  & button {
+  & button[id="kakao"] {
     background-color: ${COLORS.VARIATION_YELLOW};
   }
 `;
