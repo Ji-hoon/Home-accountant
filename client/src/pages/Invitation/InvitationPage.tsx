@@ -2,21 +2,24 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { FullContentsLayoutContainer } from "../Login/LoginPage";
 import styled from "styled-components";
 import { FiHome } from "react-icons/fi";
-import { LABELS, COLORS, TYPES, PATH } from "../../global/constants";
+import { LABELS, COLORS, TYPES, PATH, URLS } from "../../global/constants";
 import Button_Boxtype from "../../components/basic/Button.boxType";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import { useRecoilValue } from "recoil";
 import { Helmet } from "react-helmet";
 import { useInvitation } from "./Inviation.hooks";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function InvitationPage() {
   const isLogin = useRecoilValue(isLoginAtom);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  let code = searchParams.get("code") as string;
+  let code = useMemo(() => {
+    return searchParams.get("code") as string;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const { results } = useInvitation(code as string);
+  const { results } = useInvitation(code);
   const groupName = results.data.groupInfo?.name;
 
   function handleJoin() {
@@ -45,10 +48,7 @@ export default function InvitationPage() {
           property="og:title"
           content={`${groupName}훈님의 가계부 그룹에 초대합니다.`}
         />
-        <meta
-          property="og:image"
-          content="https://github.com/Ji-hoon/Home-accountant/raw/master/client/public/img-logo.png"
-        />
+        <meta property="og:image" content={URLS.META_IMAGE} />
       </Helmet>
       <FiHome />
       <h3>

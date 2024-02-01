@@ -1,4 +1,4 @@
-import { LABELS, PATH } from "./global/constants.ts";
+import { LABELS, PATH, URLS } from "./global/constants.ts";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { currentUserLoader } from "./router/currentUserLoader.ts";
 
@@ -95,10 +95,7 @@ export default function App() {
         <meta property="og:url" content={import.meta.env.VITE_FRONTEND_URL} />
         <meta property="og:site_name" content="가계부를 부탁해" />
         <meta property="og:title" content={`가계부를 부탁해`} />
-        <meta
-          property="og:image"
-          content="https://github.com/Ji-hoon/Home-accountant/raw/master/client/public/img-logo.png"
-        />
+        <meta property="og:image" content={URLS.META_IMAGE} />
       </Helmet>
       <RouterProvider router={router} />
     </>
