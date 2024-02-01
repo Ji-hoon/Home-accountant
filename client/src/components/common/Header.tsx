@@ -14,7 +14,7 @@ export default function Header({ user }: { user?: loginUserType["result"] }) {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
   const location = useLocation();
   const currentPath = location.pathname;
-  console.log(currentPath);
+  // console.log(currentPath);
 
   return (
     <HeaderRoot $islogin={isLogin.toString()}>
@@ -93,11 +93,15 @@ const HeaderRoot = styled.header<{
     gap: ${SIZES.SM / 2}px;
   }
 
-  & .logo-container a {
-    font-size: 0;
-    display: block;
+  & .logo-container {
+    padding: 4px 0;
 
-    img {
+    & a {
+      font-size: 0;
+      display: block;
+    }
+
+    & img {
       width: 180px;
       height: 40px;
     }
