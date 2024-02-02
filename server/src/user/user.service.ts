@@ -13,6 +13,25 @@ const userService = {
 
     return groups;
   },
+  async getUserRoleByGroupId({
+    groupId,
+    userId,
+  }: {
+    groupId: Types.ObjectId;
+    userId: Types.ObjectId;
+  }) {
+    const group = await groupModel.findOne({
+      _id: groupId,
+      "members.userId": userId,
+    });
+
+    const userRole = group?.members.find((member) => {
+      console.log(member);
+      return member.userId.toString() === userId.toString();
+    });
+
+    return userRole?.role;
+  },
   /** nickname 기준으로 탐색 */
   async getUsersByQuery(props: {
     query: string;
