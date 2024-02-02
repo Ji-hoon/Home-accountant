@@ -3,13 +3,15 @@ import Profile from "../basic/Profile";
 
 import styled from "styled-components";
 import { ListItemContainer } from "./ListItem.expenseType";
-import { LABELS, SIZES, COLORS } from "../../global/constants";
+import { LABELS, SIZES, COLORS, TYPES } from "../../global/constants";
 import { memberType } from "../../global/customType";
 import { format } from "date-fns";
 import { FiCalendar } from "react-icons/fi";
 
 import Button_Icontype from "../basic/Button.iconType";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../../atoms/globalAtoms";
 
 export default function ListItem_MemberType({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,6 +21,8 @@ export default function ListItem_MemberType({
   profileImgUrl,
   joinedAt,
 }: memberType) {
+  const currentUser = useRecoilValue(currentUserAtom);
+
   return (
     <ListItemContainer>
       <ListProfileContainer>
@@ -39,7 +43,7 @@ export default function ListItem_MemberType({
           </span>
         </JoinedDateField>
       </div>
-      {role !== "OWNER" && (
+      {role !== TYPES.OWNER && currentUser.currentRole === TYPES.OWNER && (
         <Button_Icontype>
           <FiMoreHorizontal />
         </Button_Icontype>
