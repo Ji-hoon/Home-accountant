@@ -10,7 +10,7 @@ import { useRef } from "react";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 
 export default function Group_Settings({
-  id,
+  _id,
   code,
   name,
   members,
@@ -39,7 +39,7 @@ export default function Group_Settings({
     >
       <FormListLayout
         type={TYPES.MODAL_SINGLE_COL}
-        layout={GroupSettingLayout({ id, code, name, members })}
+        layout={GroupSettingLayout({ _id, code, name, members })}
       />
       <Button_Boxtype type={TYPES.SUBMIT}>
         {LABELS.LABEL_UPDATE_GROUP_INFO}

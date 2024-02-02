@@ -122,8 +122,17 @@ export type memberType = {
 };
 
 export type groupInfoType = {
-  id: string;
+  _id: string;
   code: string;
   name: string;
   members: memberType[] | [];
+};
+
+export type groupListInfoType = groupInfoType & {
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type PortalProps = {
+  children?: React.ReactNode;
 };

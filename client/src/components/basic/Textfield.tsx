@@ -3,7 +3,7 @@ import { COLORS, SIZES, LABELS } from "../../global/constants";
 import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import Calendar from "../util/Calendar";
+import Calendar from "../common/Calendar";
 
 import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -199,13 +199,13 @@ const TextFieldLayout = styled.div<{
     position: absolute;
     padding: 4px 0;
     margin: 0 !important;
-    top: -${SIZES.XXL - 2}px;
+    top: -${SIZES.XXL}px;
     left: ${SIZES.XL - 2}px;
     z-index: 1;
 
     @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
       position: absolute;
-      top: 150px;
+      top: 148px;
     }
   }
 

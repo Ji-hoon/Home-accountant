@@ -228,7 +228,7 @@ export const EditExpenseLayout = ({
 };
 
 export const GroupSettingLayout = ({
-  id,
+  _id,
   code,
   name,
   members,
@@ -254,7 +254,7 @@ export const GroupSettingLayout = ({
       fieldName: "groupId",
       type: "text",
       placeholder: "",
-      defaultValue: id,
+      defaultValue: _id,
       readonly: true,
     },
     {

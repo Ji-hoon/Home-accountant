@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import { FiBell } from "react-icons/fi";
 import { NavLink, useLocation } from "react-router-dom";
-import { LABELS, PATH, URLS, SIZES, COLORS } from "../../global/constants";
+import {
+  LABELS,
+  PATH,
+  URLS,
+  SIZES,
+  COLORS,
+  TYPES,
+} from "../../global/constants";
 import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
 import Button_Icontype from "../basic/Button.iconType";
@@ -25,31 +32,30 @@ export default function Header({ user }: { user?: loginUserType["result"] }) {
           </NavLink>
         </div>
         {isLogin && !currentPath.includes(PATH.INVITATION) && (
-          <>
-            <Navigation_MenuType>
-              <>
-                <NavLink to={PATH.MAIN_EXPENSES}>
-                  <Button_Boxtype>{LABELS.HEADER_MENU_EXPENSES}</Button_Boxtype>
-                </NavLink>
-                <NavLink to={PATH.MAIN_ASSETS}>
-                  <Button_Boxtype>{LABELS.HEADER_MENU_ASSETS}</Button_Boxtype>
-                </NavLink>
-                <NavLink to={PATH.MAIN_GROUP}>
-                  <Button_Boxtype>
-                    {LABELS.HEADER_MENU_GROUP_MGMT}
-                  </Button_Boxtype>
-                </NavLink>
-              </>
-            </Navigation_MenuType>
-            <div className="noti-and-profile-container">
-              <Button_Icontype>
-                <FiBell />
-              </Button_Icontype>
-              <Profile
-                url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
-              />
-            </div>
-          </>
+          <Navigation_MenuType>
+            <>
+              <NavLink to={PATH.MAIN_EXPENSES}>
+                <Button_Boxtype>{LABELS.HEADER_MENU_EXPENSES}</Button_Boxtype>
+              </NavLink>
+              <NavLink to={PATH.MAIN_ASSETS}>
+                <Button_Boxtype>{LABELS.HEADER_MENU_ASSETS}</Button_Boxtype>
+              </NavLink>
+              <NavLink to={PATH.MAIN_GROUP}>
+                <Button_Boxtype>{LABELS.HEADER_MENU_GROUP_MGMT}</Button_Boxtype>
+              </NavLink>
+            </>
+          </Navigation_MenuType>
+        )}
+        {isLogin && (
+          <div className="noti-and-profile-container">
+            <Button_Icontype>
+              <FiBell />
+            </Button_Icontype>
+            <Profile
+              type={TYPES.PROFILE_TYPE_DROPDOWN}
+              url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
+            />
+          </div>
         )}
         {!isLogin && (
           <div className="login-button-container">

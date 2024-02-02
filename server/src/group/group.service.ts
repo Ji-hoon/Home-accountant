@@ -76,6 +76,13 @@ const groupService = {
     existGroup.members.push(newMember);
     await existGroup.save();
 
+    const user = await UserModel.findById(userId);
+
+    if (user) {
+      user.groups.push(new ObjectId(groupId as string));
+      await user.save();
+    }
+
     return newMember;
   },
   async inviteMemberToGroup({

@@ -1,10 +1,7 @@
 import ReactDOM from "react-dom";
+import { PortalProps } from "../../global/customType";
 
-interface DialogPortalProps {
-  children?: React.ReactNode;
-}
-
-const DialogPortal = ({ children }: DialogPortalProps) => {
+const DialogPortal = ({ children }: PortalProps) => {
   const dialogRoot = document.getElementById("dialog") as HTMLElement;
   return ReactDOM.createPortal(children, dialogRoot);
 };
