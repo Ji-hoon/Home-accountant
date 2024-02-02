@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import { FiBell } from "react-icons/fi";
 import { NavLink, useLocation } from "react-router-dom";
-import { LABELS, PATH, URLS, SIZES, COLORS } from "../../global/constants";
+import {
+  LABELS,
+  PATH,
+  URLS,
+  SIZES,
+  COLORS,
+  TYPES,
+} from "../../global/constants";
 import Button_Boxtype from "../basic/Button.boxType";
 import Navigation_MenuType from "../basic/Navigation.menuType";
 import Button_Icontype from "../basic/Button.iconType";
@@ -45,6 +52,7 @@ export default function Header({ user }: { user?: loginUserType["result"] }) {
               <FiBell />
             </Button_Icontype>
             <Profile
+              type={TYPES.PROFILE_TYPE_DROPDOWN}
               url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
             />
           </div>

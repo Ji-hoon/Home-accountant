@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES, COLORS } from "../../global/constants";
+import { SIZES, COLORS, TYPES } from "../../global/constants";
 import { useRecoilState } from "recoil";
 import { calculateElementPositionAndSize } from "../util/handleElement";
 import { dropdownOpenAtom } from "../../atoms/globalAtoms";
@@ -7,7 +7,13 @@ import { useState } from "react";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Profile from "../dropdown/Dropdown.Profile";
 
-export default function Profile({ url }: { url: string }) {
+export default function Profile({
+  url,
+  type,
+}: {
+  url: string;
+  type?: string; //"DROPDOWN"
+}) {
   const [showDropdown, setShowDropdown] = useRecoilState(dropdownOpenAtom);
   const [targetPosition, setTargetPosition] = useState({
     x: 0,
@@ -29,7 +35,7 @@ export default function Profile({ url }: { url: string }) {
       <ProfileContainer onClick={handleProfileClick}>
         <img src={url} />
       </ProfileContainer>
-      {showDropdown && (
+      {showDropdown && type === TYPES.PROFILE_TYPE_DROPDOWN && (
         <Dropdown>
           <Dropdown_Profile data={targetPosition} />
         </Dropdown>

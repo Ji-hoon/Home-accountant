@@ -99,6 +99,7 @@ export const TYPES = {
   TYPE_UNIT_WEEK: "WEEK",
   TYPE_UNIT_MONTH: "MONTH",
   TYPE_UNIT_YEAR: "YEAR",
+  PROFILE_TYPE_DROPDOWN: "DROPDOWN",
 } as const;
 
 export const LABELS = {
