@@ -3,7 +3,7 @@ import { COLORS, SIZES, LABELS } from "../../global/constants";
 import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import Calendar from "../util/Calendar";
+import Calendar from "../common/Calendar";
 
 import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
