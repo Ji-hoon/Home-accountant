@@ -17,9 +17,19 @@ const userController = {
       });
     }
 
+    const groupInfo = await userService.getUserGroup({
+      groupId: result.groups,
+    });
+
+    // const groups = await result.groups.map( async (group) => {
+    //   const groupInfo = await groupService.getGroup(group as unknown as string);
+    //   console.log(groupInfo);
+    //   return groupInfo;
+    // });
+
     res.status(200).json({
       message: "그룹 조회에 성공했습니다.",
-      groups: result.groups,
+      groups: groupInfo,
     });
   }),
 };

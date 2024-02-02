@@ -1,10 +1,17 @@
 import { Types } from "mongoose";
 import { UserType } from "../type/global.js";
 import UserModel from "./user.model.js";
+import groupModel from "../group/group.model.js";
 
 const userService = {
   async getUser(userId: Types.ObjectId) {
     return UserModel.findById(userId);
+  },
+  async getUserGroup({ groupId }: { groupId: Types.ObjectId[] }) {
+    const groupPromises = groupId.map((id) => groupModel.findById(id).exec());
+    const groups = await Promise.all(groupPromises);
+
+    return groups;
   },
   /** nickname 기준으로 탐색 */
   async getUsersByQuery(props: {
