@@ -1,14 +1,16 @@
 import styled from "styled-components";
-import { COLORS, LABELS, SIZES } from "../../global/constants";
+import { COLORS, LABELS, PATH, SIZES } from "../../global/constants";
 import { MenuGroup_ListType } from "../compound/MenuGroup.listType";
 import Button_Boxtype from "../basic/Button.boxType";
 import { useDropdownProfile } from "./Dropdown.Profile.hooks";
-import { currentUserAtom } from "../../atoms/globalAtoms";
-import { useRecoilValue } from "recoil";
+import { currentUserAtom, dropdownOpenAtom } from "../../atoms/globalAtoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import ApiBoundary from "../../global/ApiBoundary";
 import { format } from "date-fns";
 import { groupListInfoType } from "../../global/customType";
 import { FiCheck } from "react-icons/fi";
+import { updateCurrentGroup } from "../util/updateLocalStorage";
+import { useNavigate } from "react-router";
 
 type Props = {
   data: {
@@ -28,46 +30,61 @@ export default function Dropdown_Profile(props: Props) {
 }
 
 export function ApiComponent({ data }: Props) {
-  const currentUser = useRecoilValue(currentUserAtom);
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
+  const setShowDropdown = useSetRecoilState(dropdownOpenAtom);
   const { result } = useDropdownProfile(currentUser.userId);
 
   const groupList = result.data.data.groups;
 
   return (
-    <DropdownProfileContainer data={data}>
-      <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
-        {groupList &&
-          groupList.map((group: groupListInfoType, index: number) => (
-            <li key={index}>
-              <Button_Boxtype>
-                <p>
-                  <strong
-                    className={
-                      currentUser.currentGroup === group._id ? "active" : ""
-                    }
+    <>
+      {groupList.length > 0 ? (
+        <DropdownProfileContainer data={data}>
+          <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
+            {groupList &&
+              groupList.map((group: groupListInfoType, index: number) => (
+                <li key={index}>
+                  <Button_Boxtype
+                    onClick={() => {
+                      const newUserInfo = updateCurrentGroup(group._id);
+                      setCurrentUser(() => newUserInfo);
+                      setShowDropdown(false);
+                      navigate(PATH.MAIN_EXPENSES);
+                    }}
                   >
-                    {group.name}
-                    {currentUser.currentGroup === group._id && (
-                      <FiCheck strokeWidth={3} />
-                    )}
-                  </strong>
-                  <span>
-                    {format(group.createdAt, "yyyy년 M월 d일")}에 생성됨
-                  </span>
-                </p>
-              </Button_Boxtype>
+                    <p>
+                      <strong
+                        className={
+                          currentUser.currentGroup === group._id ? "active" : ""
+                        }
+                      >
+                        {group.name}
+                        {currentUser.currentGroup === group._id && (
+                          <FiCheck strokeWidth={3} />
+                        )}
+                      </strong>
+                      <span>
+                        {format(group.createdAt, "yyyy년 M월 d일")}에 생성됨
+                      </span>
+                    </p>
+                  </Button_Boxtype>
+                </li>
+              ))}
+          </MenuGroup_ListType>
+          <MenuGroup_ListType title={LABELS.LABEL_ACCOUNT}>
+            <li>
+              <Button_Boxtype>{LABELS.LABEL_ACCOUNT_INFO}</Button_Boxtype>
             </li>
-          ))}
-      </MenuGroup_ListType>
-      <MenuGroup_ListType title={LABELS.LABEL_ACCOUNT}>
-        <li>
-          <Button_Boxtype>{LABELS.LABEL_ACCOUNT_INFO}</Button_Boxtype>
-        </li>
-        <li>
-          <Button_Boxtype>{LABELS.LABEL_LOGOUT}</Button_Boxtype>
-        </li>
-      </MenuGroup_ListType>
-    </DropdownProfileContainer>
+            <li>
+              <Button_Boxtype>{LABELS.LABEL_LOGOUT}</Button_Boxtype>
+            </li>
+          </MenuGroup_ListType>
+        </DropdownProfileContainer>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 

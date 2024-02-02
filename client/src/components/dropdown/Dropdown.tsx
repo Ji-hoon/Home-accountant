@@ -16,7 +16,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
 
   return (
     <DropdownPortal>
-      {showDropdown && (
+      {showDropdown ? (
         <DropdownContainer>
           <DropdownBackdrop
             className="dropdown-backdrop"
@@ -24,6 +24,8 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
           />
           {children}
         </DropdownContainer>
+      ) : (
+        <></>
       )}
     </DropdownPortal>
   );
