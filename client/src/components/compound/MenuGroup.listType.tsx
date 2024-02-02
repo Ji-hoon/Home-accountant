@@ -52,8 +52,15 @@ const MenuGroupContainer = styled.div`
       & span {
         font-size: ${SIZES.XS}px;
         font-weight: 400;
-        color: ${COLORS.GRAY_04};
+        color: ${COLORS.GRAY_03};
       }
     }
+  }
+
+  & *.active {
+    color: ${COLORS.BRAND_DEEP};
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 `;

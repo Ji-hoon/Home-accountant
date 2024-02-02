@@ -5,7 +5,10 @@ import Button_Boxtype from "../basic/Button.boxType";
 import { useDropdownProfile } from "./Dropdown.Profile.hooks";
 import { currentUserAtom } from "../../atoms/globalAtoms";
 import { useRecoilValue } from "recoil";
-import ApiBoundary from "../../global/apiBoundary";
+import ApiBoundary from "../../global/ApiBoundary";
+import { format } from "date-fns";
+import { groupListInfoType } from "../../global/customType";
+import { FiCheck } from "react-icons/fi";
 
 type Props = {
   data: {
@@ -34,12 +37,23 @@ export function ApiComponent({ data }: Props) {
     <DropdownProfileContainer data={data}>
       <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
         {groupList &&
-          groupList.map((group: string, index: number) => (
+          groupList.map((group: groupListInfoType, index: number) => (
             <li key={index}>
               <Button_Boxtype>
                 <p>
-                  <strong>{group}</strong>
-                  <span>2024-01-24 가입</span>
+                  <strong
+                    className={
+                      currentUser.currentGroup === group._id ? "active" : ""
+                    }
+                  >
+                    {group.name}
+                    {currentUser.currentGroup === group._id && (
+                      <FiCheck strokeWidth={3} />
+                    )}
+                  </strong>
+                  <span>
+                    {format(group.createdAt, "yyyy년 M월 d일")}에 생성됨
+                  </span>
                 </p>
               </Button_Boxtype>
             </li>
