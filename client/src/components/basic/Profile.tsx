@@ -29,12 +29,10 @@ export default function Profile({ url }: { url: string }) {
       <ProfileContainer onClick={handleProfileClick}>
         <img src={url} />
       </ProfileContainer>
-      {showDropdown ? (
+      {showDropdown && (
         <Dropdown>
           <Dropdown_Profile data={targetPosition} />
         </Dropdown>
-      ) : (
-        <></>
       )}
     </>
   );

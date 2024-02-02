@@ -16,16 +16,14 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
 
   return (
     <DropdownPortal>
-      {showDropdown ? (
+      {showDropdown && (
         <DropdownContainer>
           <DropdownBackdrop
             className="dropdown-backdrop"
-            onClick={() => setShowDropdown(!showDropdown)}
+            onClick={() => setShowDropdown(false)}
           />
           {children}
         </DropdownContainer>
-      ) : (
-        <></>
       )}
     </DropdownPortal>
   );

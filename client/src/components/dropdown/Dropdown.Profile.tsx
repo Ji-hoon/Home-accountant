@@ -39,7 +39,7 @@ export function ApiComponent({ data }: Props) {
 
   return (
     <>
-      {groupList.length > 0 ? (
+      {result && (
         <DropdownProfileContainer data={data}>
           <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
             {groupList &&
@@ -81,8 +81,6 @@ export function ApiComponent({ data }: Props) {
             </li>
           </MenuGroup_ListType>
         </DropdownProfileContainer>
-      ) : (
-        <></>
       )}
     </>
   );
