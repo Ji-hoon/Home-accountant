@@ -29,7 +29,7 @@ export default function Profile({
       target: e.currentTarget as HTMLElement,
     });
     setTargetPosition(targetPos);
-    setShowDropdown(!showDropdown);
+    setShowDropdown(TYPES.DROPDOWN_KEY_PROFILE);
   }
 
   /* resize 이벤트 발생 시 data props 갱신 */
@@ -63,11 +63,12 @@ export default function Profile({
       <ProfileContainer ref={profileRef} onClick={handleProfileClick}>
         <img src={url} />
       </ProfileContainer>
-      {showDropdown && type === TYPES.PROFILE_TYPE_DROPDOWN && (
-        <Dropdown>
-          <Dropdown_Profile data={targetPosition} />
-        </Dropdown>
-      )}
+      {showDropdown === TYPES.DROPDOWN_KEY_PROFILE &&
+        type === TYPES.PROFILE_TYPE_DROPDOWN && (
+          <Dropdown>
+            <Dropdown_Profile data={targetPosition} />
+          </Dropdown>
+        )}
     </>
   );
 }

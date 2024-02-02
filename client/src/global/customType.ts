@@ -145,3 +145,12 @@ export type groupListInfoType = groupInfoType & {
 export type PortalProps = {
   children?: React.ReactNode;
 };
+
+export type DropdownProps = {
+  data: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+};

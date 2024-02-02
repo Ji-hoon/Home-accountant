@@ -7,21 +7,17 @@ import { currentUserAtom, dropdownOpenAtom } from "../../atoms/globalAtoms";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import ApiBoundary from "../../global/ApiBoundary";
 import { format } from "date-fns";
-import { groupListInfoType, groupMemberType } from "../../global/customType";
+import {
+  groupListInfoType,
+  groupMemberType,
+  DropdownProps,
+} from "../../global/customType";
 import { FiCheck } from "react-icons/fi";
 import { updateCurrentGroup } from "../util/updateLocalStorage";
 import { useNavigate } from "react-router";
 
-type Props = {
-  data: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
-};
 // eslint-disable-next-line react-refresh/only-export-components
-export default function Dropdown_Profile(props: Props) {
+export default function Dropdown_Profile(props: DropdownProps) {
   return (
     <ApiBoundary>
       <ApiComponent {...props} />
@@ -29,7 +25,7 @@ export default function Dropdown_Profile(props: Props) {
   );
 }
 
-export function ApiComponent({ data }: Props) {
+export function ApiComponent({ data }: DropdownProps) {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const setShowDropdown = useSetRecoilState(dropdownOpenAtom);
@@ -66,7 +62,7 @@ export function ApiComponent({ data }: Props) {
                       });
 
                       setCurrentUser(() => newUserInfo);
-                      setShowDropdown(false);
+                      setShowDropdown("");
                       navigate(PATH.MAIN_EXPENSES);
                     }}
                   >

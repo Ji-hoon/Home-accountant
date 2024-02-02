@@ -101,6 +101,8 @@ export const TYPES = {
   TYPE_UNIT_MONTH: "MONTH",
   TYPE_UNIT_YEAR: "YEAR",
   PROFILE_TYPE_DROPDOWN: "DROPDOWN",
+  DROPDOWN_KEY_PROFILE: "PROFILE",
+  DROPDOWN_KEY_MEMBER: "MEMBER",
 } as const;
 
 export const LABELS = {
@@ -124,6 +126,7 @@ export const LABELS = {
   LABEL_UPDATE_GROUP_INFO: "그룹 정보 변경",
   LABEL_GROUP_JOINED_DATE: "가입일",
   LABEL_INVITE_MEMBER: "멤버 초대하기",
+  LABEL_WITHDRAW_MEMBER: "멤버 내보내기",
   LABEL_COPY_INVITE_LINK: "초대링크 복사",
   LABEL_GROUP: "그룹",
   LABEL_ACCOUNT: "계정",

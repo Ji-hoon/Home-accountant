@@ -20,7 +20,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
         <DropdownContainer>
           <DropdownBackdrop
             className="dropdown-backdrop"
-            onClick={() => setShowDropdown(false)}
+            onClick={() => setShowDropdown("")}
           />
           {children}
         </DropdownContainer>
