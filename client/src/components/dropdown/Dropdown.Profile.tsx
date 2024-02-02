@@ -5,33 +5,45 @@ import Button_Boxtype from "../basic/Button.boxType";
 import { useDropdownProfile } from "./Dropdown.Profile.hooks";
 import { currentUserAtom } from "../../atoms/globalAtoms";
 import { useRecoilValue } from "recoil";
+import ApiBoundary from "../../global/apiBoundary";
 
-export default function Dropdown_Profile({
-  data,
-}: {
+type Props = {
   data: {
     x: number;
     y: number;
     width: number;
     height: number;
   };
-}) {
+};
+// eslint-disable-next-line react-refresh/only-export-components
+export default function Dropdown_Profile(props: Props) {
+  return (
+    <ApiBoundary>
+      <ApiComponent {...props} />
+    </ApiBoundary>
+  );
+}
+
+export function ApiComponent({ data }: Props) {
   const currentUser = useRecoilValue(currentUserAtom);
   const { result } = useDropdownProfile(currentUser.userId);
 
-  console.log(result);
+  const groupList = result.data.data.groups;
 
   return (
     <DropdownProfileContainer data={data}>
       <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
-        <li>
-          <Button_Boxtype>
-            <p>
-              <strong>훈님의 가계부</strong>
-              <span>2024-01-24 가입</span>
-            </p>
-          </Button_Boxtype>
-        </li>
+        {groupList &&
+          groupList.map((group: string, index: number) => (
+            <li key={index}>
+              <Button_Boxtype>
+                <p>
+                  <strong>{group}</strong>
+                  <span>2024-01-24 가입</span>
+                </p>
+              </Button_Boxtype>
+            </li>
+          ))}
       </MenuGroup_ListType>
       <MenuGroup_ListType title={LABELS.LABEL_ACCOUNT}>
         <li>
