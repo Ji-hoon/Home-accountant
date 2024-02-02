@@ -23,8 +23,9 @@ export function useInvitation(code: string) {
       //setisLoading(!isLoading);
     },
     onSuccess: (data) => {
-      updateCurrentGroup(data.groupId);
-      navigate(PATH.MAIN_EXPENSES);
+      const newUserInfo = updateCurrentGroup(data.groupId);
+      setCurrentUser(() => newUserInfo);
+      location.href = import.meta.env.VITE_FRONTEND_URL;
     },
     onError: (err) => {
       console.log(err);
@@ -34,7 +35,7 @@ export function useInvitation(code: string) {
       if (err instanceof AxiosError && err.response?.status === 405) {
         const newUserInfo = updateCurrentGroup(results.data.groupInfo._id);
         setCurrentUser(() => newUserInfo);
-        navigate(PATH.MAIN_GROUP);
+        navigate(PATH.MAIN_EXPENSES);
       }
     },
     onSettled: () => {
