@@ -21,7 +21,6 @@ export default function Group_SubPage() {
   const { data, fetchStatus } = useGroups(currentUser.currentGroup);
   const { showDialog } = useHandleDialog();
   const groupInfo = data.data?.groupInfo;
-  // console.log(groupInfo);
 
   return (
     <>
@@ -33,11 +32,13 @@ export default function Group_SubPage() {
                 {LABELS.NAVIGATION_MENU_GROUP_MEMBER}
               </Button_Boxtype>
             </NavLink>
-            <NavLink to={PATH.MAIN_GROUP_SETTINGS}>
-              <Button_Boxtype>
-                {LABELS.NAVIGATION_MENU_GROUP_SETTINGS}
-              </Button_Boxtype>
-            </NavLink>
+            {currentUser.currentRole === TYPES.OWNER && (
+              <NavLink to={PATH.MAIN_GROUP_SETTINGS}>
+                <Button_Boxtype>
+                  {LABELS.NAVIGATION_MENU_GROUP_SETTINGS}
+                </Button_Boxtype>
+              </NavLink>
+            )}
           </>
         </Navigation_ListType>
       </div>

@@ -13,6 +13,7 @@ export const currentUserAtom = atom({
     nickname: "",
     currentGroup: "",
     currentRole: "",
+    profile: "",
   },
 });
 

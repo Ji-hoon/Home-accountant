@@ -93,13 +93,15 @@ export type AssetUpdateType = {
 };
 
 export type loginUserType = {
-  result: {
-    id: string;
-    nickname: string;
-    profile: string;
-    currentGroup: string;
-    role: string;
-  };
+  result: currentUserType;
+};
+
+export type currentUserType = {
+  userId: string;
+  nickname: string;
+  profile: string;
+  currentGroup: string;
+  currentRole: string;
 };
 
 export type expenseQueryType = {

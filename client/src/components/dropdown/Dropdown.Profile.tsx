@@ -64,6 +64,7 @@ export function ApiComponent({ data }: Props) {
                         groupId: group._id,
                         role: role as string,
                       });
+
                       setCurrentUser(() => newUserInfo);
                       setShowDropdown(false);
                       navigate(PATH.MAIN_EXPENSES);
