@@ -38,6 +38,11 @@ export const calendarOpenAtom = atom({
   default: false,
 });
 
+export const dropdownOpenAtom = atom({
+  key: "dropdownOpen",
+  default: false,
+});
+
 export const selectedExpenseIdAtom = atom<stringArrayType>({
   key: "selectedExpense",
   default: [],

@@ -127,3 +127,7 @@ export type groupInfoType = {
   name: string;
   members: memberType[] | [];
 };
+
+export type PortalProps = {
+  children?: React.ReactNode;
+};
