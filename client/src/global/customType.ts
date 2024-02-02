@@ -98,6 +98,7 @@ export type loginUserType = {
     nickname: string;
     profile: string;
     currentGroup: string;
+    role: string;
   };
 };
 
@@ -114,9 +115,15 @@ export type expenseQueryType = {
 export type stringArrayType = string[];
 
 export type memberType = {
-  memberId: string;
+  userId: string;
   nickname: string;
   profileImgUrl: string;
+  role: string;
+  joinedAt: Date;
+};
+
+export type groupMemberType = {
+  userId: string;
   role: string;
   joinedAt: Date;
 };
@@ -125,7 +132,7 @@ export type groupInfoType = {
   _id: string;
   code: string;
   name: string;
-  members: memberType[] | [];
+  members: memberType[] | [] | groupMemberType[];
 };
 
 export type groupListInfoType = groupInfoType & {

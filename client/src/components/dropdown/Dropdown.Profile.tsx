@@ -7,7 +7,7 @@ import { currentUserAtom, dropdownOpenAtom } from "../../atoms/globalAtoms";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import ApiBoundary from "../../global/ApiBoundary";
 import { format } from "date-fns";
-import { groupListInfoType } from "../../global/customType";
+import { groupListInfoType, groupMemberType } from "../../global/customType";
 import { FiCheck } from "react-icons/fi";
 import { updateCurrentGroup } from "../util/updateLocalStorage";
 import { useNavigate } from "react-router";
@@ -36,6 +36,7 @@ export function ApiComponent({ data }: Props) {
   const { result, logout } = useDropdownProfile(currentUser.userId);
 
   const groupList = result.data.data.groups;
+  //const existUser = groupList.find((member: { userId: string; }) => member.userId === currentUser.userId);
 
   return (
     <>
@@ -47,7 +48,22 @@ export function ApiComponent({ data }: Props) {
                 <li key={index}>
                   <Button_Boxtype
                     onClick={() => {
-                      const newUserInfo = updateCurrentGroup(group._id);
+                      const role = group.members.reduce(
+                        (acc: string | null, member: groupMemberType) => {
+                          if (
+                            member.userId.toString() ===
+                            currentUser.userId.toString()
+                          ) {
+                            return member.role;
+                          }
+                          return acc;
+                        },
+                        null,
+                      );
+                      const newUserInfo = updateCurrentGroup({
+                        groupId: group._id,
+                        role: role as string,
+                      });
                       setCurrentUser(() => newUserInfo);
                       setShowDropdown(false);
                       navigate(PATH.MAIN_EXPENSES);

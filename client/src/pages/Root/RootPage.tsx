@@ -24,6 +24,7 @@ export default function RootPage() {
         userId: result.id,
         nickname: result.nickname,
         currentGroup: result.currentGroup,
+        currentRole: result.role,
       });
     }
     //console.log(result);

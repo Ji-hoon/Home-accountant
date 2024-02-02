@@ -13,7 +13,7 @@ import { FiMoreHorizontal } from "react-icons/fi";
 
 export default function ListItem_MemberType({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  memberId,
+  userId,
   nickname,
   role,
   profileImgUrl,
