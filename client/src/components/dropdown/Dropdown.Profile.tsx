@@ -33,7 +33,7 @@ export function ApiComponent({ data }: Props) {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const setShowDropdown = useSetRecoilState(dropdownOpenAtom);
-  const { result } = useDropdownProfile(currentUser.userId);
+  const { result, logout } = useDropdownProfile(currentUser.userId);
 
   const groupList = result.data.data.groups;
 
@@ -77,7 +77,9 @@ export function ApiComponent({ data }: Props) {
               <Button_Boxtype>{LABELS.LABEL_ACCOUNT_INFO}</Button_Boxtype>
             </li>
             <li>
-              <Button_Boxtype>{LABELS.LABEL_LOGOUT}</Button_Boxtype>
+              <Button_Boxtype onClick={() => logout()}>
+                {LABELS.LABEL_LOGOUT}
+              </Button_Boxtype>
             </li>
           </MenuGroup_ListType>
         </DropdownProfileContainer>

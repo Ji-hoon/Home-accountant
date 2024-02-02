@@ -9,6 +9,8 @@ authRouter.get("/oauth", authController.handleKakaoOAuthProcess);
 
 authRouter.post("/login", authController.handleLogin);
 
+authRouter.post("/logout", authController.handleLogout);
+
 authRouter.post("/join", authController.handleJoin);
 
 export default authRouter;
