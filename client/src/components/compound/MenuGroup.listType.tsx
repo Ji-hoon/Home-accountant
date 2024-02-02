@@ -34,6 +34,7 @@ const MenuGroupContainer = styled.div`
   & h5 {
     padding: 6px 12px;
     color: ${COLORS.GRAY_04};
+    font-weight: 500;
   }
 
   & button {

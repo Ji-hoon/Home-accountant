@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../global/constants";
+import { COLORS, LABELS, SIZES } from "../../global/constants";
 import { MenuGroup_ListType } from "../compound/MenuGroup.listType";
 import Button_Boxtype from "../basic/Button.boxType";
+import { useDropdownProfile } from "./Dropdown.Profile.hooks";
+import { currentUserAtom } from "../../atoms/globalAtoms";
+import { useRecoilValue } from "recoil";
 
 export default function Dropdown_Profile({
   data,
@@ -13,9 +16,14 @@ export default function Dropdown_Profile({
     height: number;
   };
 }) {
+  const currentUser = useRecoilValue(currentUserAtom);
+  const { result } = useDropdownProfile(currentUser.userId);
+
+  console.log(result);
+
   return (
     <DropdownProfileContainer data={data}>
-      <MenuGroup_ListType title="그룹">
+      <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
         <li>
           <Button_Boxtype>
             <p>
@@ -25,12 +33,12 @@ export default function Dropdown_Profile({
           </Button_Boxtype>
         </li>
       </MenuGroup_ListType>
-      <MenuGroup_ListType title="계정">
+      <MenuGroup_ListType title={LABELS.LABEL_ACCOUNT}>
         <li>
-          <Button_Boxtype>계정 정보</Button_Boxtype>
+          <Button_Boxtype>{LABELS.LABEL_ACCOUNT_INFO}</Button_Boxtype>
         </li>
         <li>
-          <Button_Boxtype>로그아웃</Button_Boxtype>
+          <Button_Boxtype>{LABELS.LABEL_LOGOUT}</Button_Boxtype>
         </li>
       </MenuGroup_ListType>
     </DropdownProfileContainer>
