@@ -52,7 +52,8 @@ export default function Header({ user }: { user?: currentUserType }) {
               <FiBell />
             </Button_Icontype>
             <Profile
-              type={TYPES.PROFILE_TYPE_DROPDOWN}
+              dropdownType={TYPES.PROFILE_TYPE_DROPDOWN}
+              dropdownId={user?.userId}
               url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
             />
           </div>

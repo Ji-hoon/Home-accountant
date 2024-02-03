@@ -44,7 +44,7 @@ export default function ListItem_MemberType({
         </JoinedDateField>
       </div>
       {role !== TYPES.OWNER && currentUser.currentRole === TYPES.OWNER && (
-        <Button_Icontype id={userId} type={TYPES.MEMBER}>
+        <Button_Icontype dropdownId={userId} dropdownType={TYPES.MEMBER}>
           <FiMoreHorizontal />
         </Button_Icontype>
       )}
