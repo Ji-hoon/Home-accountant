@@ -4,7 +4,7 @@ import { COLORS, SIZES, TYPES } from "../../global/constants";
 export default function Button_Boxtype({
   children,
   onClick,
-  type,
+  type, //className으로 활용
   disabled,
   isAlert,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -72,7 +72,8 @@ const BoxtypeButton = styled.button<{
     filter: brightness(0.95);
   }
 
-  &:active {
+  &:active,
+  &.active {
     filter: brightness(0.92);
   }
 
@@ -115,7 +116,8 @@ const BoxtypeSubmitButton = styled.input<{
     filter: brightness(0.95);
   }
 
-  &:active {
+  &:active,
+  &.active {
     filter: brightness(0.92);
   }
 `;

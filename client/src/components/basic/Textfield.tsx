@@ -3,7 +3,6 @@ import { COLORS, SIZES, LABELS, TYPES } from "../../global/constants";
 import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import Calendar from "../common/Calendar";
 
 import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -14,6 +13,9 @@ import { emailListAtom, currentUserAtom } from "../../atoms/globalAtoms";
 import { FiX } from "react-icons/fi";
 import Button_Icontype from "./Button.iconType";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useDropdown } from "../hooks/useDropdown";
+import Dropdown from "../dropdown/Dropdown";
+import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
 
 export default function Textfield({
   title,
@@ -27,15 +29,26 @@ export default function Textfield({
   hidden,
 }: FormListLayoutType) {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  //const [calendarOpen, setCalendarOpen] = useState(false);
   const { register } = useForm<InputFormType>();
   const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
   const emailList = useRecoilValue(emailListAtom);
   const currentUser = useRecoilValue(currentUserAtom);
 
+  const {
+    targetRef,
+    showDropdown,
+    targetPosition,
+    handleDropdownTrigger,
+    showDropdownUniqueKey,
+  } = useDropdown({
+    dropdownType: TYPES.DROPDOWN_KEY_CALENDAR_DATE_FIELD,
+    dropdownId: selectedDay ? format(selectedDay, "yyyy_MM_dd") : "",
+  });
+
   const handleDayClick: DayClickEventHandler = (day) => {
     setSelectedDay(day);
-    setCalendarOpen(!calendarOpen);
+    //setCalendarOpen(!calendarOpen);
   };
 
   function handleTextInput(e: React.KeyboardEvent) {
@@ -52,7 +65,7 @@ export default function Textfield({
   }, []);
 
   return (
-    <TextFieldLayout hidden={hidden}>
+    <TextFieldLayout hidden={hidden} ref={targetRef}>
       <label>
         {title}
         {fieldName === "invitationLink" && defaultValue && (
@@ -120,6 +133,7 @@ export default function Textfield({
       )}
       {type === "date" && (
         <input
+          className={showDropdown === showDropdownUniqueKey ? "active" : ""}
           {...register(fieldName, { required: true })}
           name={fieldName}
           type={type}
@@ -127,12 +141,19 @@ export default function Textfield({
           placeholder={placeholder}
           id={selectedDay as unknown as string}
           value={format(selectedDay, "yyyy-MM-dd")}
-          onClick={() => setCalendarOpen(!calendarOpen)}
+          onClick={handleDropdownTrigger}
         />
       )}
-      {type === "date" && calendarOpen && (
+      {type === "date" && showDropdown === showDropdownUniqueKey && (
         <div className="calendar-container">
-          <Calendar $currentDate={selectedDay} $clickHandler={handleDayClick} />
+          <Dropdown>
+            <Dropdown_Calendar
+              $currentDate={selectedDay}
+              $clickHandler={handleDayClick}
+              data={targetPosition}
+              direction={TYPES.DIRECTION_UP}
+            />
+          </Dropdown>
         </div>
       )}
       {/* {errors.fieldName && <span>This field is required</span>} */}
@@ -184,7 +205,8 @@ const TextFieldLayout = styled.div<{
     -webkit-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
 
-    &:not([readonly]):focus {
+    &:not([readonly]):focus,
+    &.active {
       background-color: ${COLORS.GRAY_01_OVERAY};
     }
     &:disabled {
