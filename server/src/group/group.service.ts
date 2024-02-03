@@ -142,7 +142,7 @@ const groupService = {
       memberList?.map(async (member) => {
         const user = await UserModel.findById(member.userId);
         return {
-          memberId: user?._id,
+          userId: user?._id,
           nickname: user?.nickname,
           profileImgUrl: user?.profileImgUrl,
           role: member.role,
@@ -159,7 +159,7 @@ const groupService = {
     };
   },
   async getGroupByCode(code: string) {
-    const group = await GroupModel.findOne({ code }, "name");
+    const group = await GroupModel.findOne({ code }, { name: 1, members: 1 });
     return group;
   },
   async updateGroup(id: string, name: string) {

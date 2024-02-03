@@ -13,21 +13,28 @@ export default function LoginPage() {
   const prevPath = useRecoilValue(prevPathAtom);
   const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
   const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
+  const userId = searchParams.get("id");
   const nickname = searchParams.get("nickname");
   const profile = searchParams.get("profile");
   const currentGroup = searchParams.get("group");
+  const currentRole = searchParams.get("role");
 
   useEffect(() => {
-    const currentUser = { id, nickname, profile, currentGroup };
+    const currentUser = {
+      userId,
+      nickname,
+      profile,
+      currentGroup,
+      currentRole,
+    };
 
-    if (currentUser.id || currentUser.nickname) {
+    if (currentUser.userId || currentUser.nickname) {
       setIsLogin(true);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
     }
-  }, [currentGroup, id, nickname, profile, setIsLogin]);
+  }, [currentGroup, currentRole, userId, nickname, profile, setIsLogin]);
 
-  console.log(prevPath);
+  console.log("prev path: ", prevPath);
 
   return (
     <>

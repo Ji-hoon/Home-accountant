@@ -15,9 +15,9 @@ import Button_Icontype from "../basic/Button.iconType";
 import Profile from "../basic/Profile";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
-import { loginUserType } from "../../global/customType";
+import { currentUserType } from "../../global/customType";
 
-export default function Header({ user }: { user?: loginUserType["result"] }) {
+export default function Header({ user }: { user?: currentUserType }) {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
   const location = useLocation();
   const currentPath = location.pathname;
@@ -52,7 +52,8 @@ export default function Header({ user }: { user?: loginUserType["result"] }) {
               <FiBell />
             </Button_Icontype>
             <Profile
-              type={TYPES.PROFILE_TYPE_DROPDOWN}
+              dropdownType={TYPES.DROPDOWN_KEY_PROFILE}
+              dropdownId={user?.userId}
               url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
             />
           </div>

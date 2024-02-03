@@ -25,14 +25,20 @@ const authController = {
       const isNewUser = await userService.findUserWithSnsId(userInfo.id);
       const action = isNewUser.length === 0 ? "join" : "login";
       const result = await authService.handleAuthUser(userInfo, action);
+      const userRole = await userService.getUserRoleByGroupId({
+        groupId: result.user.groups[0],
+        userId: result.user._id,
+      });
+      //const userRole = userGroups.map( (group) => group.);
       const token = authService.generateJWT(
         result.user._id,
         result.user.nickname,
       );
       console.log("result: ", result);
+      console.log("role: ", userRole);
       res.cookie("service_token", token, { path: "/", httpOnly: true });
       res.redirect(
-        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}&profile=${result.user.profileImgUrl}&group=${result.user.groups[0]}`,
+        `${process.env.FRONTEND_URL}/login?id=${result.user._id}&nickname=${result.user.nickname}&profile=${result.user.profileImgUrl}&group=${result.user.groups[0]}&role=${userRole}`,
       );
     },
   ),

@@ -93,12 +93,15 @@ export type AssetUpdateType = {
 };
 
 export type loginUserType = {
-  result: {
-    id: string;
-    nickname: string;
-    profile: string;
-    currentGroup: string;
-  };
+  result: currentUserType;
+};
+
+export type currentUserType = {
+  userId: string;
+  nickname: string;
+  profile: string;
+  currentGroup: string;
+  currentRole: string;
 };
 
 export type expenseQueryType = {
@@ -114,9 +117,15 @@ export type expenseQueryType = {
 export type stringArrayType = string[];
 
 export type memberType = {
-  memberId: string;
+  userId: string;
   nickname: string;
   profileImgUrl: string;
+  role: string;
+  joinedAt: Date;
+};
+
+export type groupMemberType = {
+  userId: string;
   role: string;
   joinedAt: Date;
 };
@@ -125,7 +134,7 @@ export type groupInfoType = {
   _id: string;
   code: string;
   name: string;
-  members: memberType[] | [];
+  members: memberType[] | [] | groupMemberType[];
 };
 
 export type groupListInfoType = groupInfoType & {
@@ -135,4 +144,13 @@ export type groupListInfoType = groupInfoType & {
 
 export type PortalProps = {
   children?: React.ReactNode;
+};
+
+export type DropdownProps = {
+  data: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
 };

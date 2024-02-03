@@ -14,6 +14,7 @@ export function useDropdownProfile(userId: string) {
     queryKey: [queryKeys.currentUser],
     queryFn: () => profileAPI.getGroupInfo(userId),
   });
+  //console.log(result);
 
   const logout = useMutation({
     mutationFn: profileAPI.logout,
@@ -28,6 +29,7 @@ export function useDropdownProfile(userId: string) {
         userId: "",
         nickname: "",
         currentGroup: "",
+        currentRole: "",
       };
       setCurrentUser(() => resetUser);
       location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동

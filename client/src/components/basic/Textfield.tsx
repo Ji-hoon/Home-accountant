@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, SIZES, LABELS } from "../../global/constants";
+import { COLORS, SIZES, LABELS, TYPES } from "../../global/constants";
 import { InputFormType, FormListLayoutType } from "../../global/customType";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -10,7 +10,7 @@ import "react-day-picker/dist/style.css";
 import { useState, useEffect } from "react";
 import { useEmailInput } from "../hooks/useEmailInput";
 import { useRecoilValue } from "recoil";
-import { emailListAtom } from "../../atoms/globalAtoms";
+import { emailListAtom, currentUserAtom } from "../../atoms/globalAtoms";
 import { FiX } from "react-icons/fi";
 import Button_Icontype from "./Button.iconType";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -31,6 +31,7 @@ export default function Textfield({
   const { register } = useForm<InputFormType>();
   const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
   const emailList = useRecoilValue(emailListAtom);
+  const currentUser = useRecoilValue(currentUserAtom);
 
   const handleDayClick: DayClickEventHandler = (day) => {
     setSelectedDay(day);
@@ -102,7 +103,16 @@ export default function Textfield({
           {options &&
             options.length > 0 &&
             options.map((item, index) => (
-              <option key={index} value={item}>
+              <option
+                key={index}
+                value={item}
+                disabled={
+                  currentUser.currentRole !== TYPES.OWNER &&
+                  currentUser.nickname !== item
+                    ? true
+                    : false
+                }
+              >
                 {item}
               </option>
             ))}

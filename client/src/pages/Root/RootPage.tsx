@@ -16,27 +16,29 @@ export default function RootPage() {
   const { result } = useLoaderData() as loginUserType;
   const setIsLogin = useSetRecoilState(isLoginAtom); // login 여부를 판별하는 상태.
   const setCurrentUser = useSetRecoilState(currentUserAtom);
-
+  const currentUserInfo = {
+    userId: result.userId,
+    nickname: result.nickname,
+    currentGroup: result.currentGroup,
+    currentRole: result.currentRole,
+    profile: result.profile,
+  };
   useLayoutEffect(() => {
-    if (result.id) {
+    if (result.userId) {
       setIsLogin(true);
-      setCurrentUser({
-        userId: result.id,
-        nickname: result.nickname,
-        currentGroup: result.currentGroup,
-      });
+      setCurrentUser(() => currentUserInfo);
     }
     //console.log(result);
   });
 
   return (
     <>
-      <Header user={result} />
+      <Header user={currentUserInfo} />
       <Outlet />
       {(currentPath === PATH.ROOT ||
         currentPath === PATH.LOGIN ||
         currentPath === PATH.INVITATION) && <Footer />}
-      {result.id && <Dialog />}
+      {result.userId && <Dialog />}
     </>
   );
 }

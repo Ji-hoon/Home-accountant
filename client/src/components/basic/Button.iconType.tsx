@@ -1,14 +1,47 @@
 import styled from "styled-components";
 import { COLORS, SIZES } from "../../global/constants";
+import Dropdown from "../dropdown/Dropdown";
+import Dropdown_Member from "../dropdown/Dropdown.Member";
+import { useDropdown } from "../hooks/useDropdown";
 
 export default function Button_Icontype({
   children,
   onClick,
+  dropdownId,
+  dropdownType,
 }: {
   children: React.ReactElement | string;
   onClick?: (e: React.SyntheticEvent) => void;
+  dropdownId?: string;
+  dropdownType?: string;
 }) {
-  return <IcontypeButton onClick={onClick}>{children}</IcontypeButton>;
+  const {
+    targetRef,
+    showDropdown,
+    targetPosition,
+    handleProfileClick,
+    showDropdownUniqueKey,
+  } = useDropdown({
+    dropdownType,
+    dropdownId,
+  });
+
+  return (
+    <>
+      <IcontypeButton
+        ref={targetRef}
+        className={showDropdown === showDropdownUniqueKey ? "active" : ""}
+        onClick={dropdownType ? handleProfileClick : onClick}
+      >
+        {children}
+      </IcontypeButton>
+      {showDropdown === showDropdownUniqueKey && (
+        <Dropdown>
+          <Dropdown_Member data={targetPosition} />
+        </Dropdown>
+      )}
+    </>
+  );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -38,7 +71,8 @@ const IcontypeButton = styled.button`
     background-color: ${COLORS.GRAY_01_OVERAY};
   }
 
-  &:active {
-    background-color: ${COLORS.GRAY_03_OVERAY};
+  &:active,
+  &.active {
+    background-color: ${COLORS.GRAY_02_OVERAY};
   }
 `;

@@ -52,7 +52,9 @@ export default function ListItem_ExpenseType({
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const ListItemContainer = styled.div`
+export const ListItemContainer = styled.div<{
+  id?: string;
+}>`
   display: flex;
   gap: ${SIZES.XS / 2}px;
   padding: ${SIZES.SM}px ${SIZES.SM}px;
@@ -60,10 +62,10 @@ export const ListItemContainer = styled.div`
   border-radius: ${SIZES.XXS / 2}px;
   -webkit-transition: all 200ms ease-out;
   transition: all 200ms ease-out;
-  cursor: pointer;
+  cursor: ${(props) => (props.id ? "pointer" : "auto")};
 
   &:hover {
-    background-color: ${COLORS.GRAY_01};
+    background-color: ${(props) => (props.id ? COLORS.GRAY_01 : "transparent")};
   }
 
   & input[type="checkbox"] {

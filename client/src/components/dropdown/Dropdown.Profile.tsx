@@ -7,21 +7,17 @@ import { currentUserAtom, dropdownOpenAtom } from "../../atoms/globalAtoms";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import ApiBoundary from "../../global/ApiBoundary";
 import { format } from "date-fns";
-import { groupListInfoType } from "../../global/customType";
+import {
+  groupListInfoType,
+  groupMemberType,
+  DropdownProps,
+} from "../../global/customType";
 import { FiCheck } from "react-icons/fi";
 import { updateCurrentGroup } from "../util/updateLocalStorage";
 import { useNavigate } from "react-router";
 
-type Props = {
-  data: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
-};
 // eslint-disable-next-line react-refresh/only-export-components
-export default function Dropdown_Profile(props: Props) {
+export default function Dropdown_Profile(props: DropdownProps) {
   return (
     <ApiBoundary>
       <ApiComponent {...props} />
@@ -29,13 +25,14 @@ export default function Dropdown_Profile(props: Props) {
   );
 }
 
-export function ApiComponent({ data }: Props) {
+export function ApiComponent({ data }: DropdownProps) {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const setShowDropdown = useSetRecoilState(dropdownOpenAtom);
   const { result, logout } = useDropdownProfile(currentUser.userId);
 
   const groupList = result.data.data.groups;
+  //const existUser = groupList.find((member: { userId: string; }) => member.userId === currentUser.userId);
 
   return (
     <>
@@ -47,9 +44,25 @@ export function ApiComponent({ data }: Props) {
                 <li key={index}>
                   <Button_Boxtype
                     onClick={() => {
-                      const newUserInfo = updateCurrentGroup(group._id);
+                      const role = group.members.reduce(
+                        (acc: string | null, member: groupMemberType) => {
+                          if (
+                            member.userId.toString() ===
+                            currentUser.userId.toString()
+                          ) {
+                            return member.role;
+                          }
+                          return acc;
+                        },
+                        null,
+                      );
+                      const newUserInfo = updateCurrentGroup({
+                        groupId: group._id,
+                        role: role as string,
+                      });
+
                       setCurrentUser(() => newUserInfo);
-                      setShowDropdown(false);
+                      setShowDropdown("");
                       navigate(PATH.MAIN_EXPENSES);
                     }}
                   >
@@ -107,7 +120,7 @@ const DropdownProfileContainer = styled.div<{
   overflow-x: hidden;
   overflow-y: auto;
 
-  margin-top: 6px;
+  margin-top: 8px;
   background-color: #fff;
   border-radius: 5px;
   background-color: ${COLORS.BASIC_WHITE};

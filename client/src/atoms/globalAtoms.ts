@@ -12,6 +12,8 @@ export const currentUserAtom = atom({
     userId: "",
     nickname: "",
     currentGroup: "",
+    currentRole: "",
+    profile: "",
   },
 });
 
@@ -40,7 +42,7 @@ export const calendarOpenAtom = atom({
 
 export const dropdownOpenAtom = atom({
   key: "dropdownOpen",
-  default: false,
+  default: "",
 });
 
 export const selectedExpenseIdAtom = atom<stringArrayType>({

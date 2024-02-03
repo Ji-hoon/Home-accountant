@@ -1,69 +1,39 @@
 import styled from "styled-components";
-import { SIZES, COLORS, TYPES } from "../../global/constants";
-import { useRecoilState } from "recoil";
-import { calculateElementPositionAndSize } from "../util/handleElement";
-import { dropdownOpenAtom } from "../../atoms/globalAtoms";
-import { useEffect, useRef, useState } from "react";
+import { SIZES, COLORS } from "../../global/constants";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Profile from "../dropdown/Dropdown.Profile";
-import { throttle } from "lodash";
+import { useDropdown } from "../hooks/useDropdown";
 
 export default function Profile({
   url,
-  type,
+  dropdownType,
+  dropdownId,
 }: {
   url: string;
-  type?: string; //"DROPDOWN"
+  dropdownType?: string; //"DROPDOWN"
+  dropdownId?: string;
 }) {
-  const [showDropdown, setShowDropdown] = useRecoilState(dropdownOpenAtom);
-  const [targetPosition, setTargetPosition] = useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
+  const {
+    targetRef,
+    showDropdown,
+    targetPosition,
+    handleProfileClick,
+    showDropdownUniqueKey,
+  } = useDropdown({
+    dropdownType,
+    dropdownId,
   });
-  const profileRef = useRef(null);
-
-  function handleProfileClick(e: React.SyntheticEvent) {
-    const targetPos = calculateElementPositionAndSize({
-      target: e.currentTarget as HTMLElement,
-    });
-    setTargetPosition(targetPos);
-    setShowDropdown(!showDropdown);
-  }
-
-  /* resize 이벤트 발생 시 data props 갱신 */
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  const handleResize = throttle(() => {
-    setWindowWidth(window.innerWidth);
-  }, 500);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      // cleanup
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [handleResize]);
-
-  useEffect(() => {
-    if (showDropdown && profileRef.current) {
-      const targetPos = calculateElementPositionAndSize({
-        target: profileRef.current as HTMLElement,
-      });
-      setTargetPosition(targetPos);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [windowWidth]);
-  /* resize 이벤트 발생 시 data props 갱신 */
 
   return (
     <>
-      <ProfileContainer ref={profileRef} onClick={handleProfileClick}>
+      <ProfileContainer
+        className={showDropdown === showDropdownUniqueKey ? "active" : ""}
+        ref={targetRef}
+        onClick={handleProfileClick}
+      >
         <img src={url} />
       </ProfileContainer>
-      {showDropdown && type === TYPES.PROFILE_TYPE_DROPDOWN && (
+      {showDropdown === showDropdownUniqueKey && (
         <Dropdown>
           <Dropdown_Profile data={targetPosition} />
         </Dropdown>
@@ -90,12 +60,14 @@ const ProfileContainer = styled.div`
     height: 100%;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     -webkit-box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
     box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
   }
 
-  &:active {
-    filter: brightness(0.95);
+  &:active,
+  &.active {
+    filter: brightness(0.92);
   }
 `;

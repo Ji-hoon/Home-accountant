@@ -6,12 +6,12 @@ export function MenuGroup_ListType({
   title,
   children,
 }: {
-  title: string;
+  title?: string;
   children: React.ReactNode;
 }) {
   return (
     <MenuGroupContainer>
-      <h5>{title}</h5>
+      {title && <h5>{title}</h5>}
       <ul>{children}</ul>
     </MenuGroupContainer>
   );
