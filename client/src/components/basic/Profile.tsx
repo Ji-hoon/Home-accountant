@@ -17,7 +17,7 @@ export default function Profile({
     targetRef,
     showDropdown,
     targetPosition,
-    handleProfileClick,
+    handleDropdownTrigger,
     showDropdownUniqueKey,
   } = useDropdown({
     dropdownType,
@@ -29,7 +29,7 @@ export default function Profile({
       <ProfileContainer
         className={showDropdown === showDropdownUniqueKey ? "active" : ""}
         ref={targetRef}
-        onClick={handleProfileClick}
+        onClick={handleDropdownTrigger}
       >
         <img src={url} />
       </ProfileContainer>

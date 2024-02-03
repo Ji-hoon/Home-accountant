@@ -72,7 +72,8 @@ const BoxtypeButton = styled.button<{
     filter: brightness(0.95);
   }
 
-  &:active {
+  &:active,
+  &.active {
     filter: brightness(0.92);
   }
 
@@ -115,7 +116,8 @@ const BoxtypeSubmitButton = styled.input<{
     filter: brightness(0.95);
   }
 
-  &:active {
+  &:active,
+  &.active {
     filter: brightness(0.92);
   }
 `;

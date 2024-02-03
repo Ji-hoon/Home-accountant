@@ -6,10 +6,12 @@ import Button_Icontype from "../basic/Button.iconType";
 import { useHandleDate } from "../hooks/useHandleDate";
 import { addDays, startOfWeek, format, isSameMonth } from "date-fns";
 import Button_Boxtype from "../basic/Button.boxType";
-import Calendar from "../common/Calendar";
 import Assets_Amounts from "../../pages/Main/subpages/Assets/Assets.amounts";
 import Expenses_Amounts from "../../pages/Main/subpages/Expenses/Expenses.amounts";
 import { useLocation } from "react-router";
+import { useDropdown } from "../hooks/useDropdown";
+import Dropdown from "../dropdown/Dropdown";
+import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
 
 export default function ListHeader({
   $currentDate,
@@ -32,10 +34,19 @@ export default function ListHeader({
     subMonth,
     addWeek,
     subWeek,
-    calendarOpen,
-    setCalendarOpen,
     handleDayClick,
   } = useHandleDate();
+
+  const {
+    targetRef,
+    showDropdown,
+    targetPosition,
+    handleDropdownTrigger,
+    showDropdownUniqueKey,
+  } = useDropdown({
+    dropdownType: TYPES.DROPDOWN_KEY_CALENDAR_LIST_HEADER,
+    dropdownId: $currentDate ? format($currentDate, "yyyy_MM_dd") : "",
+  });
 
   const location = useLocation();
 
@@ -51,7 +62,7 @@ export default function ListHeader({
         $unit !== undefined &&
         $type !== undefined &&
         $owner !== undefined && (
-          <ListHeaderContainer $type={$type}>
+          <ListHeaderContainer $type={$type} ref={targetRef}>
             <div className="header-navigation-container">
               <Button_Icontype
                 onClick={() => {
@@ -62,7 +73,13 @@ export default function ListHeader({
               >
                 <FiChevronLeft strokeWidth="3" />
               </Button_Icontype>
-              <Button_Boxtype onClick={() => setCalendarOpen(!calendarOpen)}>
+              <Button_Boxtype
+                type={showDropdown === showDropdownUniqueKey ? "active" : ""}
+                onClick={(e: React.SyntheticEvent) => {
+                  //setCalendarOpen(!calendarOpen);
+                  handleDropdownTrigger(e);
+                }}
+              >
                 <>
                   {$unit === TYPES.TYPE_UNIT_WEEK &&
                     `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
@@ -98,13 +115,14 @@ export default function ListHeader({
                 />
               )}
             </div>
-            {calendarOpen && (
-              <div className="header-calendar-container">
-                <Calendar
+            {showDropdown === showDropdownUniqueKey && (
+              <Dropdown>
+                <Dropdown_Calendar
                   $currentDate={$currentDate}
                   $clickHandler={handleDayClick}
+                  data={targetPosition}
                 />
-              </div>
+              </Dropdown>
             )}
           </ListHeaderContainer>
         )}
@@ -151,7 +169,7 @@ const ListHeaderContainer = styled.div<{
       padding: ${SIZES.LG / 2}px;
       font-size: inherit;
 
-      &:not(:hover):not(:active) {
+      &:not(:hover):not(:active):not(.active) {
         background-color: transparent;
       }
 

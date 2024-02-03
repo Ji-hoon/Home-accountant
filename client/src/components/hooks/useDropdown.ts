@@ -49,7 +49,7 @@ export function useDropdown({
   }, [windowWidth]);
   /* resize 이벤트 발생 시 data props 갱신 */
 
-  function handleProfileClick(e: React.SyntheticEvent) {
+  function handleDropdownTrigger(e: React.SyntheticEvent) {
     const targetPos = calculateElementPositionAndSize({
       target: e.currentTarget as HTMLElement,
     });
@@ -61,7 +61,7 @@ export function useDropdown({
     targetRef,
     showDropdown,
     targetPosition,
-    handleProfileClick,
+    handleDropdownTrigger,
     showDropdownUniqueKey,
   };
 }

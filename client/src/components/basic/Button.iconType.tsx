@@ -19,7 +19,7 @@ export default function Button_Icontype({
     targetRef,
     showDropdown,
     targetPosition,
-    handleProfileClick,
+    handleDropdownTrigger,
     showDropdownUniqueKey,
   } = useDropdown({
     dropdownType,
@@ -31,7 +31,7 @@ export default function Button_Icontype({
       <IcontypeButton
         ref={targetRef}
         className={showDropdown === showDropdownUniqueKey ? "active" : ""}
-        onClick={dropdownType ? handleProfileClick : onClick}
+        onClick={dropdownType ? handleDropdownTrigger : onClick}
       >
         {children}
       </IcontypeButton>

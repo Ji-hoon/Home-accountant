@@ -30,6 +30,7 @@ export function useDropdownProfile(userId: string) {
         nickname: "",
         currentGroup: "",
         currentRole: "",
+        profile: "",
       };
       setCurrentUser(() => resetUser);
       location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
