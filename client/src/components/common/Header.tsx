@@ -52,7 +52,7 @@ export default function Header({ user }: { user?: currentUserType }) {
               <FiBell />
             </Button_Icontype>
             <Profile
-              dropdownType={TYPES.PROFILE_TYPE_DROPDOWN}
+              dropdownType={TYPES.DROPDOWN_KEY_PROFILE}
               dropdownId={user?.userId}
               url={user && user.profile ? user.profile : URLS.DEFAULT_PROFILE}
             />

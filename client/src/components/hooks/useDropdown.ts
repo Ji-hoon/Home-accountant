@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { dropdownOpenAtom } from "../../atoms/globalAtoms";
 import { calculateElementPositionAndSize } from "../util/handleElement";
-import { TYPES } from "../../global/constants";
 
 export function useDropdown({
   dropdownType,
@@ -25,7 +24,7 @@ export function useDropdown({
 
   const targetRef = useRef(null);
 
-  const showDropdownUniqueKey = `${TYPES.DROPDOWN_KEY_PROFILE}_${dropdownType}_${dropdownId}`;
+  const showDropdownUniqueKey = `${dropdownType}_${dropdownId}`;
 
   const handleResize = throttle(() => {
     setWindowWidth(window.innerWidth);
