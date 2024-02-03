@@ -36,14 +36,15 @@ const DropdownContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 11;
+  z-index: 111; //모달이 101
 
   & > *:not(.dropdown-backdrop) {
     //TODO: 아래는 임시 스타일. children 컴포넌트에서 지정할 예정.
-    z-index: 13;
+    z-index: 113;
   }
 `;
 
 const DropdownBackdrop = styled(DropdownContainer)`
-  z-index: 12;
+  z-index: 112;
+  position: fixed;
 `;

@@ -75,10 +75,7 @@ export default function ListHeader({
               </Button_Icontype>
               <Button_Boxtype
                 type={showDropdown === showDropdownUniqueKey ? "active" : ""}
-                onClick={(e: React.SyntheticEvent) => {
-                  //setCalendarOpen(!calendarOpen);
-                  handleDropdownTrigger(e);
-                }}
+                onClick={handleDropdownTrigger}
               >
                 <>
                   {$unit === TYPES.TYPE_UNIT_WEEK &&
@@ -121,6 +118,7 @@ export default function ListHeader({
                   $currentDate={$currentDate}
                   $clickHandler={handleDayClick}
                   data={targetPosition}
+                  direction={TYPES.DIRECTION_DOWN}
                 />
               </Dropdown>
             )}

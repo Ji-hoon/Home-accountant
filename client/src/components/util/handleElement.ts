@@ -1,7 +1,7 @@
 export function calculateElementPositionAndSize({
   target,
 }: {
-  target: HTMLElement;
+  target: Element;
 }) {
   const targetRect = target?.getBoundingClientRect();
   const targetPosition = {

@@ -41,7 +41,7 @@ export function useDropdown({
   useEffect(() => {
     if (showDropdown && targetRef.current) {
       const targetPos = calculateElementPositionAndSize({
-        target: targetRef.current as HTMLElement,
+        target: targetRef.current as Element,
       });
       setTargetPosition(targetPos);
     }
@@ -49,9 +49,9 @@ export function useDropdown({
   }, [windowWidth]);
   /* resize 이벤트 발생 시 data props 갱신 */
 
-  function handleDropdownTrigger(e: React.SyntheticEvent) {
+  function handleDropdownTrigger() {
     const targetPos = calculateElementPositionAndSize({
-      target: e.currentTarget as HTMLElement,
+      target: targetRef.current as unknown as Element,
     });
     setTargetPosition(targetPos);
     setShowDropdown(showDropdownUniqueKey);

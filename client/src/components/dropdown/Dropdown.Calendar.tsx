@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { DropdownProps } from "../../global/customType";
-import { COLORS, SIZES } from "../../global/constants";
+import { COLORS, SIZES, TYPES } from "../../global/constants";
 import Calendar from "../common/Calendar";
 import { DayClickEventHandler } from "react-day-picker";
 
@@ -9,13 +9,15 @@ export default function Dropdown_Calendar({
   data,
   $currentDate,
   $clickHandler,
+  direction,
 }: {
   data: DropdownProps["data"];
   $currentDate: Date;
   $clickHandler: DayClickEventHandler;
+  direction?: string;
 }) {
   return (
-    <DropdownCalendarContainer data={data}>
+    <DropdownCalendarContainer data={data} direction={direction}>
       <Calendar $currentDate={$currentDate} $clickHandler={$clickHandler} />
     </DropdownCalendarContainer>
   );
@@ -29,13 +31,16 @@ const DropdownCalendarContainer = styled.div<{
     width: number;
     height: number;
   };
+  direction?: string;
 }>`
   position: absolute;
   left: ${(props) => props.data.x}px;
   top: ${(props) => props.data.y + props.data.height}px;
 
-  margin-top: 6px;
-  margin-left: -40px;
+  margin-top: ${(props) =>
+    props.direction === TYPES.DIRECTION_DOWN ? -8 : -364}px;
+  margin-left: ${(props) =>
+    props.direction === TYPES.DIRECTION_DOWN ? 2 : -2}px;
   background-color: #fff;
   border-radius: 5px;
   background-color: ${COLORS.BASIC_WHITE};
