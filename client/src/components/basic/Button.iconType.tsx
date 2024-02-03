@@ -33,7 +33,7 @@ export default function Button_Icontype({
       target: e.currentTarget as HTMLElement,
     });
     setTargetPosition(targetPos);
-    setShowDropdown(`${TYPES.DROPDOWN_KEY_MEMBER}_${id}`);
+    setShowDropdown(`${TYPES.DROPDOWN_KEY_MEMBER}_${type}_${id}`);
   }
 
   /* resize 이벤트 발생 시 data props 갱신 */
@@ -68,13 +68,15 @@ export default function Button_Icontype({
       <IcontypeButton
         ref={buttonRef}
         className={
-          showDropdown === `${TYPES.DROPDOWN_KEY_MEMBER}_${id}` ? "active" : ""
+          showDropdown === `${TYPES.DROPDOWN_KEY_MEMBER}_${type}_${id}`
+            ? "active"
+            : ""
         }
         onClick={type === TYPES.MEMBER ? handleProfileClick : onClick}
       >
         {children}
       </IcontypeButton>
-      {showDropdown === `${TYPES.DROPDOWN_KEY_MEMBER}_${id}` && (
+      {showDropdown === `${TYPES.DROPDOWN_KEY_MEMBER}_${type}_${id}` && (
         <Dropdown>
           <Dropdown_Member data={targetPosition} />
         </Dropdown>

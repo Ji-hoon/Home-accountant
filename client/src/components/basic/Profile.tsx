@@ -29,7 +29,7 @@ export default function Profile({
       target: e.currentTarget as HTMLElement,
     });
     setTargetPosition(targetPos);
-    setShowDropdown(TYPES.DROPDOWN_KEY_PROFILE);
+    setShowDropdown(`${TYPES.DROPDOWN_KEY_PROFILE}_${type}`);
   }
 
   /* resize 이벤트 발생 시 data props 갱신 */
@@ -61,25 +61,26 @@ export default function Profile({
   return (
     <>
       <ProfileContainer
-        active={showDropdown === TYPES.DROPDOWN_KEY_PROFILE && type && "active"}
+        className={
+          showDropdown === `${TYPES.DROPDOWN_KEY_PROFILE}_${type}`
+            ? "active"
+            : ""
+        }
         ref={profileRef}
         onClick={handleProfileClick}
       >
         <img src={url} />
       </ProfileContainer>
-      {showDropdown === TYPES.DROPDOWN_KEY_PROFILE &&
-        type === TYPES.PROFILE_TYPE_DROPDOWN && (
-          <Dropdown>
-            <Dropdown_Profile data={targetPosition} />
-          </Dropdown>
-        )}
+      {showDropdown === `${TYPES.DROPDOWN_KEY_PROFILE}_${type}` && (
+        <Dropdown>
+          <Dropdown_Profile data={targetPosition} />
+        </Dropdown>
+      )}
     </>
   );
 }
 
-const ProfileContainer = styled.div<{
-  active?: string | false;
-}>`
+const ProfileContainer = styled.div`
   width: ${SIZES.XL * 2}px;
   height: ${SIZES.XL * 2}px;
   border-radius: ${SIZES.XL * 2}px;
@@ -98,13 +99,13 @@ const ProfileContainer = styled.div<{
   }
 
   &:hover,
-  &[active="active"] {
+  &.active {
     -webkit-box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
     box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
   }
 
   &:active,
-  &[active="active"] {
+  &.active {
     filter: brightness(0.92);
   }
 `;
