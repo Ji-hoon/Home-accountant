@@ -29,7 +29,8 @@
 6. **nivo** 차트 라이브러리를 활용하여 자산을 등록하고 그래프 형태로 조회하고 수정할 수 있는 기능 구현
 7. **mustache**와 **nodemailer** 라이브러리를 활용하여 멤버 초대 이메일 템플릿 발송 기능 구현
 8. **react-helmet**을 활용하여 페이지별 open graph 정보 적용
-9. (진행중)
+9. **react portal**을 활용하여 app 바깥에서 사용할 수 있는 dropdown, modal UI 구현
+10. (진행중)
 
 
 **Have fun building!** 🚀
