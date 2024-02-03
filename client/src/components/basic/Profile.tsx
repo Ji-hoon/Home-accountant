@@ -60,7 +60,11 @@ export default function Profile({
 
   return (
     <>
-      <ProfileContainer ref={profileRef} onClick={handleProfileClick}>
+      <ProfileContainer
+        active={showDropdown === TYPES.DROPDOWN_KEY_PROFILE && type && "active"}
+        ref={profileRef}
+        onClick={handleProfileClick}
+      >
         <img src={url} />
       </ProfileContainer>
       {showDropdown === TYPES.DROPDOWN_KEY_PROFILE &&
@@ -73,7 +77,9 @@ export default function Profile({
   );
 }
 
-const ProfileContainer = styled.div`
+const ProfileContainer = styled.div<{
+  active?: string | false;
+}>`
   width: ${SIZES.XL * 2}px;
   height: ${SIZES.XL * 2}px;
   border-radius: ${SIZES.XL * 2}px;
@@ -91,12 +97,14 @@ const ProfileContainer = styled.div`
     height: 100%;
   }
 
-  &:hover {
+  &:hover,
+  &[active="active"] {
     -webkit-box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
     box-shadow: 0 0 0 4px ${COLORS.GRAY_01_OVERAY};
   }
 
-  &:active {
-    filter: brightness(0.95);
+  &:active,
+  &[active="active"] {
+    filter: brightness(0.92);
   }
 `;

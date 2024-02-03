@@ -120,7 +120,7 @@ const DropdownProfileContainer = styled.div<{
   overflow-x: hidden;
   overflow-y: auto;
 
-  margin-top: 6px;
+  margin-top: 8px;
   background-color: #fff;
   border-radius: 5px;
   background-color: ${COLORS.BASIC_WHITE};
