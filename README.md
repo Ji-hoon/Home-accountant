@@ -27,9 +27,9 @@
 4. **Tanstack-query**를 활용한 커스텀 훅을 작성하여 infiniteQuery를 사용해 무한 스크롤 및 데이터 상태 관리 기능, fetchStatus와 hasNextPage를 활용한 loader UI 구현
 5. **date-fns**, **react-day-picker** 라이브러리를 활용하여 특정 기간 내 데이터만 조회하고 기간 변경 기능 구현
 6. **nivo** 차트 라이브러리를 활용하여 자산을 등록하고 그래프 형태로 조회하고 수정할 수 있는 기능 구현
-7. **mustache**와 **nodemailer** 라이브러리를 활용하여 멤버 초대 이메일 템플릿 발송 기능 구현
+7. **mustache**와 **nodemailer** 라이브러리를 활용하여 멤버 초대 이메일 템플릿 발송 기능, 초대 페이지를 통해 새로운 멤버를 가입시키는 기능 구현
 8. **react-helmet**을 활용하여 페이지별 open graph 정보 적용
-9. **react portal**을 활용하여 app 바깥에서 사용할 수 있는 dropdown, modal UI 구현
+9. **react portal**을 활용하여 app 바깥 영역에 호출하여 재사용할 수 있는 dropdown, modal UI 구현
 10. (진행중)
 
 
