@@ -16,6 +16,7 @@ import { FiCheck } from "react-icons/fi";
 import { updateCurrentGroup } from "../util/updateLocalStorage";
 import { useNavigate } from "react-router";
 import { DropdownUIContainerStyle } from "./Dropdown";
+import toast from "react-hot-toast";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default function Dropdown_Profile(props: DropdownProps) {
@@ -62,6 +63,9 @@ export function ApiComponent({ data }: DropdownProps) {
                         role: role as string,
                       });
 
+                      toast.success(
+                        `${group.name} ${LABELS.MESSAGE_GROUP_CHANGED}`,
+                      );
                       setCurrentUser(() => newUserInfo);
                       setShowDropdown("");
                       navigate(PATH.MAIN_EXPENSES);

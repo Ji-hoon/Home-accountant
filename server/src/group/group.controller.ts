@@ -112,7 +112,10 @@ const groupController = {
         email,
       });
 
-      if (result.message) res.status(200).json(result.message);
+      if (result.message)
+        res.status(200).json({
+          message: result.message,
+        });
     },
   ),
 };

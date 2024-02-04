@@ -36,7 +36,9 @@ export default function Dialog() {
           action: dialog.content[index].title,
           data: selectedExpenseId,
         });
-        if (result?.status === 204) hideDialog({ order: index });
+        if (result?.status === 204) {
+          hideDialog({ order: index });
+        }
         return;
       }
 

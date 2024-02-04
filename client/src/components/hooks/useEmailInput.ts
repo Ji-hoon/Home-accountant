@@ -1,5 +1,7 @@
 import { useRecoilState } from "recoil";
 import { emailListAtom } from "../../atoms/globalAtoms";
+import toast from "react-hot-toast";
+import { LABELS } from "../../global/constants";
 
 export function useEmailInput() {
   const [emailList, setEmailList] = useRecoilState(emailListAtom);
@@ -19,6 +21,7 @@ export function useEmailInput() {
 
   function handleLinkCopy() {
     console.log("copied");
+    toast.success(LABELS.MESSAGE_LINK_COPIED);
   }
 
   return { handleEmail, handleRemoveEmail, handleLinkCopy };
