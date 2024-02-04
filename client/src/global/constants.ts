@@ -121,6 +121,7 @@ export const LABELS = {
   LABEL_JOIN_GROUP: "그룹 가입하기",
   LABEL_CANCEL: "취소",
   LABEL_DELETE: "삭제",
+  LABEL_DELETE_ALL: "일괄 삭제",
   LABEL_ADD_EXPENSE: "지출 내역 추가",
   LABEL_ADD_ASSET: "자산 항목 추가",
   LABEL_EDIT_ASSET: "자산 정보 수정",
@@ -160,7 +161,7 @@ export const LABELS = {
   MESSAGE_NO_EXPENSES: "지출 내역이 없습니다.",
   MESSAGE_NO_ASSETS: "자산 항목이 없습니다.",
   MESSAGE_NO_MEMBERS: "표시할 멤버가 없습니다.",
-  DESC_DELETE_EXPENSE: "선택하신 지출내역을 삭제할까요?",
+  DESC_DELETE_EXPENSE: "지출내역을 삭제할까요?",
   ROLE_OWNER: "그룹 관리자",
   ROLE_MEMBER: "그룹 멤버",
 } as const;

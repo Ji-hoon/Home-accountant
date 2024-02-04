@@ -130,10 +130,9 @@ export function useHandleDialog() {
     }
 
     if (action === LABELS.LABEL_DELETE_EXPENSE) {
-      const result = await deleteExpense({
-        expenseId: data,
-      });
-      if (result) return result;
+      const result = await deleteExpense();
+      console.log(result);
+      if (result.length > 0) return result[0];
     }
 
     if (action === LABELS.LABEL_UPDATE_GROUP_INFO) {
