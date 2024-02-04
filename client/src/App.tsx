@@ -73,6 +73,7 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.LOGIN,
+        loader: currentUserLoader,
         element: <LoginPage />,
       },
     ],

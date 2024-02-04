@@ -33,7 +33,9 @@ export function useDropdownProfile(userId: string) {
         profile: "",
       };
       setCurrentUser(() => resetUser);
-      location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
+      setTimeout(() => {
+        location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
+      }, 300);
     },
     onError: (err) => {
       console.log(err);

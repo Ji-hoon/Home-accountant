@@ -131,7 +131,7 @@ export type groupMemberType = {
 };
 
 export type groupInfoType = {
-  _id: string;
+  id: string;
   code: string;
   name: string;
   members: memberType[] | [] | groupMemberType[];

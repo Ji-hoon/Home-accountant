@@ -3,12 +3,13 @@ import { FiHome } from "react-icons/fi";
 import { LABELS, URLS, SIZES, COLORS, PATH } from "../../global/constants";
 
 import Button_Boxtype from "../../components/basic/Button.boxType";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate, useLoaderData, useSearchParams } from "react-router-dom";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { isLoginAtom, prevPathAtom } from "../../atoms/globalAtoms";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { loginUserType } from "../../global/customType";
 
 export default function LoginPage() {
   const prevPath = useRecoilValue(prevPathAtom);
@@ -20,14 +21,15 @@ export default function LoginPage() {
   const currentGroup = searchParams.get("group");
   const currentRole = searchParams.get("role");
   const [showToast, setShowToast] = useState(false);
+  const { result } = useLoaderData() as loginUserType;
 
   useEffect(() => {
     const currentUser = {
-      userId,
-      nickname,
-      profile,
-      currentGroup,
-      currentRole,
+      userId: userId ? userId : result.userId,
+      nickname: nickname ? nickname : result.nickname,
+      profile: profile ? profile : result.profile,
+      currentGroup: currentGroup ? currentGroup : result.currentGroup,
+      currentRole: currentRole ? currentRole : result.currentRole,
     };
 
     if (!isLogin && currentUser.userId) {

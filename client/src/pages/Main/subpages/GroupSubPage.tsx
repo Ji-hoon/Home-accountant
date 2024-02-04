@@ -27,6 +27,7 @@ export default function Group_SubPage() {
   const groupInfo = data.data?.groupInfo;
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
 
+  console.log(groupInfo);
   useEffect(() => {
     setSelectedExpenseId([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
