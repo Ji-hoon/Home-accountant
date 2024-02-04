@@ -7,8 +7,12 @@ import Button_Boxtype from "../../../components/basic/Button.boxType";
 import { FormListLayoutType } from "../../../global/customType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateAssetLayout } from "../../../global/layout";
-import { currentDateAtom, dateUnitAtom } from "../../../atoms/globalAtoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  currentDateAtom,
+  dateUnitAtom,
+  selectedExpenseIdAtom,
+} from "../../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import Banner from "../../../components/banner/Banner";
 import Chart from "./Assets/Chart/Assets.Chart";
@@ -18,6 +22,7 @@ export default function Assets_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
   const [currentOwner, setCurrentOwner] = useState("");
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
+  const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
 
   useEffect(() => {
     if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
@@ -26,6 +31,8 @@ export default function Assets_SubPage() {
       setDateUnit(TYPES.TYPE_UNIT_YEAR);
     }
     setCurrentOwner("");
+    setSelectedExpenseId([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setDateUnit]);
 
   return (
