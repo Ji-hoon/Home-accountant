@@ -7,7 +7,8 @@ import { Navigate, useSearchParams } from "react-router-dom";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { isLoginAtom, prevPathAtom } from "../../atoms/globalAtoms";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const prevPath = useRecoilValue(prevPathAtom);
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const profile = searchParams.get("profile");
   const currentGroup = searchParams.get("group");
   const currentRole = searchParams.get("role");
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const currentUser = {
@@ -28,17 +30,26 @@ export default function LoginPage() {
       currentRole,
     };
 
-    if (currentUser.userId || currentUser.nickname) {
+    if (!isLogin && currentUser.userId) {
       setIsLogin(true);
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
     }
-  }, [currentGroup, currentRole, userId, nickname, profile, setIsLogin]);
+
+    if (isLogin && currentUser.nickname && !showToast) {
+      toast.success(
+        `${currentUser.nickname}님, ${LABELS.MESSAGE_LOGIN_SUCCESS}`,
+      );
+      setShowToast(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLogin, showToast, setShowToast, userId, nickname]);
 
   console.log("prev path: ", prevPath);
 
   return (
     <>
-      {isLogin && <Navigate to={PATH.MAIN_EXPENSES} />}
+      {isLogin && showToast && <Navigate to={PATH.MAIN_EXPENSES} />}
       {!isLogin && (
         <>
           <FullContentsLayoutContainer>

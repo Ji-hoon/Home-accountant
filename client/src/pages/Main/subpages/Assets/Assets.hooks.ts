@@ -4,6 +4,8 @@ import { queryClient, queryKeys } from "../../../../global/reactQuery";
 import { endOfMonth, endOfYear, startOfMonth, startOfYear } from "date-fns";
 import { TYPES } from "../../../../global/constants";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 export function useAssets({
   owner,
@@ -60,11 +62,15 @@ export function useAssets({
     },
     onSuccess: (data) => {
       console.log(data.data.message);
+      toast.success(data.data.message);
       invalidateExpenseQuery();
       refetch();
     },
     onError: (err) => {
       console.log(err);
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);
@@ -78,11 +84,15 @@ export function useAssets({
     },
     onSuccess: (data) => {
       console.log(data.data.message);
+      toast.success(data.data.message);
       invalidateExpenseQuery();
       refetch();
     },
     onError: (err) => {
       console.log(err);
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);

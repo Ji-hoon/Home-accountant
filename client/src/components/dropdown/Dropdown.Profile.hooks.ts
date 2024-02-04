@@ -5,6 +5,9 @@ import profileAPI from "./Dropdown.Profile.api";
 // import { PATH } from "../../global/constants";
 import { useSetRecoilState } from "recoil";
 import { currentUserAtom } from "../../atoms/globalAtoms";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import { LABELS } from "../../global/constants";
 
 export function useDropdownProfile(userId: string) {
   //const navigate = useNavigate();
@@ -19,11 +22,8 @@ export function useDropdownProfile(userId: string) {
   const logout = useMutation({
     mutationFn: profileAPI.logout,
     onSuccess: (response) => {
-      // const message =
-      //   response.status === 204
-      //     ? "로그아웃 되었습니다."
-      //     : response.data.message;
       console.log(response);
+      toast.success(LABELS.MESSAGE_LOGOUT);
       localStorage.removeItem("currentUser");
       const resetUser = {
         userId: "",
@@ -35,8 +35,11 @@ export function useDropdownProfile(userId: string) {
       setCurrentUser(() => resetUser);
       location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
     },
-    onError: (error) => {
-      console.log(error);
+    onError: (err) => {
+      console.log(err);
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
   }).mutateAsync;
 

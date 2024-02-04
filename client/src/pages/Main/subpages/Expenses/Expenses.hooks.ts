@@ -8,6 +8,8 @@ import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 import { TYPES } from "../../../../global/constants";
 import { useRecoilState } from "recoil";
 import { selectedExpenseIdAtom } from "../../../../atoms/globalAtoms";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 export function useExpenses({
   owner,
@@ -99,14 +101,15 @@ export function useExpenses({
     },
     onSuccess: (data) => {
       console.log(data?.data.message);
+      toast.success(data?.data.message);
       invalidateExpenseQuery();
       refetch();
     },
     onError: (err) => {
       console.log(err);
-      // toast.error(
-      //   err instanceof AxiosError ? err.response?.data.error : "unknown error",
-      // );
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);
@@ -120,14 +123,15 @@ export function useExpenses({
     },
     onSuccess: (data) => {
       console.log(data.data.message);
+      toast.success(data.data.message);
       invalidateExpenseQuery();
       refetch();
     },
     onError: (err) => {
       console.log(err);
-      // toast.error(
-      //   err instanceof AxiosError ? err.response?.data.error : "unknown error",
-      // );
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);
@@ -148,12 +152,13 @@ export function useExpenses({
     onSuccess: () => {
       invalidateExpenseQuery();
       refetch();
+      toast.success("지출 내역을 삭제했습니다.");
     },
     onError: (err) => {
       console.log(err);
-      // toast.error(
-      //   err instanceof AxiosError ? err.response?.data.error : "unknown error",
-      // );
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);

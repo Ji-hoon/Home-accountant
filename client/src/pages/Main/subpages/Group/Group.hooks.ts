@@ -1,6 +1,8 @@
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { queryClient, queryKeys } from "../../../../global/reactQuery";
 import groupsAPI from "./Group.api";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 export function useGroups(currentGroupId: string) {
   const results = useSuspenseQuery({
@@ -23,14 +25,15 @@ export function useGroups(currentGroupId: string) {
     },
     onSuccess: (data) => {
       console.log(data.data.message);
+      toast.success(data.data.message);
       invalidateExpenseQuery();
       refetch();
     },
     onError: (err) => {
       console.log(err);
-      // toast.error(
-      //   err instanceof AxiosError ? err.response?.data.error : "unknown error",
-      // );
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);
@@ -42,11 +45,15 @@ export function useGroups(currentGroupId: string) {
     onMutate: () => {
       //setisLoading(!isLoading);
     },
-    onSuccess: () => {
-      //console.log(data.data.message);
+    onSuccess: (data) => {
+      toast.success(data?.data.message);
+      console.log(data);
     },
     onError: (err) => {
       console.log(err);
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
     },
     onSettled: () => {
       //setisLoading(!isLoading);
