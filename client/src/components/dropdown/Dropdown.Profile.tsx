@@ -75,7 +75,7 @@ export function ApiComponent({ data }: DropdownProps) {
                       >
                         {group.name}
                         {currentUser.currentGroup === group._id && (
-                          <FiCheck strokeWidth={3} />
+                          <FiCheck strokeWidth={4} />
                         )}
                       </strong>
                       <span>
