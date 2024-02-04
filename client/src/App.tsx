@@ -9,6 +9,7 @@ import ErrorPage from "./pages/Error/ErrorPage.tsx";
 import RootPage from "./pages/Root/RootPage.tsx";
 import InvitationPage from "./pages/Invitation/InvitationPage";
 import { Helmet } from "react-helmet";
+import ToasterPortalComponent from "./components/toaster/ToasterPortalComponent.tsx";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,7 @@ export default function App() {
         <meta property="og:image" content={URLS.META_IMAGE} />
       </Helmet>
       <RouterProvider router={router} />
+      <ToasterPortalComponent />
     </>
   );
 }
