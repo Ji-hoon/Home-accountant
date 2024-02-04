@@ -24,7 +24,7 @@ export default function ListActionBar() {
       type: TYPES.POPUP, //삭제는 POPUP
       title: LABELS.LABEL_DELETE_EXPENSE,
       layout: {
-        description: LABELS.DESC_DELETE_EXPENSE,
+        description: `${selectedExpenseId.length}개의 ${LABELS.DESC_DELETE_EXPENSE}`,
       } as popupLayoutType,
     });
   }
@@ -53,7 +53,9 @@ export default function ListActionBar() {
           isAlert="true"
           onClick={handleDeleteClick}
         >
-          {LABELS.LABEL_DELETE}
+          {selectedExpenseId.length > 1
+            ? LABELS.LABEL_DELETE_ALL
+            : LABELS.LABEL_DELETE}
         </Button_Boxtype>
       </div>
     </ActionBarContainer>

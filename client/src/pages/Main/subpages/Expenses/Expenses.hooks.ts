@@ -6,7 +6,7 @@ import { ExpenseType } from "../../../../global/customType";
 import { useIntersectionObserver } from "../../../../components/hooks/useIntersectionObserver";
 import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 import { TYPES } from "../../../../global/constants";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { selectedExpenseIdAtom } from "../../../../atoms/globalAtoms";
 
 export function useExpenses({
@@ -20,7 +20,9 @@ export function useExpenses({
   unit: string;
   currentGroupId: string;
 }) {
-  const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
+  const [selectedExpenseId, setSelectedExpenseId] = useRecoilState(
+    selectedExpenseIdAtom,
+  );
   let startDate;
   let endDate;
 
@@ -133,7 +135,13 @@ export function useExpenses({
   }).mutateAsync;
 
   const deleteExpense = useMutation({
-    mutationFn: expenseAPI.delete,
+    mutationFn: async () => {
+      const response = await Promise.all(
+        selectedExpenseId.map((id) => expenseAPI.delete({ expenseId: id })),
+      );
+      console.log(response);
+      return response.filter((result) => result.status === 204);
+    },
     onMutate: () => {
       //setisLoading(!isLoading);
     },

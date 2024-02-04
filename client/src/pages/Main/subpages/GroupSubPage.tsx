@@ -11,16 +11,26 @@ import { memberType } from "../../../global/customType";
 import Empty from "../../../components/common/Empty";
 import { FiAlertTriangle } from "react-icons/fi";
 import Group_Settings from "./Group/Group.settings";
-import { useRecoilValue } from "recoil";
-import { currentUserAtom } from "../../../atoms/globalAtoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentUserAtom,
+  selectedExpenseIdAtom,
+} from "../../../atoms/globalAtoms";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { InviteMemberLayout } from "../../../global/layout";
+import { useEffect } from "react";
 
 export default function Group_SubPage() {
   const currentUser = useRecoilValue(currentUserAtom);
   const { data, fetchStatus } = useGroups(currentUser.currentGroup);
   const { showDialog } = useHandleDialog();
   const groupInfo = data.data?.groupInfo;
+  const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
+
+  useEffect(() => {
+    setSelectedExpenseId([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
