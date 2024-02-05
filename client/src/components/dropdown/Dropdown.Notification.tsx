@@ -4,7 +4,7 @@ import { LABELS, SIZES } from "../../global/constants";
 import { DropdownUIContainerStyle } from "./Dropdown";
 import styled from "styled-components";
 import Empty from "../common/Empty";
-import { FiAlertTriangle } from "react-icons/fi";
+import { FiBell } from "react-icons/fi";
 
 export default function Dropdown_Notification({ data }: DropdownProps) {
   return (
@@ -13,7 +13,7 @@ export default function Dropdown_Notification({ data }: DropdownProps) {
         <li>
           <Empty
             className="empty"
-            icon={<FiAlertTriangle />}
+            icon={<FiBell />}
             message={LABELS.MESSAGE_NO_NOTIFICATIONS}
           />
         </li>
