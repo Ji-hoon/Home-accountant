@@ -51,7 +51,7 @@ app.use("/api/asset_types", assetTypeRouter);
 app.use(errorHandler);
 
 app.use(
-  express.static("dist", {
+  express.static(join(__dirname, "../../client/dist"), {
     setHeaders: (res, path) => {
       if (path.endsWith(".js")) {
         res.setHeader("Content-Type", "application/javascript");
@@ -61,7 +61,7 @@ app.use(
 );
 
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "index.html"));
+  res.sendFile(join(__dirname, "../../client/dist/index.html"));
 });
 
 app.listen(PORT, () => {
