@@ -7,25 +7,33 @@ import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
-import { FormListLayoutType } from "../../../global/customType";
+import {
+  FormListLayoutType,
+  memberType,
+  categoryType,
+} from "../../../global/customType";
 import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import {
   currentDateAtom,
+  currentUserAtom,
   dateUnitAtom,
   selectedExpenseIdAtom,
 } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Banner from "../../../components/banner/Banner";
 import ListActionBar from "../../../components/compound/ListActionBar";
+import { useExpensesSubPage } from "./ExpensesSubPage.hooks";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
+  const currentUser = useRecoilValue(currentUserAtom);
   const location = useLocation();
   const [currentOwner, setCurrentOwner] = useState("");
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const { showDialog } = useHandleDialog();
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
+  const { members, categories } = useExpensesSubPage(currentUser.currentGroup);
 
   //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
   //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
@@ -81,7 +89,12 @@ export default function Expenses_SubPage() {
             showDialog({
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_EXPENSE,
-              layout: CreateExpenseLayout as FormListLayoutType[],
+              layout: CreateExpenseLayout({
+                categories: categories.map(
+                  (category: categoryType) => category.name,
+                ),
+                members: members.map((member: memberType) => member.nickname),
+              }) as FormListLayoutType[],
             })
           }
         />
