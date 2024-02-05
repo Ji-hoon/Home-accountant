@@ -20,6 +20,12 @@ export type CategoryType = {
   type: string;
 };
 
+export type AssetTypeType = {
+  name: string;
+  groupId: string;
+  type: string;
+};
+
 export type AssetType = {
   amounts: number;
   name: string;

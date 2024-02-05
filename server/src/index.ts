@@ -10,6 +10,7 @@ import assetRouter from "./assets/asset.router.js";
 import groupRouter from "./group/group.router.js";
 import userRouter from "./user/user.router.js";
 import categoryRouter from "./categories/categories.router.js";
+import assetTypeRouter from "./asset_types/asset_types.router.js";
 
 const { PORT, MONGODB_URL, FRONTEND_URL } = process.env;
 if (!PORT || !MONGODB_URL || !FRONTEND_URL) {
@@ -39,6 +40,7 @@ app.use("/api/assets", assetRouter);
 app.use("/api/groups", groupRouter);
 app.use("/api/users", userRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/asset_types", assetTypeRouter);
 
 app.use(errorHandler);
 

@@ -41,6 +41,13 @@ export type assetSchemaType = {
   }>;
 };
 
+export type assetTypeSchemaType = {
+  _id: Types.ObjectId;
+  name: string;
+  groupId: Types.ObjectId;
+  status: string;
+};
+
 export type groupSchemaType = {
   _id: Types.ObjectId;
   name: string;
