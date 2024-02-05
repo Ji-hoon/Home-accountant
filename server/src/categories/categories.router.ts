@@ -5,4 +5,6 @@ const categoriesRouter = Router();
 
 categoriesRouter.post("/", categoriesController.addCategory);
 
+categoriesRouter.put("/:categoryId", categoriesController.updateCategory);
+
 export default categoriesRouter;

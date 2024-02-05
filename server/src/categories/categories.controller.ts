@@ -27,6 +27,35 @@ const categoriesController = {
       category: result,
     });
   }),
+  updateCategory: asyncHandler(async (req: express.Request, res: Response) => {
+    const { name, groupId, type } = req.body;
+    const { categoryId } = req.params;
+
+    if (!name || !groupId || !type) {
+      throw new CustomError({
+        status: 400,
+        message: "요청 항목이 다릅니다.",
+      });
+    }
+
+    const result = await categoriesService.updateCategory({
+      categoryId,
+      name,
+      groupId,
+      type,
+    });
+
+    if (!result) {
+      throw new CustomError({
+        status: 400,
+        message: "지출 카테고리 수정에 실패했습니다.",
+      });
+    }
+    res.status(201).json({
+      message: "지출 카테고리 수정에 성공했습니다.",
+      category: result,
+    });
+  }),
 };
 
 export default categoriesController;
