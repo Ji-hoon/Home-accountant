@@ -2,10 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "client/**",
+      "src": "client",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "tsc && vite build",
+        "buildCommand": "cd client && tsc && vite build",
         "outputDirectory": "dist/client"
       }
     }
