@@ -17,7 +17,7 @@ export default function ToasterPortalComponent() {
         toastOptions={{
           // Define default options
           className: "",
-          duration: 5000,
+          duration: 3000,
           style: {
             background: COLORS.GRAY_09,
             color: COLORS.BASIC_WHITE,
@@ -25,7 +25,7 @@ export default function ToasterPortalComponent() {
 
           // Default options for specific types
           success: {
-            duration: 3000,
+            duration: 1500,
           },
         }}
         containerStyle={{

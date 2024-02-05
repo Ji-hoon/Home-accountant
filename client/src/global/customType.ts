@@ -144,6 +144,7 @@ export type groupInfoType = {
 export type groupListInfoType = groupInfoType & {
   createdAt: Date;
   updatedAt: Date;
+  _id: string;
 };
 
 export type PortalProps = {

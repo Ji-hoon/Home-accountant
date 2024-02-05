@@ -48,7 +48,10 @@ export default function Header({ user }: { user?: currentUserType }) {
         )}
         {isLogin && (
           <div className="noti-and-profile-container">
-            <Button_Icontype>
+            <Button_Icontype
+              dropdownType={TYPES.DROPDOWN_KEY_NOTIFICATION}
+              dropdownId={user?.userId}
+            >
               <FiBell />
             </Button_Icontype>
             <Profile
