@@ -62,7 +62,6 @@ export const CreateAssetLayout = ({
   assetTypes: string[];
   members: string[];
 }) => {
-  console.log(members);
   return [
     {
       title: "자산 금액 (원)",
