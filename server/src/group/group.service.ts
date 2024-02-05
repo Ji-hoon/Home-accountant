@@ -60,12 +60,12 @@ const groupService = {
       { $unwind: { path: "$members", preserveNullAndEmptyArrays: true } },
       { $match: { "members.userId": new ObjectId(userId) } },
     ]);
-    console.log(existUser);
+    // console.log(existUser);
 
     if (existUser.length > 0) {
       throw new CustomError({
         status: 405,
-        message: "이미 가입된 멤버입니다.",
+        message: "이미 가입된 그룹입니다.",
       });
     }
 

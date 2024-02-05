@@ -13,6 +13,6 @@ groupRouter.put("/:id", groupController.updateGroup);
 
 groupRouter.put("/:id/invite", groupController.inviteMemberToGroup);
 
-groupRouter.put("/:id/members", groupController.addMemberToGroup);
+groupRouter.put("/:groupId/members", groupController.addMemberToGroup);
 
 export default groupRouter;
