@@ -51,7 +51,7 @@ export const SIZES = {
 
 export const VALUES = {
   ASSET_AMOUNTS_UNIT: 100000,
-  TIMEOUT_DELAY_TIME: 300,
+  TIMEOUT_DELAY_TIME: 500,
 } as const;
 
 export const URLS = {
