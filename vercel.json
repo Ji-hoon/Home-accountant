@@ -1,19 +1,32 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "client",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "cd client && tsc && vite build",
-        "outputDirectory": "dist/client"
+    "version": 2,
+    "builds": [
+      {
+        "src": "client",
+        "use": "@vercel/static-build",
+        "config": {
+          "buildCommand": "cd client && tsc && vite build",
+          "outputDirectory": "dist/client"
+        }
+      },
+      {
+        "src": "server",
+        "use": "@vercel/node"
       }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/client/$1"
-    }
-  ]
-}
+    ],
+    "routes": [
+      {
+        "src": "/client/(.*)",
+        "dest": "/client/$1"
+      },
+      {
+        "src": "/server/(.*)",
+        "dest": "/server/$1",
+        "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/client/$1"
+      }
+    ]
+  }
