@@ -7,6 +7,7 @@ const ObjectId = Types.ObjectId;
 import { createTransport } from "nodemailer";
 import "dotenv/config";
 import { renderMustacheTemplate } from "../utils/renderMustacheTemplate.js";
+import CategoryModel from "../categories/categories.model.js";
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -151,11 +152,16 @@ const groupService = {
       }),
     );
 
+    const categoriesList = await CategoryModel.find({
+      groupId: groupInfo._id,
+    });
+
     return {
       id: groupInfo._id,
       code: groupInfo.code,
       name: groupInfo.name,
       members: memberList.length === 0 ? [] : memberInfo,
+      categories: categoriesList.length === 0 ? [] : categoriesList,
     };
   },
   async getGroupByCode(code: string) {
