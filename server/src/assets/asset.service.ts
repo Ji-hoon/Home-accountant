@@ -173,8 +173,9 @@ const assetService = {
       assetHistory,
     };
     const asset = await assetModel.findOne({
-      owner: owner,
-      assetType: assetType,
+      owner,
+      assetType,
+      groupId,
     });
 
     if (asset) {
