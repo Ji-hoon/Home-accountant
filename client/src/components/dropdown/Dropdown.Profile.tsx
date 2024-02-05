@@ -34,6 +34,7 @@ export function ApiComponent({ data }: DropdownProps) {
   const { result, logout } = useDropdownProfile(currentUser.userId);
 
   const groupList = result.data.data.groups;
+  console.log(groupList);
   //const existUser = groupList.find((member: { userId: string; }) => member.userId === currentUser.userId);
 
   return (
