@@ -89,7 +89,6 @@ const expenseService = {
       ])
       .exec();
 
-    console.log(result);
     return result;
   },
 

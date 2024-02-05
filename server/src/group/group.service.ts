@@ -8,6 +8,7 @@ import { createTransport } from "nodemailer";
 import "dotenv/config";
 import { renderMustacheTemplate } from "../utils/renderMustacheTemplate.js";
 import CategoryModel from "../categories/categories.model.js";
+import AssetTypeModel from "../asset_types/asset_types.model.js";
 
 const groupService = {
   async addGroup({ groupId, userId, nickname }: GroupCreateType) {
@@ -156,12 +157,17 @@ const groupService = {
       groupId: groupInfo._id,
     });
 
+    const assetTypesList = await AssetTypeModel.find({
+      groupId: groupInfo._id,
+    });
+
     return {
       id: groupInfo._id,
       code: groupInfo.code,
       name: groupInfo.name,
       members: memberList.length === 0 ? [] : memberInfo,
       categories: categoriesList.length === 0 ? [] : categoriesList,
+      assetTypes: assetTypesList.length === 0 ? [] : assetTypesList,
     };
   },
   async getGroupByCode(code: string) {
