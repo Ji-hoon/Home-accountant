@@ -2,7 +2,7 @@ import { throttle } from "lodash";
 import { useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { dropdownOpenAtom } from "../../atoms/globalAtoms";
-import { calculateElementPositionAndSize } from "../util/handleElement";
+import { calculateElementPositionAndSize } from "../../util/handleElement";
 
 export function useDropdown({
   dropdownType,

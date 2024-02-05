@@ -7,11 +7,7 @@ import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
-import {
-  FormListLayoutType,
-  memberType,
-  categoryType,
-} from "../../../global/customType";
+import { FormListLayoutType } from "../../../global/customType";
 import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import {
@@ -24,6 +20,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Banner from "../../../components/banner/Banner";
 import ListActionBar from "../../../components/compound/ListActionBar";
 import { useGroups } from "./Group/Group.hooks";
+import { covertToStringArray } from "../../../util/handleCovertArray";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -90,10 +87,8 @@ export default function Expenses_SubPage() {
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_EXPENSE,
               layout: CreateExpenseLayout({
-                categories: categories.map(
-                  (category: categoryType) => category.name,
-                ),
-                members: members.map((member: memberType) => member.nickname),
+                categories: covertToStringArray(categories, "name"),
+                members: covertToStringArray(members, "nickname"),
               }) as FormListLayoutType[],
             })
           }

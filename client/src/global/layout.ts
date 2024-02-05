@@ -22,7 +22,7 @@ export const CreateExpenseLayout = ({
       type: "selectbox",
       placeholder: "카테고리를 선택해주세요..",
       defaultValue: "",
-      options: categories, //["식비", "문화생활"],
+      options: categories,
     },
     {
       title: "상호명",
@@ -36,7 +36,7 @@ export const CreateExpenseLayout = ({
       type: "selectbox",
       placeholder: "멤버를 선택해주세요..",
       defaultValue: "",
-      options: members, //["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
+      options: members, // TODO: 닉네임을 사용, 추후 userId(ObjectId)로 변경 고려
     },
     {
       title: "지출 날짜",
@@ -173,10 +173,14 @@ export const EditAssetLayout = ({
 
 export const EditExpenseLayout = ({
   item,
+  categories,
+  members,
 }: {
   item: ExpenseType & {
     _id: string;
   };
+  categories: string[];
+  members: string[];
 }) => {
   return [
     {
@@ -192,7 +196,7 @@ export const EditExpenseLayout = ({
       type: "selectbox",
       placeholder: "",
       defaultValue: item.category,
-      options: ["식비", "문화생활"],
+      options: categories,
     },
     {
       title: "상호명",
@@ -207,7 +211,7 @@ export const EditExpenseLayout = ({
       type: "selectbox",
       placeholder: "",
       defaultValue: item.owner,
-      options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
+      options: members, // TODO: 닉네임을 사용, 추후 userId(ObjectId)로 변경 고려
     },
     {
       title: "지출 날짜",
