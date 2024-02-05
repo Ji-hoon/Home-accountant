@@ -7,7 +7,7 @@ import { useSetRecoilState } from "recoil";
 import { currentUserAtom } from "../../atoms/globalAtoms";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
-import { LABELS } from "../../global/constants";
+import { LABELS, VALUES } from "../../global/constants";
 
 export function useDropdownProfile(userId: string) {
   //const navigate = useNavigate();
@@ -35,7 +35,7 @@ export function useDropdownProfile(userId: string) {
       setCurrentUser(() => resetUser);
       setTimeout(() => {
         location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
-      }, 300);
+      }, VALUES.TIMEOUT_DELAY_TIME);
     },
     onError: (err) => {
       console.log(err);

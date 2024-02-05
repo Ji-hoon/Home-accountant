@@ -89,6 +89,7 @@ const groupController = {
         userId,
       });
       res.status(200).json({
+        message: "그릅에 가입했습니다.",
         groupId,
         result,
       });

@@ -22,10 +22,6 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: PATH.INVITATION,
-        element: <InvitationPage />,
-      },
-      {
         path: PATH.MAIN_EXPENSES,
         element: <MainPage />,
         children: [
@@ -75,6 +71,10 @@ const router = createBrowserRouter([
         path: PATH.LOGIN,
         loader: currentUserLoader,
         element: <LoginPage />,
+      },
+      {
+        path: PATH.INVITATION,
+        element: <InvitationPage />,
       },
     ],
   },

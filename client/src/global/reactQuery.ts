@@ -20,4 +20,5 @@ export const queryKeys = {
   assetAmounts: "ASSET_AMOUNTS",
   currentGroup: "GROUP",
   currentUser: "USER",
+  invitation: "INVITATION",
 };
