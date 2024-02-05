@@ -12,12 +12,12 @@ const AssetSchema = new Schema<assetSchemaType>(
       type: String,
     },
     assetType: {
-      type: String, //TODO: Schema.Types.ObjectId로 변경
+      type: Schema.Types.ObjectId,
       ref: "categories",
     },
     owner: {
       required: true,
-      type: String, //TODO: Schema.Types.ObjectId로 변경
+      type: Schema.Types.ObjectId,
       ref: "users",
     },
     groupId: {
