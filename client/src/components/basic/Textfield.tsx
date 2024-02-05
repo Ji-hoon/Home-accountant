@@ -105,7 +105,17 @@ export default function Textfield({
       {type === "selectbox" && (
         <select
           {...register(fieldName, { required: true })}
-          defaultValue={placeholder !== "" ? placeholder : defaultValue}
+          defaultValue={
+            placeholder !== ""
+              ? placeholder
+              : options
+                  ?.map((option) => {
+                    if (option.split("_")[0] === defaultValue) {
+                      return option.split("_")[1];
+                    }
+                  })
+                  .find((value) => value)
+          }
           disabled={readonly}
         >
           {placeholder !== "" && (
@@ -118,15 +128,16 @@ export default function Textfield({
             options.map((item, index) => (
               <option
                 key={index}
-                value={item}
+                value={item.split("_")[1]}
                 disabled={
                   currentUser.currentRole !== TYPES.OWNER &&
-                  currentUser.nickname !== item
+                  fieldName === "owner" &&
+                  currentUser.nickname !== item.split("_")[0]
                     ? true
                     : false
                 }
               >
-                {item}
+                {item.split("_")[0]}
               </option>
             ))}
         </select>

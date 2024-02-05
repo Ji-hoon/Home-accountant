@@ -6,8 +6,10 @@ export function covertToStringArray(
 ) {
   //if (type === "name")
   return baseArray.map((item) => {
-    if (type === "name") return (item as categoryType).name;
-    else if (type === "nickname") return (item as memberType).nickname;
+    if (type === "name")
+      return `${(item as categoryType).name}_${(item as categoryType)._id}`;
+    else if (type === "nickname")
+      return `${(item as memberType).nickname}_${(item as memberType).userId}`;
     return "";
   });
 }

@@ -162,3 +162,8 @@ export type categoryType = {
   status: string;
   type: string;
 };
+
+// export type formLayoutOptionArrayType = {
+//   optionId: string;
+//   value: string;
+// }
