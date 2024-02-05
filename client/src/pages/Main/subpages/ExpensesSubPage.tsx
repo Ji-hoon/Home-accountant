@@ -23,7 +23,7 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Banner from "../../../components/banner/Banner";
 import ListActionBar from "../../../components/compound/ListActionBar";
-import { useExpensesSubPage } from "./ExpensesSubPage.hooks";
+import { useGroups } from "./Group/Group.hooks";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -33,7 +33,7 @@ export default function Expenses_SubPage() {
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const { showDialog } = useHandleDialog();
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
-  const { members, categories } = useExpensesSubPage(currentUser.currentGroup);
+  const { members, categories } = useGroups(currentUser.currentGroup);
 
   //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
   //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
