@@ -19,6 +19,14 @@ export type expenseSchemaType = {
   isRecurring: string;
 };
 
+export type categorySchemaType = {
+  _id: Types.ObjectId;
+  name: string;
+  groupId: Types.ObjectId;
+  status: string;
+  type: string;
+};
+
 export type assetSchemaType = {
   _id: Types.ObjectId;
   amounts: number;

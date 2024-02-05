@@ -14,6 +14,12 @@ export type ExpenseType = {
   isRecurring: boolean;
 };
 
+export type CategoryType = {
+  name: string;
+  groupId: string;
+  type: string;
+};
+
 export type AssetType = {
   amounts: number;
   name: string;
