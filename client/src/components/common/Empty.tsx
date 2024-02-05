@@ -4,12 +4,14 @@ import { COLORS, SIZES } from "../../global/constants";
 export default function Empty({
   icon,
   message,
+  className,
 }: {
   icon: React.ReactElement;
   message: string;
+  className?: string;
 }) {
   return (
-    <EmptyContainer>
+    <EmptyContainer className={className}>
       {icon}
       <p>{message}</p>
     </EmptyContainer>

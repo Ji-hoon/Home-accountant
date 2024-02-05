@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../global/constants";
+import { COLORS, SIZES, TYPES } from "../../global/constants";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Member from "../dropdown/Dropdown.Member";
 import { useDropdown } from "../hooks/useDropdown";
+import Dropdown_Notification from "../dropdown/Dropdown.Notification";
 
 export default function Button_Icontype({
   children,
@@ -35,11 +36,18 @@ export default function Button_Icontype({
       >
         {children}
       </IcontypeButton>
-      {showDropdown === showDropdownUniqueKey && (
-        <Dropdown>
-          <Dropdown_Member data={targetPosition} />
-        </Dropdown>
-      )}
+      {showDropdown === showDropdownUniqueKey &&
+        dropdownType === TYPES.DROPDOWN_KEY_MEMBER_MORE && (
+          <Dropdown>
+            <Dropdown_Member data={targetPosition} />
+          </Dropdown>
+        )}
+      {showDropdown === showDropdownUniqueKey &&
+        dropdownType === TYPES.DROPDOWN_KEY_NOTIFICATION && (
+          <Dropdown>
+            <Dropdown_Notification data={targetPosition} />
+          </Dropdown>
+        )}
     </>
   );
 }
