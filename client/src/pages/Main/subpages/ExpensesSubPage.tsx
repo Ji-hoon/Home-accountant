@@ -7,7 +7,11 @@ import ListHeader from "../../../components/compound/ListHeader";
 import Button_Floatingtype from "../../../components/basic/Button.floatingType";
 import { useHandleDialog } from "../../../components/hooks/useHandleDialog";
 import { CreateExpenseLayout } from "../../../global/layout";
-import { FormListLayoutType } from "../../../global/customType";
+import {
+  FormListLayoutType,
+  categoryType,
+  memberType,
+} from "../../../global/customType";
 import { useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import {
@@ -87,8 +91,14 @@ export default function Expenses_SubPage() {
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_EXPENSE,
               layout: CreateExpenseLayout({
-                categories: covertToStringArray(categories, "name"),
-                members: covertToStringArray(members, "nickname"),
+                categories: covertToStringArray(
+                  categories as categoryType[],
+                  "name",
+                ),
+                members: covertToStringArray(
+                  members as memberType[],
+                  "nickname",
+                ),
               }) as FormListLayoutType[],
             })
           }

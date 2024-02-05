@@ -5,7 +5,12 @@ import { LABELS, TYPES } from "../../../../global/constants";
 import { useExpenses } from "./Expenses.hooks";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 import { EditExpenseLayout } from "../../../../global/layout";
-import { ExpenseType, FormListLayoutType } from "../../../../global/customType";
+import {
+  ExpenseType,
+  FormListLayoutType,
+  categoryType,
+  memberType,
+} from "../../../../global/customType";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../../../../atoms/globalAtoms";
 import Skeleton_ExpenseListItem from "../../../../components/skeleton/Skeleton.expenseListItem";
@@ -46,8 +51,8 @@ export default function Expenses_List({
       title: LABELS.LABEL_EDIT_EXPENSE,
       layout: EditExpenseLayout({
         item,
-        categories: covertToStringArray(categories, "name"),
-        members: covertToStringArray(members, "nickname"),
+        categories: covertToStringArray(categories as categoryType[], "name"),
+        members: covertToStringArray(members as memberType[], "nickname"),
       }) as FormListLayoutType[],
     });
   }
