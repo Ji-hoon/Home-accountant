@@ -13,10 +13,18 @@ export type expenseSchemaType = {
   amounts: number;
   businessName: string;
   date: Date;
-  category?: string; //TODO: Types.ObjectId 로 변경
-  owner: string; //TODO: Types.ObjectId 로 변경
+  category: Types.ObjectId;
+  owner: Types.ObjectId;
   groupId: Types.ObjectId;
   isRecurring: string;
+};
+
+export type categorySchemaType = {
+  _id: Types.ObjectId;
+  name: string;
+  groupId: Types.ObjectId;
+  status: string;
+  type: string;
 };
 
 export type assetSchemaType = {

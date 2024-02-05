@@ -6,7 +6,7 @@ import { PATH } from "../../global/constants";
 import { AxiosError } from "axios";
 import { useRecoilState } from "recoil";
 import { currentUserAtom } from "../../atoms/globalAtoms";
-import { updateCurrentGroup } from "../../components/util/updateLocalStorage";
+import { updateCurrentGroup } from "../../util/updateLocalStorage";
 
 export function useInvitation(code: string) {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);

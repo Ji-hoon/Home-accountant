@@ -16,6 +16,7 @@ const GroupSchema = new Schema<groupSchemaType>(
         userId: {
           required: true,
           type: Schema.Types.ObjectId,
+          ref: "users",
         },
         role: {
           required: true,
@@ -33,6 +34,6 @@ const GroupSchema = new Schema<groupSchemaType>(
   },
 );
 
-const GroupModel = model("group", GroupSchema);
+const GroupModel = model("groups", GroupSchema);
 
 export default GroupModel;

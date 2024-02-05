@@ -13,7 +13,7 @@ import {
   DropdownProps,
 } from "../../global/customType";
 import { FiCheck } from "react-icons/fi";
-import { updateCurrentGroup } from "../util/updateLocalStorage";
+import { updateCurrentGroup } from "../../util/updateLocalStorage";
 import { useNavigate } from "react-router";
 import { DropdownUIContainerStyle } from "./Dropdown";
 import toast from "react-hot-toast";

@@ -154,3 +154,16 @@ export type DropdownProps = {
     height: number;
   };
 };
+
+export type categoryType = {
+  _id: string;
+  name: string;
+  groupId: string;
+  status: string;
+  type: string;
+};
+
+// export type formLayoutOptionArrayType = {
+//   optionId: string;
+//   value: string;
+// }

@@ -12,6 +12,10 @@ export function useGroups(currentGroupId: string) {
 
   const { data, refetch, fetchStatus } = results;
 
+  const members = results.data.data.groupInfo.members;
+  const categories = results.data.data.groupInfo.categories;
+  // const assetTypes = results.data.data.groupInfo.assetTypes; //TODO : api 구현 후 연결 필요
+
   const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({
       queryKey: [queryKeys.currentGroup],
@@ -60,5 +64,12 @@ export function useGroups(currentGroupId: string) {
     },
   }).mutateAsync;
 
-  return { data, updateGroup, fetchStatus, inviteMemberToGroup };
+  return {
+    data,
+    members,
+    categories,
+    updateGroup,
+    fetchStatus,
+    inviteMemberToGroup,
+  };
 }

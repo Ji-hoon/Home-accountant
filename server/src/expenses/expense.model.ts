@@ -16,13 +16,13 @@ const ExpenseSchema = new Schema<expenseSchemaType>(
       type: Date,
     },
     category: {
-      type: String, //TODO: Schema.Types.ObjectId로 변경
-      ref: "category",
+      type: Schema.Types.ObjectId,
+      ref: "categories",
     },
     owner: {
       required: true,
-      type: String, //TODO: Schema.Types.ObjectId로 변경
-      ref: "user",
+      type: Schema.Types.ObjectId,
+      ref: "users",
     },
     groupId: {
       required: true,
@@ -39,6 +39,6 @@ const ExpenseSchema = new Schema<expenseSchemaType>(
   },
 );
 
-const ExpenseModel = model("expense", ExpenseSchema);
+const ExpenseModel = model("expenses", ExpenseSchema);
 
 export default ExpenseModel;
