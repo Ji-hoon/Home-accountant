@@ -12,6 +12,12 @@ import userRouter from "./user/user.router.js";
 import categoryRouter from "./categories/categories.router.js";
 import assetTypeRouter from "./asset_types/asset_types.router.js";
 
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const { PORT, MONGODB_URL, FRONTEND_URL } = process.env;
 if (!PORT || !MONGODB_URL || !FRONTEND_URL) {
   console.error("no env var");
@@ -43,6 +49,20 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/asset_types", assetTypeRouter);
 
 app.use(errorHandler);
+
+app.use(
+  express.static("dist", {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".js")) {
+        res.setHeader("Content-Type", "application/javascript");
+      }
+    },
+  }),
+);
+
+app.get("*", (req, res) => {
+  res.sendFile(join(__dirname, "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`PORT:${PORT}`);

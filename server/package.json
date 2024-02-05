@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src --exec npx ts-node src/index.ts",
     "build": "tsc",
-    "start": "npm run build && node ./dist/src/index.js"
+    "start": "npm run build && node ./dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -40,7 +40,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
-    "nodemailer": "^6.9.8"
+    "nodemailer": "^6.9.8",
+    "process": "^0.11.10"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
