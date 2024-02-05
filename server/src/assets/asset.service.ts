@@ -30,29 +30,69 @@ const assetService = {
           groupId: new ObjectId(groupId as string),
         };
 
-    const result = await assetModel.aggregate([
-      { $unwind: "$assetHistory" },
-      {
-        $match: {
-          ...target,
-          "assetHistory.date": {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
+    const result = await assetModel
+      .aggregate([
+        { $unwind: "$assetHistory" },
+        {
+          $match: {
+            ...target,
+            "assetHistory.date": {
+              $gte: startDateFormat,
+              $lte: endDateFormat,
+            },
           },
         },
-      },
-      {
-        $group: {
-          _id: "$_id",
-          amounts: { $last: "$amounts" },
-          name: { $last: "$name" },
-          assetType: { $last: "$assetType" },
-          owner: { $last: "$owner" },
-          assetHistory: { $last: "$assetHistory" },
+        {
+          $group: {
+            _id: "$_id",
+            amounts: { $last: "$amounts" },
+            name: { $last: "$name" },
+            assetType: { $last: "$assetType" },
+            owner: { $last: "$owner" },
+            assetHistory: { $last: "$assetHistory" },
+          },
         },
-      },
-      { $sort: { "assetHistory.date": -1 } },
-    ]);
+        {
+          $lookup: {
+            from: "asset_types", // Category 모델의 컬렉션 이름
+            localField: "assetType",
+            foreignField: "_id",
+            as: "assetTypeData",
+          },
+        },
+        {
+          $lookup: {
+            from: "users", // User 모델의 컬렉션 이름
+            localField: "owner",
+            foreignField: "_id",
+            as: "ownerData",
+          },
+        },
+        {
+          $unwind: {
+            path: "$assetTypeData",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $unwind: {
+            path: "$ownerData",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            amounts: 1,
+            name: 1,
+            assetType: "$assetTypeData.name",
+            owner: "$ownerData.nickname",
+            assetHistory: 1,
+          },
+        },
+        { $sort: { "assetHistory.date": -1 } },
+      ])
+      .exec();
 
     return result;
   },
@@ -133,8 +173,9 @@ const assetService = {
       assetHistory,
     };
     const asset = await assetModel.findOne({
-      owner: owner,
-      assetType: assetType,
+      owner,
+      assetType,
+      groupId,
     });
 
     if (asset) {

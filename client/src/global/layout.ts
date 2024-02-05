@@ -55,47 +55,60 @@ export const CreateExpenseLayout = ({
   ];
 };
 
-export const CreateAssetLayout = [
-  {
-    title: "자산 금액 (원)",
-    fieldName: "amounts",
-    type: "number",
-    placeholder: "숫자만 입력해주세요.",
-  },
-  {
-    title: "자산 타입",
-    fieldName: "assetType",
-    type: "selectbox",
-    placeholder: "자산 타입을 선택해주세요..",
-    defaultValue: "",
-    options: ["현금", "주식", "보험금", "비트코인", "부동산"],
-  },
-  {
-    title: "자산 이름",
-    fieldName: "name",
-    type: "text",
-    placeholder: "자산 이름을 입력해주세요.",
-  },
-  {
-    title: "멤버",
-    fieldName: "owner",
-    type: "selectbox",
-    placeholder: "멤버를 선택해주세요..",
-    defaultValue: "",
-    options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
-  },
-];
+export const CreateAssetLayout = ({
+  assetTypes,
+  members,
+}: {
+  assetTypes: string[];
+  members: string[];
+}) => {
+  console.log(members);
+  return [
+    {
+      title: "자산 금액 (원)",
+      fieldName: "amounts",
+      type: "number",
+      placeholder: "숫자만 입력해주세요.",
+    },
+    {
+      title: "자산 타입",
+      fieldName: "assetType",
+      type: "selectbox",
+      placeholder: "자산 타입을 선택해주세요..",
+      defaultValue: "",
+      options: assetTypes, //TODO: API 받아온걸로 적용되면 삭제 ["현금", "주식", "보험금", "비트코인", "부동산"],
+    },
+    {
+      title: "자산 이름",
+      fieldName: "name",
+      type: "text",
+      placeholder: "자산 이름을 입력해주세요.",
+    },
+    {
+      title: "멤버",
+      fieldName: "owner",
+      type: "selectbox",
+      placeholder: "멤버를 선택해주세요..",
+      defaultValue: "",
+      options: members, //TODO: API 받아온걸로 적용되면 삭제 ["훈", "밀크티"],
+    },
+  ];
+};
 
 export const EditAssetLayout = ({
   owner,
   name,
   amounts,
   data,
+  assetTypes,
+  members,
 }: {
   owner: string;
   name: string;
   amounts: number;
   data: ChartData;
+  assetTypes: string[];
+  members: string[];
 }) => {
   const assetName = name.split(" (")[0];
   const assetType = name.split(" (")[1].replace(")", "");
@@ -129,7 +142,7 @@ export const EditAssetLayout = ({
       fieldName: "assetType",
       type: "selectbox",
       placeholder: "",
-      options: ["현금", "주식", "보험금", "비트코인", "부동산"],
+      options: assetTypes, //TODO: API 적용되면 삭제 필요 ["현금", "주식", "보험금", "비트코인", "부동산"],
       defaultValue: assetType,
       readonly: true,
     },
@@ -146,7 +159,7 @@ export const EditAssetLayout = ({
       fieldName: "owner",
       type: "selectbox",
       placeholder: "",
-      options: ["훈", "밀크티"], // TODO: 일단 닉네임으로 조회, 추후 userId(ObjectId)로 변경
+      options: members, //TODO: API 받아온걸로 적용되면 삭제 ["훈", "밀크티"],
       defaultValue: owner,
       readonly: true,
     },

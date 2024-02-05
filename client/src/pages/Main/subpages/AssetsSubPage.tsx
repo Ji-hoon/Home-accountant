@@ -11,11 +11,14 @@ import {
   currentDateAtom,
   dateUnitAtom,
   selectedExpenseIdAtom,
+  currentUserAtom,
 } from "../../../atoms/globalAtoms";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import Banner from "../../../components/banner/Banner";
 import Chart from "./Assets/Chart/Assets.Chart";
+import { useGroups } from "./Group/Group.hooks";
+import { covertToStringArray } from "../../../util/handleCovertArray";
 
 export default function Assets_SubPage() {
   const { showDialog } = useHandleDialog();
@@ -23,6 +26,9 @@ export default function Assets_SubPage() {
   const [currentOwner, setCurrentOwner] = useState("");
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
+  const currentUser = useRecoilValue(currentUserAtom);
+  const { members, assetTypes } = useGroups(currentUser.currentGroup);
+  console.log(members, assetTypes);
 
   useEffect(() => {
     if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
@@ -71,7 +77,10 @@ export default function Assets_SubPage() {
             showDialog({
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_ASSET,
-              layout: CreateAssetLayout as FormListLayoutType[],
+              layout: CreateAssetLayout({
+                members: covertToStringArray(members, "nickname"),
+                assetTypes: covertToStringArray(assetTypes, "assetType"),
+              }) as FormListLayoutType[],
             })
           }
         />

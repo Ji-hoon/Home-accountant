@@ -82,6 +82,10 @@ export type AssetType = {
     amounts: number;
   };
 };
+export type AssetTypeType = {
+  _id: string;
+  name: string;
+};
 
 export type AssetUpdateType = {
   amounts: string;

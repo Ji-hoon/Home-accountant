@@ -31,14 +31,21 @@ export type assetSchemaType = {
   _id: Types.ObjectId;
   amounts: number;
   name: string;
-  assetType: string; //TODO: Types.ObjectId로 변경 필요
-  owner: string; //TODO: Types.ObjectId 로 변경 필요
+  assetType: Types.ObjectId; //TODO: Types.ObjectId로 변경 필요
+  owner: Types.ObjectId; //TODO: Types.ObjectId 로 변경 필요
   groupId: Types.ObjectId;
   assetHistory: Array<{
     date: Date;
     amounts: number;
     _id: null;
   }>;
+};
+
+export type assetTypeSchemaType = {
+  _id: Types.ObjectId;
+  name: string;
+  groupId: Types.ObjectId;
+  status: string;
 };
 
 export type groupSchemaType = {
