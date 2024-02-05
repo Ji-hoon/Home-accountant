@@ -1,5 +1,6 @@
 import CategoryModel from "./categories.model.js";
 import { CategoryType } from "../type/global.js";
+import { ParsedQs } from "qs";
 
 const categoriesService = {
   async addCategory({ name, groupId, type }: CategoryType) {
@@ -32,6 +33,15 @@ const categoriesService = {
         new: true,
       },
     );
+  },
+  async getGroupCategory({
+    groupId,
+  }: {
+    groupId: string | string[] | ParsedQs | ParsedQs[];
+  }) {
+    return await CategoryModel.find({
+      groupId: groupId as string,
+    });
   },
 };
 

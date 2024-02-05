@@ -7,4 +7,6 @@ categoriesRouter.post("/", categoriesController.addCategory);
 
 categoriesRouter.put("/:categoryId", categoriesController.updateCategory);
 
+categoriesRouter.get("/", categoriesController.getGroupCategory);
+
 export default categoriesRouter;
