@@ -32,7 +32,6 @@ export function useChart({
   const { showDialog } = useHandleDialog();
   const currentUser = useRecoilValue(currentUserAtom);
   const { members, assetTypes } = useGroups(currentUser.currentGroup);
-  console.log(members, assetTypes);
 
   function handleBarClick(
     datum: ComputedDatum<ChartData> & {

@@ -28,7 +28,6 @@ export default function Assets_SubPage() {
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
   const currentUser = useRecoilValue(currentUserAtom);
   const { members, assetTypes } = useGroups(currentUser.currentGroup);
-  console.log(members, assetTypes);
 
   useEffect(() => {
     if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
