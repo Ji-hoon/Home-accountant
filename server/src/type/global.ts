@@ -8,7 +8,7 @@ export type ExpenseType = {
   amounts: number;
   businessName: string;
   date: Date;
-  category?: string;
+  category: string;
   owner: string;
   groupId: string;
   isRecurring: boolean;

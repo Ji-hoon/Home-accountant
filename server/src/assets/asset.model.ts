@@ -13,12 +13,12 @@ const AssetSchema = new Schema<assetSchemaType>(
     },
     assetType: {
       type: String, //TODO: Schema.Types.ObjectId로 변경
-      ref: "category",
+      ref: "categories",
     },
     owner: {
       required: true,
       type: String, //TODO: Schema.Types.ObjectId로 변경
-      ref: "user",
+      ref: "users",
     },
     groupId: {
       required: true,
@@ -43,6 +43,6 @@ const AssetSchema = new Schema<assetSchemaType>(
   },
 );
 
-const AssetModel = model("asset", AssetSchema);
+const AssetModel = model("assets", AssetSchema);
 
 export default AssetModel;

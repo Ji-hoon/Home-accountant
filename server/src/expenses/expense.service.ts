@@ -34,28 +34,62 @@ const expenseService = {
         };
 
     const result = await expenseModel
-      .find(
+      .aggregate([
         {
-          ...target,
-          date: {
-            $gte: startDateFormat,
-            $lte: endDateFormat,
+          $match: {
+            ...target,
+            date: {
+              $gte: startDateFormat,
+              $lte: endDateFormat,
+            },
           },
         },
         {
-          amounts: 1,
-          businessName: 1,
-          date: 1,
-          category: 1,
-          owner: 1,
-          isRecurring: 1,
-          _id: 1,
+          $lookup: {
+            from: "categories", // Category 모델의 컬렉션 이름
+            localField: "category",
+            foreignField: "_id",
+            as: "categoryData",
+          },
         },
-      )
-      .skip(cursor)
-      .limit(limit)
-      .sort({ date: -1 });
+        {
+          $lookup: {
+            from: "users", // User 모델의 컬렉션 이름
+            localField: "owner",
+            foreignField: "_id",
+            as: "ownerData",
+          },
+        },
+        {
+          $unwind: {
+            path: "$categoryData",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $unwind: {
+            path: "$ownerData",
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $project: {
+            amounts: 1,
+            businessName: 1,
+            date: 1,
+            category: "$categoryData.name",
+            owner: "$ownerData.nickname",
+            isRecurring: 1,
+            _id: 1,
+          },
+        },
+        { $skip: cursor },
+        { $limit: limit },
+        { $sort: { date: -1 } },
+      ])
+      .exec();
 
+    console.log(result);
     return result;
   },
 
