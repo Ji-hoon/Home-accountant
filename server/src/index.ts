@@ -51,6 +51,7 @@ app.use("/api/asset_types", assetTypeRouter);
 app.use(errorHandler);
 
 app.use(express.static(join(__dirname, "./dist")));
+app.use("/assets", express.static("dist/assets/"));
 app.use(
   express.static(join(__dirname, "/"), {
     setHeaders: (res, path) => {
