@@ -65,6 +65,6 @@ app.get("*", (req, res) => {
   res.sendFile(join(__dirname, "./dist/index.html"));
 });
 
-app.listen(PORT as unknown as number, "127.0.0.1", () => {
-  console.log(`PORT:${PORT} IP: ${"127.0.0.1"}`);
+app.listen(PORT as unknown as number, "0.0.0.0", () => {
+  console.log(`PORT:${PORT} IP: "0.0.0.0"`);
 });
