@@ -2,31 +2,37 @@
     "version": 2,
     "builds": [
       {
-        "src": "client",
+        "src": "/client/package.json",
         "use": "@vercel/static-build",
         "config": {
+            "framework": "vite",
           "buildCommand": "cd client && tsc && vite build",
-          "outputDirectory": "dist/client"
+          "outputDirectory": "dist"
         }
       },
       {
-        "src": "server",
-        "use": "@vercel/node"
+        "src": "/server/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+            "framework": "node",
+            "buildCommand": "cd server && npm install && tsc",
+            "outputDirectory": "dist"
+          }
       }
     ],
     "routes": [
       {
         "src": "/client/(.*)",
-        "dest": "/client/$1"
+        "dest": "/dist/$1"
       },
       {
         "src": "/server/(.*)",
-        "dest": "/server/$1",
+        "dest": "/dist/$1",
         "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
       },
       {
         "src": "/(.*)",
-        "dest": "/client/$1"
+        "dest": "/dist/$1"
       }
     ]
   }
