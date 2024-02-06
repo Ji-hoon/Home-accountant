@@ -52,7 +52,7 @@ app.use(errorHandler);
 
 app.use(express.static(join(__dirname, "./dist")));
 app.use(
-  express.static(join(__dirname, "./dist"), {
+  express.static(join(__dirname, "/"), {
     setHeaders: (res, path) => {
       if (path.endsWith(".js")) {
         res.setHeader("Content-Type", "application/javascript");
@@ -62,7 +62,7 @@ app.use(
 );
 
 app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "./dist/index.html"));
+  res.sendFile(join(__dirname, "/index.html"));
 });
 
 app.listen(PORT as unknown as number, "0.0.0.0", () => {
