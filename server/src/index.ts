@@ -40,13 +40,13 @@ app.use(
   }),
 );
 
-app.use("/api/auth", authRouter);
-app.use("/api/expenses", expenseRouter);
-app.use("/api/assets", assetRouter);
-app.use("/api/groups", groupRouter);
-app.use("/api/users", userRouter);
-app.use("/api/categories", categoryRouter);
-app.use("/api/asset_types", assetTypeRouter);
+app.use("api/auth", authRouter);
+app.use("api/expenses", expenseRouter);
+app.use("api/assets", assetRouter);
+app.use("api/groups", groupRouter);
+app.use("api/users", userRouter);
+app.use("api/categories", categoryRouter);
+app.use("api/asset_types", assetTypeRouter);
 
 app.use(errorHandler);
 
