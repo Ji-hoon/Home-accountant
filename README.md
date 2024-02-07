@@ -7,6 +7,9 @@
 
 본 리포지토리는 개인 프로젝트인 **지출 및 자산 관리 애플리케이션** 코드를 포함하고 있습니다.
 
+## 서비스 링크
+- [링크](http://35.231.16.39)
+
 ## 디자인
 
 - [피그마 링크](https://www.figma.com/file/YlqmZ5JlnnyksInDIHRTHJ/HomeAccountBook_mockup?type=design&node-id=0%3A1&mode=design&t=gw0H9wPStNi7CLhV-1)
