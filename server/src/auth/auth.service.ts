@@ -1,4 +1,5 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
+import fetch from "node-fetch";
 import "dotenv/config";
 import { CustomError } from "../middleware/errorHandler.js";
 
@@ -40,9 +41,10 @@ const authService = {
         headers: headers,
         body: new URLSearchParams(data),
       });
-      const result = await response.json();
+      const result = (await response.json()) as { access_token: string };
       return { accessToken: result.access_token };
     } catch (error) {
+      console.log(error);
       throw new CustomError({
         status: 500,
         message: "엑세스 토큰 발급에 실패했습니다.",
