@@ -18,8 +18,8 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const { PORT, MONGODB_URL, FRONTEND_URL } = process.env;
-if (!PORT || !MONGODB_URL || !FRONTEND_URL) {
+const { PORT, MONGODB_URL, FRONTEND_URL, IP } = process.env;
+if (!PORT || !MONGODB_URL || !FRONTEND_URL || !IP) {
   console.error("no env var");
   process.exit();
 }
@@ -36,17 +36,18 @@ app.use(express.json());
 app.use(
   cors({
     origin: [FRONTEND_URL],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   }),
 );
 
-app.use("api/auth", authRouter);
-app.use("api/expenses", expenseRouter);
-app.use("api/assets", assetRouter);
-app.use("api/groups", groupRouter);
-app.use("api/users", userRouter);
-app.use("api/categories", categoryRouter);
-app.use("api/asset_types", assetTypeRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/expenses", expenseRouter);
+app.use("/api/assets", assetRouter);
+app.use("/api/groups", groupRouter);
+app.use("/api/users", userRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/asset_types", assetTypeRouter);
 
 app.use(errorHandler);
 
@@ -66,6 +67,6 @@ app.get("*", (req, res) => {
   res.sendFile(join(__dirname, "/index.html"));
 });
 
-app.listen(PORT as unknown as number, "0.0.0.0", () => {
-  console.log(`PORT:${PORT} IP: "0.0.0.0"`);
+app.listen(PORT as unknown as number, IP, () => {
+  console.log(`PORT:${PORT} IP: ${IP}`);
 });
