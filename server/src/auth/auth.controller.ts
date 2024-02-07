@@ -31,7 +31,7 @@ const authController = {
       });
       //const userRole = userGroups.map( (group) => group.);
       const token = authService.generateJWT(
-        result.user._id,
+        result.user._id as unknown as string,
         result.user.nickname,
       );
       console.log("result: ", result);

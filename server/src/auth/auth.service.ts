@@ -2,6 +2,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import fetch from "node-fetch";
 import "dotenv/config";
 import { CustomError } from "../middleware/errorHandler.js";
+import { Types } from "mongoose";
 
 const kakaoGetUserInfoURL = "https://kapi.kakao.com/v2/user/me";
 const kakaoGetTokenURL = "https://kauth.kakao.com/oauth/token";
@@ -62,8 +63,15 @@ const authService = {
     try {
       const response = await fetch(kakaoGetUserInfoURL, { headers });
       const result = await response.json();
+      console.log(result);
 
-      return result;
+      return result as {
+        id: string;
+        properties: {
+          nickname: string;
+          profile_image: string;
+        };
+      };
     } catch (error) {
       throw new CustomError({
         status: 500,
@@ -125,7 +133,14 @@ const authService = {
             : "로그인에 실패했습니다.",
       });
     }
-    return result;
+    return result as {
+      user: {
+        _id: Types.ObjectId;
+        nickname: string;
+        groups: Types.ObjectId[];
+        profileImgUrl: string;
+      };
+    };
   },
 };
 
