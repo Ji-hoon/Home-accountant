@@ -18,6 +18,7 @@ import { LABELS } from "../../global/constants";
 import { format, parse } from "date-fns";
 import { useAssets } from "../../pages/Main/subpages/Assets/Assets.hooks";
 import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
+import { useExpenseCategory } from "./useExpenseCategory";
 
 export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -44,6 +45,8 @@ export function useHandleDialog() {
   });
   const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
 
+  const { addExpenseCategory } = useExpenseCategory();
+
   function showDialog({
     type,
     title,
@@ -62,7 +65,9 @@ export function useHandleDialog() {
     };
     setDialog(newModal);
     // console.log("current index : ", newModal.content.length);
-    setModalIndex(newModal.content.length - 1);
+    setModalIndex(
+      newModal.content.length > 0 ? newModal.content.length - 1 : 0,
+    );
   }
 
   //NOTE: 모든 다이얼로그를 닫고 싶다면 order:0으로 호출
@@ -75,7 +80,9 @@ export function useHandleDialog() {
     };
     setDialog(() => newModal);
     // console.log("target index : ", order + 1, newModal.content.length);
-    setModalIndex(newModal.content.length - 1);
+    setModalIndex(
+      newModal.content.length > 0 ? newModal.content.length - 1 : 0,
+    );
     setEmailList([]);
   }
 
@@ -87,6 +94,7 @@ export function useHandleDialog() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: ExpenseType | AssetType | AssetUpdateType | any; //TODO: submit으로 들어오는 타입들 추가하기
   }) {
+    console.log({ action, data });
     if (action === LABELS.LABEL_ADD_EXPENSE) {
       const result = await addExpense({
         amounts: data.amounts,
@@ -158,6 +166,14 @@ export function useHandleDialog() {
       const result = await inviteMemberToGroup({
         groupId: currentGroupId,
         members: data,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_ADD_EXPENSE_CATRGORY) {
+      const result = await addExpenseCategory({
+        groupId: currentGroupId,
+        category: data.newCategory,
       });
       if (result) return result;
     }

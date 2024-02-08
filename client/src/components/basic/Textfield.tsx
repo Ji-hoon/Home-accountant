@@ -8,15 +8,20 @@ import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useState, useEffect } from "react";
 import { useEmailInput } from "../hooks/useEmailInput";
-import { useRecoilValue } from "recoil";
-import { emailListAtom, currentUserAtom } from "../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  emailListAtom,
+  currentUserAtom,
+  modalIndexAtom,
+} from "../../atoms/globalAtoms";
 import { FiX } from "react-icons/fi";
 import Button_Icontype from "./Button.iconType";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useDropdown } from "../hooks/useDropdown";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
-import { useExpenseCategory } from "../hooks/useExpenseCategory";
+import { useHandleDialog } from "../hooks/useHandleDialog";
+import { addExpenseCategoryLayout } from "../../global/layout";
 
 export default function Textfield({
   title,
@@ -47,7 +52,8 @@ export default function Textfield({
     dropdownId: selectedDay ? format(selectedDay, "yyyy_MM_dd") : "",
   });
 
-  const { addCategory } = useExpenseCategory();
+  const { showDialog } = useHandleDialog();
+  const [modalIndex, setModalIndex] = useRecoilState(modalIndexAtom);
 
   const handleDayClick: DayClickEventHandler = (day) => {
     setSelectedDay(day);
@@ -77,7 +83,22 @@ export default function Textfield({
           </CopyToClipboard>
         )}
         {fieldName === "category" && (
-          <a href="#" onClick={addCategory}>
+          <a
+            href="#"
+            onClick={() => {
+              if (modalIndex >= 0) {
+                const newIndex = modalIndex + 1;
+                setModalIndex(newIndex);
+                console.log(newIndex);
+              }
+
+              showDialog({
+                type: TYPES.MODAL_SINGLE_COL,
+                title: LABELS.LABEL_ADD_EXPENSE_CATRGORY,
+                layout: addExpenseCategoryLayout as FormListLayoutType[],
+              });
+            }}
+          >
             {LABELS.LABEL_ADD_EXPENSE_CATRGORY}
           </a>
         )}

@@ -68,6 +68,8 @@ export default function Dialog() {
     }
   }
 
+  console.log("rerendered");
+
   return (
     <DialogPortal>
       <div ref={dialogRef}>
@@ -76,15 +78,15 @@ export default function Dialog() {
           dialog.content.map((item, index) => (
             <ModalContainer key={index} className="modal-container">
               <BackdropModal
-                index={index}
-                maxindex={dialog.content.length}
+                $index={index}
+                $maxindex={dialog.content.length}
                 onClick={(event: React.SyntheticEvent) => {
                   event.preventDefault();
                   hideDialog({ order: index });
                 }}
               />
               <ModalLayoutContainer
-                index={index}
+                $index={index}
                 $type={item.type}
                 onSubmit={handleSubmit(onSubmit)}
               >
@@ -146,8 +148,8 @@ const ModalContainer = styled.section`
 `;
 
 const BackdropModal = styled.div<{
-  index: number;
-  maxindex: number;
+  $index: number;
+  $maxindex: number;
 }>`
   position: fixed;
   left: 0;
@@ -155,23 +157,25 @@ const BackdropModal = styled.div<{
   top: 0;
   bottom: 0;
   background-color: ${(props) =>
-    props.index === props.maxindex - 1 ? COLORS.GRAY_08_OVERAY : "transparent"};
-  z-index: ${(props) => props.index + 100};
+    props.$index === props.$maxindex - 1
+      ? COLORS.GRAY_08_OVERAY
+      : "transparent"};
+  z-index: ${(props) => props.$index + 100};
 `;
 
 const ModalLayoutContainer = styled.form<{
   $type: string;
-  index: number;
+  $index: number;
 }>`
   position: absolute;
-  z-index: ${(props) => props.index + 101};
+  z-index: ${(props) => props.$index + 101};
   background-color: ${COLORS.BASIC_WHITE};
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_07_OVERAY};
   max-width: ${SIZES.MAX_WIDTH * 0.65}px;
   // max-height: calc(100% - 120px);
   border-radius: 12px;
   top: 60px;
-  margin-top: ${(props) => props.index * 24}px;
+  margin-top: ${(props) => props.$index * 24}px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;

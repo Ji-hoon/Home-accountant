@@ -12,7 +12,7 @@ import {
   categoryType,
   memberType,
 } from "../../../global/customType";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ExpenseList from "./Expenses/Expenses.infiniteList";
 import {
   currentDateAtom,
@@ -25,25 +25,24 @@ import Banner from "../../../components/banner/Banner";
 import ListActionBar from "../../../components/compound/ListActionBar";
 import { useGroups } from "./Group/Group.hooks";
 import { covertToStringArray } from "../../../util/handleCovertArray";
+import { useExpenseCategory } from "../../../components/hooks/useExpenseCategory";
 
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
   const currentUser = useRecoilValue(currentUserAtom);
   const location = useLocation();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentOwner, setCurrentOwner] = useState("");
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const { showDialog } = useHandleDialog();
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
-  const { members, categories } = useGroups(currentUser.currentGroup);
-
+  const { members } = useGroups(currentUser.currentGroup);
+  const { categories } = useExpenseCategory();
   //TODO: owner가 "" 이 아닌 상태에서 addExpense를 통한 data 변경이 일어났을 때
   //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
-    if (location.pathname === PATH.MAIN_EXPENSES_BY_MEMBER) {
-      setCurrentOwner("밀크티");
-      setDateUnit(TYPES.TYPE_UNIT_MONTH);
-    } else if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) {
+    if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) {
       //setCurrentOwner("");
       setDateUnit(TYPES.TYPE_UNIT_MONTH);
     } else if (location.pathname === PATH.MAIN_EXPENSES_BY_WEEK) {
@@ -54,6 +53,17 @@ export default function Expenses_SubPage() {
     setSelectedExpenseId([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, dateUnit]);
+
+  const memoizedShowDialog = useCallback(() => {
+    showDialog({
+      type: TYPES.MODAL_DOUBLE_COL,
+      title: LABELS.LABEL_ADD_EXPENSE,
+      layout: CreateExpenseLayout({
+        categories: covertToStringArray(categories as categoryType[], "name"),
+        members: covertToStringArray(members as memberType[], "nickname"),
+      }) as FormListLayoutType[],
+    });
+  }, [categories, members, showDialog]);
 
   return (
     <>
@@ -85,24 +95,7 @@ export default function Expenses_SubPage() {
           $type={TYPES.EXPENSES}
           $owner={currentOwner}
         />
-        <Button_Floatingtype
-          onClick={() =>
-            showDialog({
-              type: TYPES.MODAL_DOUBLE_COL,
-              title: LABELS.LABEL_ADD_EXPENSE,
-              layout: CreateExpenseLayout({
-                categories: covertToStringArray(
-                  categories as categoryType[],
-                  "name",
-                ),
-                members: covertToStringArray(
-                  members as memberType[],
-                  "nickname",
-                ),
-              }) as FormListLayoutType[],
-            })
-          }
-        />
+        <Button_Floatingtype onClick={() => memoizedShowDialog()} />
         <ListActionBar />
         <ExpenseList
           $owner={currentOwner}

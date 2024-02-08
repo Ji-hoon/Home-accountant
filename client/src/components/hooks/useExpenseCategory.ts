@@ -1,28 +1,49 @@
-import { useRecoilState } from "recoil";
-import { LABELS, TYPES } from "../../global/constants";
-import { FormListLayoutType } from "../../global/customType";
-import { addExpenseCategoryLayout } from "../../global/layout";
-import { useHandleDialog } from "./useHandleDialog";
-import { modalIndexAtom } from "../../atoms/globalAtoms";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import expenseCategoryAPI from "./useExpenseCategory.api";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../../atoms/globalAtoms";
+import { queryKeys } from "../../global/reactQuery";
+import { categoryType } from "../../global/customType";
+// import groupsAPI from "../../pages/Main/subpages/Group/Group.api";
 
 export function useExpenseCategory() {
-  const { showDialog } = useHandleDialog();
-  const [modalIndex, setModalIndex] = useRecoilState(modalIndexAtom);
+  const currentUser = useRecoilValue(currentUserAtom);
+  // const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+  const results = useSuspenseQuery({
+    queryKey: [queryKeys.expenseCategory],
+    queryFn: () =>
+      expenseCategoryAPI.get({ groupId: currentUser.currentGroup }),
+  });
 
-  function addCategory() {
-    console.log("카테고리 추가");
-    if (modalIndex >= 0) {
-      const newIndex = modalIndex + 1;
-      setModalIndex(newIndex);
-      console.log(newIndex);
-    }
+  const { data, refetch } = results;
+  const categories = data?.data.category as unknown as categoryType[];
+  console.log(categories);
 
-    showDialog({
-      type: TYPES.MODAL_SINGLE_COL,
-      title: LABELS.LABEL_ADD_EXPENSE_CATRGORY,
-      layout: addExpenseCategoryLayout as FormListLayoutType[],
-    });
-  }
+  const addExpenseCategory = useMutation({
+    mutationFn: expenseCategoryAPI.addCategory,
+    onMutate: () => {
+      //setisLoading(!isLoading);
+    },
+    onSuccess: (data) => {
+      console.log(data?.data.message);
+      toast.success(data?.data.message);
+      // invalidateExpenseQuery();
+      refetch();
+      // const newModalContent = {...dialog};
+      // setDialog(() => newModalContent);
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error(
+        err instanceof AxiosError ? err.response?.data.error : "unknown error",
+      );
+    },
+    onSettled: () => {
+      //setisLoading(!isLoading);
+    },
+  }).mutateAsync;
 
-  return { addCategory };
+  return { addExpenseCategory, categories };
 }
