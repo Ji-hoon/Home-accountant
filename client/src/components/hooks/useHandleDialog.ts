@@ -27,7 +27,7 @@ export function useHandleDialog() {
   //const currentUser = useRecoilValue(currentUserAtom);
   const currentUser = localStorage.getItem("currentUser");
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
-  const [modalIndex, setModalIndex] = useRecoilState(modalIndexAtom);
+  const setModalIndex = useSetRecoilState(modalIndexAtom);
 
   //console.log("dialog: ",currentDate);
   const { addExpense, updateExpense, deleteExpense } = useExpenses({
@@ -56,15 +56,16 @@ export function useHandleDialog() {
     const newModal = {
       isOpen: true,
       content:
-        modalIndex > 0
+        dialog.content.length > 0
           ? [...dialog.content, { type, title, layout }]
           : [{ type, title, layout }],
     };
     setDialog(newModal);
     // console.log("current index : ", newModal.content.length);
-    setModalIndex(newModal.content.length);
+    setModalIndex(newModal.content.length - 1);
   }
 
+  //NOTE: 모든 다이얼로그를 닫고 싶다면 order:0으로 호출
   function hideDialog({ order }: { order: number }) {
     const newContent = [...dialog.content];
 
@@ -74,7 +75,7 @@ export function useHandleDialog() {
     };
     setDialog(() => newModal);
     // console.log("target index : ", order + 1, newModal.content.length);
-    setModalIndex(newModal.content.length);
+    setModalIndex(newModal.content.length - 1);
     setEmailList([]);
   }
 

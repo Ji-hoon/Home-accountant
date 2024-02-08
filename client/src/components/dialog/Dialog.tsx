@@ -33,7 +33,7 @@ export default function Dialog() {
       const modalContainer =
         dialogRef.current.getElementsByClassName("modal-container");
       const lastFormRef =
-        modalContainer[contentLength - 1].getElementsByTagName("form")[0];
+        modalContainer[modalIndex].getElementsByTagName("form")[0];
       const currentFormData = getDialogFormData(lastFormRef);
       console.log("submit!", modalIndex, currentFormData);
 
@@ -60,7 +60,7 @@ export default function Dialog() {
       }
 
       const result = await submitDialog({
-        action: dialog.content[modalIndex - 1].title,
+        action: dialog.content[modalIndex].title,
         data: currentFormData,
       });
       if (result?.status === 201 || result?.status === 200)
@@ -114,7 +114,7 @@ export default function Dialog() {
                   </Button_Boxtype>
                   <Button_Boxtype
                     onClick={() => {
-                      setModalIndex(modalIndex);
+                      setModalIndex(index);
                       //console.log(dialogFormRef.current);
                     }}
                     type={TYPES.SUBMIT}
