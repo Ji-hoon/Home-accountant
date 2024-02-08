@@ -7,7 +7,7 @@ import categoriesService from "./categories.service.js";
 const categoriesController = {
   addCategory: asyncHandler(async (req: express.Request, res: Response) => {
     const { name, groupId, type } = req.body;
-    if (!name || !groupId || !type) {
+    if (!name || !groupId) {
       throw new CustomError({
         status: 400,
         message: "요청 항목이 다릅니다.",
@@ -60,14 +60,16 @@ const categoriesController = {
     async (req: express.Request, res: Response) => {
       const { groupId } = req.query;
 
-      if (!groupId) {
-        throw new CustomError({
-          status: 400,
-          message: "조회할 그룹 id가 없습니다.",
-        });
-      }
+      // if (!groupId) {
+      //   throw new CustomError({
+      //     status: 400,
+      //     message: "조회할 그룹 id가 없습니다.",
+      //   });
+      // }
 
-      const result = await categoriesService.getGroupCategory({ groupId });
+      const result = await categoriesService.getGroupCategory({
+        groupId: groupId ? groupId : "",
+      });
 
       if (result.length === 0) {
         throw new CustomError({

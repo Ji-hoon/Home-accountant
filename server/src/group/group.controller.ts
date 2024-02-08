@@ -39,7 +39,7 @@ const groupController = {
       });
     }
 
-    res.status(201).json({
+    res.status(200).json({
       message: "그룹 조회에 성공했습니다.",
       groupInfo,
     });
@@ -56,7 +56,7 @@ const groupController = {
       });
     }
 
-    res.status(201).json({
+    res.status(200).json({
       message: "그룹 조회에 성공했습니다.",
       groupInfo,
     });

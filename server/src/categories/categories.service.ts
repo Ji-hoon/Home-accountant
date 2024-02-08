@@ -39,9 +39,12 @@ const categoriesService = {
   }: {
     groupId: string | string[] | ParsedQs | ParsedQs[];
   }) {
-    return await CategoryModel.find({
-      groupId: groupId as string,
-    });
+    const target = groupId
+      ? {
+          groupId,
+        }
+      : {};
+    return await CategoryModel.find(target);
   },
 };
 
