@@ -59,3 +59,8 @@ export const prevPathAtom = atom({
   key: "prevPath",
   default: "",
 });
+
+export const modalIndexAtom = atom({
+  key: "modalIndex",
+  default: 0,
+});

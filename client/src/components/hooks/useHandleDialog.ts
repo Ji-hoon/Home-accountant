@@ -4,6 +4,7 @@ import {
   currentDialogAtom,
   dateUnitAtom,
   emailListAtom,
+  modalIndexAtom,
 } from "../../atoms/globalAtoms";
 import {
   ExpenseType,
@@ -26,6 +27,7 @@ export function useHandleDialog() {
   //const currentUser = useRecoilValue(currentUserAtom);
   const currentUser = localStorage.getItem("currentUser");
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
+  const [modalIndex, setModalIndex] = useRecoilState(modalIndexAtom);
 
   //console.log("dialog: ",currentDate);
   const { addExpense, updateExpense, deleteExpense } = useExpenses({
@@ -53,18 +55,26 @@ export function useHandleDialog() {
   }) {
     const newModal = {
       isOpen: true,
-      content: [...dialog.content, { type, title, layout }],
+      content:
+        modalIndex > 0
+          ? [...dialog.content, { type, title, layout }]
+          : [{ type, title, layout }],
     };
     setDialog(newModal);
+    // console.log("current index : ", newModal.content.length);
+    setModalIndex(newModal.content.length);
   }
 
   function hideDialog({ order }: { order: number }) {
     const newContent = [...dialog.content];
+
     const newModal = {
-      isOpen: !dialog.isOpen,
-      content: newContent.splice(order, 0),
+      isOpen: order !== 0 ? true : false,
+      content: order !== 0 ? newContent.splice(order - 1, 1) : [],
     };
-    setDialog(newModal);
+    setDialog(() => newModal);
+    // console.log("target index : ", order + 1, newModal.content.length);
+    setModalIndex(newModal.content.length);
     setEmailList([]);
   }
 

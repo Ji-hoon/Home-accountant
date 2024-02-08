@@ -125,6 +125,7 @@ export const LABELS = {
   LABEL_DELETE: "삭제",
   LABEL_DELETE_ALL: "일괄 삭제",
   LABEL_ADD_EXPENSE: "지출 내역 추가",
+  LABEL_ADD_EXPENSE_CATRGORY: "새 카테고리 추가",
   LABEL_ADD_ASSET: "자산 항목 추가",
   LABEL_EDIT_ASSET: "자산 정보 수정",
   LABEL_EDIT_EXPENSE: "지출 내역 수정",

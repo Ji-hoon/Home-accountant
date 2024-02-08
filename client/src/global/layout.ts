@@ -310,3 +310,12 @@ export const InviteMemberLayout = (code: string): FormListLayoutType[] => {
     },
   ];
 };
+
+export const addExpenseCategoryLayout = [
+  {
+    title: "카테고리명",
+    fieldName: "newCategory",
+    type: "text",
+    placeholder: "카테고리명을 입력해주세요.",
+  },
+];

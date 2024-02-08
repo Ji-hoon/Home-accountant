@@ -16,6 +16,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useDropdown } from "../hooks/useDropdown";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
+import { useExpenseCategory } from "../hooks/useExpenseCategory";
 
 export default function Textfield({
   title,
@@ -46,6 +47,8 @@ export default function Textfield({
     dropdownId: selectedDay ? format(selectedDay, "yyyy_MM_dd") : "",
   });
 
+  const { addCategory } = useExpenseCategory();
+
   const handleDayClick: DayClickEventHandler = (day) => {
     setSelectedDay(day);
     //setCalendarOpen(!calendarOpen);
@@ -72,6 +75,11 @@ export default function Textfield({
           <CopyToClipboard text={defaultValue} onCopy={handleLinkCopy}>
             <a href="#">{LABELS.LABEL_COPY_INVITE_LINK}</a>
           </CopyToClipboard>
+        )}
+        {fieldName === "category" && (
+          <a href="#" onClick={addCategory}>
+            {LABELS.LABEL_ADD_EXPENSE_CATRGORY}
+          </a>
         )}
       </label>
       {(type === "text" || type === "number" || type === "email") && (
