@@ -5,7 +5,7 @@ import Button_Boxtype from "../basic/Button.boxType";
 import { useDropdownProfile } from "./Dropdown.Profile.hooks";
 import { currentUserAtom, dropdownOpenAtom } from "../../atoms/globalAtoms";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import ApiBoundary from "../../global/ApiBoundary";
+import ApiBoundary from "../common/ApiBoundary";
 import { format } from "date-fns";
 import {
   groupListInfoType,
