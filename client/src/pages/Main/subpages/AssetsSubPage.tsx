@@ -27,7 +27,7 @@ export default function Assets_SubPage() {
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
   const currentUser = useRecoilValue(currentUserAtom);
-  const { members, assetTypes } = useGroups(currentUser.currentGroup);
+  const { assetTypes } = useGroups(currentUser.currentGroup);
 
   useEffect(() => {
     if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
@@ -77,7 +77,6 @@ export default function Assets_SubPage() {
               type: TYPES.MODAL_DOUBLE_COL,
               title: LABELS.LABEL_ADD_ASSET,
               layout: CreateAssetLayout({
-                members: covertToStringArray(members, "nickname"),
                 assetTypes: covertToStringArray(assetTypes, "assetType"),
               }) as FormListLayoutType[],
             })

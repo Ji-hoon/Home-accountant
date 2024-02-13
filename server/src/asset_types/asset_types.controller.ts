@@ -50,14 +50,16 @@ const assetTypesController = {
     async (req: express.Request, res: Response) => {
       const { groupId } = req.query;
 
-      if (!groupId) {
-        throw new CustomError({
-          status: 400,
-          message: "조회할 그룹 id가 없습니다.",
-        });
-      }
+      // if (!groupId) {
+      //   throw new CustomError({
+      //     status: 400,
+      //     message: "조회할 그룹 id가 없습니다.",
+      //   });
+      // }
 
-      const result = await assetTypeService.getGroupAssetType({ groupId });
+      const result = await assetTypeService.getGroupAssetType({
+        groupId: groupId ? groupId : "",
+      });
 
       if (result.length === 0) {
         throw new CustomError({
@@ -67,7 +69,7 @@ const assetTypesController = {
       }
       res.status(200).json({
         message: "자산 타입 조회에 성공했습니다.",
-        category: result,
+        assetType: result,
       });
     },
   ),
