@@ -9,11 +9,7 @@ import "react-day-picker/dist/style.css";
 import { useState, useEffect } from "react";
 import { useEmailInput } from "../hooks/useEmailInput";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  emailListAtom,
-  currentUserAtom,
-  modalIndexAtom,
-} from "../../atoms/globalAtoms";
+import { emailListAtom, modalIndexAtom } from "../../atoms/globalAtoms";
 import { FiX } from "react-icons/fi";
 import Button_Icontype from "./Button.iconType";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -22,6 +18,7 @@ import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
 import { useHandleDialog } from "../hooks/useHandleDialog";
 import { addExpenseCategoryLayout } from "../../global/layout";
+import Selectbox from "./Selectbox";
 
 export default function Textfield({
   title,
@@ -39,7 +36,6 @@ export default function Textfield({
   const { register } = useForm<InputFormType>();
   const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
   const emailList = useRecoilValue(emailListAtom);
-  const currentUser = useRecoilValue(currentUserAtom);
 
   const {
     targetRef,
@@ -132,44 +128,13 @@ export default function Textfield({
         </p>
       )}
       {type === "selectbox" && (
-        <select
-          {...register(fieldName, { required: true })}
-          defaultValue={
-            placeholder !== ""
-              ? placeholder
-              : options
-                  ?.map((option) => {
-                    if (option.split("_")[0] === defaultValue) {
-                      return option.split("_")[1];
-                    }
-                  })
-                  .find((value) => value)
-          }
-          disabled={readonly}
-        >
-          {placeholder !== "" && (
-            <option disabled value={placeholder}>
-              {placeholder}
-            </option>
-          )}
-          {options &&
-            options.length > 0 &&
-            options.map((item, index) => (
-              <option
-                key={index}
-                value={item.split("_")[1]}
-                disabled={
-                  currentUser.currentRole !== TYPES.OWNER &&
-                  fieldName === "owner" &&
-                  currentUser.nickname !== item.split("_")[0]
-                    ? true
-                    : false
-                }
-              >
-                {item.split("_")[0]}
-              </option>
-            ))}
-        </select>
+        <Selectbox
+          fieldName={fieldName}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          options={options}
+          readonly={readonly}
+        />
       )}
       {type === "date" && (
         <input
@@ -201,7 +166,7 @@ export default function Textfield({
   );
 }
 
-const TextFieldLayout = styled.div<{
+export const TextFieldLayout = styled.div<{
   hidden: boolean | undefined;
 }>`
   display: flex;
