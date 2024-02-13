@@ -34,9 +34,12 @@ const assetTypeService = {
   }: {
     groupId: string | string[] | ParsedQs | ParsedQs[];
   }) {
-    return await AssetTypeModel.find({
-      groupId: groupId as string,
-    });
+    const target = groupId
+      ? {
+          groupId,
+        }
+      : {};
+    return await AssetTypeModel.find(target);
   },
 };
 

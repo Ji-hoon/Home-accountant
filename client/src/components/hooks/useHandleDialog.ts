@@ -19,6 +19,7 @@ import { format, parse } from "date-fns";
 import { useAssets } from "../../pages/Main/subpages/Assets/Assets.hooks";
 import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
 import { useExpenseCategory } from "./useExpenseCategory";
+import { useAssetType } from "./useAssetType";
 
 export function useHandleDialog() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -46,6 +47,7 @@ export function useHandleDialog() {
   const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
 
   const { addExpenseCategory } = useExpenseCategory();
+  const { addAssetType } = useAssetType();
 
   function showDialog({
     type,
@@ -174,6 +176,14 @@ export function useHandleDialog() {
       const result = await addExpenseCategory({
         groupId: currentGroupId,
         category: data.newCategory,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_ADD_ASSET_TYPE) {
+      const result = await addAssetType({
+        groupId: currentGroupId,
+        assetType: data.newAssetType,
       });
       if (result) return result;
     }

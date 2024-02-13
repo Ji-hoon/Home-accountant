@@ -4,6 +4,7 @@ import {
   InputFormType,
   categoryType,
   memberType,
+  AssetTypeType,
 } from "../../global/customType";
 import { TYPES } from "../../global/constants";
 import { currentUserAtom } from "../../atoms/globalAtoms";
@@ -11,8 +12,21 @@ import { useRecoilValue } from "recoil";
 import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
 import { useExpenseCategory } from "../hooks/useExpenseCategory";
 import { covertToStringArray } from "../../util/handleCovertArray";
+import { useAssetType } from "../hooks/useAssetType";
+import ApiBoundary from "../common/ApiBoundary";
 
-export default function Selectbox({
+// eslint-disable-next-line react-refresh/only-export-components
+export default function Selectbox(
+  props: Omit<FormListLayoutType, "title" | "type" | "defaultDate" | "hidden">,
+) {
+  return (
+    <ApiBoundary>
+      <ApiComponent {...props} />
+    </ApiBoundary>
+  );
+}
+
+export function ApiComponent({
   fieldName,
   placeholder,
   defaultValue,
@@ -24,12 +38,18 @@ export default function Selectbox({
   const { register } = useForm<InputFormType>();
   const { members } = useGroups(currentUser.currentGroup);
   const { categories } = useExpenseCategory();
+  const { assetTypes } = useAssetType();
 
   let optionLists = options;
   if (fieldName === "category")
     optionLists = covertToStringArray(categories as categoryType[], "name");
   else if (fieldName === "owner")
     optionLists = covertToStringArray(members as memberType[], "nickname");
+  else if (fieldName === "assetType")
+    optionLists = covertToStringArray(
+      assetTypes as AssetTypeType[],
+      "assetType",
+    );
 
   return (
     <select

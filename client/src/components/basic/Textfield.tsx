@@ -17,7 +17,10 @@ import { useDropdown } from "../hooks/useDropdown";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
 import { useHandleDialog } from "../hooks/useHandleDialog";
-import { addExpenseCategoryLayout } from "../../global/layout";
+import {
+  addExpenseCategoryLayout,
+  addAssetTypeLayout,
+} from "../../global/layout";
 import Selectbox from "./Selectbox";
 
 export default function Textfield({
@@ -96,6 +99,26 @@ export default function Textfield({
             }}
           >
             {LABELS.LABEL_ADD_EXPENSE_CATRGORY}
+          </a>
+        )}
+        {fieldName === "assetType" && (
+          <a
+            href="#"
+            onClick={() => {
+              if (modalIndex >= 0) {
+                const newIndex = modalIndex + 1;
+                setModalIndex(newIndex);
+                console.log(newIndex);
+              }
+
+              showDialog({
+                type: TYPES.MODAL_SINGLE_COL,
+                title: LABELS.LABEL_ADD_ASSET_TYPE,
+                layout: addAssetTypeLayout as FormListLayoutType[],
+              });
+            }}
+          >
+            {LABELS.LABEL_ADD_ASSET_TYPE}
           </a>
         )}
       </label>
