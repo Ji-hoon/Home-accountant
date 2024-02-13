@@ -21,4 +21,5 @@ export const queryKeys = {
   currentGroup: "GROUP",
   currentUser: "USER",
   invitation: "INVITATION",
+  expenseCategory: "EXPENSE_CATEGORY",
 };

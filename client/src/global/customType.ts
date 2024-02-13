@@ -59,6 +59,7 @@ export type InputFormType = {
   assets_date?: string | undefined;
   expense_id?: string | undefined;
   email?: string | undefined;
+  newCategory?: string | undefined;
 };
 
 export type ExpenseType = {
