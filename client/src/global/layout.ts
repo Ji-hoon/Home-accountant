@@ -15,7 +15,6 @@ export const CreateExpenseLayout = [
     type: "selectbox",
     placeholder: "카테고리를 선택해주세요..",
     defaultValue: "",
-    //options: categories,
   },
   {
     title: "상호명",
@@ -29,7 +28,6 @@ export const CreateExpenseLayout = [
     type: "selectbox",
     placeholder: "멤버를 선택해주세요..",
     defaultValue: "",
-    //options: members, // TODO: 닉네임을 사용, 추후 userId(ObjectId)로 변경 고려
   },
   {
     title: "지출 날짜",
@@ -47,13 +45,7 @@ export const CreateExpenseLayout = [
   },
 ];
 
-export const CreateAssetLayout = ({
-  assetTypes,
-  members,
-}: {
-  assetTypes: string[];
-  members: string[];
-}) => {
+export const CreateAssetLayout = ({ assetTypes }: { assetTypes: string[] }) => {
   return [
     {
       title: "자산 금액 (원)",
@@ -81,7 +73,6 @@ export const CreateAssetLayout = ({
       type: "selectbox",
       placeholder: "멤버를 선택해주세요..",
       defaultValue: "",
-      options: members, //TODO: API 받아온걸로 적용되면 삭제 ["훈", "밀크티"],
     },
   ];
 };
@@ -177,14 +168,10 @@ export const EditAssetLayout = ({
 
 export const EditExpenseLayout = ({
   item,
-  categories,
-  members,
 }: {
   item: ExpenseType & {
     _id: string;
   };
-  categories: string[];
-  members: string[];
 }) => {
   return [
     {
@@ -200,7 +187,6 @@ export const EditExpenseLayout = ({
       type: "selectbox",
       placeholder: "",
       defaultValue: item.category,
-      options: categories,
     },
     {
       title: "상호명",
@@ -215,7 +201,6 @@ export const EditExpenseLayout = ({
       type: "selectbox",
       placeholder: "",
       defaultValue: item.owner,
-      options: members, // TODO: 닉네임을 사용, 추후 userId(ObjectId)로 변경 고려
     },
     {
       title: "지출 날짜",
@@ -309,5 +294,14 @@ export const addExpenseCategoryLayout = [
     fieldName: "newCategory",
     type: "text",
     placeholder: "카테고리명을 입력해주세요.",
+  },
+];
+
+export const addAssetTypeLayout = [
+  {
+    title: "자산 타입",
+    fieldName: "newAssetType",
+    type: "text",
+    placeholder: "자산 타입을 입력해주세요.",
   },
 ];

@@ -18,6 +18,7 @@ export const queryKeys = {
   expense: "EXPENSE",
   expenseAmounts: "EXPENSE_AMOUNTS",
   assetAmounts: "ASSET_AMOUNTS",
+  assetTypes: "ASSET_TYPES",
   currentGroup: "GROUP",
   currentUser: "USER",
   invitation: "INVITATION",
