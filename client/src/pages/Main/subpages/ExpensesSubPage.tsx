@@ -22,7 +22,6 @@ import ListActionBar from "../../../components/compound/ListActionBar";
 export default function Expenses_SubPage() {
   const currentDate = useRecoilValue(currentDateAtom);
   const location = useLocation();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentOwner, setCurrentOwner] = useState("");
   const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const { showDialog } = useHandleDialog();
@@ -41,6 +40,7 @@ export default function Expenses_SubPage() {
     }
     //console.log(dateUnit);
     setSelectedExpenseId([]);
+    setCurrentOwner("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, dateUnit]);
 
