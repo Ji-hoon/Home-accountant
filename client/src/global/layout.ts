@@ -2,58 +2,50 @@ import { ChartData } from "../pages/Main/subpages/Assets/Chart/Assets.Chart.hook
 import { VALUES } from "./constants";
 import { ExpenseType, FormListLayoutType, groupInfoType } from "./customType";
 
-export const CreateExpenseLayout = ({
-  categories,
-  members,
-}: {
-  categories: string[];
-  members: string[];
-}) => {
-  return [
-    {
-      title: "지출 금액 (원)",
-      fieldName: "amounts",
-      type: "number",
-      placeholder: "숫자만 입력해주세요.",
-    },
-    {
-      title: "카테고리",
-      fieldName: "category",
-      type: "selectbox",
-      placeholder: "카테고리를 선택해주세요..",
-      defaultValue: "",
-      options: categories,
-    },
-    {
-      title: "상호명",
-      fieldName: "businessName",
-      type: "text",
-      placeholder: "상호명을 입력해주세요.",
-    },
-    {
-      title: "멤버",
-      fieldName: "owner",
-      type: "selectbox",
-      placeholder: "멤버를 선택해주세요..",
-      defaultValue: "",
-      options: members, // TODO: 닉네임을 사용, 추후 userId(ObjectId)로 변경 고려
-    },
-    {
-      title: "지출 날짜",
-      fieldName: "date",
-      type: "date",
-      placeholder: "지출 날짜를 입력해주세요.",
-    },
-    {
-      title: "정기 지출 여부",
-      fieldName: "isRecurring",
-      type: "selectbox",
-      placeholder: "",
-      defaultValue: "일시불",
-      options: ["일시불"], //TODO: 추후 구현 ["할부", "정기 결제"],
-    },
-  ];
-};
+export const CreateExpenseLayout = [
+  {
+    title: "지출 금액 (원)",
+    fieldName: "amounts",
+    type: "number",
+    placeholder: "숫자만 입력해주세요.",
+  },
+  {
+    title: "카테고리",
+    fieldName: "category",
+    type: "selectbox",
+    placeholder: "카테고리를 선택해주세요..",
+    defaultValue: "",
+    //options: categories,
+  },
+  {
+    title: "상호명",
+    fieldName: "businessName",
+    type: "text",
+    placeholder: "상호명을 입력해주세요.",
+  },
+  {
+    title: "멤버",
+    fieldName: "owner",
+    type: "selectbox",
+    placeholder: "멤버를 선택해주세요..",
+    defaultValue: "",
+    //options: members, // TODO: 닉네임을 사용, 추후 userId(ObjectId)로 변경 고려
+  },
+  {
+    title: "지출 날짜",
+    fieldName: "date",
+    type: "date",
+    placeholder: "지출 날짜를 입력해주세요.",
+  },
+  {
+    title: "정기 지출 여부",
+    fieldName: "isRecurring",
+    type: "selectbox",
+    placeholder: "",
+    defaultValue: "일시불",
+    options: ["일시불"], //TODO: 추후 구현 ["할부", "정기 결제"],
+  },
+];
 
 export const CreateAssetLayout = ({
   assetTypes,
