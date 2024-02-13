@@ -68,7 +68,7 @@ export default function Dialog() {
     }
   }
 
-  console.log("rerendered");
+  console.log(dialog.content);
 
   return (
     <DialogPortal>

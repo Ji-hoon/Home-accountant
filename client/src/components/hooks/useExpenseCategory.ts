@@ -19,7 +19,7 @@ export function useExpenseCategory() {
 
   const { data, refetch } = results;
   const categories = data?.data.category as unknown as categoryType[];
-  console.log(categories);
+  // console.log(categories);
 
   const addExpenseCategory = useMutation({
     mutationFn: expenseCategoryAPI.addCategory,
