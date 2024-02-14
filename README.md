@@ -10,6 +10,9 @@
 ## 서비스 링크
 - [링크](http://35.231.16.39)
 
+## 릴리즈 노트
+- [링크](https://github.com/Ji-hoon/Home-accountant/wiki/Release-Note)
+
 ## 디자인
 
 - [피그마 링크](https://www.figma.com/file/YlqmZ5JlnnyksInDIHRTHJ/HomeAccountBook_mockup?type=design&node-id=0%3A1&mode=design&t=gw0H9wPStNi7CLhV-1)
@@ -34,6 +37,5 @@
 8. **react-helmet**을 활용하여 페이지별 open graph 정보 적용
 9. **react portal**을 활용하여 app 바깥 영역에 호출하여 재사용할 수 있는 dropdown, modal UI 구현
 10. (진행중)
-
 
 **Have fun building!** 🚀
