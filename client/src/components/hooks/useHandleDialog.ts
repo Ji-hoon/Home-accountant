@@ -201,9 +201,11 @@ export function useHandleDialog() {
         ) {
           if (element.name) {
             const currentValue = element.value;
-            data[element.name] = currentValue.includes("..")
-              ? ""
-              : currentValue;
+            data[element.name] =
+              element instanceof HTMLSelectElement &&
+              currentValue.includes("..")
+                ? ""
+                : currentValue;
           }
         }
         return data;

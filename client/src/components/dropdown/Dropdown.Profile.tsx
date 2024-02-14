@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LABELS, PATH } from "../../global/constants";
+import { LABELS, VALUES } from "../../global/constants";
 import { MenuGroup_ListType } from "../compound/MenuGroup.listType";
 import Button_Boxtype from "../basic/Button.boxType";
 import { useDropdownProfile } from "./Dropdown.Profile.hooks";
@@ -14,7 +14,6 @@ import {
 } from "../../global/customType";
 import { FiCheck } from "react-icons/fi";
 import { updateCurrentGroup } from "../../util/updateLocalStorage";
-import { useNavigate } from "react-router";
 import { DropdownUIContainerStyle } from "./Dropdown";
 import toast from "react-hot-toast";
 
@@ -28,7 +27,6 @@ export default function Dropdown_Profile(props: DropdownProps) {
 }
 
 export function ApiComponent({ data }: DropdownProps) {
-  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const setShowDropdown = useSetRecoilState(dropdownOpenAtom);
   const { result, logout } = useDropdownProfile(currentUser.userId);
@@ -68,7 +66,10 @@ export function ApiComponent({ data }: DropdownProps) {
                       );
                       setCurrentUser(() => newUserInfo);
                       setShowDropdown("");
-                      navigate(PATH.MAIN_EXPENSES);
+
+                      setTimeout(() => {
+                        location.href = import.meta.env.VITE_FRONTEND_URL;
+                      }, VALUES.TIMEOUT_DELAY_TIME);
                     }}
                   >
                     <p>

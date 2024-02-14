@@ -169,7 +169,7 @@ export const LABELS = {
   MESSAGE_NO_NOTIFICATIONS: "알림이 없습니다.",
   MESSAGE_LINK_COPIED: "초대 링크를 복사했습니다.",
   MESSAGE_LOGOUT: "성공적으로 로그아웃되었습니다.",
-  MESSAGE_GROUP_CHANGED: "그룹으로 이동했습니다.",
+  MESSAGE_GROUP_CHANGED: "그룹으로 이동합니다.",
   MESSAGE_LOGIN_SUCCESS: "반가워요!",
   DESC_DELETE_EXPENSE: "지출내역을 삭제할까요?",
   ROLE_OWNER: "그룹 관리자",
