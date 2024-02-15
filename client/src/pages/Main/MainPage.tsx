@@ -10,7 +10,7 @@ import Group_SubPage from "./subpages/GroupSubPage";
 export default function MainPage() {
   const location = useLocation();
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
-
+  console.log("main");
   return (
     <>
       {location.pathname == PATH.MAIN_EXPENSES && (

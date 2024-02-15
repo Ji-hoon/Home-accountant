@@ -6,33 +6,26 @@ import { useExpenses } from "./Expenses.hooks";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 import { EditExpenseLayout } from "../../../../global/layout";
 import { ExpenseType, FormListLayoutType } from "../../../../global/customType";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import {
-  currentUserAtom,
+  currentOwnerAtom,
   dateUnitAtom,
   selectedExpenseIdAtom,
-  currentOwnerAtom,
-  currentDateAtom,
 } from "../../../../atoms/globalAtoms";
 import Skeleton_ExpenseListItem from "../../../../components/skeleton/Skeleton.expenseListItem";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 
 export default function Expenses_List() {
+  console.log("list");
   const location = useLocation();
-  const [currentOwner, setCurrentOwner] = useRecoilState(currentOwnerAtom);
-  const currentUser = useRecoilValue(currentUserAtom);
-  const currentDate = useRecoilValue(currentDateAtom);
+
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
-  const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
+  const setDateUnit = useSetRecoilState(dateUnitAtom);
+  const setCurrentOwner = useSetRecoilState(currentOwnerAtom);
 
   const { pages, setTarget, hasNextPage, fetchStatus, isFetchingNextPage } =
-    useExpenses({
-      owner: currentOwner,
-      currentGroupId: currentUser.currentGroup,
-      currentDate: currentDate,
-      unit: dateUnit,
-    });
+    useExpenses();
   const expenseList = pages.flatMap((page) => page.expenses);
 
   const { showDialog } = useHandleDialog();

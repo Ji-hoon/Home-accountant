@@ -6,6 +6,7 @@ import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 import Input_Checkbox from "../basic/Input.checkbox";
 import { useHandleDialog } from "../hooks/useHandleDialog";
 import { popupLayoutType } from "../../global/customType";
+import { useCallback } from "react";
 
 export default function ListActionBar() {
   const [selectedExpenseId, setSelectedExpenseId] = useRecoilState(
@@ -13,6 +14,8 @@ export default function ListActionBar() {
   );
 
   const { showDialog } = useHandleDialog();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const showDialogCallback = useCallback(showDialog, []);
 
   function handleUncheckClick() {
     setSelectedExpenseId([]);
@@ -20,7 +23,7 @@ export default function ListActionBar() {
 
   function handleDeleteClick() {
     console.log(selectedExpenseId);
-    showDialog({
+    showDialogCallback({
       type: TYPES.POPUP, //삭제는 POPUP
       title: LABELS.LABEL_DELETE_EXPENSE,
       layout: {

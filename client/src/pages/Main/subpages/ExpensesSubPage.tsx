@@ -15,14 +15,10 @@ import ListActionBar from "../../../components/compound/ListActionBar";
 
 export default function Expenses_SubPage() {
   const { showDialog } = useHandleDialog();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const showDialogCallback = useCallback(showDialog, []);
 
-  const memoizedShowDialog = useCallback(() => {
-    showDialog({
-      type: TYPES.MODAL_DOUBLE_COL,
-      title: LABELS.LABEL_ADD_EXPENSE,
-      layout: CreateExpenseLayout as FormListLayoutType[],
-    });
-  }, [showDialog]);
+  console.log("subpage");
 
   return (
     <>
@@ -49,7 +45,15 @@ export default function Expenses_SubPage() {
       </div>
       <div className="list-container">
         <ListHeader $type={TYPES.EXPENSES} />
-        <Button_Floatingtype onClick={() => memoizedShowDialog()} />
+        <Button_Floatingtype
+          onClick={() => {
+            showDialogCallback({
+              type: TYPES.MODAL_DOUBLE_COL,
+              title: LABELS.LABEL_ADD_EXPENSE,
+              layout: CreateExpenseLayout as FormListLayoutType[],
+            });
+          }}
+        />
         <ListActionBar />
         <ExpenseList />
       </div>

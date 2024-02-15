@@ -10,7 +10,7 @@ import { categoryType } from "../../global/customType";
 
 export function useExpenseCategory() {
   const currentUser = useRecoilValue(currentUserAtom);
-  // const [dialog, setDialog] = useRecoilState(currentDialogAtom);
+
   const results = useSuspenseQuery({
     queryKey: [queryKeys.expenseCategory],
     queryFn: () =>

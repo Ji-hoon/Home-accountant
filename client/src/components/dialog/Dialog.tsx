@@ -6,6 +6,8 @@ import {
   emailListAtom,
   selectedExpenseIdAtom,
   modalIndexAtom,
+  currentDateAtom,
+  dateUnitAtom,
 } from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
 import { useHandleDialog } from "../hooks/useHandleDialog";
@@ -15,12 +17,39 @@ import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { InputFormType } from "../../global/customType";
+import {
+  InputFormType,
+  ExpenseType,
+  AssetType,
+  AssetUpdateType,
+} from "../../global/customType";
+import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
+import { useAssets } from "../../pages/Main/subpages/Assets/Assets.hooks";
+import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
+import { useExpenseCategory } from "../hooks/useExpenseCategory";
+import { useAssetType } from "../hooks/useAssetType";
+import { format, parse } from "date-fns";
 
 export default function Dialog() {
+  const currentDate = useRecoilValue(currentDateAtom);
+  const dateUnit = useRecoilValue(dateUnitAtom);
+  const currentUser = localStorage.getItem("currentUser");
+  const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
+
+  const { addExpense, updateExpense, deleteExpense } = useExpenses();
+  const { addAsset, updateAsset } = useAssets({
+    owner: "",
+    currentDate,
+    unit: dateUnit,
+    currentGroupId,
+  });
+  const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
+  const { addExpenseCategory } = useExpenseCategory();
+  const { addAssetType } = useAssetType();
+
   const dialog = useRecoilValue(currentDialogAtom);
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
-  const { hideDialog, getDialogFormData, submitDialog } = useHandleDialog();
+  const { hideDialog, getDialogFormData } = useHandleDialog();
   const dialogRef = useRef<HTMLDivElement>(null);
   const emailList = useRecoilValue(emailListAtom);
 
@@ -65,6 +94,107 @@ export default function Dialog() {
       });
       if (result?.status === 201 || result?.status === 200)
         hideDialog({ order: modalIndex });
+    }
+  }
+
+  async function submitDialog({
+    action,
+    data,
+  }: {
+    action: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: ExpenseType | AssetType | AssetUpdateType | any; //TODO: submit으로 들어오는 타입들 추가하기
+  }) {
+    console.log({ action, data });
+    if (action === LABELS.LABEL_ADD_EXPENSE) {
+      const result = await addExpense({
+        amounts: data.amounts,
+        category: data.category,
+        businessName: data.businessName,
+        owner: data.owner,
+        currentGroupId,
+        date: parse(data.date, "yyyy-MM-dd", new Date()),
+        isRecurring: data.isRecurring,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_ADD_ASSET) {
+      const result = await addAsset({
+        amounts: data.amounts,
+        name: data.name,
+        owner: data.owner,
+        currentGroupId,
+        assetType: data.assetType,
+        assetHistory: {
+          date: format(new Date(), "yyyy-MM-dd"),
+          amounts: data.amounts,
+        },
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_EDIT_ASSET) {
+      const result = await updateAsset({
+        amounts: data.amounts,
+        name: data.name,
+        owner: data.owner,
+        assetType: data.assetType,
+        assetId: data.assets_id,
+        assetDate: data.assets_date,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_EDIT_EXPENSE) {
+      const result = await updateExpense({
+        expenseId: data.expense_id,
+        amounts: data.amounts,
+        category: data.category,
+        businessName: data.businessName,
+        owner: data.owner,
+        date: parse(data.date, "yyyy-MM-dd", new Date()),
+        isRecurring: data.isRecurring,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_DELETE_EXPENSE) {
+      const result = await deleteExpense();
+      console.log(result);
+      if (result.length > 0) return result[0];
+    }
+
+    if (action === LABELS.LABEL_UPDATE_GROUP_INFO) {
+      const result = await updateGroup({
+        id: currentGroupId,
+        name: data.groupName,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_INVITE_MEMBER) {
+      const result = await inviteMemberToGroup({
+        groupId: currentGroupId,
+        members: data,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_ADD_EXPENSE_CATRGORY) {
+      const result = await addExpenseCategory({
+        groupId: currentGroupId,
+        category: data.newCategory,
+      });
+      if (result) return result;
+    }
+
+    if (action === LABELS.LABEL_ADD_ASSET_TYPE) {
+      const result = await addAssetType({
+        groupId: currentGroupId,
+        assetType: data.newAssetType,
+      });
+      if (result) return result;
     }
   }
 
