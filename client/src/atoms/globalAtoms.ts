@@ -17,6 +17,11 @@ export const currentUserAtom = atom({
   },
 });
 
+export const currentOwnerAtom = atom({
+  key: "currentOwner",
+  default: "",
+});
+
 export const currentDialogAtom = atom<dialogType>({
   key: "currentDialog",
   default: {
