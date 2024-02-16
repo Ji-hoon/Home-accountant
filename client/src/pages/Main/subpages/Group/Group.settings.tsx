@@ -8,6 +8,7 @@ import Button_Boxtype from "../../../../components/basic/Button.boxType";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
+import { useDialogSubmit } from "../../../../components/hooks/useDialogSubmit";
 
 export default function Group_Settings({
   id,
@@ -15,10 +16,10 @@ export default function Group_Settings({
   name,
   members,
 }: groupInfoType) {
-  //console.log(id, code, name, members);
-  const groupFormRef = useRef<HTMLFormElement>(null);
   const { handleSubmit } = useForm<InputFormType>();
-  const { getDialogFormData, submitDialog } = useHandleDialog();
+  const { getDialogFormData } = useHandleDialog();
+  const groupFormRef = useRef<HTMLFormElement>(null);
+  const { submitDialog } = useDialogSubmit();
 
   async function onSubmit() {
     if (groupFormRef.current) {

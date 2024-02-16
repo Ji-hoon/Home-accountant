@@ -1,27 +1,11 @@
 import { useExpenses } from "../Expenses/Expenses.hooks";
-import { useRecoilValue } from "recoil";
-import { currentUserAtom } from "../../../../atoms/globalAtoms";
 import { Loader } from "rsuite";
 import styled from "styled-components";
 import { SIZES, COLORS } from "../../../../global/constants";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export default function Expenses_Amounts({
-  $currentDate,
-  $unit,
-  $owner,
-}: {
-  $currentDate: Date;
-  $unit: string;
-  $owner: string;
-}) {
-  const currentUser = useRecoilValue(currentUserAtom);
-  const { pages, fetchStatus } = useExpenses({
-    owner: $owner,
-    currentGroupId: currentUser.currentGroup,
-    currentDate: $currentDate,
-    unit: $unit,
-  });
+export default function Expenses_Amounts() {
+  const { pages, fetchStatus } = useExpenses();
   const amounts = pages[0]?.amounts;
 
   return (

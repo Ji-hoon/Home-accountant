@@ -12,7 +12,7 @@ import { useLocation } from "react-router";
 import { useDropdown } from "../hooks/useDropdown";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   dateUnitAtom,
   currentOwnerAtom,
@@ -28,8 +28,7 @@ export default function ListHeader({
 }) {
   const currentDate = useRecoilValue(currentDateAtom);
   const $unit = useRecoilValue(dateUnitAtom);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentOwner, setCurrentOwner] = useRecoilState(currentOwnerAtom);
+  const currentOwner = useRecoilValue(currentOwnerAtom);
 
   //console.log("header: ", $currentDate);
   const {
@@ -66,7 +65,8 @@ export default function ListHeader({
       {currentDate !== undefined &&
         $unit !== undefined &&
         $type !== undefined &&
-        currentOwner !== undefined && (
+        currentOwner !== undefined &&
+        ($type === TYPES.ASSETS || $type === TYPES.EXPENSES) && (
           <ListHeaderContainer $type={$type} ref={targetRef}>
             <div className="header-navigation-container">
               <Button_Icontype
@@ -103,11 +103,7 @@ export default function ListHeader({
             </div>
             <div className="header-value-container">
               {location.pathname.includes(PATH.MAIN_EXPENSES) && (
-                <Expenses_Amounts
-                  $currentDate={currentDate}
-                  $unit={$unit}
-                  $owner={currentOwner}
-                />
+                <Expenses_Amounts />
               )}
               {location.pathname.includes(PATH.MAIN_ASSETS) && (
                 <Assets_Amounts

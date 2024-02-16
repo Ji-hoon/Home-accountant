@@ -1,202 +1,25 @@
 import styled from "styled-components";
 import DialogPortal from "./Dialog.Portal";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  currentDialogAtom,
-  emailListAtom,
-  selectedExpenseIdAtom,
-  modalIndexAtom,
-  currentDateAtom,
-  dateUnitAtom,
-} from "../../atoms/globalAtoms";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { currentDialogAtom, modalIndexAtom } from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
 import { useHandleDialog } from "../hooks/useHandleDialog";
 import FormListLayout from "../layout/FormList.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
-import React, { useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  InputFormType,
-  ExpenseType,
-  AssetType,
-  AssetUpdateType,
-} from "../../global/customType";
-import { useExpenses } from "../../pages/Main/subpages/Expenses/Expenses.hooks";
-import { useAssets } from "../../pages/Main/subpages/Assets/Assets.hooks";
-import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
-import { useExpenseCategory } from "../hooks/useExpenseCategory";
-import { useAssetType } from "../hooks/useAssetType";
-import { format, parse } from "date-fns";
+import { InputFormType } from "../../global/customType";
+import { useDialogSubmit } from "../hooks/useDialogSubmit";
 
 export default function Dialog() {
-  const currentDate = useRecoilValue(currentDateAtom);
-  const dateUnit = useRecoilValue(dateUnitAtom);
-  const currentUser = localStorage.getItem("currentUser");
-  const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
-
-  const { addExpense, updateExpense, deleteExpense } = useExpenses();
-  const { addAsset, updateAsset } = useAssets({
-    owner: "",
-    currentDate,
-    unit: dateUnit,
-    currentGroupId,
-  });
-  const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
-  const { addExpenseCategory } = useExpenseCategory();
-  const { addAssetType } = useAssetType();
-
   const dialog = useRecoilValue(currentDialogAtom);
-  const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
-  const { hideDialog, getDialogFormData } = useHandleDialog();
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const emailList = useRecoilValue(emailListAtom);
+  const { hideDialog } = useHandleDialog();
+  const { dialogRef, onSubmit } = useDialogSubmit();
 
   const { handleSubmit } = useForm<InputFormType>();
-  const [modalIndex, setModalIndex] = useRecoilState(modalIndexAtom);
-
-  async function onSubmit() {
-    const contentLength = dialog.content.length;
-    if (dialogRef.current && contentLength > 0) {
-      const modalContainer =
-        dialogRef.current.getElementsByClassName("modal-container");
-      const lastFormRef =
-        modalContainer[modalIndex].getElementsByTagName("form")[0];
-      const currentFormData = getDialogFormData(lastFormRef);
-      console.log("submit!", modalIndex, currentFormData);
-
-      if (selectedExpenseId.length > 0) {
-        const result = await submitDialog({
-          action: dialog.content[modalIndex].title,
-          data: selectedExpenseId,
-        });
-        if (result?.status === 204) {
-          hideDialog({ order: modalIndex });
-        }
-        return;
-      }
-
-      if (emailList.length > 0 || currentFormData.email) {
-        //console.log(emailList);
-        const result = await submitDialog({
-          action: dialog.content[modalIndex].title,
-          data: currentFormData.email ? [currentFormData.email] : emailList,
-        });
-        if (result?.status === 201 || result?.status === 200)
-          hideDialog({ order: modalIndex });
-        return;
-      }
-
-      const result = await submitDialog({
-        action: dialog.content[modalIndex].title,
-        data: currentFormData,
-      });
-      if (result?.status === 201 || result?.status === 200)
-        hideDialog({ order: modalIndex });
-    }
-  }
-
-  async function submitDialog({
-    action,
-    data,
-  }: {
-    action: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: ExpenseType | AssetType | AssetUpdateType | any; //TODO: submit으로 들어오는 타입들 추가하기
-  }) {
-    console.log({ action, data });
-    if (action === LABELS.LABEL_ADD_EXPENSE) {
-      const result = await addExpense({
-        amounts: data.amounts,
-        category: data.category,
-        businessName: data.businessName,
-        owner: data.owner,
-        currentGroupId,
-        date: parse(data.date, "yyyy-MM-dd", new Date()),
-        isRecurring: data.isRecurring,
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_ADD_ASSET) {
-      const result = await addAsset({
-        amounts: data.amounts,
-        name: data.name,
-        owner: data.owner,
-        currentGroupId,
-        assetType: data.assetType,
-        assetHistory: {
-          date: format(new Date(), "yyyy-MM-dd"),
-          amounts: data.amounts,
-        },
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_EDIT_ASSET) {
-      const result = await updateAsset({
-        amounts: data.amounts,
-        name: data.name,
-        owner: data.owner,
-        assetType: data.assetType,
-        assetId: data.assets_id,
-        assetDate: data.assets_date,
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_EDIT_EXPENSE) {
-      const result = await updateExpense({
-        expenseId: data.expense_id,
-        amounts: data.amounts,
-        category: data.category,
-        businessName: data.businessName,
-        owner: data.owner,
-        date: parse(data.date, "yyyy-MM-dd", new Date()),
-        isRecurring: data.isRecurring,
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_DELETE_EXPENSE) {
-      const result = await deleteExpense();
-      console.log(result);
-      if (result.length > 0) return result[0];
-    }
-
-    if (action === LABELS.LABEL_UPDATE_GROUP_INFO) {
-      const result = await updateGroup({
-        id: currentGroupId,
-        name: data.groupName,
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_INVITE_MEMBER) {
-      const result = await inviteMemberToGroup({
-        groupId: currentGroupId,
-        members: data,
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_ADD_EXPENSE_CATRGORY) {
-      const result = await addExpenseCategory({
-        groupId: currentGroupId,
-        category: data.newCategory,
-      });
-      if (result) return result;
-    }
-
-    if (action === LABELS.LABEL_ADD_ASSET_TYPE) {
-      const result = await addAssetType({
-        groupId: currentGroupId,
-        assetType: data.newAssetType,
-      });
-      if (result) return result;
-    }
-  }
+  const setModalIndex = useSetRecoilState(modalIndexAtom);
 
   console.log(dialog.content);
 
