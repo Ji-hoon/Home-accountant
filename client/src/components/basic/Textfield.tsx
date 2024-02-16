@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 import { DayClickEventHandler } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useEmailInput } from "../hooks/useEmailInput";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { emailListAtom, modalIndexAtom } from "../../atoms/globalAtoms";
@@ -23,7 +23,7 @@ import {
 } from "../../global/layout";
 import Selectbox from "./Selectbox";
 
-export default function Textfield({
+function Textfield({
   title,
   fieldName,
   type,
@@ -188,6 +188,9 @@ export default function Textfield({
     </TextFieldLayout>
   );
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(Textfield);
 
 export const TextFieldLayout = styled.div<{
   hidden: boolean | undefined;

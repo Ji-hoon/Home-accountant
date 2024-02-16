@@ -13,10 +13,10 @@ import {
   selectedExpenseIdAtom,
 } from "../../../../atoms/globalAtoms";
 import Skeleton_ExpenseListItem from "../../../../components/skeleton/Skeleton.expenseListItem";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useLocation } from "react-router";
 
-export default function Expenses_List() {
+function Expenses_List() {
   console.log("list");
   const location = useLocation();
 
@@ -92,3 +92,6 @@ export default function Expenses_List() {
     </ul>
   );
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(Expenses_List);

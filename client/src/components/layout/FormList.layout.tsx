@@ -1,9 +1,12 @@
+/* eslint-disable react-refresh/only-export-components */
 import styled from "styled-components";
 import Textfield from "../basic/Textfield";
 import { SIZES } from "../../global/constants";
 import { FormListLayoutType, popupLayoutType } from "../../global/customType";
+import { memo } from "react";
 
-export default function FormListLayout({
+// eslint-disable-next-line react-refresh/only-export-components
+function FormListLayout({
   layout,
   type,
 }: {
@@ -40,6 +43,8 @@ export default function FormListLayout({
     </>
   );
 }
+
+export default memo(FormListLayout);
 
 const DoubleColumnLayoutContainer = styled.div<{
   type: string;
