@@ -1,72 +1,25 @@
 import styled from "styled-components";
 import DialogPortal from "./Dialog.Portal";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  currentDialogAtom,
-  emailListAtom,
-  selectedExpenseIdAtom,
-  modalIndexAtom,
-} from "../../atoms/globalAtoms";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { currentDialogAtom, modalIndexAtom } from "../../atoms/globalAtoms";
 import { COLORS, LABELS, SIZES, TYPES } from "../../global/constants";
 import { useHandleDialog } from "../hooks/useHandleDialog";
 import FormListLayout from "../layout/FormList.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
-import React, { useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { InputFormType } from "../../global/customType";
+import { useDialogSubmit } from "../hooks/useDialogSubmit";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
-  const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
-  const { hideDialog, getDialogFormData, submitDialog } = useHandleDialog();
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const emailList = useRecoilValue(emailListAtom);
+  const { hideDialog } = useHandleDialog();
+  const { dialogRef, onSubmit } = useDialogSubmit();
 
   const { handleSubmit } = useForm<InputFormType>();
-  const [modalIndex, setModalIndex] = useRecoilState(modalIndexAtom);
-
-  async function onSubmit() {
-    const contentLength = dialog.content.length;
-    if (dialogRef.current && contentLength > 0) {
-      const modalContainer =
-        dialogRef.current.getElementsByClassName("modal-container");
-      const lastFormRef =
-        modalContainer[modalIndex].getElementsByTagName("form")[0];
-      const currentFormData = getDialogFormData(lastFormRef);
-      console.log("submit!", modalIndex, currentFormData);
-
-      if (selectedExpenseId.length > 0) {
-        const result = await submitDialog({
-          action: dialog.content[modalIndex].title,
-          data: selectedExpenseId,
-        });
-        if (result?.status === 204) {
-          hideDialog({ order: modalIndex });
-        }
-        return;
-      }
-
-      if (emailList.length > 0 || currentFormData.email) {
-        //console.log(emailList);
-        const result = await submitDialog({
-          action: dialog.content[modalIndex].title,
-          data: currentFormData.email ? [currentFormData.email] : emailList,
-        });
-        if (result?.status === 201 || result?.status === 200)
-          hideDialog({ order: modalIndex });
-        return;
-      }
-
-      const result = await submitDialog({
-        action: dialog.content[modalIndex].title,
-        data: currentFormData,
-      });
-      if (result?.status === 201 || result?.status === 200)
-        hideDialog({ order: modalIndex });
-    }
-  }
+  const setModalIndex = useSetRecoilState(modalIndexAtom);
 
   console.log(dialog.content);
 

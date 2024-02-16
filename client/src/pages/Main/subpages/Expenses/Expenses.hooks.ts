@@ -6,38 +6,39 @@ import { ExpenseType } from "../../../../global/customType";
 import { useIntersectionObserver } from "../../../../components/hooks/useIntersectionObserver";
 import { endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 import { TYPES } from "../../../../global/constants";
-import { useRecoilState } from "recoil";
-import { selectedExpenseIdAtom } from "../../../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  currentDateAtom,
+  dateUnitAtom,
+  selectedExpenseIdAtom,
+  currentOwnerAtom,
+} from "../../../../atoms/globalAtoms";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 
-export function useExpenses({
-  owner,
-  currentDate,
-  unit,
-  currentGroupId,
-}: {
-  owner: string;
-  currentDate: Date;
-  unit: string;
-  currentGroupId: string;
-}) {
+export function useExpenses() {
+  const currentDate = useRecoilValue(currentDateAtom);
+  const dateUnit = useRecoilValue(dateUnitAtom);
+  const currentOwner = useRecoilValue(currentOwnerAtom);
+  const currentUser = localStorage.getItem("currentUser");
+  const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
+
   const [selectedExpenseId, setSelectedExpenseId] = useRecoilState(
     selectedExpenseIdAtom,
   );
   let startDate;
   let endDate;
 
-  if (unit === TYPES.TYPE_UNIT_WEEK) {
+  if (dateUnit === TYPES.TYPE_UNIT_WEEK) {
     startDate = startOfWeek(currentDate, { weekStartsOn: 1 });
     endDate = endOfWeek(currentDate, { weekStartsOn: 1 });
-  } else if (unit === TYPES.TYPE_UNIT_MONTH) {
+  } else if (dateUnit === TYPES.TYPE_UNIT_MONTH) {
     startDate = startOfMonth(currentDate);
     endDate = endOfMonth(currentDate);
   }
 
   const period = [startDate, endDate];
-  //console.log(startDate, endDate);
+  console.log("expense hook");
 
   const limit = 7; // 한 번에 불러올 지출 내역 목록 갯수
 
@@ -45,9 +46,13 @@ export function useExpenses({
     queryKey: [queryKeys.expense],
     queryFn: async ({ pageParam }) => {
       const [amounts, expensesResponse] = await Promise.all([
-        expenseAPI.totalAmounts({ owner, currentGroupId, period }),
+        expenseAPI.totalAmounts({
+          owner: currentOwner,
+          currentGroupId,
+          period,
+        }),
         expenseAPI.get({
-          owner,
+          owner: currentOwner,
           currentGroupId,
           cursor: pageParam as number,
           limit,
@@ -86,7 +91,7 @@ export function useExpenses({
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [owner, currentDate, unit]);
+  }, [currentOwner, currentDate, dateUnit]);
 
   const invalidateExpenseQuery = () => {
     queryClient.invalidateQueries({

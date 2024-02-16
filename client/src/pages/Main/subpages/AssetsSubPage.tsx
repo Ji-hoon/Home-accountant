@@ -65,12 +65,7 @@ export default function Assets_SubPage() {
         </Navigation_ListType>
       </div>
       <div className="list-container">
-        <ListHeader
-          $currentDate={currentDate}
-          $unit={dateUnit}
-          $type={TYPES.ASSETS}
-          $owner={currentOwner}
-        />
+        <ListHeader $type={TYPES.ASSETS} />
         <Button_Floatingtype
           onClick={() =>
             showDialog({

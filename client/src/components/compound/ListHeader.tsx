@@ -12,20 +12,24 @@ import { useLocation } from "react-router";
 import { useDropdown } from "../hooks/useDropdown";
 import Dropdown from "../dropdown/Dropdown";
 import Dropdown_Calendar from "../dropdown/Dropdown.Calendar";
+import { useRecoilValue } from "recoil";
+import {
+  dateUnitAtom,
+  currentOwnerAtom,
+  currentDateAtom,
+} from "../../atoms/globalAtoms";
 
 export default function ListHeader({
-  $currentDate,
-  $unit,
   $type,
-  $owner,
   $member,
 }: {
-  $currentDate?: Date;
-  $unit?: string;
   $type?: string;
-  $owner?: string;
   $member?: number;
 }) {
+  const currentDate = useRecoilValue(currentDateAtom);
+  const $unit = useRecoilValue(dateUnitAtom);
+  const currentOwner = useRecoilValue(currentOwnerAtom);
+
   //console.log("header: ", $currentDate);
   const {
     addYear,
@@ -45,23 +49,24 @@ export default function ListHeader({
     showDropdownUniqueKey,
   } = useDropdown({
     dropdownType: TYPES.DROPDOWN_KEY_CALENDAR_LIST_HEADER,
-    dropdownId: $currentDate ? format($currentDate, "yyyy_MM_dd") : "",
+    dropdownId: currentDate ? format(currentDate, "yyyy_MM_dd") : "",
   });
 
   const location = useLocation();
 
   const startDay = startOfWeek(
-    $currentDate !== undefined ? $currentDate : new Date(),
+    currentDate !== undefined ? currentDate : new Date(),
     { weekStartsOn: 1 },
   );
   const getEndDay = addDays(startDay, 6);
 
   return (
     <>
-      {$currentDate !== undefined &&
+      {currentDate !== undefined &&
         $unit !== undefined &&
         $type !== undefined &&
-        $owner !== undefined && (
+        currentOwner !== undefined &&
+        ($type === TYPES.ASSETS || $type === TYPES.EXPENSES) && (
           <ListHeaderContainer $type={$type} ref={targetRef}>
             <div className="header-navigation-container">
               <Button_Icontype
@@ -81,9 +86,9 @@ export default function ListHeader({
                   {$unit === TYPES.TYPE_UNIT_WEEK &&
                     `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
                   {$unit === TYPES.TYPE_UNIT_MONTH &&
-                    format($currentDate, "yyyy년 M월")}
+                    format(currentDate, "yyyy년 M월")}
                   {$unit === TYPES.TYPE_UNIT_YEAR &&
-                    format($currentDate, "yyyy년")}
+                    format(currentDate, "yyyy년")}
                 </>
               </Button_Boxtype>
               <Button_Icontype
@@ -98,24 +103,20 @@ export default function ListHeader({
             </div>
             <div className="header-value-container">
               {location.pathname.includes(PATH.MAIN_EXPENSES) && (
-                <Expenses_Amounts
-                  $currentDate={$currentDate}
-                  $unit={$unit}
-                  $owner={$owner}
-                />
+                <Expenses_Amounts />
               )}
               {location.pathname.includes(PATH.MAIN_ASSETS) && (
                 <Assets_Amounts
-                  $currentDate={$currentDate}
+                  $currentDate={currentDate}
                   $unit={$unit}
-                  $owner={$owner}
+                  $owner={currentOwner}
                 />
               )}
             </div>
             {showDropdown === showDropdownUniqueKey && (
               <Dropdown>
                 <Dropdown_Calendar
-                  $currentDate={$currentDate}
+                  $currentDate={currentDate}
                   $clickHandler={handleDayClick}
                   data={targetPosition}
                   direction={TYPES.DIRECTION_DOWN}
