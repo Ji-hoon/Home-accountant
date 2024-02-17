@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import styled from "styled-components";
 import DialogPortal from "./Dialog.Portal";
 import { useSetRecoilState, useRecoilValue } from "recoil";
@@ -8,13 +9,13 @@ import FormListLayout from "../layout/FormList.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
-import React from "react";
+import React, { memo } from "react";
 import { useForm } from "react-hook-form";
 import { InputFormType } from "../../global/customType";
 import { useDialogSubmit } from "../hooks/useDialogSubmit";
 import { useIsMutating } from "@tanstack/react-query";
 
-export default function Dialog() {
+function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
   const { hideDialog } = useHandleDialog();
   const { dialogRef, onSubmit } = useDialogSubmit();
@@ -100,6 +101,8 @@ export default function Dialog() {
     </DialogPortal>
   );
 }
+
+export default memo(Dialog);
 
 const ModalContainer = styled.section`
   position: absolute;
