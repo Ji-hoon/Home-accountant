@@ -18,6 +18,7 @@ export default function Calendar({
         locale={ko}
         mode="single"
         selected={$currentDate}
+        today={$currentDate}
         onDayClick={$clickHandler}
         footer={<></>}
       />
