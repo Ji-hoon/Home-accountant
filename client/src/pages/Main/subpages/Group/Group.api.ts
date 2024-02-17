@@ -23,7 +23,7 @@ const groupsAPI = {
   async invite({ groupId, members }: { groupId: string; members: string[] }) {
     console.log(groupId, members);
 
-    if (members.length > 0) {
+    if (members) {
       const url = `/groups/${groupId}/invite`;
       const response = await axiosInstance.put(
         url,

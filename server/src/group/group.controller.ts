@@ -108,6 +108,13 @@ const groupController = {
         });
       }
 
+      if (!email) {
+        throw new CustomError({
+          status: 404,
+          message: "이메일을 입력해주세요.",
+        });
+      }
+
       const result = await groupService.inviteMemberToGroup({
         name: groupInfo.name,
         code: groupInfo.code,
