@@ -12,6 +12,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { InputFormType } from "../../global/customType";
 import { useDialogSubmit } from "../hooks/useDialogSubmit";
+import { useIsMutating } from "@tanstack/react-query";
 
 export default function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
@@ -21,6 +22,7 @@ export default function Dialog() {
   const { handleSubmit } = useForm<InputFormType>();
   const setModalIndex = useSetRecoilState(modalIndexAtom);
 
+  const isMutating = useIsMutating();
   console.log(dialog.content);
 
   return (
@@ -68,6 +70,7 @@ export default function Dialog() {
                     {LABELS.LABEL_CANCEL}
                   </Button_Boxtype>
                   <Button_Boxtype
+                    processing={!!isMutating}
                     onClick={() => {
                       setModalIndex(index);
                       //console.log(dialogFormRef.current);

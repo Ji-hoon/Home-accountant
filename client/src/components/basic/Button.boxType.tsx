@@ -9,6 +9,7 @@ export default function Button_Boxtype({
   isAlert,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   title,
+  processing,
 }: {
   children: React.ReactElement | string;
   onClick?: (e: React.SyntheticEvent) => void;
@@ -16,6 +17,7 @@ export default function Button_Boxtype({
   disabled?: boolean | undefined;
   isAlert?: string | undefined;
   title?: string | undefined;
+  processing?: boolean;
 }) {
   return (
     <>
@@ -24,9 +26,9 @@ export default function Button_Boxtype({
           type={type}
           className={type}
           onClick={onClick}
-          value={children}
-          disabled={disabled}
+          disabled={disabled || processing}
           $alert={isAlert}
+          value={children}
         />
       )}
       {type !== TYPES.SUBMIT && (
@@ -119,5 +121,13 @@ const BoxtypeSubmitButton = styled.input<{
   &:active,
   &.active {
     filter: brightness(0.92);
+  }
+
+  &[disabled],
+  &[processing] {
+    cursor: not-allowed;
+    color: ${COLORS.GRAY_04};
+    background-color: ${COLORS.GRAY_01_OVERAY};
+    opacity: 0.5;
   }
 `;
