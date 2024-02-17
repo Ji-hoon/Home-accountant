@@ -45,52 +45,45 @@ export const CreateExpenseLayout = [
   },
 ];
 
-export const CreateAssetLayout = ({ assetTypes }: { assetTypes: string[] }) => {
-  return [
-    {
-      title: "자산 금액 (원)",
-      fieldName: "amounts",
-      type: "number",
-      placeholder: "숫자만 입력해주세요.",
-    },
-    {
-      title: "자산 타입",
-      fieldName: "assetType",
-      type: "selectbox",
-      placeholder: "자산 타입을 선택해주세요..",
-      defaultValue: "",
-      options: assetTypes, //TODO: API 받아온걸로 적용되면 삭제 ["현금", "주식", "보험금", "비트코인", "부동산"],
-    },
-    {
-      title: "자산 이름",
-      fieldName: "name",
-      type: "text",
-      placeholder: "자산 이름을 입력해주세요.",
-    },
-    {
-      title: "멤버",
-      fieldName: "owner",
-      type: "selectbox",
-      placeholder: "멤버를 선택해주세요..",
-      defaultValue: "",
-    },
-  ];
-};
+export const CreateAssetLayout = [
+  {
+    title: "자산 금액 (원)",
+    fieldName: "amounts",
+    type: "number",
+    placeholder: "숫자만 입력해주세요.",
+  },
+  {
+    title: "자산 타입",
+    fieldName: "assetType",
+    type: "selectbox",
+    placeholder: "자산 타입을 선택해주세요..",
+    defaultValue: "",
+  },
+  {
+    title: "자산 이름",
+    fieldName: "name",
+    type: "text",
+    placeholder: "자산 이름을 입력해주세요.",
+  },
+  {
+    title: "멤버",
+    fieldName: "owner",
+    type: "selectbox",
+    placeholder: "멤버를 선택해주세요..",
+    defaultValue: "",
+  },
+];
 
 export const EditAssetLayout = ({
   owner,
   name,
   amounts,
   data,
-  assetTypes,
-  members,
 }: {
   owner: string;
   name: string;
   amounts: number;
   data: ChartData;
-  assetTypes: string[];
-  members: string[];
 }) => {
   const assetName = name.split(" (")[0];
   const assetType = name.split(" (")[1].replace(")", "");
@@ -124,7 +117,6 @@ export const EditAssetLayout = ({
       fieldName: "assetType",
       type: "selectbox",
       placeholder: "",
-      options: assetTypes, //TODO: API 적용되면 삭제 필요 ["현금", "주식", "보험금", "비트코인", "부동산"],
       defaultValue: assetType,
       readonly: true,
     },
@@ -141,7 +133,6 @@ export const EditAssetLayout = ({
       fieldName: "owner",
       type: "selectbox",
       placeholder: "",
-      options: members, //TODO: API 받아온걸로 적용되면 삭제 ["훈", "밀크티"],
       defaultValue: owner,
       readonly: true,
     },
@@ -269,24 +260,22 @@ export const GroupSettingLayout = ({
   ];
 };
 
-export const InviteMemberLayout = (code: string): FormListLayoutType[] => {
-  return [
-    {
-      title: "이메일 주소",
-      fieldName: "email",
-      type: "email",
-      placeholder: "이메일 주소를 입력해주세요.",
-    },
-    {
-      title: "초대링크",
-      fieldName: "invitationLink",
-      type: "text",
-      placeholder: "",
-      defaultValue: `${import.meta.env.VITE_FRONTEND_URL}/invite?code=${code}`,
-      readonly: true,
-    },
-  ];
-};
+export const InviteMemberLayout = [
+  {
+    title: "이메일 주소",
+    fieldName: "email",
+    type: "email",
+    placeholder: "이메일 주소를 입력해주세요. (콤마 입력 시 여러 개 추가)",
+  },
+  {
+    title: "초대링크",
+    fieldName: "invitationLink",
+    type: "text",
+    placeholder: "",
+    //defaultValue: `${import.meta.env.VITE_FRONTEND_URL}/invite?code=${code}`,
+    readonly: true,
+  },
+];
 
 export const addExpenseCategoryLayout = [
   {

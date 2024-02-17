@@ -1,31 +1,36 @@
+/* eslint-disable react-refresh/only-export-components */
 import { ResponsiveBar } from "@nivo/bar";
 import styled from "styled-components";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, memo } from "react";
 import { useAssets } from "../Assets.hooks.ts";
 import { ChartData, useChart } from "./Assets.Chart.hooks.ts";
 import CustomTooltip from "./Assets.Chart.customTooltip.tsx";
 import Empty from "../../../../../components/common/Empty.tsx";
-import { LABELS } from "../../../../../global/constants.ts";
+import { LABELS, PATH, TYPES } from "../../../../../global/constants.ts";
 import { FiAlertTriangle } from "react-icons/fi";
 import { throttle } from "lodash";
-import { useRecoilValue } from "recoil";
-import { currentUserAtom } from "../../../../../atoms/globalAtoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentDateAtom,
+  currentOwnerAtom,
+  currentUserAtom,
+  dateUnitAtom,
+  selectedExpenseIdAtom,
+} from "../../../../../atoms/globalAtoms";
 
-export default function Chart({
-  $owner,
-  $currentDate,
-  $unit,
-}: {
-  $owner: string;
-  $currentDate: Date;
-  $unit: string;
-}) {
+function Chart() {
+  const [currentOwner, setCurrentOwner] = useRecoilState(currentOwnerAtom);
+  const currentDate = useRecoilValue(currentDateAtom);
+  const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
+
+  const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
+
   const currentUser = useRecoilValue(currentUserAtom);
   const { data, fetchStatus } = useAssets({
-    owner: $owner,
+    owner: currentOwner,
     currentGroupId: currentUser.currentGroup,
-    currentDate: $currentDate,
-    unit: $unit,
+    currentDate: currentDate,
+    unit: dateUnit,
   });
 
   const { handleBarClick, generateMonthlyAssetData } = useChart({
@@ -59,6 +64,17 @@ export default function Chart({
       }
     }
   }, [windowWidth]);
+
+  useEffect(() => {
+    if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
+      setDateUnit(TYPES.TYPE_UNIT_MONTH);
+    } else if (location.pathname === PATH.MAIN_ASSETS_BY_YEAR) {
+      setDateUnit(TYPES.TYPE_UNIT_YEAR);
+    }
+    setCurrentOwner("");
+    setSelectedExpenseId([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setDateUnit]);
 
   return (
     <>
@@ -158,6 +174,8 @@ export default function Chart({
     </>
   );
 }
+
+export default memo(Chart);
 
 const ChartContainer = styled.section`
   height: calc(100vh - 130px);

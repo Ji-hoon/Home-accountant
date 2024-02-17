@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import styled from "styled-components";
 import DialogPortal from "./Dialog.Portal";
 import { useSetRecoilState, useRecoilValue } from "recoil";
@@ -8,12 +9,13 @@ import FormListLayout from "../layout/FormList.layout";
 import Button_Icontype from "../basic/Button.iconType";
 import { FiX } from "react-icons/fi";
 import Button_Boxtype from "../basic/Button.boxType";
-import React from "react";
+import React, { memo } from "react";
 import { useForm } from "react-hook-form";
 import { InputFormType } from "../../global/customType";
 import { useDialogSubmit } from "../hooks/useDialogSubmit";
+import { useIsMutating } from "@tanstack/react-query";
 
-export default function Dialog() {
+function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
   const { hideDialog } = useHandleDialog();
   const { dialogRef, onSubmit } = useDialogSubmit();
@@ -21,7 +23,13 @@ export default function Dialog() {
   const { handleSubmit } = useForm<InputFormType>();
   const setModalIndex = useSetRecoilState(modalIndexAtom);
 
+  const isMutating = useIsMutating();
   console.log(dialog.content);
+
+  function handleCancleDialog(event: React.SyntheticEvent, index: number) {
+    event.preventDefault();
+    if (isMutating < 1) hideDialog({ order: index });
+  }
 
   return (
     <DialogPortal>
@@ -33,10 +41,9 @@ export default function Dialog() {
               <BackdropModal
                 $index={index}
                 $maxindex={dialog.content.length}
-                onClick={(event: React.SyntheticEvent) => {
-                  event.preventDefault();
-                  hideDialog({ order: index });
-                }}
+                onClick={(event: React.SyntheticEvent) =>
+                  handleCancleDialog(event, index)
+                }
               />
               <ModalLayoutContainer
                 $index={index}
@@ -46,28 +53,35 @@ export default function Dialog() {
                 <section className="modal-header">
                   <h3>{item.title}</h3>
                   <Button_Icontype
-                    onClick={(event: React.SyntheticEvent) => {
-                      event.preventDefault();
-                      hideDialog({ order: index });
-                    }}
+                    onClick={(event: React.SyntheticEvent) =>
+                      handleCancleDialog(event, index)
+                    }
                   >
                     <FiX />
                   </Button_Icontype>
                 </section>
 
                 <section className="modal-contents">
-                  <FormListLayout type={item.type} layout={item.layout} />
+                  <FormListLayout
+                    type={item.type}
+                    layout={item.layout}
+                    $processing={
+                      index === dialog.content.length - 1 && isMutating > 0
+                    }
+                  />
                 </section>
                 <section className="modal-actions">
                   <Button_Boxtype
-                    onClick={(event: React.SyntheticEvent) => {
-                      event.preventDefault();
-                      hideDialog({ order: index });
-                    }}
+                    onClick={(event: React.SyntheticEvent) =>
+                      handleCancleDialog(event, index)
+                    }
                   >
                     {LABELS.LABEL_CANCEL}
                   </Button_Boxtype>
                   <Button_Boxtype
+                    processing={
+                      index === dialog.content.length - 1 && isMutating > 0
+                    }
                     onClick={() => {
                       setModalIndex(index);
                       //console.log(dialogFormRef.current);
@@ -87,6 +101,8 @@ export default function Dialog() {
     </DialogPortal>
   );
 }
+
+export default memo(Dialog);
 
 const ModalContainer = styled.section`
   position: absolute;

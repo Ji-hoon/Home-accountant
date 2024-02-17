@@ -17,18 +17,19 @@ import {
   dateUnitAtom,
   currentOwnerAtom,
   currentDateAtom,
+  currentUserAtom,
 } from "../../atoms/globalAtoms";
+import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
 
-export default function ListHeader({
-  $type,
-  $member,
-}: {
-  $type?: string;
-  $member?: number;
-}) {
+export default function ListHeader({ $type }: { $type?: string }) {
   const currentDate = useRecoilValue(currentDateAtom);
   const $unit = useRecoilValue(dateUnitAtom);
   const currentOwner = useRecoilValue(currentOwnerAtom);
+
+  const currentUser = useRecoilValue(currentUserAtom);
+  const { data } = useGroups(currentUser.currentGroup);
+  const groupInfo = data.data?.groupInfo;
+  const members = groupInfo && groupInfo.members.length;
 
   //console.log("header: ", $currentDate);
   const {
@@ -129,7 +130,7 @@ export default function ListHeader({
         <ListHeaderContainer $type={$type}>
           <h3>
             {LABELS.NAVIGATION_MENU_GROUP_MEMBER} (
-            {$member !== undefined ? $member : 0})
+            {members !== undefined ? members : 0})
           </h3>
         </ListHeaderContainer>
       )}

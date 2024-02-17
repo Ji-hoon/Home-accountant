@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import styled from "styled-components";
 import { SIZES, COLORS } from "../../global/constants";
 import { ExpenseType } from "../../global/customType";
@@ -5,9 +6,9 @@ import { format } from "date-fns";
 import Input_Checkbox from "../basic/Input.checkbox";
 
 import { FiCoffee, FiInstagram } from "react-icons/fi";
+import { memo } from "react";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export default function ListItem_ExpenseType({
+function ListItem_ExpenseType({
   $item,
   onClick,
 }: {
@@ -51,7 +52,8 @@ export default function ListItem_ExpenseType({
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
+export default memo(ListItem_ExpenseType);
+
 export const ListItemContainer = styled.div<{
   id?: string;
 }>`

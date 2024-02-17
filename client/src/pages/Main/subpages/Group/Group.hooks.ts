@@ -3,6 +3,8 @@ import { queryClient, queryKeys } from "../../../../global/reactQuery";
 import groupsAPI from "./Group.api";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { useRecoilValue } from "recoil";
+import { emailListAtom } from "../../../../atoms/globalAtoms";
 
 export function useGroups(currentGroupId: string) {
   const results = useSuspenseQuery({
@@ -12,6 +14,8 @@ export function useGroups(currentGroupId: string) {
 
   const { data, refetch, fetchStatus } = results;
 
+  const emailList = useRecoilValue(emailListAtom);
+  const groupId = results.data.data.groupInfo.id;
   const members = results.data.data.groupInfo.members;
   const categories = results.data.data.groupInfo.categories;
   const assetTypes = results.data.data.groupInfo.assetTypes; //TODO : api 구현 후 연결 필요
@@ -45,13 +49,32 @@ export function useGroups(currentGroupId: string) {
   }).mutateAsync;
 
   const inviteMemberToGroup = useMutation({
-    mutationFn: groupsAPI.invite,
+    mutationFn: async () => {
+      if (emailList.length === 0) {
+        toast.error("이메일을 입력해주세요.");
+        return;
+      }
+      const response = await Promise.all(
+        emailList.map((member: string) =>
+          groupsAPI.invite({ groupId, member }),
+        ),
+      );
+      console.log(response);
+      const results = response.filter((result) => result.status === 200);
+
+      if (results.length === 0) {
+        toast.error("이메일 전송에 실패했습니다.");
+        return;
+      }
+
+      return results;
+    },
     onMutate: () => {
       //setisLoading(!isLoading);
     },
     onSuccess: (data) => {
-      toast.success(data?.data.message);
       console.log(data);
+      if (data) toast.success(data[0].data.message);
     },
     onError: (err) => {
       console.log(err);

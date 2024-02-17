@@ -5,6 +5,9 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,
+      retryDelay: 500,
+      staleTime: 500,
+      gcTime: 1000 * 60 * 10,
     },
     mutations: {
       throwOnError: (err) =>

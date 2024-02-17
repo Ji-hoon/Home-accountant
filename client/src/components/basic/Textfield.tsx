@@ -9,7 +9,11 @@ import "react-day-picker/dist/style.css";
 import { useState, useEffect, memo } from "react";
 import { useEmailInput } from "../hooks/useEmailInput";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { emailListAtom, modalIndexAtom } from "../../atoms/globalAtoms";
+import {
+  currentUserAtom,
+  emailListAtom,
+  modalIndexAtom,
+} from "../../atoms/globalAtoms";
 import { FiX } from "react-icons/fi";
 import Button_Icontype from "./Button.iconType";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -22,6 +26,7 @@ import {
   addAssetTypeLayout,
 } from "../../global/layout";
 import Selectbox from "./Selectbox";
+import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
 
 function Textfield({
   title,
@@ -39,6 +44,12 @@ function Textfield({
   const { register } = useForm<InputFormType>();
   const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
   const emailList = useRecoilValue(emailListAtom);
+
+  const currentUser = useRecoilValue(currentUserAtom);
+  const { data } = useGroups(currentUser.currentGroup);
+  const groupInfo = data.data?.groupInfo;
+  const { code } = groupInfo;
+  const invitationUrl = `${import.meta.env.VITE_FRONTEND_URL}/invite?code=${code}`;
 
   const {
     targetRef,
@@ -76,8 +87,8 @@ function Textfield({
     <TextFieldLayout hidden={hidden} ref={targetRef}>
       <label>
         {title}
-        {fieldName === "invitationLink" && defaultValue && (
-          <CopyToClipboard text={defaultValue} onCopy={handleLinkCopy}>
+        {fieldName === "invitationLink" && (
+          <CopyToClipboard text={invitationUrl} onCopy={handleLinkCopy}>
             <a href="#">{LABELS.LABEL_COPY_INVITE_LINK}</a>
           </CopyToClipboard>
         )}
@@ -88,7 +99,6 @@ function Textfield({
               if (modalIndex >= 0) {
                 const newIndex = modalIndex + 1;
                 setModalIndex(newIndex);
-                console.log(newIndex);
               }
 
               showDialog({
@@ -128,7 +138,9 @@ function Textfield({
           name={fieldName}
           type={type}
           placeholder={placeholder}
-          defaultValue={defaultValue}
+          defaultValue={
+            fieldName === "invitationLink" ? invitationUrl : defaultValue
+          }
           readOnly={readonly}
           onKeyDown={(e: React.KeyboardEvent) => handleTextInput(e)}
         />
@@ -203,7 +215,6 @@ export const TextFieldLayout = styled.div<{
   position: ${(props) => (props.hidden !== undefined ? "absolute" : "static")};
   visibility: ${(props) => (props.hidden !== undefined ? "hidden" : "visible")};
   height: ${(props) => (props.hidden !== undefined ? "0px" : "auto")};
-  pointer-events: ${(props) => (props.hidden !== undefined ? "none" : "auto")};
 
   & label {
     font-weight: bold;

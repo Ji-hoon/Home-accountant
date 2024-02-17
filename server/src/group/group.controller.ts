@@ -107,6 +107,13 @@ const groupController = {
           message: "그룹을 찾을 수 없습니다.",
         });
       }
+      console.log(email);
+      if (!email.includes("@")) {
+        throw new CustomError({
+          status: 404,
+          message: "이메일 형식을 다시 한 번 확인해주세요.",
+        });
+      }
 
       const result = await groupService.inviteMemberToGroup({
         name: groupInfo.name,
