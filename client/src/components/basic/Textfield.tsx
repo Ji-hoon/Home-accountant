@@ -87,8 +87,8 @@ function Textfield({
     <TextFieldLayout hidden={hidden} ref={targetRef}>
       <label>
         {title}
-        {fieldName === "invitationLink" && defaultValue && (
-          <CopyToClipboard text={defaultValue} onCopy={handleLinkCopy}>
+        {fieldName === "invitationLink" && (
+          <CopyToClipboard text={invitationUrl} onCopy={handleLinkCopy}>
             <a href="#">{LABELS.LABEL_COPY_INVITE_LINK}</a>
           </CopyToClipboard>
         )}
