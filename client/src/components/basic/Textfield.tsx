@@ -99,7 +99,6 @@ function Textfield({
               if (modalIndex >= 0) {
                 const newIndex = modalIndex + 1;
                 setModalIndex(newIndex);
-                console.log(newIndex);
               }
 
               showDialog({

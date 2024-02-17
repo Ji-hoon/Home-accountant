@@ -20,22 +20,20 @@ const groupsAPI = {
     );
     return response;
   },
-  async invite({ groupId, members }: { groupId: string; members: string[] }) {
-    console.log(groupId, members);
+  async invite({ groupId, member }: { groupId: string; member: string }) {
+    console.log(groupId, member);
 
-    if (members) {
-      const url = `/groups/${groupId}/invite`;
-      const response = await axiosInstance.put(
-        url,
-        {
-          email: members[0], //TODO: 1명만 초대 발송으로 수정, 추후 n명 구현 필요
-        },
-        {
-          withCredentials: true,
-        },
-      );
-      return response;
-    }
+    const url = `/groups/${groupId}/invite`;
+    const response = await axiosInstance.put(
+      url,
+      {
+        email: member, //TODO: 1명만 초대 발송으로 수정, 추후 n명 구현 필요
+      },
+      {
+        withCredentials: true,
+      },
+    );
+    return response;
   },
 };
 

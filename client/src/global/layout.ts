@@ -265,7 +265,7 @@ export const InviteMemberLayout = [
     title: "이메일 주소",
     fieldName: "email",
     type: "email",
-    placeholder: "이메일 주소를 입력해주세요.",
+    placeholder: "이메일 주소를 입력해주세요. (콤마 입력 시 여러 개 추가)",
   },
   {
     title: "초대링크",

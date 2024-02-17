@@ -4,7 +4,7 @@ import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
 import { useExpenseCategory } from "../hooks/useExpenseCategory";
 import { useAssetType } from "../hooks/useAssetType";
 import { format, parse } from "date-fns";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import {
   currentDateAtom,
   currentDialogAtom,
@@ -29,7 +29,7 @@ export function useDialogSubmit() {
   const currentGroupId = currentUser && JSON.parse(currentUser).currentGroup;
   const modalIndex = useRecoilValue(modalIndexAtom);
   const dialog = useRecoilValue(currentDialogAtom);
-  const emailList = useRecoilValue(emailListAtom);
+  const [emailList, setEmailList] = useRecoilState(emailListAtom);
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
 
   const { getDialogFormData, hideDialog } = useHandleDialog();
@@ -69,9 +69,14 @@ export function useDialogSubmit() {
 
       if (emailList.length > 0 || currentFormData.email) {
         //console.log(emailList);
+        if (currentFormData.email) {
+          const newEmail = [...emailList, currentFormData.email];
+          setEmailList(() => newEmail);
+        }
+
         const result = await submitDialog({
           action: dialog.content[modalIndex].title,
-          data: currentFormData.email ? [currentFormData.email] : emailList,
+          data: emailList,
         });
         if (result?.status === 201 || result?.status === 200)
           hideDialog({ order: modalIndex });
@@ -164,11 +169,8 @@ export function useDialogSubmit() {
     }
 
     if (action === LABELS.LABEL_INVITE_MEMBER) {
-      const result = await inviteMemberToGroup({
-        groupId: currentGroupId,
-        members: data,
-      });
-      if (result) return result;
+      const result = await inviteMemberToGroup();
+      if (result && result.length > 0) return result[0];
     }
 
     if (action === LABELS.LABEL_ADD_EXPENSE_CATRGORY) {
