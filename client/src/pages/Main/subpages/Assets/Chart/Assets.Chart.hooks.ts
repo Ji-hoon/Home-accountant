@@ -6,10 +6,6 @@ import {
 import { useHandleDialog } from "../../../../../components/hooks/useHandleDialog";
 import { LABELS, TYPES, VALUES } from "../../../../../global/constants";
 import { EditAssetLayout } from "../../../../../global/layout";
-import { useRecoilValue } from "recoil";
-import { currentUserAtom } from "../../../../../atoms/globalAtoms";
-import { useGroups } from "../../Group/Group.hooks";
-import { covertToStringArray } from "../../../../../util/handleCovertArray";
 
 export type ChartData = {
   [key: string]: number | string;
@@ -30,8 +26,6 @@ export function useChart({
   })[];
 }) {
   const { showDialog } = useHandleDialog();
-  const currentUser = useRecoilValue(currentUserAtom);
-  const { members, assetTypes } = useGroups(currentUser.currentGroup);
 
   function handleBarClick(
     datum: ComputedDatum<ChartData> & {
@@ -46,8 +40,6 @@ export function useChart({
         name: datum.id as string,
         amounts: datum.value as number,
         data: datum.data,
-        members: covertToStringArray(members, "nickname"),
-        assetTypes: covertToStringArray(assetTypes, "assetType"),
       }) as FormListLayoutType[],
     });
   }
