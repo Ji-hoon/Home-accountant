@@ -203,7 +203,6 @@ export const TextFieldLayout = styled.div<{
   position: ${(props) => (props.hidden !== undefined ? "absolute" : "static")};
   visibility: ${(props) => (props.hidden !== undefined ? "hidden" : "visible")};
   height: ${(props) => (props.hidden !== undefined ? "0px" : "auto")};
-  pointer-events: ${(props) => (props.hidden !== undefined ? "none" : "auto")};
 
   & label {
     font-weight: bold;
