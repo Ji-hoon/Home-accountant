@@ -62,7 +62,7 @@ function Expenses_List() {
     setCurrentOwner("");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, []);
 
   return (
     <ul

@@ -64,8 +64,8 @@ export default function Dialog() {
                   <FormListLayout
                     type={item.type}
                     layout={item.layout}
-                    processing={
-                      index === dialog.content.length - 1 && !!isMutating
+                    $processing={
+                      index === dialog.content.length - 1 && isMutating > 0
                     }
                   />
                 </section>
@@ -79,7 +79,7 @@ export default function Dialog() {
                   </Button_Boxtype>
                   <Button_Boxtype
                     processing={
-                      index === dialog.content.length - 1 && !!isMutating
+                      index === dialog.content.length - 1 && isMutating > 0
                     }
                     onClick={() => {
                       setModalIndex(index);

@@ -9,17 +9,17 @@ import { memo } from "react";
 function FormListLayout({
   layout,
   type,
-  processing,
+  $processing,
 }: {
   layout: FormListLayoutType[] | popupLayoutType;
   type: string;
-  processing?: boolean | undefined;
+  $processing?: boolean | undefined;
 }) {
   // console.log(layout);
   return (
     <>
       {Array.isArray(layout) && (
-        <DoubleColumnLayoutContainer type={type} processing={processing}>
+        <DoubleColumnLayoutContainer type={type} $processing={$processing}>
           {layout.length > 0 &&
             layout.map((item, index) => (
               <Textfield
@@ -50,7 +50,7 @@ export default memo(FormListLayout);
 
 const DoubleColumnLayoutContainer = styled.div<{
   type: string;
-  processing: boolean | undefined;
+  $processing: boolean | undefined;
 }>`
   width: ${(props) =>
     props.type === "MODAL_DOUBLE_COLUMN"
@@ -74,8 +74,8 @@ const DoubleColumnLayoutContainer = styled.div<{
     }
   }
 
-  opacity: ${(props) => (props.processing ? 0.5 : 1)};
-  pointer-events: ${(props) => (props.processing ? "none" : "auto")};
+  opacity: ${(props) => (props.$processing ? 0.5 : 1)};
+  pointer-events: ${(props) => (props.$processing ? "none" : "auto")};
 `;
 
 const PopupLayoutContainer = styled.div`
