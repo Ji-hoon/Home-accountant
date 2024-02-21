@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { COLORS, SIZES, TYPES } from "../../global/constants";
 import { Loader } from "rsuite";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default function Button_Boxtype({
   children,
   onClick,
@@ -19,6 +20,7 @@ export default function Button_Boxtype({
   isAlert?: string | undefined;
   title?: string | undefined;
   processing?: boolean;
+  className?: string;
 }) {
   return (
     <>
@@ -50,7 +52,7 @@ export default function Button_Boxtype({
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-const BoxtypeButton = styled.button<{
+export const BoxtypeButton = styled.button<{
   $alert: string | undefined;
 }>`
   border: none;
