@@ -97,6 +97,7 @@ export const FullContentsLayoutContainer = styled.section`
     font-weight: 600;
     line-height: ${SIZES.XXL}px;
     white-space: break-spaces;
+    word-break: keep-all;
   }
 
   & button[id="kakao"] {
@@ -105,5 +106,17 @@ export const FullContentsLayoutContainer = styled.section`
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
     height: calc(100% - 203px);
+
+    svg {
+      margin-top: ${SIZES.XL}px;
+    }
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    h3 {
+      font-size: ${SIZES.XXS * 2}px;
+      line-height: ${SIZES.LG * 1.5}px;
+      padding: 0 24px;
+    }
   }
 `;
