@@ -202,6 +202,7 @@ const HeaderRoot = styled.header<{
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
     padding-right: 24px;
     padding-left: 18px;
+    background-color: rgba(255, 255, 255, 0.92);
 
     .logo-container {
       width: ${(props) => (props.$isAppPath ? "auto" : "40px")};
