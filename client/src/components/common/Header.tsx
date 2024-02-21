@@ -16,12 +16,35 @@ import Profile from "../basic/Profile";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import { currentUserType } from "../../global/customType";
+import { useEffect, useState } from "react";
+import { throttle } from "lodash";
+import Button_Dropdowntype from "../basic/Button.dropdownType";
 
 export default function Header({ user }: { user?: currentUserType }) {
   const isLogin = useRecoilValue(isLoginAtom); // login 여부를 판별하는 상태.
   const location = useLocation();
   const currentPath = location.pathname;
   // console.log(currentPath);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const handleResize = throttle(() => {
+    setWidth(window.innerWidth);
+  }, 500);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
+  const headerMenuOptions = [
+    { name: LABELS.HEADER_MENU_EXPENSES, url: PATH.MAIN_EXPENSES },
+    { name: LABELS.HEADER_MENU_ASSETS, url: PATH.MAIN_ASSETS },
+    { name: LABELS.HEADER_MENU_GROUP_MGMT, url: PATH.MAIN_GROUP },
+  ];
 
   return (
     <HeaderRoot $islogin={isLogin.toString()}>
@@ -32,19 +55,45 @@ export default function Header({ user }: { user?: currentUserType }) {
           </NavLink>
         </div>
         {isLogin && !currentPath.includes(PATH.INVITATION) && (
-          <Navigation_MenuType>
-            <>
-              <NavLink to={PATH.MAIN_EXPENSES}>
-                <Button_Boxtype>{LABELS.HEADER_MENU_EXPENSES}</Button_Boxtype>
-              </NavLink>
-              <NavLink to={PATH.MAIN_ASSETS}>
-                <Button_Boxtype>{LABELS.HEADER_MENU_ASSETS}</Button_Boxtype>
-              </NavLink>
-              <NavLink to={PATH.MAIN_GROUP}>
-                <Button_Boxtype>{LABELS.HEADER_MENU_GROUP_MGMT}</Button_Boxtype>
-              </NavLink>
-            </>
-          </Navigation_MenuType>
+          <>
+            {width > 500 && (
+              <Navigation_MenuType>
+                <>
+                  <NavLink to={PATH.MAIN_EXPENSES}>
+                    <Button_Boxtype>
+                      {LABELS.HEADER_MENU_EXPENSES}
+                    </Button_Boxtype>
+                  </NavLink>
+                  <NavLink to={PATH.MAIN_ASSETS}>
+                    <Button_Boxtype>{LABELS.HEADER_MENU_ASSETS}</Button_Boxtype>
+                  </NavLink>
+                  <NavLink to={PATH.MAIN_GROUP}>
+                    <Button_Boxtype>
+                      {LABELS.HEADER_MENU_GROUP_MGMT}
+                    </Button_Boxtype>
+                  </NavLink>
+                </>
+              </Navigation_MenuType>
+            )}
+            {width <= 500 && (
+              <nav className="dropdown">
+                <Button_Dropdowntype
+                  dropdownType={TYPES.DROPDOWN_KEY_HEADER_NAV}
+                  dropdownId={user?.userId}
+                  options={headerMenuOptions}
+                >
+                  <>
+                    {location.pathname.includes(PATH.MAIN_EXPENSES) &&
+                      LABELS.HEADER_MENU_EXPENSES}
+                    {location.pathname.includes(PATH.MAIN_ASSETS) &&
+                      LABELS.HEADER_MENU_ASSETS}
+                    {location.pathname.includes(PATH.MAIN_GROUP) &&
+                      LABELS.HEADER_MENU_GROUP_MGMT}
+                  </>
+                </Button_Dropdowntype>
+              </nav>
+            )}
+          </>
         )}
         {isLogin && (
           <div className="noti-and-profile-container">
@@ -128,12 +177,63 @@ const HeaderRoot = styled.header<{
   }
 
   & nav {
-    -webkit-transform: translateX(-16px);
-    transform: translateX(-16px);
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+    flex-grow: 1;
+    padding-left: 0px;
+    padding-right: 16px;
+    justify-content: center;
+  }
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_X_LARGE}px) {
+    nav {
+      padding-left: 8px;
+      padding-right: 0px;
+    }
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
     padding-right: 24px;
     padding-left: 18px;
+
+    .logo-container {
+      width: 40px;
+      overflow: hidden;
+    }
+    nav {
+      padding-left: 40px;
+
+      button {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    nav {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    nav:not(.dropdown) {
+      display: none;
+    }
+
+    nav.dropdown {
+      padding-left: 8px;
+      padding-right: 24px;
+      text-align: left;
+
+      & button {
+        box-shadow: inset 0 0 0 1px ${COLORS.GRAY_01_OVERAY};
+        width: 100%;
+      }
+
+      & button:not(:hover):not(:active):not(.active) {
+        background-color: transparent;
+      }
+    }
   }
 `;
