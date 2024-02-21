@@ -112,7 +112,7 @@ const HorizontalViewContainer = styled.section<{
     flex-direction: column;
 
     .list-container > ul#expenses {
-      min-height: calc(100vh - 238px);
+      min-height: calc(100vh - 210px);
     }
 
     .aside-navigation-container {
