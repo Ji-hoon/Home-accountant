@@ -70,4 +70,22 @@ const DummyListContainer = styled(ListItemContainer)`
       opacity: 0.45;
     }
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    h4 {
+      width: 120px;
+    }
+    p {
+      width: 60px;
+    }
+
+    & .expense-value {
+      & h4 {
+        width: 100px;
+      }
+      & p {
+        width: 60px;
+      }
+    }
+  }
 `;

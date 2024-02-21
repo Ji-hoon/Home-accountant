@@ -185,6 +185,9 @@ function Textfield({
             event.preventDefault();
             handleDropdownTrigger();
           }}
+          onFocus={(event: React.FocusEvent) =>
+            (event.target as HTMLInputElement).blur()
+          }
         />
       )}
       {type === "date" && showDropdown === showDropdownUniqueKey && (
@@ -250,7 +253,8 @@ export const TextFieldLayout = styled.div<{
     -webkit-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
 
-    appearance: none;
+    -webkit-appearance: none;
+    appearance: auto;
 
     &:not([readonly]):focus,
     &.active {
