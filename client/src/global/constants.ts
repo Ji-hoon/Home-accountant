@@ -56,13 +56,13 @@ export const VALUES = {
 
 export const URLS = {
   DEFAULT_PROFILE: "/img-default-profile.png",
-  FEATURE_IMAGE_01: "/img-feature-01.png",
-  FEATURE_IMAGE_02: "/img-feature-02.png",
-  FEATURE_IMAGE_03: "/img-feature-03.png",
-  HERO_IMAGE: "/img-hero-1600.png",
+  FEATURE_IMAGE_01: "/img-feature-01.webp",
+  FEATURE_IMAGE_02: "/img-feature-02.webp",
+  FEATURE_IMAGE_03: "/img-feature-03.webp",
+  HERO_IMAGE: "/img-hero-1600.webp",
   META_IMAGE:
     "https://github.com/Ji-hoon/Home-accountant/raw/master/client/public/img-meta-image-1200.png",
-  AD_MOCK_IMAGE: "/banner-01.png",
+  AD_MOCK_IMAGE: "/banner-01.webp",
   AD_MOCK_URL: "https://www.bithumb.com/",
   FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
   FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
