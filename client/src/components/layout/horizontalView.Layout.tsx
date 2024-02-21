@@ -56,6 +56,10 @@ const HorizontalViewContainer = styled.section<{
       -webkit-transition: opacity 150ms ease-out;
       transition: opacity 150ms ease-out;
 
+      &#expenses {
+        min-height: calc(100vh - 238px);
+      }
+
       & li.skeleton-item {
         margin-bottom: -70px;
       }

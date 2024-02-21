@@ -55,7 +55,7 @@ export default function Expenses_SubPage() {
           }}
         />
         <ListActionBar />
-        <ExpenseList />
+        <ExpenseList id="expenses" />
       </div>
       <div className="advertise-container">
         <Banner />

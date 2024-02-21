@@ -16,7 +16,7 @@ import Skeleton_ExpenseListItem from "../../../../components/skeleton/Skeleton.e
 import { memo, useEffect } from "react";
 import { useLocation } from "react-router";
 
-function Expenses_List() {
+function Expenses_List({ id }: { id?: string }) {
   console.log("list");
   const location = useLocation();
 
@@ -66,6 +66,7 @@ function Expenses_List() {
 
   return (
     <ul
+      id={id}
       className={
         fetchStatus === "fetching" && !isFetchingNextPage ? "fetching" : ""
       }

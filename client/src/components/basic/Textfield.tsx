@@ -255,6 +255,7 @@ export const TextFieldLayout = styled.div<{
 
     -webkit-appearance: none;
     appearance: auto;
+    text-align: left;
 
     &:not([readonly]):focus,
     &.active {
