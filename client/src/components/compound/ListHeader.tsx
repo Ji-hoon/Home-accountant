@@ -217,6 +217,7 @@ const ListHeaderContainer = styled.div<{
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
     padding-top: 16px;
     padding-right: 18px;
+    top: 72px;
 
     font-size: ${SIZES.MD}px;
     line-height: ${SIZES.LG}px;
