@@ -68,4 +68,11 @@ const DropdownButton = styled(BoxtypeButton)`
     flex-grow: 1;
     text-align: left;
   }
+  span + svg {
+    transition: transform 200ms ease-out;
+    margin-right: -2px;
+  }
+  &.active svg {
+    transform: rotate(-180deg);
+  }
 `;

@@ -29,10 +29,10 @@ export default function Dropdown_Menus({
         {options &&
           options.map((option, index) => (
             <NavLink
+              onClick={() => setShowDropdown("")}
               className={location.pathname.includes(option.url) ? "active" : ""}
               to={option.url}
               key={index}
-              onClick={() => setShowDropdown("")}
             >
               <Button_Boxtype>
                 <>
