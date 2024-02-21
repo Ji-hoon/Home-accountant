@@ -120,6 +120,11 @@ const HorizontalViewContainer = styled.section<{
       .floating-button {
         left: calc(100vw - 80px);
       }
+
+      &.assets section {
+        margin: -70px 20px 0;
+        width: auto;
+      }
     }
 
     .advertise-container {

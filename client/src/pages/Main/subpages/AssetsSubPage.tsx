@@ -33,7 +33,7 @@ export default function Assets_SubPage() {
           </>
         </Navigation_ListType>
       </div>
-      <div className="list-container">
+      <div className="list-container assets">
         <ListHeader $type={TYPES.ASSETS} />
         <Button_Floatingtype
           onClick={() =>
