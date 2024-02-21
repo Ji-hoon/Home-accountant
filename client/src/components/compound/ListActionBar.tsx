@@ -83,7 +83,7 @@ const ActionBarContainer = styled.div<{
   transform: ${(props) =>
     props.$showBottomBar ? "translateY(0)" : "translateY(84px)"};
 
-  top: calc(100vh - 84px);
+  top: calc(100% - 84px);
   /* top: ${(props) =>
     props.$showBottomBar ? "calc(100vh - 84px)" : "100vh"}; */
   opacity: ${(props) => (props.$showBottomBar ? 1 : 0)};

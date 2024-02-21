@@ -11,6 +11,7 @@ export default function HorizontalViewLayout({
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
   return (
     <HorizontalViewContainer
+      autoFocus
       $showBottomBar={selectedExpenseId.length > 0 ? true : false}
     >
       {children}
@@ -72,7 +73,7 @@ const HorizontalViewContainer = styled.section<{
 
     & .floating-button {
       position: sticky;
-      top: calc(100vh - 80px);
+      top: calc(100% - 80px);
       /* top: ${(props) =>
         props.$showBottomBar ? "100vh" : "calc(100vh - 80px)"};*/
       left: 100%;
@@ -110,6 +111,7 @@ const HorizontalViewContainer = styled.section<{
         button {
           border-radius: 40px;
           padding: 12px 20px;
+          letter-spacing: -0.5px;
         }
       }
     }
@@ -118,7 +120,7 @@ const HorizontalViewContainer = styled.section<{
       width: 100%;
 
       .floating-button {
-        left: calc(100vw - 80px);
+        left: calc(100% - 80px);
       }
 
       &.assets section {

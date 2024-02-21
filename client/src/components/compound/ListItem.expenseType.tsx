@@ -144,12 +144,12 @@ export const ListItemContainer = styled.div<{
     }
 
     .input-checkbox {
-      margin-top: 0;
+      margin-top: 1px;
     }
 
     .list-info,
     .expense-value {
-      gap: 2px;
+      gap: 4px;
     }
   }
 `;
