@@ -42,6 +42,7 @@ export default function Input_Checkbox({
 
   return (
     <Checkbox
+      className="input-checkbox"
       onClick={(event: React.SyntheticEvent) =>
         onClick ? onClick() : handleClick(event)
       }
