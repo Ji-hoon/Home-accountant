@@ -111,10 +111,6 @@ const HorizontalViewContainer = styled.section<{
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
     flex-direction: column;
 
-    .list-container > ul#expenses {
-      min-height: calc(100vh - 210px);
-    }
-
     .aside-navigation-container {
       nav {
         flex-direction: row;
@@ -144,6 +140,18 @@ const HorizontalViewContainer = styled.section<{
 
     .advertise-container {
       display: none;
+    }
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    .list-container > ul#expenses {
+      min-height: calc(100vh - 210px);
+    }
+
+    .aside-navigation-container {
+      nav {
+        padding-top: 16px;
+      }
     }
   }
 `;

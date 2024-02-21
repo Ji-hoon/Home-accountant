@@ -219,10 +219,6 @@ const HeaderRoot = styled.header<{
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    min-height: 72px;
-
     nav {
       padding-left: 8px;
       padding-right: 8px;
@@ -230,6 +226,10 @@ const HeaderRoot = styled.header<{
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    min-height: 72px;
+
     nav:not(.dropdown) {
       display: none;
     }
