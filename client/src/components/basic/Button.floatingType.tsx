@@ -27,6 +27,7 @@ const FloatingtypeButton = styled.button<{
   width: ${SIZES.LG * 3}px;
   height: ${SIZES.LG * 3}px;
   background-color: ${COLORS.BRAND_LIGHT};
+  color: ${COLORS.BASIC_BLACK};
   border: none;
   outline: none;
   border-radius: ${SIZES.LG * 3}px;

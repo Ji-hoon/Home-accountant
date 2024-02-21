@@ -181,7 +181,10 @@ function Textfield({
           placeholder={placeholder}
           id={selectedDay as unknown as string}
           value={format(selectedDay, "yyyy-MM-dd")}
-          onClick={handleDropdownTrigger}
+          onClick={(event: React.SyntheticEvent) => {
+            event.preventDefault();
+            handleDropdownTrigger();
+          }}
         />
       )}
       {type === "date" && showDropdown === showDropdownUniqueKey && (
@@ -246,6 +249,8 @@ export const TextFieldLayout = styled.div<{
 
     -webkit-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
+
+    appearance: none;
 
     &:not([readonly]):focus,
     &.active {

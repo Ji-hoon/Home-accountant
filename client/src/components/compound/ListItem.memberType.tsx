@@ -67,6 +67,8 @@ const JoinedDateField = styled.p`
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-wrap: wrap;
+
   & > span:nth-child(1) {
     font-weight: 500;
     color: ${COLORS.GRAY_05};

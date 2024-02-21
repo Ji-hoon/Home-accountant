@@ -83,4 +83,52 @@ const HorizontalViewContainer = styled.section<{
   & .advertise-container {
     padding: ${SIZES.LG}px ${SIZES.MD}px ${SIZES.XL * 3}px;
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    .aside-navigation-container {
+      min-width: 160px;
+
+      nav {
+        padding-right: 12px;
+      }
+    }
+    .advertise-container {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    flex-direction: column;
+
+    .aside-navigation-container {
+      nav {
+        flex-direction: row;
+        justify-content: center;
+        padding: 20px 20px 8px;
+
+        button {
+          border-radius: 40px;
+          padding: 12px 20px;
+        }
+      }
+    }
+
+    .list-container {
+      width: 100%;
+
+      .floating-button {
+        left: calc(100vw - 80px);
+      }
+
+      &.assets section {
+        margin: -70px 20px 0;
+        width: auto;
+      }
+    }
+
+    .advertise-container {
+      display: none;
+    }
+  }
 `;

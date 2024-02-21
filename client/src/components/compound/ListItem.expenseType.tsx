@@ -134,4 +134,22 @@ export const ListItemContainer = styled.div<{
     margin: 0;
     color: ${COLORS.GRAY_04};
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    border-radius: 0;
+    padding-right: 18px;
+
+    h4 {
+      font-size: ${SIZES.SM}px;
+    }
+
+    .input-checkbox {
+      margin-top: 0;
+    }
+
+    .list-info,
+    .expense-value {
+      gap: 2px;
+    }
+  }
 `;

@@ -47,7 +47,14 @@ export default function Header({ user }: { user?: currentUserType }) {
   ];
 
   return (
-    <HeaderRoot $islogin={isLogin.toString()}>
+    <HeaderRoot
+      $islogin={isLogin.toString()}
+      $isAppPath={
+        currentPath === PATH.ROOT ||
+        currentPath === PATH.LOGIN ||
+        currentPath === PATH.INVITATION
+      }
+    >
       <div className="header-inner-container">
         <div className="logo-container">
           <NavLink to={PATH.ROOT}>
@@ -124,6 +131,7 @@ export default function Header({ user }: { user?: currentUserType }) {
 
 const HeaderRoot = styled.header<{
   $islogin?: string;
+  $isAppPath: boolean;
 }>`
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
@@ -194,9 +202,10 @@ const HeaderRoot = styled.header<{
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
     padding-right: 24px;
     padding-left: 18px;
+    background-color: rgba(255, 255, 255, 0.92);
 
     .logo-container {
-      width: 40px;
+      width: ${(props) => (props.$isAppPath ? "auto" : "40px")};
       overflow: hidden;
     }
     nav {

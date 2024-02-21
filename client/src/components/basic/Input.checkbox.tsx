@@ -42,6 +42,7 @@ export default function Input_Checkbox({
 
   return (
     <Checkbox
+      className="input-checkbox"
       onClick={(event: React.SyntheticEvent) =>
         onClick ? onClick() : handleClick(event)
       }
@@ -68,6 +69,8 @@ const Checkbox = styled.div<{
   cursor: pointer;
   color: ${COLORS.BASIC_WHITE};
   padding: 1px 1px;
+  display: flex;
+  align-items: center;
 
   -webkit-transition: all 150ms ease-out;
   transition: all 150ms ease-out;
