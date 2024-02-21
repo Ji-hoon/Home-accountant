@@ -32,6 +32,20 @@ const FooterContainer = styled.footer`
   display: flex;
   justify-content: space-between;
   color: ${COLORS.GRAY_05};
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    width: calc(100% - 48px);
+    padding-right: ${SIZES.XXS / 2}px;
+    padding-left: ${SIZES.XXS / 2}px;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: ${SIZES.XXS}px;
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    padding-top: ${SIZES.MD * 1.5}px;
+  }
 `;
 
 const FooterLinks = styled.div`

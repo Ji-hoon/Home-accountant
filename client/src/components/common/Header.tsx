@@ -131,4 +131,9 @@ const HeaderRoot = styled.header<{
     -webkit-transform: translateX(-16px);
     transform: translateX(-16px);
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    padding-right: 24px;
+    padding-left: 18px;
+  }
 `;

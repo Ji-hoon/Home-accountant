@@ -36,10 +36,22 @@ const SignupSectionContainer = styled.section`
     font-size: ${SIZES.XL}px;
     line-height: ${SIZES.XXL}px;
     margin: 0;
+    word-break: keep-all;
   }
 
   & button {
     background-color: ${COLORS.GRAY_09};
     color: ${COLORS.BASIC_WHITE};
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    width: calc(100% - 48px);
+    padding: ${SIZES.MD * 2}px ${SIZES.MD * 2}px ${SIZES.LG * 1.5}px;
+    gap: ${SIZES.MD}px;
+
+    h2 {
+      font-size: ${SIZES.LG}px;
+      line-height: ${SIZES.XL}px;
+    }
   }
 `;
