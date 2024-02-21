@@ -7,7 +7,9 @@ import { useHandleDate } from "../hooks/useHandleDate";
 import { addDays, startOfWeek, format, isSameMonth } from "date-fns";
 import Button_Boxtype from "../basic/Button.boxType";
 import Assets_Amounts from "../../pages/Main/subpages/Assets/Assets.amounts";
-import Expenses_Amounts from "../../pages/Main/subpages/Expenses/Expenses.amounts";
+import Expenses_Amounts, {
+  ValueWrapper,
+} from "../../pages/Main/subpages/Expenses/Expenses.amounts";
 import { useLocation } from "react-router";
 import { useDropdown } from "../hooks/useDropdown";
 import Dropdown from "../dropdown/Dropdown";
@@ -20,6 +22,7 @@ import {
   currentUserAtom,
 } from "../../atoms/globalAtoms";
 import { useGroups } from "../../pages/Main/subpages/Group/Group.hooks";
+import { Loader } from "rsuite";
 
 export default function ListHeader({ $type }: { $type?: string }) {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -27,7 +30,7 @@ export default function ListHeader({ $type }: { $type?: string }) {
   const currentOwner = useRecoilValue(currentOwnerAtom);
 
   const currentUser = useRecoilValue(currentUserAtom);
-  const { data } = useGroups(currentUser.currentGroup);
+  const { data, fetchStatus } = useGroups(currentUser.currentGroup);
   const groupInfo = data.data?.groupInfo;
   const members = groupInfo && groupInfo.members.length;
 
@@ -132,11 +135,17 @@ export default function ListHeader({ $type }: { $type?: string }) {
             {LABELS.NAVIGATION_MENU_GROUP_MEMBER} (
             {members !== undefined ? members : 0})
           </h3>
+          <ValueWrapper>
+            {fetchStatus === "fetching" && <Loader size="sm" />}
+          </ValueWrapper>
         </ListHeaderContainer>
       )}
       {$type === TYPES.GROUP && (
         <ListHeaderContainer $type={$type}>
           <h3>{LABELS.NAVIGATION_MENU_GROUP_SETTINGS}</h3>
+          <ValueWrapper>
+            {fetchStatus === "fetching" && <Loader size="sm" />}
+          </ValueWrapper>
         </ListHeaderContainer>
       )}
     </>
@@ -147,7 +156,10 @@ const ListHeaderContainer = styled.div<{
   $type: string;
 }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.$type === "MEMBER" || props.$type === "GROUP"
+      ? "flex-start"
+      : "space-between"};
   position: sticky;
   top: 80px;
   align-items: center;
