@@ -102,4 +102,8 @@ export const FullContentsLayoutContainer = styled.section`
   & button[id="kakao"] {
     background-color: ${COLORS.VARIATION_YELLOW};
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    height: calc(100% - 203px);
+  }
 `;

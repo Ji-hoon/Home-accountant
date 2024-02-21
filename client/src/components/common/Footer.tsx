@@ -41,10 +41,7 @@ const FooterContainer = styled.footer`
     flex-direction: column;
     align-items: flex-start;
     gap: ${SIZES.XXS}px;
-  }
-
-  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
-    padding-top: ${SIZES.MD * 1.5}px;
+    text-align: left;
   }
 `;
 

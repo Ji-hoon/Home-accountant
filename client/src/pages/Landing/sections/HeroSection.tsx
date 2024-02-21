@@ -54,11 +54,12 @@ const HeroSectionContainer = styled.section`
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
-    height: calc(100% - 50vh);
-    min-height: 360px;
+    height: 45vh;
+    min-height: 320px;
 
     img {
-      height: 115%;
+      height: 120%;
+      width: 140%;
     }
   }
 `;
@@ -130,10 +131,12 @@ const HeroSectionTaglineContainer = styled.div`
       align-items: center;
       text-align: center;
     }
-
-    img {
-      width: 120px;
-      height: auto;
+    h2 {
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      justify-content: center;
     }
   }
 `;
