@@ -52,7 +52,8 @@ export default function Dropdown_Menus({
 // eslint-disable-next-line react-refresh/only-export-components
 const DropdownUIContainerStyleLeftTop = styled(DropdownUIContainerStyle)`
   left: ${(props) => props.data.x}px;
-  width: ${(props) => props.data.width}px;
+  min-width: ${(props) => props.data.width}px;
+  width: auto;
 
   & a.active button {
     color: ${COLORS.BRAND_DEEP};

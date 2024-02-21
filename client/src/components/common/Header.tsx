@@ -223,13 +223,7 @@ const HeaderRoot = styled.header<{
 
     nav.dropdown {
       padding-left: 8px;
-      padding-right: 24px;
       text-align: left;
-
-      & button {
-        box-shadow: inset 0 0 0 1px ${COLORS.GRAY_01_OVERAY};
-        width: 100%;
-      }
 
       & button:not(:hover):not(:active):not(.active) {
         background-color: transparent;
