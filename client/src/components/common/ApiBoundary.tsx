@@ -8,7 +8,7 @@ export default function ApiBoundary({ children }: { children: ReactNode }) {
   return (
     <>
       <QueryErrorResetBoundary>
-        <Suspense fallback={<>로딩</>}>{children}</Suspense>
+        <Suspense fallback={<></>}>{children}</Suspense>
       </QueryErrorResetBoundary>
     </>
   );
