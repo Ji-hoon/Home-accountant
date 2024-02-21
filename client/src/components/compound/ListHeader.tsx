@@ -207,4 +207,24 @@ const ListHeaderContainer = styled.div<{
     line-height: ${SIZES.XXL}px;
     padding: 2px ${SIZES.XXS}px;
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
+    font-size: ${SIZES.LG}px;
+    line-height: ${SIZES.XL}px;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    padding-top: 16px;
+    padding-right: 18px;
+
+    font-size: ${SIZES.MD}px;
+    line-height: ${SIZES.LG}px;
+
+    .header-navigation-container {
+      button {
+        padding: 8px;
+      }
+    }
+  }
 `;
