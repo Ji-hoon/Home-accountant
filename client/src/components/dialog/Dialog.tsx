@@ -196,4 +196,17 @@ const ModalLayoutContainer = styled.form<{
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
     width: 80vw;
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    width: 90vw;
+    top: 40px;
+
+    .modal-contents {
+      padding-bottom: 12px;
+
+      div {
+        width: 100%;
+      }
+    }
+  }
 `;

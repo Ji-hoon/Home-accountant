@@ -64,4 +64,11 @@ const SettingLayoutContainer = styled.form`
   & > div {
     width: auto;
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 `;
