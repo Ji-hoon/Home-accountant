@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SIZES } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
+import { useRef } from "react";
 
 export default function HorizontalViewLayout({
   children,
@@ -9,10 +10,17 @@ export default function HorizontalViewLayout({
   children?: JSX.Element;
 }) {
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
+
+  const navRef = useRef<HTMLDivElement>(null);
+  const navLength =
+    navRef.current?.getElementsByTagName("nav")[0]?.childNodes.length;
+
   return (
     <HorizontalViewContainer
+      ref={navRef}
       autoFocus
       $showBottomBar={selectedExpenseId.length > 0 ? true : false}
+      $navLength={navLength}
     >
       {children}
     </HorizontalViewContainer>
@@ -22,6 +30,7 @@ export default function HorizontalViewLayout({
 // eslint-disable-next-line react-refresh/only-export-components
 const HorizontalViewContainer = styled.section<{
   $showBottomBar: boolean;
+  $navLength: number | undefined;
 }>`
   display: flex;
   max-width: ${SIZES.MAX_WIDTH}px;
@@ -55,10 +64,6 @@ const HorizontalViewContainer = styled.section<{
 
       -webkit-transition: opacity 150ms ease-out;
       transition: opacity 150ms ease-out;
-
-      &#expenses {
-        min-height: calc(100vh - 238px);
-      }
 
       & li.skeleton-item {
         margin-bottom: -70px;
@@ -106,11 +111,16 @@ const HorizontalViewContainer = styled.section<{
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
     flex-direction: column;
 
+    .list-container > ul#expenses {
+      min-height: calc(100vh - 238px);
+    }
+
     .aside-navigation-container {
       nav {
         flex-direction: row;
         justify-content: center;
         padding: 20px 20px 8px;
+        display: ${(props) => (props.$navLength === 1 ? "none" : "flex")};
 
         button {
           border-radius: 40px;
@@ -127,7 +137,7 @@ const HorizontalViewContainer = styled.section<{
       }
 
       &.assets section {
-        margin: -70px 20px 0;
+        margin: -60px 20px 0;
         width: auto;
       }
     }
