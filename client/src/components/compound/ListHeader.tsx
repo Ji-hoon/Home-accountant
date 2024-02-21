@@ -224,6 +224,7 @@ const ListHeaderContainer = styled.div<{
     .header-navigation-container {
       button {
         padding: 8px;
+        letter-spacing: -0.4px;
       }
     }
   }

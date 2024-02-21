@@ -111,7 +111,6 @@ const HorizontalViewContainer = styled.section<{
         button {
           border-radius: 40px;
           padding: 12px 20px;
-          letter-spacing: -0.5px;
         }
       }
     }
