@@ -56,7 +56,7 @@ const DoubleColumnLayoutContainer = styled.div<{
     props.type === "MODAL_DOUBLE_COLUMN"
       ? `${SIZES.MODAL_WIDTH_LARGE}px`
       : `${SIZES.MODAL_WIDTH_MEDIUM}px`};
-  //min-height: ${SIZES.MODAL_MIN_HEIGHT}px;
+
   display: flex;
   flex-wrap: wrap;
   gap: ${SIZES.XL}px;

@@ -130,6 +130,11 @@ const BackdropModal = styled.div<{
       ? COLORS.GRAY_08_OVERAY
       : "transparent"};
   z-index: ${(props) => props.$index + 100};
+
+  -webkit-backdrop-filter: ${(props) =>
+    props.$index === props.$maxindex - 1 ? "blur(0.8px)" : "blur(0px)"};
+  backdrop-filter: ${(props) =>
+    props.$index === props.$maxindex - 1 ? "blur(0.8px)" : "blur(0px)"};
 `;
 
 const ModalLayoutContainer = styled.form<{
@@ -140,11 +145,13 @@ const ModalLayoutContainer = styled.form<{
   z-index: ${(props) => props.$index + 101};
   background-color: ${COLORS.BASIC_WHITE};
   box-shadow: 0 2px 7px 0 ${COLORS.GRAY_07_OVERAY};
-  max-width: ${SIZES.MAX_WIDTH * 0.65}px;
-  // max-height: calc(100% - 120px);
+
   border-radius: 12px;
   top: 60px;
+
   margin-top: ${(props) => props.$index * 24}px;
+  //width: ${SIZES.MODAL_WIDTH_LARGE}px;
+
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -194,11 +201,11 @@ const ModalLayoutContainer = styled.form<{
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_LARGE}px) {
-    width: 80vw;
+    width: calc(80vw - ${(props) => props.$index * 40}px);
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_MEDIUM}px) {
-    width: 90vw;
+    width: calc(90vw - ${(props) => props.$index * 40}px);
     top: 40px;
 
     .modal-contents {

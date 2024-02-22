@@ -112,7 +112,7 @@ const HeroSectionTaglineContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    border-radius: 0;
+    border-radius: 0 0 20px 20px;
 
     h2 {
       font-size: ${SIZES.XS * 2}px;
