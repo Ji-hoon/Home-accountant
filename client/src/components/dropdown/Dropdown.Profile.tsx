@@ -34,10 +34,16 @@ export function ApiComponent({ data }: DropdownProps) {
   const groupList = result.data.data.groups;
   //const existUser = groupList.find((member: { userId: string; }) => member.userId === currentUser.userId);
 
+  const ismobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
   return (
     <>
       {result && (
-        <DropdownProfileUIContainer data={data}>
+        <DropdownProfileUIContainer
+          data={data}
+          ismobile={ismobile}
+          className={ismobile ? "mobile" : ""}
+        >
           <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
             {groupList &&
               groupList.map((group: groupListInfoType, index: number) => (
@@ -107,8 +113,10 @@ export function ApiComponent({ data }: DropdownProps) {
   );
 }
 
-const DropdownProfileUIContainer = styled(DropdownUIContainerStyle)`
+const DropdownProfileUIContainer = styled(DropdownUIContainerStyle)<{
+  ismobile?: boolean;
+}>`
   margin-top: 8px;
   margin-left: -20px;
-  width: 220px;
+  width: ${(props) => (!props.ismobile ? "220px" : "100%")};
 `;

@@ -15,11 +15,14 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const ismobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
   return (
     <DropdownPortal>
       {showDropdown && (
         <DropdownContainer>
           <DropdownBackdrop
+            ismobile={ismobile}
             className="dropdown-backdrop"
             onClick={() => setShowDropdown("")}
           />
@@ -30,7 +33,9 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
   );
 }
 
-const DropdownContainer = styled.div`
+const DropdownContainer = styled.div<{
+  ismobile?: boolean;
+}>`
   position: absolute;
 
   top: 0;
@@ -48,6 +53,9 @@ const DropdownContainer = styled.div`
 const DropdownBackdrop = styled(DropdownContainer)`
   z-index: 112;
   position: fixed;
+
+  background-color: ${(props) =>
+    props.ismobile ? COLORS.GRAY_07_OVERAY : "transparent"};
 `;
 
 export const DropdownUIContainerStyle = styled.div<{
@@ -72,6 +80,35 @@ export const DropdownUIContainerStyle = styled.div<{
   background-color: #fff;
   border-radius: 5px;
   background-color: ${COLORS.BASIC_WHITE};
-  box-shadow: 0 2px 7px 0 ${COLORS.GRAY_07_OVERAY};
+  box-shadow: 0 2px 7px 0 ${COLORS.GRAY_08_OVERAY};
   max-width: ${SIZES.MAX_WIDTH * 0.65}px;
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    &.mobile {
+      background-color: #fff;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: auto;
+      margin: 0;
+      border-radius: 5px 5px 0 0;
+      overflow-y: auto;
+      width: 100%;
+
+      -webkit-animation: bottom-up 150ms cubic-bezier(0.44, 0.13, 0.37, 1.07)
+        forwards;
+      animation: bottom-up 150ms cubic-bezier(0.44, 0.13, 0.37, 1.07) forwards;
+    }
+
+    @keyframes bottom-up {
+      0% {
+        transform: translateY(20vh);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+  }
 `;

@@ -69,6 +69,7 @@ const HeroSectionTaglineContainer = styled.div`
   bottom: 40px;
   left: 40px;
   background-color: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   color: ${COLORS.BASIC_WHITE};
   border-radius: ${SIZES.SM}px;
@@ -111,7 +112,7 @@ const HeroSectionTaglineContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    border-radius: 0;
+    border-radius: 0 0 20px 20px;
 
     h2 {
       font-size: ${SIZES.XS * 2}px;
