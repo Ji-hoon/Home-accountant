@@ -39,10 +39,14 @@ const DropdownNotificationUIContainer = styled(DropdownUIContainerStyle)<{
   direction?: string;
   ismobile?: boolean;
 }>`
-  width: ${(props) => (!props.ismobile ? "260px" : "100%")};
+  width: 260px;
   left: ${(props) => props.data.x + props.data.width - 260}px;
 
   & .empty {
     padding: ${SIZES.XL * 2}px;
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    width: ${(props) => props.ismobile && "100%"};
   }
 `;

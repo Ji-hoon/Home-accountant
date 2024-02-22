@@ -60,8 +60,8 @@ const DropdownCalendarUIContainer = styled(DropdownUIContainerStyle)<{
   ismobile?: boolean;
   $innerheight?: number | null;
 }>`
-  left: ${(props) => !props.ismobile && props.data.x}px;
-  top: ${(props) => !props.ismobile && props.data.y + props.data.height}px;
+  left: ${(props) => props.data.x}px;
+  top: ${(props) => props.data.y + props.data.height}px;
   width: auto;
   height: auto;
   overflow: visible;

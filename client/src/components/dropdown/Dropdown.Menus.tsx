@@ -40,7 +40,7 @@ export default function Dropdown_Menus({
             >
               <Button_Boxtype>
                 <>
-                  {option.name}
+                  <span>{option.name}</span>
                   {location.pathname.includes(option.url) && (
                     <FiCheck strokeWidth={4} />
                   )}
