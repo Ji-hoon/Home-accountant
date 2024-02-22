@@ -216,4 +216,45 @@ const ModalLayoutContainer = styled.form<{
       }
     }
   }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    width: 100vw;
+
+    top: ${(props) => (props.$type === "MODAL_DOUBLE_COLUMN" ? "5vw" : "auto")};
+    bottom: 0;
+
+    border-radius: 10px 10px 0 0;
+
+    -webkit-will-change: transform;
+    will-change: transform;
+
+    .modal-header h3 {
+      font-size: ${SIZES.LG}px;
+    }
+
+    .modal-contents {
+      flex-grow: ${(props) =>
+        props.$type === "MODAL_DOUBLE_COLUMN" ? "1" : "auto"};
+    }
+
+    padding-bottom: ${SIZES.SM / 2}px;
+    transform: translateY(20vh);
+    opacity: 0;
+
+    -webkit-animation: bottom-up-dialog 200ms 100ms
+      cubic-bezier(0.44, 0.13, 0.37, 1.07) forwards;
+    animation: bottom-up-dialog 200ms 100ms cubic-bezier(0.44, 0.13, 0.37, 1.07)
+      forwards;
+
+    @keyframes bottom-up-dialog {
+      0% {
+        transform: translate(-50%, 20vh);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+  }
 `;

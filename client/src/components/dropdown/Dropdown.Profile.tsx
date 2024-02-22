@@ -99,10 +99,17 @@ export function ApiComponent({ data }: DropdownProps) {
           </MenuGroup_ListType>
           <MenuGroup_ListType title={LABELS.LABEL_ACCOUNT}>
             <li>
-              <Button_Boxtype>{LABELS.LABEL_ACCOUNT_INFO}</Button_Boxtype>
+              <Button_Boxtype onClick={() => setShowDropdown("")}>
+                {LABELS.LABEL_ACCOUNT_INFO}
+              </Button_Boxtype>
             </li>
             <li>
-              <Button_Boxtype onClick={() => logout()}>
+              <Button_Boxtype
+                onClick={() => {
+                  logout();
+                  setShowDropdown("");
+                }}
+              >
                 {LABELS.LABEL_LOGOUT}
               </Button_Boxtype>
             </li>

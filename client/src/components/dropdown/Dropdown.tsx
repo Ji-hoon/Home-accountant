@@ -107,6 +107,9 @@ export const DropdownUIContainerStyle = styled.div<{
       transform: translateY(20vh);
       opacity: 0;
 
+      -webkit-will-change: transform;
+      will-change: transform;
+
       -webkit-animation: bottom-up 200ms 100ms
         cubic-bezier(0.44, 0.13, 0.37, 1.07) forwards;
       animation: bottom-up 200ms 100ms cubic-bezier(0.44, 0.13, 0.37, 1.07)
