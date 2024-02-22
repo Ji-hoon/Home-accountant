@@ -58,6 +58,8 @@ const DropdownBackdrop = styled(DropdownContainer)`
     -webkit-transition: opacity 100ms ease-out;
     transition: opacity 100ms ease-out;
 
+    -webkit-backdrop-filter: ${(props) =>
+      props.ismobile ? "blur(0.8px)" : "blur(0)"};
     backdrop-filter: ${(props) => (props.ismobile ? "blur(0.8px)" : "blur(0)")};
 
     opacity: ${(props) => (props.ismobile ? 1 : 0)};
