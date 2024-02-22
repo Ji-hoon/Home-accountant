@@ -39,7 +39,7 @@ const MenuGroupContainer = styled.div`
 
   & button {
     width: 100%;
-    background-color: #fff;
+    background-color: inherit;
     text-align: center;
     border-radius: 0;
 

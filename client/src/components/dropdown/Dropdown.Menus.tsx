@@ -23,8 +23,12 @@ export default function Dropdown_Menus({
 }) {
   const location = useLocation();
   const setShowDropdown = useSetRecoilState(dropdownOpenAtom);
+  const ismobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
   return (
-    <DropdownUIContainerStyleLeftTop data={data}>
+    <DropdownUIContainerStyleLeftTop
+      data={data}
+      className={ismobile ? "mobile" : ""}
+    >
       <MenuGroup_ListType>
         {options &&
           options.map((option, index) => (

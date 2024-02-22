@@ -7,8 +7,14 @@ import Empty from "../common/Empty";
 import { FiBell } from "react-icons/fi";
 
 export default function Dropdown_Notification({ data }: DropdownProps) {
+  const ismobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
   return (
-    <DropdownNotificationUIContainer data={data}>
+    <DropdownNotificationUIContainer
+      data={data}
+      ismobile={ismobile}
+      className={ismobile ? "mobile" : ""}
+    >
       <MenuGroup_ListType title={LABELS.LABEL_NOTIFICATION}>
         <li>
           <Empty
@@ -31,8 +37,9 @@ const DropdownNotificationUIContainer = styled(DropdownUIContainerStyle)<{
     height: number;
   };
   direction?: string;
+  ismobile?: boolean;
 }>`
-  width: 260px;
+  width: ${(props) => (!props.ismobile ? "260px" : "100%")};
   left: ${(props) => props.data.x + props.data.width - 260}px;
 
   & .empty {
