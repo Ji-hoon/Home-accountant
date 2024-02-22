@@ -9,7 +9,7 @@ export default function Dropdown_Member({ data }: DropdownProps) {
 
   return (
     <DropdownUIContainerStyle data={data} className={ismobile ? "mobile" : ""}>
-      <MenuGroup_ListType>
+      <MenuGroup_ListType title={LABELS.MOBILE_MENU_LABEL_MEMBER}>
         <li>
           <Button_Boxtype>{LABELS.LABEL_WITHDRAW_MEMBER}</Button_Boxtype>
         </li>

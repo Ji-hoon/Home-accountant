@@ -94,10 +94,18 @@ export const DropdownUIContainerStyle = styled.div<{
       border-radius: 5px 5px 0 0;
       overflow-y: auto;
       width: 100%;
+      padding-bottom: ${SIZES.SM / 2}px;
 
       -webkit-animation: bottom-up 150ms cubic-bezier(0.44, 0.13, 0.37, 1.07)
         forwards;
       animation: bottom-up 150ms cubic-bezier(0.44, 0.13, 0.37, 1.07) forwards;
+
+      button {
+        font-size: ${SIZES.MD}px;
+        line-height: ${SIZES.XL}px;
+        padding-top: ${SIZES.SM}px;
+        padding-bottom: ${SIZES.SM}px;
+      }
     }
 
     @keyframes bottom-up {

@@ -39,7 +39,7 @@ const MenuGroupContainer = styled.div`
 
   & button {
     width: 100%;
-    background-color: inherit;
+    background-color: #fff;
     text-align: center;
     border-radius: 0;
 
@@ -62,5 +62,11 @@ const MenuGroupContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 4px;
+  }
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    h5 {
+      font-size: ${SIZES.XS}px;
+    }
   }
 `;

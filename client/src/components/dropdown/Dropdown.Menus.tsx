@@ -6,7 +6,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { dropdownOpenAtom } from "../../atoms/globalAtoms";
-import { COLORS } from "../../global/constants";
+import { COLORS, LABELS } from "../../global/constants";
 import { FiCheck } from "react-icons/fi";
 
 export default function Dropdown_Menus({
@@ -29,7 +29,7 @@ export default function Dropdown_Menus({
       data={data}
       className={ismobile ? "mobile" : ""}
     >
-      <MenuGroup_ListType>
+      <MenuGroup_ListType title={LABELS.MOBILE_MENU_LABEL_MAIN}>
         {options &&
           options.map((option, index) => (
             <NavLink
