@@ -155,6 +155,8 @@ export const LABELS = {
   HEADER_MENU_EXPENSES: "지출 내역",
   HEADER_MENU_ASSETS: "자산 조회",
   HEADER_MENU_GROUP_MGMT: "그룹 관리",
+  MOBILE_MENU_LABEL_MAIN: "메인 메뉴",
+  MOBILE_MENU_LABEL_MEMBER: "멤버 관리",
   TAGLINE: "지출 및 자산 관리,\n이제 간편하게 관리하세요.",
   TAGLINE_INVITATION:
     "그룹에 초대받았어요.\n그룹에 참여하고 함께 자산 관리를 시작해보세요.",

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LABELS, VALUES } from "../../global/constants";
+import { LABELS, SIZES, VALUES } from "../../global/constants";
 import { MenuGroup_ListType } from "../compound/MenuGroup.listType";
 import Button_Boxtype from "../basic/Button.boxType";
 import { useDropdownProfile } from "./Dropdown.Profile.hooks";
@@ -99,10 +99,17 @@ export function ApiComponent({ data }: DropdownProps) {
           </MenuGroup_ListType>
           <MenuGroup_ListType title={LABELS.LABEL_ACCOUNT}>
             <li>
-              <Button_Boxtype>{LABELS.LABEL_ACCOUNT_INFO}</Button_Boxtype>
+              <Button_Boxtype onClick={() => setShowDropdown("")}>
+                {LABELS.LABEL_ACCOUNT_INFO}
+              </Button_Boxtype>
             </li>
             <li>
-              <Button_Boxtype onClick={() => logout()}>
+              <Button_Boxtype
+                onClick={() => {
+                  logout();
+                  setShowDropdown("");
+                }}
+              >
                 {LABELS.LABEL_LOGOUT}
               </Button_Boxtype>
             </li>
@@ -118,5 +125,9 @@ const DropdownProfileUIContainer = styled(DropdownUIContainerStyle)<{
 }>`
   margin-top: 8px;
   margin-left: -20px;
-  width: ${(props) => (!props.ismobile ? "220px" : "100%")};
+  width: 220px;
+
+  @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
+    width: ${(props) => props.ismobile && "100%"};
+  }
 `;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES } from "../../global/constants";
+import { COLORS, SIZES } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 import { useRef } from "react";
@@ -122,6 +122,9 @@ const HorizontalViewContainer = styled.section<{
           border-radius: 40px;
           padding: 12px 20px;
         }
+        .active button {
+          background-color: ${COLORS.GRAY_02};
+        }
       }
     }
 
@@ -151,6 +154,8 @@ const HorizontalViewContainer = styled.section<{
     .aside-navigation-container {
       nav {
         padding-top: 16px;
+        padding-bottom: 16px;
+        background-color: ${COLORS.GRAY_01};
       }
     }
   }
