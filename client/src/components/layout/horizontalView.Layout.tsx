@@ -115,8 +115,9 @@ const HorizontalViewContainer = styled.section<{
       nav {
         flex-direction: row;
         justify-content: center;
-        padding: 20px 20px 8px;
+        padding: 20px 20px;
         display: ${(props) => (props.$navLength === 1 ? "none" : "flex")};
+        background-color: ${COLORS.GRAY_00};
 
         button {
           border-radius: 40px;
@@ -155,7 +156,6 @@ const HorizontalViewContainer = styled.section<{
       nav {
         padding-top: 16px;
         padding-bottom: 16px;
-        background-color: ${COLORS.GRAY_01};
       }
     }
   }

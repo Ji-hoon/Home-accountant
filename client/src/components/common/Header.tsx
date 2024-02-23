@@ -16,7 +16,7 @@ import Profile from "../basic/Profile";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom } from "../../atoms/globalAtoms";
 import { currentUserType } from "../../global/customType";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { throttle } from "lodash";
 import Button_Dropdowntype from "../basic/Button.dropdownType";
 
@@ -27,6 +27,20 @@ export default function Header({ user }: { user?: currentUserType }) {
   // console.log(currentPath);
 
   const [width, setWidth] = useState(window.innerWidth);
+
+  const [isLandingPath, setIsLandingPath] = useState(false);
+
+  useLayoutEffect(() => {
+    if (
+      (currentPath === PATH.ROOT && !isLogin) ||
+      (currentPath === PATH.LOGIN && !isLogin) ||
+      currentPath === PATH.INVITATION
+    ) {
+      setIsLandingPath(true);
+      return;
+    }
+    setIsLandingPath(false);
+  }, [currentPath, isLogin]);
 
   const handleResize = throttle(() => {
     setWidth(window.innerWidth);
@@ -47,14 +61,7 @@ export default function Header({ user }: { user?: currentUserType }) {
   ];
 
   return (
-    <HeaderRoot
-      $islogin={isLogin.toString()}
-      $isAppPath={
-        currentPath === PATH.ROOT ||
-        currentPath === PATH.LOGIN ||
-        currentPath === PATH.INVITATION
-      }
-    >
+    <HeaderRoot $islogin={isLogin.toString()} $isLandingPath={isLandingPath}>
       <div className="header-inner-container">
         <div className="logo-container">
           <NavLink to={PATH.ROOT}>
@@ -90,12 +97,13 @@ export default function Header({ user }: { user?: currentUserType }) {
                   options={headerMenuOptions}
                 >
                   <>
-                    {location.pathname.includes(PATH.MAIN_EXPENSES) &&
-                      LABELS.HEADER_MENU_EXPENSES}
-                    {location.pathname.includes(PATH.MAIN_ASSETS) &&
-                      LABELS.HEADER_MENU_ASSETS}
-                    {location.pathname.includes(PATH.MAIN_GROUP) &&
-                      LABELS.HEADER_MENU_GROUP_MGMT}
+                    {location.pathname.includes(PATH.MAIN_EXPENSES)
+                      ? LABELS.HEADER_MENU_EXPENSES
+                      : location.pathname.includes(PATH.MAIN_ASSETS)
+                        ? LABELS.HEADER_MENU_ASSETS
+                        : location.pathname.includes(PATH.MAIN_GROUP)
+                          ? LABELS.HEADER_MENU_GROUP_MGMT
+                          : "로딩중..."}
                   </>
                 </Button_Dropdowntype>
               </nav>
@@ -131,7 +139,7 @@ export default function Header({ user }: { user?: currentUserType }) {
 
 const HeaderRoot = styled.header<{
   $islogin?: string;
-  $isAppPath: boolean;
+  $isLandingPath: boolean;
 }>`
   background-color: rgba(255, 255, 255, 0.9);
   -webkit-backdrop-filter: blur(15px);
@@ -205,8 +213,14 @@ const HeaderRoot = styled.header<{
     padding-left: 18px;
 
     .logo-container {
-      width: ${(props) => (props.$isAppPath ? "auto" : "40px")};
-      overflow: hidden;
+      width: 40px;
+      overflow: ${(props) => (props.$isLandingPath ? "visible" : "hidden")};
+
+      img {
+        width: ${(props) => (props.$isLandingPath ? "auto" : "40px")};
+        object-fit: cover;
+        object-position: left;
+      }
     }
     nav {
       padding-left: 40px;
