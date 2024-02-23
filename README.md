@@ -36,6 +36,7 @@
 7. **mustache**와 **nodemailer** 라이브러리를 활용하여 멤버 초대 이메일 템플릿 발송 기능, 초대 페이지를 통해 새로운 멤버를 가입시키는 기능 구현
 8. **react-helmet**을 활용하여 페이지별 open graph 정보 적용
 9. **react portal**을 활용하여 app 바깥 영역에 호출하여 재사용할 수 있는 dropdown, modal UI 구현
-10. (진행중)
+10. **media query**를 적용하여 Desktop 환경 뿐만 아니라 Mobile 환경에 적합한 반응형 UX 구현
+11. (진행중)
 
 **Have fun building!** 🚀
