@@ -5,7 +5,7 @@ import { ExpenseType } from "../../global/customType";
 import { format } from "date-fns";
 import Input_Checkbox from "../basic/Input.checkbox";
 
-import { FiCoffee, FiInstagram } from "react-icons/fi";
+import Capsule_Label from "../basic/Capsule.label";
 import { memo } from "react";
 
 function ListItem_ExpenseType({
@@ -29,11 +29,7 @@ function ListItem_ExpenseType({
         <div className="list-info">
           <h4 className="businessName" id={$item.businessName}>
             {$item.businessName}
-            <span className="category" id={$item.category}>
-              {$item.category === "식비" && <FiCoffee />}
-              {$item.category === "문화생활" && <FiInstagram />}
-              {$item.category}
-            </span>
+            <Capsule_Label id={$item.category} />
           </h4>
           <p className="date" id={$item.date as unknown as string}>
             {format($item.date, "yyyy-MM-dd")}
