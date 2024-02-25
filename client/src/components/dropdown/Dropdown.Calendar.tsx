@@ -72,11 +72,12 @@ const DropdownCalendarUIContainer = styled(DropdownUIContainerStyle)<{
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
     &.mobile {
-      height: ${(props) => props.$innerheight && props.$innerheight}px;
+      height: ${(props) => props.$innerheight && props.$innerheight + 12}px;
 
       .rdp {
         width: 100%;
         border-radius: 5px 5px 0 0;
+        box-shadow: none;
       }
       .rdp-day {
         height: calc(100vw / 7 - 5px);

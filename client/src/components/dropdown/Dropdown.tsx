@@ -107,6 +107,7 @@ export const DropdownUIContainerStyle = styled.div<{
       overflow-y: auto;
       width: 100%;
       padding-bottom: ${SIZES.SM / 2}px;
+      padding-top: ${SIZES.LG / 2}px;
       transform: translateY(20vh);
       opacity: 0;
 
@@ -128,6 +129,19 @@ export const DropdownUIContainerStyle = styled.div<{
           flex-grow: 1;
           text-align: left;
         }
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        width: 10vw;
+        height: 4px;
+        background-color: ${COLORS.GRAY_02};
+        z-index: 111111;
+        left: 50%;
+        margin-left: -5vw;
+        border-radius: 10px;
       }
     }
 
