@@ -38,7 +38,7 @@ export default function Dropdown_Calendar({
     <DropdownCalendarUIContainer
       data={data}
       direction={direction}
-      ismobile={ismobile}
+      $ismobile={ismobile}
       ref={calendarRef}
       $innerheight={calendarHeight}
       className={ismobile ? "mobile" : ""}
@@ -57,7 +57,7 @@ const DropdownCalendarUIContainer = styled(DropdownUIContainerStyle)<{
     height: number;
   };
   direction?: string;
-  ismobile?: boolean;
+  $ismobile?: boolean;
   $innerheight?: number | null;
 }>`
   left: ${(props) => props.data.x}px;
@@ -72,11 +72,12 @@ const DropdownCalendarUIContainer = styled(DropdownUIContainerStyle)<{
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
     &.mobile {
-      height: ${(props) => props.$innerheight && props.$innerheight}px;
+      height: ${(props) => props.$innerheight && props.$innerheight + 12}px;
 
       .rdp {
         width: 100%;
         border-radius: 5px 5px 0 0;
+        box-shadow: none;
       }
       .rdp-day {
         height: calc(100vw / 7 - 5px);

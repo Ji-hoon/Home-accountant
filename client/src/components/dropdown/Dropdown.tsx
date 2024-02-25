@@ -22,7 +22,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
       {showDropdown && (
         <DropdownContainer>
           <DropdownBackdrop
-            ismobile={ismobile}
+            $ismobile={ismobile}
             className="dropdown-backdrop"
             onClick={() => setShowDropdown("")}
           />
@@ -34,7 +34,7 @@ export default function Dropdown({ children }: { children: React.ReactNode }) {
 }
 
 const DropdownContainer = styled.div<{
-  ismobile?: boolean;
+  $ismobile?: boolean;
 }>`
   position: absolute;
 
@@ -59,13 +59,14 @@ const DropdownBackdrop = styled(DropdownContainer)`
     transition: opacity 100ms ease-out;
 
     -webkit-backdrop-filter: ${(props) =>
-      props.ismobile ? "blur(0.8px)" : "blur(0)"};
-    backdrop-filter: ${(props) => (props.ismobile ? "blur(0.8px)" : "blur(0)")};
+      props.$ismobile ? "blur(0.8px)" : "blur(0)"};
+    backdrop-filter: ${(props) =>
+      props.$ismobile ? "blur(0.8px)" : "blur(0)"};
 
-    opacity: ${(props) => (props.ismobile ? 1 : 0)};
+    opacity: ${(props) => (props.$ismobile ? 1 : 0)};
 
     background-color: ${(props) =>
-      props.ismobile ? COLORS.GRAY_07_OVERAY : "transparent"};
+      props.$ismobile ? COLORS.GRAY_07_OVERAY : "transparent"};
   }
 `;
 
@@ -106,6 +107,7 @@ export const DropdownUIContainerStyle = styled.div<{
       overflow-y: auto;
       width: 100%;
       padding-bottom: ${SIZES.SM / 2}px;
+      padding-top: ${SIZES.LG / 2}px;
       transform: translateY(20vh);
       opacity: 0;
 
@@ -127,6 +129,19 @@ export const DropdownUIContainerStyle = styled.div<{
           flex-grow: 1;
           text-align: left;
         }
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        width: 10vw;
+        height: 4px;
+        background-color: ${COLORS.GRAY_02};
+        z-index: 111111;
+        left: 50%;
+        margin-left: -5vw;
+        border-radius: 10px;
       }
     }
 

@@ -12,7 +12,7 @@ export default function Dropdown_Notification({ data }: DropdownProps) {
   return (
     <DropdownNotificationUIContainer
       data={data}
-      ismobile={ismobile}
+      $ismobile={ismobile}
       className={ismobile ? "mobile" : ""}
     >
       <MenuGroup_ListType title={LABELS.LABEL_NOTIFICATION}>
@@ -37,7 +37,7 @@ const DropdownNotificationUIContainer = styled(DropdownUIContainerStyle)<{
     height: number;
   };
   direction?: string;
-  ismobile?: boolean;
+  $ismobile?: boolean;
 }>`
   width: 260px;
   left: ${(props) => props.data.x + props.data.width - 260}px;
@@ -47,6 +47,6 @@ const DropdownNotificationUIContainer = styled(DropdownUIContainerStyle)<{
   }
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
-    width: ${(props) => props.ismobile && "100%"};
+    width: ${(props) => props.$ismobile && "100%"};
   }
 `;

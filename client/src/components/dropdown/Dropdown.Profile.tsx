@@ -41,7 +41,7 @@ export function ApiComponent({ data }: DropdownProps) {
       {result && (
         <DropdownProfileUIContainer
           data={data}
-          ismobile={ismobile}
+          $ismobile={ismobile}
           className={ismobile ? "mobile" : ""}
         >
           <MenuGroup_ListType title={LABELS.LABEL_GROUP}>
@@ -121,13 +121,13 @@ export function ApiComponent({ data }: DropdownProps) {
 }
 
 const DropdownProfileUIContainer = styled(DropdownUIContainerStyle)<{
-  ismobile?: boolean;
+  $ismobile?: boolean;
 }>`
   margin-top: 8px;
   margin-left: -20px;
   width: 220px;
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {
-    width: ${(props) => props.ismobile && "100%"};
+    width: ${(props) => props.$ismobile && "100%"};
   }
 `;

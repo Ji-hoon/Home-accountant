@@ -37,7 +37,11 @@ function Dialog() {
         {dialog.isOpen &&
           dialog.content.length > 0 &&
           dialog.content.map((item, index) => (
-            <ModalContainer key={index} className="modal-container">
+            <ModalContainer
+              key={index}
+              $index={index}
+              className="modal-container"
+            >
               <BackdropModal
                 $index={index}
                 $maxindex={dialog.content.length}
@@ -104,7 +108,9 @@ function Dialog() {
 
 export default memo(Dialog);
 
-const ModalContainer = styled.section`
+const ModalContainer = styled.section<{
+  $index: number;
+}>`
   position: absolute;
   left: 0;
   right: 0;
@@ -114,6 +120,7 @@ const ModalContainer = styled.section`
   text-align: center;
   overflow: hidden;
   overflow-y: auto;
+  z-index: ${(props) => props.$index + 100};
 `;
 
 const BackdropModal = styled.div<{
@@ -125,11 +132,13 @@ const BackdropModal = styled.div<{
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: ${(props) =>
+  background-color: ${COLORS.GRAY_07_OVERAY};
+
+  /* background-color: ${(props) =>
     props.$index === props.$maxindex - 1
-      ? COLORS.GRAY_08_OVERAY
+      ? COLORS.GRAY_07_OVERAY
       : "transparent"};
-  z-index: ${(props) => props.$index + 100};
+  z-index: ${(props) => props.$index + 100}; */
 
   -webkit-backdrop-filter: ${(props) =>
     props.$index === props.$maxindex - 1 ? "blur(0.8px)" : "blur(0px)"};
