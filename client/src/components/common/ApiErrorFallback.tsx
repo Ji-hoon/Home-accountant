@@ -1,9 +1,11 @@
 import { FallbackProps } from "react-error-boundary";
 import { AxiosError } from "axios";
-import { VALUES } from "../../global/constants";
 import profileAPI from "../dropdown/Dropdown.Profile.api";
 import { useSetRecoilState } from "recoil";
 import { currentUserAtom } from "../../atoms/globalAtoms";
+import Button_Boxtype from "../basic/Button.boxType";
+import styled from "styled-components";
+import { SIZES } from "../../global/constants";
 
 export default function ApiErrorFallback({
   error,
@@ -13,7 +15,6 @@ export default function ApiErrorFallback({
   const setCurrentUser = useSetRecoilState(currentUserAtom);
 
   if (error instanceof AxiosError && error.response?.status === 401) {
-    //toast.error(error.response.data.message);
     profileAPI.logout();
     localStorage.removeItem("currentUser");
     const resetUser = {
@@ -24,10 +25,23 @@ export default function ApiErrorFallback({
       profile: "",
     };
     setCurrentUser(() => resetUser);
-    setTimeout(() => {
-      location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
-    }, VALUES.TIMEOUT_DELAY_TIME);
+    location.href = import.meta.env.VITE_FRONTEND_URL; //새로고침하여 이동
+    return;
   }
 
-  return <></>;
+  return (
+    <ErrorFallback>
+      오류가 발생했습니다.
+      <Button_Boxtype onClick={resetErrorBoundary}>재시도</Button_Boxtype>
+    </ErrorFallback>
+  );
 }
+
+const ErrorFallback = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: ${SIZES.XXS}px;
+  height: 100%;
+`;
