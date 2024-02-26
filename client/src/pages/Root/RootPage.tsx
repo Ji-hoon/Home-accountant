@@ -8,8 +8,17 @@ import { PATH } from "../../global/constants";
 import { useLayoutEffect } from "react";
 import { loginUserType } from "../../global/customType";
 import Dialog from "../../components/dialog/Dialog";
+import ApiBoundary from "../../components/common/ApiBoundary";
 
 export default function RootPage() {
+  return (
+    <ApiBoundary>
+      <ApiComponent />
+    </ApiBoundary>
+  );
+}
+
+function ApiComponent() {
   const location = useLocation();
   const currentPath = location.pathname; // path가root or login 인 경우 footer를 표시하지 않음
 
