@@ -37,7 +37,7 @@ export default function ApiErrorFallback({
   );
 }
 
-const ErrorFallback = styled.div`
+export const ErrorFallback = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
