@@ -80,6 +80,7 @@ const DoubleColumnLayoutContainer = styled.div<{
 
 const PopupLayoutContainer = styled.div`
   width: ${SIZES.MODAL_WIDTH_SMALL}px;
+  margin: 0 auto;
 
   & h4 {
     margin: 0;
