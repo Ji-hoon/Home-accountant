@@ -64,7 +64,7 @@ export function useDialogSubmit() {
         })
         .filter((value) => value !== undefined);
 
-      if (nullValues.length !== 0) {
+      if (nullValues.length !== 0 && emailList.length === 0) {
         toast.error("필드를 모두 입력해주세요.");
       }
 
@@ -79,10 +79,7 @@ export function useDialogSubmit() {
         return;
       }
 
-      if (
-        (nullValues.length === 0 && emailList.length > 0) ||
-        currentFormData.email
-      ) {
+      if (emailList.length > 0 || currentFormData.email) {
         //console.log(emailList);
         if (currentFormData.email) {
           const newEmail = [...emailList, currentFormData.email];
