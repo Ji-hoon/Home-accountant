@@ -17,7 +17,12 @@ import ApiBoundary from "../common/ApiBoundary";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default function Selectbox(
-  props: Omit<FormListLayoutType, "title" | "type" | "defaultDate" | "hidden">,
+  props: Omit<
+    FormListLayoutType,
+    "title" | "type" | "defaultDate" | "hidden"
+  > & {
+    onChange: (event: React.ChangeEvent) => void;
+  },
 ) {
   return (
     <ApiBoundary>
@@ -32,7 +37,10 @@ export function ApiComponent({
   defaultValue,
   readonly,
   options,
-}: Omit<FormListLayoutType, "title" | "type" | "defaultDate" | "hidden">) {
+  onChange,
+}: Omit<FormListLayoutType, "title" | "type" | "defaultDate" | "hidden"> & {
+  onChange: (event: React.ChangeEvent) => void;
+}) {
   const currentUser = useRecoilValue(currentUserAtom);
 
   const { register } = useForm<InputFormType>();
@@ -66,6 +74,7 @@ export function ApiComponent({
               .find((value) => value)
       }
       disabled={readonly}
+      onChange={onChange}
     >
       {placeholder !== "" && (
         <option disabled value={placeholder}>
