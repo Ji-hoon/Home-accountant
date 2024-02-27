@@ -21,6 +21,7 @@ import {
   ExpenseType,
 } from "../../global/customType";
 import { LABELS } from "../../global/constants";
+import toast from "react-hot-toast";
 
 export function useDialogSubmit() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -56,7 +57,20 @@ export function useDialogSubmit() {
       const currentFormData = getDialogFormData(lastFormRef);
       console.log("submit!", modalIndex, currentFormData);
 
-      if (selectedExpenseId.length > 0) {
+      const values = Object.values(currentFormData);
+      const nullValues = values
+        .map((value) => {
+          if (value === "") return value;
+        })
+        .filter((value) => value !== undefined);
+
+      if (nullValues.length !== 0 && emailList.length === 0) {
+        toast.error("필드를 모두 입력해주세요.");
+      }
+
+      handleEmptyFields(lastFormRef);
+
+      if (nullValues.length === 0 && selectedExpenseId.length > 0) {
         const result = await submitDialog({
           action: dialog.content[modalIndex].title,
           data: selectedExpenseId,
@@ -83,12 +97,14 @@ export function useDialogSubmit() {
         return;
       }
 
-      const result = await submitDialog({
-        action: dialog.content[modalIndex].title,
-        data: currentFormData,
-      });
-      if (result?.status === 201 || result?.status === 200)
-        hideDialog({ order: modalIndex });
+      if (nullValues.length === 0) {
+        const result = await submitDialog({
+          action: dialog.content[modalIndex].title,
+          data: currentFormData,
+        });
+        if (result?.status === 201 || result?.status === 200)
+          hideDialog({ order: modalIndex });
+      }
     }
   }
 
@@ -191,4 +207,18 @@ export function useDialogSubmit() {
   }
 
   return { dialogRef, onSubmit, submitDialog };
+}
+
+function handleEmptyFields(lastFormRef: HTMLFormElement) {
+  const emptyFields = [
+    ...Array.from(lastFormRef.getElementsByTagName("input")).filter(
+      (field) => field.value === "",
+    ),
+    ...Array.from(lastFormRef.getElementsByTagName("select")).filter((select) =>
+      select.value.includes(".."),
+    ),
+  ];
+  emptyFields.forEach((field) => field.classList.add("error"));
+  const target = emptyFields[0];
+  if (target) target.focus();
 }

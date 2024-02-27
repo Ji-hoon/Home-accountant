@@ -42,6 +42,7 @@ function Textfield({
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   //const [calendarOpen, setCalendarOpen] = useState(false);
   const { register } = useForm<InputFormType>();
+
   const { handleEmail, handleRemoveEmail, handleLinkCopy } = useEmailInput();
   const emailList = useRecoilValue(emailListAtom);
 
@@ -75,6 +76,13 @@ function Textfield({
 
     if (target.type === "email" && e.code === "Comma") {
       handleEmail(target);
+    }
+  }
+
+  function handleDirtyFields(event: React.ChangeEvent) {
+    const target = event.target as HTMLFormElement;
+    if (target.value !== "" || !target.value.includes("..")) {
+      target.classList.remove("error");
     }
   }
 
@@ -135,6 +143,7 @@ function Textfield({
       {(type === "text" || type === "number" || type === "email") && (
         <input
           {...register(fieldName, { required: true })}
+          onChange={(event: React.ChangeEvent) => handleDirtyFields(event)}
           name={fieldName}
           type={type}
           placeholder={placeholder}
@@ -169,6 +178,7 @@ function Textfield({
           defaultValue={defaultValue}
           options={options}
           readonly={readonly}
+          onChange={(event: React.ChangeEvent) => handleDirtyFields(event)}
         />
       )}
       {type === "date" && (
@@ -244,7 +254,7 @@ export const TextFieldLayout = styled.div<{
   & select {
     padding: ${SIZES.LG / 2}px ${SIZES.XL / 2}px;
     background-color: ${COLORS.GRAY_01};
-    border: none;
+    border: 1px solid transparent;
     border-radius: 5px;
     outline: none;
     font-size: ${SIZES.SM}px;
@@ -268,6 +278,9 @@ export const TextFieldLayout = styled.div<{
       color: ${COLORS.GRAY_03};
       cursor: auto;
     }
+    &.error::placeholder {
+      color: ${COLORS.VARIATION_RED};
+    }
   }
 
   & select {
@@ -276,6 +289,9 @@ export const TextFieldLayout = styled.div<{
 
     &:focus {
       box-shadow: 10px 0 0 0 ${COLORS.GRAY_01_OVERAY};
+    }
+    &.error {
+      color: ${COLORS.VARIATION_RED};
     }
   }
 
