@@ -34,12 +34,15 @@ const assetTypeService = {
   }: {
     groupId: string | string[] | ParsedQs | ParsedQs[];
   }) {
-    const target = groupId
-      ? {
-          groupId,
-        }
-      : {};
-    return await AssetTypeModel.find(target);
+    if (groupId) {
+      const target = {
+        groupId,
+      };
+
+      return await AssetTypeModel.find(target);
+    }
+
+    return [];
   },
 };
 
