@@ -13,6 +13,7 @@ import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../../../../atoms/globalAtoms";
 import { useGroups } from "./Group.hooks";
 import { useIsMutating } from "@tanstack/react-query";
+import { useHandleEmptyFields } from "../../../../components/hooks/useHandleEmptyFields";
 
 export default function Group_Settings() {
   const isMutating = useIsMutating();
@@ -25,16 +26,22 @@ export default function Group_Settings() {
   const { getDialogFormData } = useHandleDialog();
   const groupFormRef = useRef<HTMLFormElement>(null);
   const { submitDialog } = useDialogSubmit();
+  const { handleEmptyFields, validateEmptyFields } = useHandleEmptyFields();
 
   async function onSubmit() {
     if (groupFormRef.current) {
       const currentFormData = getDialogFormData(groupFormRef.current);
       console.log("submit!", currentFormData);
 
-      await submitDialog({
-        action: LABELS.LABEL_UPDATE_GROUP_INFO,
-        data: currentFormData,
-      });
+      const nullValues = validateEmptyFields(currentFormData);
+      handleEmptyFields(groupFormRef.current);
+
+      if (nullValues.length === 0) {
+        await submitDialog({
+          action: LABELS.LABEL_UPDATE_GROUP_INFO,
+          data: currentFormData,
+        });
+      }
     }
   }
 

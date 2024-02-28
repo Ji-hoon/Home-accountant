@@ -21,7 +21,7 @@ import {
   ExpenseType,
 } from "../../global/customType";
 import { LABELS } from "../../global/constants";
-import toast from "react-hot-toast";
+import { useHandleEmptyFields } from "./useHandleEmptyFields";
 
 export function useDialogSubmit() {
   const currentDate = useRecoilValue(currentDateAtom);
@@ -44,6 +44,7 @@ export function useDialogSubmit() {
   const { updateGroup, inviteMemberToGroup } = useGroups(currentGroupId);
   const { addExpenseCategory } = useExpenseCategory();
   const { addAssetType } = useAssetType();
+  const { handleEmptyFields, validateEmptyFields } = useHandleEmptyFields();
 
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -57,17 +58,7 @@ export function useDialogSubmit() {
       const currentFormData = getDialogFormData(lastFormRef);
       console.log("submit!", modalIndex, currentFormData);
 
-      const values = Object.values(currentFormData);
-      const nullValues = values
-        .map((value) => {
-          if (value === "") return value;
-        })
-        .filter((value) => value !== undefined);
-
-      if (nullValues.length !== 0 && emailList.length === 0) {
-        toast.error("필드를 모두 입력해주세요.");
-      }
-
+      const nullValues = validateEmptyFields(currentFormData);
       handleEmptyFields(lastFormRef);
 
       if (nullValues.length === 0 && selectedExpenseId.length > 0) {
@@ -207,18 +198,4 @@ export function useDialogSubmit() {
   }
 
   return { dialogRef, onSubmit, submitDialog };
-}
-
-function handleEmptyFields(lastFormRef: HTMLFormElement) {
-  const emptyFields = [
-    ...Array.from(lastFormRef.getElementsByTagName("input")).filter(
-      (field) => field.value === "",
-    ),
-    ...Array.from(lastFormRef.getElementsByTagName("select")).filter((select) =>
-      select.value.includes(".."),
-    ),
-  ];
-  emptyFields.forEach((field) => field.classList.add("error"));
-  const target = emptyFields[0];
-  if (target) target.focus();
 }
