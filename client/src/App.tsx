@@ -85,6 +85,8 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  const FRONTEND_URL = process.env.VITE_FRONTEND_URL;
+
   return (
     <>
       <Helmet>
@@ -94,7 +96,7 @@ export default function App() {
           property="og:description"
           content={LABELS.FEATURE_01_DESC}
         />
-        <meta property="og:url" content={import.meta.env.VITE_FRONTEND_URL} />
+        <meta property="og:url" content={FRONTEND_URL} />
         <meta property="og:site_name" content="가계부를 부탁해" />
         <meta property="og:title" content={`가계부를 부탁해`} />
         <meta property="og:image" content={URLS.META_IMAGE} />

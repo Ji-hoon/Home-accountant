@@ -57,6 +57,8 @@ export const VALUES = {
   TIMEOUT_DELAY_TIME: 500,
 } as const;
 
+const BACKEND_URL = process.env.VITE_BACKEND_URL;
+
 export const URLS = {
   DEFAULT_PROFILE: "/img-default-profile.png",
   FEATURE_IMAGE_01: "/img-feature-01.webp",
@@ -69,7 +71,7 @@ export const URLS = {
   AD_MOCK_URL: "https://www.bithumb.com/",
   FOOTER_GITHUB: "https://github.com/Ji-hoon/home_accountant",
   FOOTER_LINKEDIN: "https://kr.linkedin.com/in/jhkimux",
-  EXTERNAL_KAKAO_LOGIN: `${import.meta.env.VITE_BACKEND_URL}/api/auth/kakao`,
+  EXTERNAL_KAKAO_LOGIN: `${BACKEND_URL}/api/auth/kakao`,
 } as const;
 
 export const PATH = {
