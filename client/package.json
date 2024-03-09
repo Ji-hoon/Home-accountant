@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "cd .. && husky install client/.husky",
-    "test": "jest --watch"
+    "test": "vitest --watch"
   },
   "dependencies": {
     "@nivo/bar": "^0.84.0",

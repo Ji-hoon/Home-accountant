@@ -8,7 +8,7 @@
     "module": "esnext",
 
     "esModuleInterop": true,
-    "types": ["@testing-library/jest-dom", "node"],
+    "types": ["@testing-library/jest-dom", "node", "vitest/globals"],
 
     "composite": true,
 
@@ -26,6 +26,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "setupTest.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
