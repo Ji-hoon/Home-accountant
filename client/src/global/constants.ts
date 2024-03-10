@@ -57,7 +57,7 @@ export const VALUES = {
   TIMEOUT_DELAY_TIME: 500,
 } as const;
 
-const BACKEND_URL = process.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const URLS = {
   DEFAULT_PROFILE: "/img-default-profile.png",

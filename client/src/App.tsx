@@ -85,7 +85,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const FRONTEND_URL = process.env.VITE_FRONTEND_URL;
+  const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
 
   return (
     <>
