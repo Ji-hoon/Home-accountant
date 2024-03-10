@@ -8,7 +8,7 @@
     "module": "esnext",
 
     "esModuleInterop": true,
-    "types": ["@testing-library/jest-dom", "node", "vitest/globals"],
+    "types": ["@testing-library/jest-dom", "vitest/globals"],
 
     "composite": true,
 
