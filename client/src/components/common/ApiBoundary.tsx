@@ -30,7 +30,7 @@ export default function ApiBoundary({ children }: { children: ReactNode }) {
   );
 }
 
-const LoaderWrapper = styled(ErrorFallback)`
+export const LoaderWrapper = styled(ErrorFallback)`
   background-color: ${COLORS.GRAY_01_OVERAY};
 
   & .rs-loader-spin {
