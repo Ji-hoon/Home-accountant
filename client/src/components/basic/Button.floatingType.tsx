@@ -5,15 +5,18 @@ import { SIZES, COLORS } from "../../global/constants";
 export default function Button_Floatingtype({
   onClick,
   $visiblity,
+  title,
 }: {
   onClick?: (e: React.SyntheticEvent) => void;
   $visiblity?: boolean | undefined;
+  title?: string;
 }) {
   return (
     <FloatingtypeButton
       $visiblity={$visiblity}
       className="floating-button"
       onClick={onClick}
+      title={title}
     >
       <FiPlus strokeWidth="2" />
     </FloatingtypeButton>

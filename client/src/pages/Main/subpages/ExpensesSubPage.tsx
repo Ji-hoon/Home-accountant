@@ -46,6 +46,7 @@ export default function Expenses_SubPage() {
       <div className="list-container">
         <ListHeader $type={TYPES.EXPENSES} />
         <Button_Floatingtype
+          title={LABELS.LABEL_ADD_EXPENSE}
           onClick={() => {
             showDialogCallback({
               type: TYPES.MODAL_DOUBLE_COL,
