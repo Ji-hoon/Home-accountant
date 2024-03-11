@@ -1,11 +1,20 @@
 import "@testing-library/jest-dom";
 import "@testing-library/react";
 
-import { beforeAll, afterEach, afterAll } from "vitest";
+import { beforeEach, beforeAll, afterEach, afterAll } from "vitest";
 import { server } from "./src/tests/mocks/server";
 
 // establish API mocking before all tests
 beforeAll(() => server.listen());
+
+beforeEach(() => {
+  Object.defineProperty(window, "location", {
+    value: {
+      origin: "http://localhost:3000",
+      pathname: "/",
+    },
+  });
+});
 
 // reset any handlers that we may add during the tests.
 // so they don't affect other tests.
