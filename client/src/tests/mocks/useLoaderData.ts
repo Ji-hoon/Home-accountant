@@ -1,5 +1,9 @@
 import { vi } from "vitest";
 
+export const emptyMockUserLoaderData = vi.fn().mockReturnValue({
+  result: {},
+});
+
 export const mockUserLoaderData = vi.fn().mockReturnValue({
   result: {
     userId: "65b73d1d95fd2333931df19f",
