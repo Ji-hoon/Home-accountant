@@ -99,7 +99,7 @@ describe("[scenario #2] after login, navigate to main-expense page", () => {
       name: /지출 내역 추가/i,
     });
 
-    screen.debug();
+    // screen.debug();
     expect(expenseFloatingButtonElement).toBeInTheDocument();
   });
 });
