@@ -26,7 +26,7 @@ export default function Assets_Amounts({
   return (
     <ValueWrapper>
       {fetchStatus === "fetching" && <Loader />}
-      <span>{amounts.toLocaleString()}원</span>
+      <span title="assets-amounts">{amounts.toLocaleString()}원</span>
     </ValueWrapper>
   );
 }

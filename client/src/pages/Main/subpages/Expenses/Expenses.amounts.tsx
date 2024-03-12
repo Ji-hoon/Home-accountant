@@ -11,7 +11,7 @@ export default function Expenses_Amounts() {
   return (
     <ValueWrapper>
       {fetchStatus === "fetching" && <Loader size="sm" />}
-      <span>-{amounts.toLocaleString()}원</span>
+      <span title="expenses-amounts">-{amounts.toLocaleString()}원</span>
     </ValueWrapper>
   );
 }
