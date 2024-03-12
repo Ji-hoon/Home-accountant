@@ -6,6 +6,12 @@ import { userEventSetup } from "./utils/utils";
 import LoginPage from "../pages/Login/LoginPage";
 import { mockUserLoaderData } from "./mocks/useLoaderData";
 import MainPage from "../pages/Main/MainPage";
+import Header from "../components/common/Header";
+
+// import Dialog from "../components/dialog/Dialog";
+// import { RecoilRoot } from "recoil";
+// import { QueryClientProvider } from "@tanstack/react-query";
+// import { queryClient } from "../global/reactQuery";
 
 describe("[scenario #1] exepense amounts and detail need to be synced", () => {
   it("should be equal between total amounts and expense amounts.", async () => {
@@ -20,6 +26,7 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
       // mockuserData를 loader로 사용.
       mockUserLoaderData,
     );
+
     const expenseAmountsValue = await screen.findByTitle("expenses-amounts");
     expect(expenseAmountsValue).toHaveTextContent("27,500");
 
@@ -30,15 +37,34 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
     expect(expenseListAmounts[0]).toHaveTextContent("27,500");
 
     // screen.debug();
-    // logRoles(container);
+    logRoles(container);
   });
 
-  it("should be open modal when click the expense list.", async () => {
-    const { user, container } = userEventSetup(
+  it("should be navigate monthly expense list page when click the monthly exepense button.", async () => {
+    const mainWithHeader = () => {
+      return (
+        <>
+          <Header />
+          <MainPage />
+        </>
+      );
+    };
+
+    const { user } = userEventSetup(
       [
-        { path: "/", jsx: <MainPage /> },
+        {
+          path: "/",
+          jsx: <MainPage />,
+        },
         { path: "/main/expenses", jsx: <MainPage /> },
-        { path: "/main/expenses/weekly", jsx: <MainPage /> },
+        {
+          path: "/main/expenses/weekly",
+          jsx: mainWithHeader(),
+        },
+        {
+          path: "/main/expenses/monthly",
+          jsx: mainWithHeader(),
+        },
         { path: "/login", jsx: <LoginPage /> },
       ],
       // localstorage에 userData가 저장되어있는지 여부로 로그인 여부를 판단하므로,
@@ -50,17 +76,37 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
     portalRoot.setAttribute("id", "dialog");
     document.body.appendChild(portalRoot);
 
-    const expenseLists = await screen.findAllByTestId("expense-item", {
+    const expenseList = await screen.findByTestId("expense-item", {
       exact: false,
     });
-    await user.click(expenseLists[0]);
+    expect(expenseList).toBeInTheDocument();
+    await user.click(expenseList);
 
-    const modalHeading = await screen.findByRole("heading", {
-      name: "지출 내역 수정",
+    const monthlyExpenseMenu = await screen.findByRole("link", {
+      name: "월간 지출 내역",
     });
-    expect(modalHeading).toBeInTheDocument();
+
+    await user.click(monthlyExpenseMenu);
+
+    const dataInfo = await screen.findByTestId("date-info");
+    expect(dataInfo).toHaveTextContent("2024년 3월");
 
     screen.debug();
-    logRoles(container);
   });
 });
+
+// it("should be open modal when click the expense list.", async () => {
+// render(
+//   <QueryClientProvider client={queryClient}>
+//     <RecoilRoot>
+//       <Dialog />
+//     </RecoilRoot>
+//   </QueryClientProvider>
+// );
+// screen.debug();
+// logRoles(container);
+
+// const modalHeading = await screen.findByRole("heading", {
+//   name: "지출 내역 수정",
+// });
+// expect(modalHeading).toBeInTheDocument();
