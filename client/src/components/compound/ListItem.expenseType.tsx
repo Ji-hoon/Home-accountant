@@ -21,6 +21,7 @@ function ListItem_ExpenseType({
     <li>
       <ListItemContainer
         id={$item._id}
+        data-testid="expense-item"
         onClick={(event: React.SyntheticEvent) => onClick(event)}
       >
         <div>

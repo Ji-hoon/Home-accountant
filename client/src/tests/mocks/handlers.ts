@@ -81,23 +81,19 @@ export const handlers: HttpHandler[] = [
       });
     },
   ),
-  // http.get(`${import.meta.env.VITE_BACKEND_URL}/api/expenses`, async () => {
-  //   return HttpResponse.json({
-  //     data: {
-  //       data: [
-  //         {
-  //           _id: "65b9c7bc62cbeb63b583e64f",
-  //           amounts: 27500,
-  //           businessName: "컬리",
-  //           date: "2024-01-28T15:00:00.000Z",
-  //           isRecurring: "일시불",
-  //           category: "식비",
-  //           owner: "밀크티",
-  //         },
-  //       ],
-  //     },
-  //   });
-  // }),
+  http.get(`${import.meta.env.VITE_BACKEND_URL}/api/expenses`, async () => {
+    return HttpResponse.json([
+      {
+        _id: "65b9c7bc62cbeb63b583e64f",
+        amounts: 27500,
+        businessName: "컬리",
+        date: new Date("2024-01-28T15:00:00.000Z").toISOString(), //"2024-01-28T15:00:00.000Z",
+        isRecurring: "일시불",
+        category: "식비",
+        owner: "밀크티",
+      },
+    ]);
+  }),
   http.get(
     `${import.meta.env.VITE_BACKEND_URL}/api/expenses/amounts`,
     async () => {
