@@ -2,12 +2,13 @@ import userEvent, { UserEvent } from "@testing-library/user-event";
 import { render, RenderResult } from "@testing-library/react";
 import React, { Suspense } from "react";
 import { RecoilRoot } from "recoil";
-import { RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router-dom";
+import { Routes, Route, RouterProvider } from "react-router";
+import { createBrowserRouter, BrowserRouter as Router } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../../global/reactQuery";
 import { LoaderWrapper } from "../../components/common/ApiBoundary";
 import { Loader } from "rsuite";
+import Header from "../../components/common/Header";
 
 export function userEventSetup(
   renderTree: {
@@ -40,6 +41,11 @@ export function userEventSetup(
               </LoaderWrapper>
             }
           >
+            <Router>
+              <Routes>
+                <Route path="*" element={<Header />} />
+              </Routes>
+            </Router>
             <RouterProvider router={router} />
           </Suspense>
         </RecoilRoot>
