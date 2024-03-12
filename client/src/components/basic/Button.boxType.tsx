@@ -12,6 +12,7 @@ export default function Button_Boxtype({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   title,
   processing,
+  testid,
 }: {
   children: React.ReactElement | string;
   onClick?: (e: React.SyntheticEvent) => void;
@@ -21,6 +22,7 @@ export default function Button_Boxtype({
   title?: string | undefined;
   processing?: boolean;
   className?: string;
+  testid?: string;
 }) {
   return (
     <>
@@ -31,6 +33,7 @@ export default function Button_Boxtype({
           onClick={onClick}
           disabled={disabled || processing}
           $alert={isAlert}
+          data-testid={testid}
         >
           {processing && <Loader size="sm" />}
           {children}
@@ -43,6 +46,7 @@ export default function Button_Boxtype({
           disabled={disabled}
           $alert={isAlert}
           id={title}
+          data-testid={testid}
         >
           {children}
         </BoxtypeButton>

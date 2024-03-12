@@ -85,6 +85,7 @@ export default function ListHeader({ $type }: { $type?: string }) {
               <Button_Boxtype
                 type={showDropdown === showDropdownUniqueKey ? "active" : ""}
                 onClick={handleDropdownTrigger}
+                testid="date-info"
               >
                 <>
                   {$unit === TYPES.TYPE_UNIT_WEEK &&
