@@ -9,7 +9,7 @@ import Header from "../components/common/Header";
 import MainPage from "../pages/Main/MainPage";
 import Dialog from "../components/dialog/Dialog";
 
-describe("[scenario #4] switch sub pages with navigation menu on header", () => {
+describe("[scenario #1] switch sub pages with navigation menu on header", () => {
   it("should be equal between total amounts and expense amounts.", async () => {
     const mainWithHeader = () => {
       return (

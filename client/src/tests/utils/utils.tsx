@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import userEvent, { UserEvent } from "@testing-library/user-event";
 import { render, RenderResult } from "@testing-library/react";

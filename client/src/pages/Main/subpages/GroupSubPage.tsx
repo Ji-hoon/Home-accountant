@@ -41,9 +41,9 @@ export default function Group_SubPage() {
       <div className="list-container">
         <ListHeader
           $type={
-            location.pathname === PATH.MAIN_GROUP_MEMBER
-              ? TYPES.MEMBER
-              : TYPES.GROUP
+            location.pathname === PATH.MAIN_GROUP_SETTINGS
+              ? TYPES.GROUP
+              : TYPES.MEMBER
           }
         />
         <Button_Floatingtype
