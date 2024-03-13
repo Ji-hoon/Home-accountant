@@ -66,15 +66,15 @@ function Chart() {
   }, [windowWidth]);
 
   useEffect(() => {
-    location.pathname === PATH.MAIN_ASSETS_BY_YEAR
-      ? setDateUnit(TYPES.TYPE_UNIT_YEAR)
-      : setDateUnit(TYPES.TYPE_UNIT_MONTH);
+    if (location.pathname === PATH.MAIN_ASSETS_BY_YEAR)
+      setDateUnit(TYPES.TYPE_UNIT_YEAR);
+    else setDateUnit(TYPES.TYPE_UNIT_MONTH);
 
     console.log(dateUnit);
     setCurrentOwner("");
     setSelectedExpenseId([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, [setDateUnit]);
 
   return (
     <>

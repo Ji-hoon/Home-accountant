@@ -50,16 +50,16 @@ function Expenses_List({ id }: { id?: string }) {
   //컴포넌트가 리렌더링되며 owner가 ""인 기준의 정보가 표시되는 현상 수정 필요
   //TODO: totalAmounts refetch 테스트를 위한 코드. 추후 멤버별 지출내역 구현 시 처리 필요
   useEffect(() => {
-    location.pathname === PATH.MAIN_EXPENSES_BY_MONTH
-      ? setDateUnit(TYPES.TYPE_UNIT_MONTH)
-      : setDateUnit(TYPES.TYPE_UNIT_WEEK);
+    if (location.pathname === PATH.MAIN_EXPENSES_BY_MONTH)
+      setDateUnit(TYPES.TYPE_UNIT_MONTH);
+    else setDateUnit(TYPES.TYPE_UNIT_WEEK);
 
     //console.log(dateUnit);
     setSelectedExpenseId([]);
     setCurrentOwner("");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, [setDateUnit]);
 
   return (
     <ul

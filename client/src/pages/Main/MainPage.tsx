@@ -25,17 +25,23 @@ export default function MainPage() {
       {isLogin && (
         <HorizontalViewLayout>
           <>
-            {(location.pathname === PATH.MAIN_EXPENSES_BY_WEEK ||
-              location.pathname === PATH.MAIN_EXPENSES_BY_MEMBER ||
-              location.pathname === PATH.MAIN_EXPENSES_BY_MONTH) && (
+            {location.pathname === PATH.MAIN_EXPENSES_BY_WEEK && (
               <Expenses_SubPage />
             )}
-            {(location.pathname === PATH.MAIN_ASSETS_BY_MONTH ||
-              location.pathname === PATH.MAIN_ASSETS_BY_YEAR) && (
+            {location.pathname === PATH.MAIN_EXPENSES_BY_MEMBER && (
+              <Expenses_SubPage />
+            )}
+            {location.pathname === PATH.MAIN_EXPENSES_BY_MONTH && (
+              <Expenses_SubPage />
+            )}
+            {location.pathname === PATH.MAIN_ASSETS_BY_MONTH && (
               <Assets_SubPage />
             )}
-            {(location.pathname === PATH.MAIN_GROUP_MEMBER ||
-              location.pathname === PATH.MAIN_GROUP_SETTINGS) && (
+            {location.pathname === PATH.MAIN_ASSETS_BY_YEAR && (
+              <Assets_SubPage />
+            )}
+            {location.pathname === PATH.MAIN_GROUP_MEMBER && <Group_SubPage />}
+            {location.pathname === PATH.MAIN_GROUP_SETTINGS && (
               <Group_SubPage />
             )}
           </>
