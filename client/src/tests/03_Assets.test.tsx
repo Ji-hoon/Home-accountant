@@ -88,6 +88,9 @@ describe("[scenario #4] switch sub pages with navigation menu on header", () => 
       { timeout: 1000 },
     );
 
+    const dataInfo = await screen.findByTestId("date-info");
+    expect(dataInfo).toHaveTextContent("2024년 3월");
+
     // screen.debug();
     logRoles(container);
   });
