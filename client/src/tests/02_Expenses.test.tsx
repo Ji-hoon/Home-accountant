@@ -30,20 +30,16 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
       () => {
         const expenseAmountsValue = screen.getByTitle("expenses-amounts");
         expect(expenseAmountsValue).toHaveTextContent("27,500");
+
+        const expenseListAmounts = screen.getAllByRole("heading", {
+          name: /원/i,
+        });
+        expect(expenseListAmounts.length).toEqual(1);
+        expect(expenseListAmounts[0]).toHaveTextContent("27,500");
         screen.debug();
       },
       { timeout: 2000 },
     );
-
-    // const expenseAmountsValue = await screen.findByTitle("expenses-amounts");
-    // expect(expenseAmountsValue).toHaveTextContent("27,500");
-
-    const expenseListAmounts = await screen.findAllByRole("heading", {
-      name: /원/i,
-    });
-    expect(expenseListAmounts.length).toEqual(1);
-    expect(expenseListAmounts[0]).toHaveTextContent("27,500");
-
     // screen.debug();
     // logRoles(container);
   });
@@ -80,24 +76,38 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
       mockUserLoaderData,
     );
 
-    const expenseList = await screen.findByTestId("expense-item", {
-      exact: false,
-    });
-    expect(expenseList).toBeInTheDocument();
-    await user.click(expenseList);
+    await waitFor(
+      () => {
+        const expenseList = screen.getByTestId("expense-item", {
+          exact: false,
+        });
+        expect(expenseList).toBeInTheDocument();
+        user.click(expenseList);
 
-    const monthlyExpenseMenu = await screen.findByRole("link", {
-      name: "월간 지출 내역",
-    });
+        screen.debug();
+      },
+      { timeout: 1500 },
+    );
 
-    await user.click(monthlyExpenseMenu);
+    await waitFor(
+      () => {
+        const monthlyExpenseMenu = screen.getByRole("link", {
+          name: "월간 지출 내역",
+        });
+        user.click(monthlyExpenseMenu);
 
-    const dataInfo = await screen.findByTestId("date-info");
-    expect(dataInfo).toHaveTextContent("2024년 3월");
+        const dataInfo = screen.getByTestId("date-info");
+        expect(dataInfo).toHaveTextContent("2024년 3월");
 
+        screen.debug();
+      },
+      { timeout: 1500 },
+    );
     // screen.debug();
   });
+});
 
+describe("[scenario #2] expense amounts will be synced after update expense info", () => {
   it("should be open modal when click the expense list.", async () => {
     const mainWithDialog = () => {
       return (
@@ -135,17 +145,31 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
     portalRoot.setAttribute("id", "dialog");
     document.body.appendChild(portalRoot);
 
-    const expenseList = await screen.findByTestId("expense-item", {
+    await waitFor(
+      () => {
+        const listItem = screen.getByRole("list", { name: "" });
+        expect(listItem.style.pointerEvents).toBe("");
+
+        screen.debug();
+      },
+      { timeout: 1000 },
+    );
+
+    const expenseList = await screen.findAllByTestId("expense-item", {
       exact: false,
     });
-    expect(expenseList).toBeInTheDocument();
-    if (expenseList.getAttribute("id") === "65b9c7bc62cbeb63b583e64f") {
-      await user.click(expenseList);
-    }
+
+    const filteredItem = expenseList.find(
+      (item) => item.getAttribute("id") === "65b9c7bc62cbeb63b583e64f",
+    );
+    expect(filteredItem).toBeInTheDocument();
+
+    await user.click(filteredItem as Element);
 
     const modalSubmit = await screen.findByRole("button", {
       name: "지출 내역 수정",
     });
+
     expect(modalSubmit).toBeInTheDocument();
 
     const expenseInputElement = await screen.findByRole("spinbutton");
@@ -198,13 +222,18 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
       ),
     );
 
-    await user.click(modalSubmit);
-    expect(modalSubmit).not.toBeInTheDocument();
+    await waitFor(
+      () => {
+        user.click(modalSubmit);
+        expect(modalSubmit).not.toBeInTheDocument();
 
-    const expenseListAmounts = expenseList.querySelector(".amounts");
-    expect(expenseListAmounts).toHaveTextContent("20,000");
+        const expenseListAmounts = filteredItem?.querySelector(".amounts");
+        expect(expenseListAmounts).toHaveTextContent("20,000");
 
-    screen.debug();
-    logRoles(container);
+        screen.debug();
+        logRoles(container);
+      },
+      { timeout: 3000 },
+    );
   });
 });

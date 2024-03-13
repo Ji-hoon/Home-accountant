@@ -41,7 +41,7 @@ describe("[scenario #4] switch sub pages with navigation menu on header", () => 
         expect(monthlyExpenseMenu).toBeInTheDocument();
         screen.debug();
       },
-      { timeout: 2000 },
+      { timeout: 1000 },
     );
 
     const assetNavigationMenu = await screen.findByRole("link", {
@@ -58,7 +58,7 @@ describe("[scenario #4] switch sub pages with navigation menu on header", () => 
         expect(monthlyAssetsMenu).toBeInTheDocument();
         screen.debug();
       },
-      { timeout: 2000 },
+      { timeout: 1000 },
     );
 
     // await user.click(assetNavigationMenu);
