@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { userEventSetup } from "./utils/utils";
 import { http, HttpResponse } from "msw";
 
@@ -95,11 +95,16 @@ describe("[scenario #2] after login, navigate to main-expense page", () => {
       ],
       mockUserLoaderData, // localstorage에 userData가 저장되어있는지 여부로 로그인 여부를 판단하므로, mockuserData를 loader로 사용.
     );
-    const expenseFloatingButtonElement = await screen.findByRole("button", {
-      name: /지출 내역 추가/i,
-    });
 
-    // screen.debug();
-    expect(expenseFloatingButtonElement).toBeInTheDocument();
+    await waitFor(
+      () => {
+        const expenseFloatingButtonElement = screen.getByRole("button", {
+          name: /지출 내역 추가/i,
+        });
+        expect(expenseFloatingButtonElement).toBeInTheDocument();
+        screen.debug();
+      },
+      { timeout: 1000 },
+    );
   });
 });

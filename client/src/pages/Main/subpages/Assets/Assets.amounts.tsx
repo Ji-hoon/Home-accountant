@@ -21,12 +21,15 @@ export default function Assets_Amounts({
     currentDate: $currentDate,
     unit: $unit,
   });
+
   const amounts = data.amounts;
 
   return (
     <ValueWrapper>
       {fetchStatus === "fetching" && <Loader />}
-      <span title="assets-amounts">{amounts.toLocaleString()}원</span>
+      <span title="assets-amounts">
+        {amounts ? amounts.toLocaleString() : 0}원
+      </span>
     </ValueWrapper>
   );
 }

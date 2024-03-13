@@ -66,11 +66,11 @@ function Chart() {
   }, [windowWidth]);
 
   useEffect(() => {
-    if (location.pathname === PATH.MAIN_ASSETS_BY_MONTH) {
-      setDateUnit(TYPES.TYPE_UNIT_MONTH);
-    } else if (location.pathname === PATH.MAIN_ASSETS_BY_YEAR) {
+    if (location.pathname === PATH.MAIN_ASSETS_BY_YEAR)
       setDateUnit(TYPES.TYPE_UNIT_YEAR);
-    }
+    else setDateUnit(TYPES.TYPE_UNIT_MONTH);
+
+    console.log(dateUnit);
     setCurrentOwner("");
     setSelectedExpenseId([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps

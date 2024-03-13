@@ -11,14 +11,6 @@ beforeAll(() => server.listen());
 beforeEach(() => {
   cleanup();
 
-  // test 시작 시 마다 경로 reset
-  Object.defineProperty(window, "location", {
-    value: {
-      origin: "http://localhost:3000",
-      pathname: "/",
-    },
-  });
-
   // TODO : 임시로 null로 전환한 IntersectionObserver를 동작하게끔 수정
   const mockIntersectionObserver = vi.fn();
   mockIntersectionObserver.mockReturnValue({
@@ -33,7 +25,14 @@ beforeEach(() => {
 // so they don't affect other tests.
 afterEach(() => {
   server.resetHandlers();
-  cleanup();
+
+  // test 종료 시 마다 경로 reset
+  Object.defineProperty(window, "location", {
+    value: {
+      origin: "http://localhost:3000", // default port는 3000
+      pathname: "/",
+    },
+  });
 });
 
 // clean up after the tests are finished.

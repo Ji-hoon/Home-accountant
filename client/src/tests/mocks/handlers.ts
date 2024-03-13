@@ -49,6 +49,50 @@ export const handlers: HttpHandler[] = [
     },
   ),
 
+  http.get(`${import.meta.env.VITE_BACKEND_URL}/api/groups/null`, async () => {
+    return HttpResponse.json({
+      message: "그룹 조회에 성공했습니다.",
+      groupInfo: {
+        id: "65b73d1d95fd2333931df1a2",
+        code: "3287612204",
+        name: "훈님의 가계부",
+        members: [
+          {
+            userId: "65b73d1d95fd2333931df19f",
+            nickname: "훈",
+            profileImgUrl:
+              "http://k.kakaocdn.net/dn/CjcgX/btsDqiDbLki/lAvaEBFFs9qcewizh6zLEK/img_640x640.jpg",
+            role: "OWNER",
+            joinedAt: "2024-01-29T05:52:29.299Z",
+          },
+        ],
+        categories: [
+          {
+            _id: "65c0397b36696234ca23ea02",
+            name: "식비",
+            groupId: "65b73d1d95fd2333931df1a2",
+            status: "ACTIVE",
+            type: "FOOD",
+            createdAt: "2024-02-05T01:27:23.720Z",
+            updatedAt: "2024-02-05T02:34:21.757Z",
+            __v: 0,
+          },
+        ],
+        assetTypes: [
+          {
+            _id: "65c09ea508414b6cd55b822a",
+            name: "현금",
+            groupId: "65b73d1d95fd2333931df1a2",
+            status: "ACTIVE",
+            createdAt: "2024-02-05T08:39:01.783Z",
+            updatedAt: "2024-02-05T10:23:05.657Z",
+            __v: 0,
+          },
+        ],
+      },
+    });
+  }),
+
   http.get(
     `${import.meta.env.VITE_BACKEND_URL}/api/groups`,
     async ({ request }) => {
@@ -121,12 +165,6 @@ export const handlers: HttpHandler[] = [
       return HttpResponse.json(27500);
     },
   ),
-  http.get(
-    `${import.meta.env.VITE_BACKEND_URL}/api/assets/amounts`,
-    async () => {
-      return HttpResponse.json(27500);
-    },
-  ),
   http.get(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, async () => {
     return HttpResponse.json({
       message: "카테고리 조회에 성공했습니다.",
@@ -144,14 +182,34 @@ export const handlers: HttpHandler[] = [
       ],
     });
   }),
+
+  http.get(
+    `${import.meta.env.VITE_BACKEND_URL}/api/assets/amounts`,
+    async () => {
+      return HttpResponse.json(6800000);
+    },
+  ),
   http.get(`${import.meta.env.VITE_BACKEND_URL}/api/assets`, async () => {
-    return HttpResponse.json([]);
+    return HttpResponse.json([
+      {
+        _id: "65b1fbcbabd718a8d985615f",
+        amounts: 6800000,
+        name: "타이거 주식",
+        assetHistory: {
+          date: new Date("2024-01-24T15:00:00.000Z").toISOString(),
+          amounts: 6800000,
+          _id: null,
+        },
+        assetType: "주식",
+        owner: "훈",
+      },
+    ]);
   }),
   http.get(`${import.meta.env.VITE_BACKEND_URL}/api/asset_types`, async () => {
     return HttpResponse.json([]);
   }),
-  http.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/kakao`, async () => {
-    window.location.assign("/login");
-    return;
-  }),
+  // http.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth/kakao`, async () => {
+  //   window.location.assign("/login");
+  //   return;
+  // }),
 ];
