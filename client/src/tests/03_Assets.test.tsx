@@ -61,9 +61,7 @@ describe("[scenario #4] switch sub pages with navigation menu on header", () => 
       { timeout: 1000 },
     );
 
-    // await user.click(assetNavigationMenu);
-
-    screen.debug();
+    // screen.debug();
     logRoles(container);
   });
 });
