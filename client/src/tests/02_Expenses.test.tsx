@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { describe, expect, it } from "vitest";
-import { screen, logRoles, waitFor } from "@testing-library/react";
+import { screen, logRoles } from "@testing-library/react";
 import { userEventSetup } from "./utils/utils";
 
 import LoginPage from "../pages/Login/LoginPage";
@@ -11,13 +11,10 @@ import Header from "../components/common/Header";
 import Dialog from "../components/dialog/Dialog";
 import { server } from "./mocks/server";
 import { HttpResponse, http } from "msw";
-// import { RecoilRoot } from "recoil";
-// import { QueryClientProvider } from "@tanstack/react-query";
-// import { queryClient } from "../global/reactQuery";
 
 describe("[scenario #1] exepense amounts and detail need to be synced", () => {
   it("should be equal between total amounts and expense amounts.", async () => {
-    const { container } = userEventSetup(
+    userEventSetup(
       [
         { path: "/", jsx: <MainPage /> },
         { path: "/main/expenses", jsx: <MainPage /> },
@@ -113,6 +110,10 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
           path: "/main/expenses/weekly",
           jsx: mainWithDialog(),
         },
+        {
+          path: "/main/expenses/monthly",
+          jsx: mainWithDialog(),
+        },
         { path: "/login", jsx: <LoginPage /> },
       ],
       // localstorage에 userData가 저장되어있는지 여부로 로그인 여부를 판단하므로,
@@ -196,15 +197,5 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
 
     screen.debug();
     logRoles(container);
-
-    // await waitFor(
-    //   async () => {
-    //     const expenseListAmounts = expenseList.querySelector(".amounts");
-    //     expect(expenseListAmounts).toHaveTextContent("27,500");
-
-    //     screen.debug();
-    //   },
-    //   { timeout: 1000 }
-    // );
   });
 });
