@@ -7,10 +7,11 @@ import LoginPage from "../pages/Login/LoginPage";
 import { mockUserLoaderData } from "./mocks/useLoaderData";
 import Header from "../components/common/Header";
 import MainPage from "../pages/Main/MainPage";
+import Dialog from "../components/dialog/Dialog";
 
 describe("[scenario #4] switch sub pages with navigation menu on header", () => {
   it("should be equal between total amounts and expense amounts.", async () => {
-    const mainPageWithHeader = () => {
+    const mainWithHeader = () => {
       return (
         <>
           <Header />
@@ -19,13 +20,23 @@ describe("[scenario #4] switch sub pages with navigation menu on header", () => 
       );
     };
 
+    const mainWithHeaderAndDialog = () => {
+      return (
+        <>
+          <Header />
+          <MainPage />
+          <Dialog />
+        </>
+      );
+    };
+
     const { user, container } = userEventSetup(
       [
-        { path: "/", jsx: mainPageWithHeader() },
-        { path: "/main/expenses", jsx: mainPageWithHeader() },
-        { path: "/main/expenses/weekly", jsx: mainPageWithHeader() },
-        { path: "/main/assets/", jsx: mainPageWithHeader() },
-        { path: "/main/assets/monthly", jsx: mainPageWithHeader() },
+        { path: "/", jsx: <MainPage /> },
+        { path: "/main/expenses", jsx: <MainPage /> },
+        { path: "/main/expenses/weekly", jsx: mainWithHeader() },
+        { path: "/main/assets/", jsx: mainWithHeaderAndDialog() },
+        { path: "/main/assets/monthly", jsx: mainWithHeaderAndDialog() },
         { path: "/login", jsx: <LoginPage /> },
       ],
       // localstorage에 userData가 저장되어있는지 여부로 로그인 여부를 판단하므로,
@@ -33,10 +44,26 @@ describe("[scenario #4] switch sub pages with navigation menu on header", () => 
       mockUserLoaderData,
     );
 
+    // react portal을 사용하는 Dialog 컴포넌트가 사용할 dialog div를 임의 추가
+    const portalRoot = document.createElement("div");
+    portalRoot.setAttribute("id", "dialog");
+    document.body.appendChild(portalRoot);
+
+    await waitFor(
+      () => {
+        const expenseFloatingButtonElement = screen.getByRole("button", {
+          name: /지출 내역 추가/i,
+        });
+        expect(expenseFloatingButtonElement).toBeInTheDocument();
+        screen.debug();
+      },
+      { timeout: 1000 },
+    );
+
     await waitFor(
       () => {
         const monthlyExpenseMenu = screen.getByRole("link", {
-          name: /지출 내역/i,
+          name: "지출 내역",
         });
         expect(monthlyExpenseMenu).toBeInTheDocument();
         screen.debug();

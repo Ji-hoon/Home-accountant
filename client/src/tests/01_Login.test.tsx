@@ -104,7 +104,7 @@ describe("[scenario #2] after login, navigate to main-expense page", () => {
         expect(expenseFloatingButtonElement).toBeInTheDocument();
         screen.debug();
       },
-      { timeout: 10000 },
+      { timeout: 1000 },
     );
   });
 });
