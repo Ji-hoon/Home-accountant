@@ -163,8 +163,9 @@ describe("[scenario #2] expense amounts will be synced after update expense info
       (item) => item.getAttribute("id") === "65b9c7bc62cbeb63b583e64f",
     );
     expect(filteredItem).toBeInTheDocument();
-
     await user.click(filteredItem as Element);
+
+    screen.debug();
 
     const modalSubmit = await screen.findByRole("button", {
       name: "지출 내역 수정",
