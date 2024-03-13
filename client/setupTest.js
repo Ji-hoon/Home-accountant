@@ -29,7 +29,7 @@ afterEach(() => {
   // test 종료 시 마다 경로 reset
   Object.defineProperty(window, "location", {
     value: {
-      origin: "http://localhost:5173",
+      origin: "http://localhost:3000", // default port는 3000
       pathname: "/",
     },
   });
