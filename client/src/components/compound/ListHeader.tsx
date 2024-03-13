@@ -26,7 +26,7 @@ import { Loader } from "rsuite";
 
 export default function ListHeader({ $type }: { $type?: string }) {
   const currentDate = useRecoilValue(currentDateAtom);
-  const $unit = useRecoilValue(dateUnitAtom);
+  const dateUnit = useRecoilValue(dateUnitAtom);
   const currentOwner = useRecoilValue(currentOwnerAtom);
 
   const currentUser = useRecoilValue(currentUserAtom);
@@ -63,11 +63,11 @@ export default function ListHeader({ $type }: { $type?: string }) {
     { weekStartsOn: 1 },
   );
   const getEndDay = addDays(startDay, 6);
-
+  console.log($type);
   return (
     <>
       {currentDate !== undefined &&
-        $unit !== undefined &&
+        dateUnit !== undefined &&
         $type !== undefined &&
         currentOwner !== undefined &&
         ($type === TYPES.ASSETS || $type === TYPES.EXPENSES) && (
@@ -75,9 +75,9 @@ export default function ListHeader({ $type }: { $type?: string }) {
             <div className="header-navigation-container">
               <Button_Icontype
                 onClick={() => {
-                  if ($unit === TYPES.TYPE_UNIT_MONTH) subMonth();
-                  else if ($unit === TYPES.TYPE_UNIT_WEEK) subWeek();
-                  else if ($unit === TYPES.TYPE_UNIT_YEAR) subYear();
+                  if (dateUnit === TYPES.TYPE_UNIT_MONTH) subMonth();
+                  else if (dateUnit === TYPES.TYPE_UNIT_WEEK) subWeek();
+                  else if (dateUnit === TYPES.TYPE_UNIT_YEAR) subYear();
                 }}
               >
                 <FiChevronLeft strokeWidth="3" />
@@ -88,19 +88,19 @@ export default function ListHeader({ $type }: { $type?: string }) {
                 testid="date-info"
               >
                 <>
-                  {$unit === TYPES.TYPE_UNIT_WEEK &&
+                  {dateUnit === TYPES.TYPE_UNIT_WEEK &&
                     `${format(startDay, `M월 d일`)} ~ ${format(getEndDay, `${isSameMonth(startDay, getEndDay) ? "" : `M월`} d일`)}`}
-                  {$unit === TYPES.TYPE_UNIT_MONTH &&
+                  {dateUnit === TYPES.TYPE_UNIT_MONTH &&
                     format(currentDate, "yyyy년 M월")}
-                  {$unit === TYPES.TYPE_UNIT_YEAR &&
+                  {dateUnit === TYPES.TYPE_UNIT_YEAR &&
                     format(currentDate, "yyyy년")}
                 </>
               </Button_Boxtype>
               <Button_Icontype
                 onClick={() => {
-                  if ($unit === TYPES.TYPE_UNIT_MONTH) addMonth();
-                  else if ($unit === TYPES.TYPE_UNIT_WEEK) addWeek();
-                  else if ($unit === TYPES.TYPE_UNIT_YEAR) addYear();
+                  if (dateUnit === TYPES.TYPE_UNIT_MONTH) addMonth();
+                  else if (dateUnit === TYPES.TYPE_UNIT_WEEK) addWeek();
+                  else if (dateUnit === TYPES.TYPE_UNIT_YEAR) addYear();
                 }}
               >
                 <FiChevronRight strokeWidth="3" />
@@ -113,7 +113,7 @@ export default function ListHeader({ $type }: { $type?: string }) {
               {location.pathname.includes(PATH.MAIN_ASSETS) && (
                 <Assets_Amounts
                   $currentDate={currentDate}
-                  $unit={$unit}
+                  $unit={dateUnit}
                   $owner={currentOwner}
                 />
               )}
