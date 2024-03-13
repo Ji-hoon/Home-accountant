@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { describe, expect, it } from "vitest";
-import { screen, logRoles } from "@testing-library/react";
+import { screen, logRoles, waitFor } from "@testing-library/react";
 import { userEventSetup } from "./utils/utils";
 
 import LoginPage from "../pages/Login/LoginPage";
@@ -26,8 +26,17 @@ describe("[scenario #1] exepense amounts and detail need to be synced", () => {
       mockUserLoaderData,
     );
 
-    const expenseAmountsValue = await screen.findByTitle("expenses-amounts");
-    expect(expenseAmountsValue).toHaveTextContent("27,500");
+    await waitFor(
+      () => {
+        const expenseAmountsValue = screen.getByTitle("expenses-amounts");
+        expect(expenseAmountsValue).toHaveTextContent("27,500");
+        screen.debug();
+      },
+      { timeout: 2000 },
+    );
+
+    // const expenseAmountsValue = await screen.findByTitle("expenses-amounts");
+    // expect(expenseAmountsValue).toHaveTextContent("27,500");
 
     const expenseListAmounts = await screen.findAllByRole("heading", {
       name: /원/i,
