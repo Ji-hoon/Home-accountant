@@ -7,7 +7,6 @@ import { isLoginAtom, currentUserAtom } from "../../atoms/globalAtoms";
 import { PATH } from "../../global/constants";
 import { useLayoutEffect, useState } from "react";
 import { loginUserType } from "../../global/customType";
-import Dialog from "../../components/dialog/Dialog";
 import ApiBoundary from "../../components/common/ApiBoundary";
 
 export default function RootPage() {
@@ -57,7 +56,6 @@ function ApiComponent() {
       <Header user={currentUserInfo} />
       <Outlet />
       {isLandingPath && <Footer />}
-      {result.userId && <Dialog />}
     </>
   );
 }
