@@ -112,19 +112,32 @@ const HorizontalViewContainer = styled.section<{
     flex-direction: column;
 
     .aside-navigation-container {
+      display: flex;
+      justify-content: center;
+
       nav {
         flex-direction: row;
         justify-content: center;
-        padding: 20px 20px;
-        display: ${(props) => (props.$navLength === 1 ? "none" : "flex")};
+
+        padding: ${SIZES.XXS / 2}px ${SIZES.XXS / 2}px;
+        gap: ${SIZES.SM / 4}px;
+        margin: ${SIZES.MD}px;
+        border-radius: ${SIZES.LG * 2}px;
+
         background-color: ${COLORS.GRAY_00};
+        box-shadow: inset 0 1px 3px -2px ${COLORS.GRAY_03_OVERAY};
+        display: ${(props) => (props.$navLength === 1 ? "none" : "flex")};
 
         button {
           border-radius: 40px;
-          padding: 12px 20px;
+          padding: ${SIZES.XL / 2}px ${SIZES.XL}px;
+          min-width: ${SIZES.XL * 5}px;
+          text-align: center;
+          justify-content: center;
         }
         .active button {
-          background-color: ${COLORS.GRAY_02};
+          box-shadow: 0 1px 2px -2px ${COLORS.GRAY_09_OVERAY};
+          color: ${COLORS.BASIC_BLACK};
         }
       }
     }
@@ -140,6 +153,13 @@ const HorizontalViewContainer = styled.section<{
         margin: -60px 20px 0;
         width: auto;
       }
+
+      #group-settings {
+        & button.submit {
+          position: sticky;
+          bottom: ${SIZES.XL}px;
+        }
+      }
     }
 
     .advertise-container {
@@ -154,8 +174,7 @@ const HorizontalViewContainer = styled.section<{
 
     .aside-navigation-container {
       nav {
-        padding-top: 16px;
-        padding-bottom: 16px;
+        margin: ${SIZES.SM}px;
       }
     }
   }
