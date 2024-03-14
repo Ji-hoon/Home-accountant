@@ -18,7 +18,7 @@ export default defineConfig({
   },
   resolve: {
     // added mainFields for ERR_REQUIRE_ESM error
-    mainFields: ["module"], // set "browser" when "npm run build"
+    mainFields: ["module"], // remove or set "browser" when "npm run build"
     alias: {
       "@": "/src",
     },
