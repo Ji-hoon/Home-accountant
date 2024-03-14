@@ -63,7 +63,7 @@ export function useExpenses() {
         _id: string;
       })[];
       const nextCursor = expensesResponse?.nextCursor;
-      return { amounts, expenses, nextCursor };
+      return { amounts, expenses, nextCursor, dateUnit };
     },
     initialPageParam: 0,
     getNextPageParam: ({ expenses, nextCursor }) => {
