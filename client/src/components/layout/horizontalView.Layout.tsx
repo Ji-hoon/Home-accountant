@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES } from "../../global/constants";
+import { COLORS, SIZES } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
 
@@ -124,6 +124,7 @@ const HorizontalViewContainer = styled.section<{
         & button.submit {
           position: sticky;
           bottom: ${SIZES.XL}px;
+          box-shadow: 0 24px 24px 24px ${COLORS.BASIC_WHITE};
         }
       }
     }
