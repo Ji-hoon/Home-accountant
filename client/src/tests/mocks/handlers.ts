@@ -98,6 +98,7 @@ export const handlers: HttpHandler[] = [
     async ({ request }) => {
       const url = new URL(request.url);
       const code = url.searchParams.get("code");
+      console.log(code);
 
       return HttpResponse.json({
         message: "그룹 조회에 성공했습니다.",
