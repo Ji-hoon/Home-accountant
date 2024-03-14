@@ -8,6 +8,7 @@ import { PATH } from "../../global/constants";
 import { useLayoutEffect, useState } from "react";
 import { loginUserType } from "../../global/customType";
 import ApiBoundary from "../../components/common/ApiBoundary";
+import Dialog from "../../components/dialog/Dialog";
 
 export default function RootPage() {
   return (
@@ -56,6 +57,7 @@ function ApiComponent() {
       <Header user={currentUserInfo} />
       <Outlet />
       {isLandingPath && <Footer />}
+      {result.userId && <Dialog />}
     </>
   );
 }

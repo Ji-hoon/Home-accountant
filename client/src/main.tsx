@@ -7,7 +7,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./global/reactQuery.ts";
 import { CustomProvider } from "rsuite";
 import "rsuite/Loader/styles/index.css";
-import Dialog from "./components/dialog/Dialog.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,7 +14,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <App />
-          <Dialog />
         </RecoilRoot>
       </QueryClientProvider>
     </CustomProvider>
