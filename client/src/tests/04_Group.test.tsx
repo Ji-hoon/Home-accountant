@@ -23,7 +23,7 @@ describe("[scenario #1] navigate to group management sub page when click the nav
     const { user, container } = userEventSetup(
       [
         { path: "/", jsx: <MainPage /> },
-        { path: "/main/expenses", jsx: <MainPage /> },
+        { path: "/main/expenses", jsx: mainWithHeader() },
         { path: "/main/expenses/weekly", jsx: mainWithHeader() },
         { path: "/main/group/", jsx: mainWithHeader() },
         { path: "/main/group/member", jsx: mainWithHeader() },

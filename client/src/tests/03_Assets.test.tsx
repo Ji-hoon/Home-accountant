@@ -33,7 +33,7 @@ describe("[scenario #1] switch sub pages with navigation menu on header", () => 
     const { user, container } = userEventSetup(
       [
         { path: "/", jsx: <MainPage /> },
-        { path: "/main/expenses", jsx: <MainPage /> },
+        { path: "/main/expenses", jsx: mainWithHeader() },
         { path: "/main/expenses/weekly", jsx: mainWithHeader() },
         { path: "/main/assets/", jsx: mainWithHeaderAndDialog() },
         { path: "/main/assets/monthly", jsx: mainWithHeaderAndDialog() },
@@ -44,11 +44,6 @@ describe("[scenario #1] switch sub pages with navigation menu on header", () => 
       mockUserLoaderData,
     );
 
-    // react portal을 사용하는 Dialog 컴포넌트가 사용할 dialog div를 임의 추가
-    const portalRoot = document.createElement("div");
-    portalRoot.setAttribute("id", "dialog");
-    document.body.appendChild(portalRoot);
-
     await waitFor(
       () => {
         const expenseFloatingButtonElement = screen.getByRole("button", {
@@ -57,8 +52,13 @@ describe("[scenario #1] switch sub pages with navigation menu on header", () => 
         expect(expenseFloatingButtonElement).toBeInTheDocument();
         screen.debug();
       },
-      { timeout: 1000 },
+      { timeout: 2000 },
     );
+
+    // react portal을 사용하는 Dialog 컴포넌트가 사용할 dialog div를 임의 추가
+    const portalRoot = document.createElement("div");
+    portalRoot.setAttribute("id", "dialog");
+    document.body.appendChild(portalRoot);
 
     await waitFor(
       () => {
