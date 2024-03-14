@@ -15,12 +15,12 @@ import { InputFormType, PortalProps } from "../../global/customType";
 import { useDialogSubmit } from "../hooks/useDialogSubmit";
 import { useIsMutating } from "@tanstack/react-query";
 
-function Dialog() {
-  const DialogPortal = ({ children }: PortalProps) => {
-    const dialogRoot = document.getElementById("dialog") as HTMLElement;
-    return ReactDOM.createPortal(children, dialogRoot);
-  };
+const DialogPortal = ({ children }: PortalProps) => {
+  const dialogRoot = document.getElementById("dialog") as HTMLElement;
+  return ReactDOM.createPortal(children, dialogRoot);
+};
 
+function Dialog() {
   const dialog = useRecoilValue(currentDialogAtom);
   const { hideDialog } = useHandleDialog();
   const { dialogRef, onSubmit } = useDialogSubmit();
