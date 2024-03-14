@@ -6,7 +6,7 @@ import { useExpenses } from "./Expenses.hooks";
 import { useHandleDialog } from "../../../../components/hooks/useHandleDialog";
 import { EditExpenseLayout } from "../../../../global/layout";
 import { ExpenseType, FormListLayoutType } from "../../../../global/customType";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import {
   currentOwnerAtom,
   dateUnitAtom,
@@ -21,11 +21,15 @@ function Expenses_List({ id }: { id?: string }) {
   const location = useLocation();
 
   const setSelectedExpenseId = useSetRecoilState(selectedExpenseIdAtom);
-  const setDateUnit = useSetRecoilState(dateUnitAtom);
+  const [dateUnit, setDateUnit] = useRecoilState(dateUnitAtom);
   const setCurrentOwner = useSetRecoilState(currentOwnerAtom);
 
   const { pages, setTarget, hasNextPage, fetchStatus, isFetchingNextPage } =
     useExpenses();
+
+  const filteredExpenseList = pages.filter(
+    (page) => page.dateUnit === dateUnit,
+  );
   const expenseList = pages.flatMap((page) => page.expenses);
 
   const { showDialog } = useHandleDialog();
@@ -69,6 +73,7 @@ function Expenses_List({ id }: { id?: string }) {
       }
     >
       {expenseList.length > 0 &&
+        filteredExpenseList &&
         expenseList.map((item, index) => (
           <ListItem_ExpenseType
             onClick={(event: React.SyntheticEvent) => handleClick(event, item)}
@@ -76,7 +81,7 @@ function Expenses_List({ id }: { id?: string }) {
             $item={item}
           />
         ))}
-      {hasNextPage && (
+      {filteredExpenseList.length > 0 && hasNextPage && (
         <li ref={setTarget} className="skeleton-item">
           <Skeleton_ExpenseListItem />
         </li>

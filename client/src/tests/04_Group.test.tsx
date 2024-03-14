@@ -23,7 +23,7 @@ describe("[scenario #1] navigate to group management sub page when click the nav
     const { user, container } = userEventSetup(
       [
         { path: "/", jsx: <MainPage /> },
-        { path: "/main/expenses", jsx: <MainPage /> },
+        { path: "/main/expenses", jsx: mainWithHeader() },
         { path: "/main/expenses/weekly", jsx: mainWithHeader() },
         { path: "/main/group/", jsx: mainWithHeader() },
         { path: "/main/group/member", jsx: mainWithHeader() },
@@ -33,6 +33,15 @@ describe("[scenario #1] navigate to group management sub page when click the nav
       // localstorage에 userData가 저장되어있는지 여부로 로그인 여부를 판단하므로,
       // mockuserData를 loader로 사용.
       mockUserLoaderData,
+    );
+
+    await waitFor(
+      () => {
+        const expenseAmountsValue = screen.getByTitle("expenses-amounts");
+        expect(expenseAmountsValue).toHaveTextContent("27,500");
+        screen.debug();
+      },
+      { timeout: 2000 },
     );
 
     // react portal을 사용하는 Dialog 컴포넌트가 사용할 dialog div를 임의 추가
