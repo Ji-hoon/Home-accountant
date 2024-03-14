@@ -35,6 +35,15 @@ describe("[scenario #1] navigate to group management sub page when click the nav
       mockUserLoaderData,
     );
 
+    await waitFor(
+      () => {
+        const expenseAmountsValue = screen.getByTitle("expenses-amounts");
+        expect(expenseAmountsValue).toHaveTextContent("27,500");
+        screen.debug();
+      },
+      { timeout: 2000 },
+    );
+
     // react portal을 사용하는 Dialog 컴포넌트가 사용할 dialog div를 임의 추가
     const portalRoot = document.createElement("div");
     portalRoot.setAttribute("id", "dialog");
