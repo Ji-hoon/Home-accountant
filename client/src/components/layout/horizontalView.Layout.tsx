@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../global/constants";
+import { SIZES } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
-import { useRef } from "react";
 
 export default function HorizontalViewLayout({
   children,
@@ -11,16 +10,10 @@ export default function HorizontalViewLayout({
 }) {
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
 
-  const navRef = useRef<HTMLDivElement>(null);
-  const navLength =
-    navRef.current?.getElementsByTagName("nav")[0]?.childNodes.length;
-
   return (
     <HorizontalViewContainer
-      ref={navRef}
       autoFocus
       $showBottomBar={selectedExpenseId.length > 0 ? true : false}
-      $navLength={navLength}
     >
       {children}
     </HorizontalViewContainer>
@@ -30,7 +23,6 @@ export default function HorizontalViewLayout({
 // eslint-disable-next-line react-refresh/only-export-components
 const HorizontalViewContainer = styled.section<{
   $showBottomBar: boolean;
-  $navLength: number | undefined;
 }>`
   display: flex;
   max-width: ${SIZES.MAX_WIDTH}px;
@@ -114,32 +106,6 @@ const HorizontalViewContainer = styled.section<{
     .aside-navigation-container {
       display: flex;
       justify-content: center;
-
-      nav {
-        flex-direction: row;
-        justify-content: center;
-
-        padding: ${SIZES.XXS / 2}px ${SIZES.XXS / 2}px;
-        gap: ${SIZES.SM / 4}px;
-        margin: ${SIZES.MD}px;
-        border-radius: ${SIZES.LG * 2}px;
-
-        background-color: ${COLORS.GRAY_00};
-        box-shadow: inset 0 1px 3px -2px ${COLORS.GRAY_03_OVERAY};
-        display: ${(props) => (props.$navLength === 1 ? "none" : "flex")};
-
-        button {
-          border-radius: 40px;
-          padding: ${SIZES.XL / 2}px ${SIZES.XL}px;
-          min-width: ${SIZES.XL * 5}px;
-          text-align: center;
-          justify-content: center;
-        }
-        .active button {
-          box-shadow: 0 1px 2px -2px ${COLORS.GRAY_09_OVERAY};
-          color: ${COLORS.BASIC_BLACK};
-        }
-      }
     }
 
     .list-container {

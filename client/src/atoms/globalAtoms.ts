@@ -1,6 +1,11 @@
 import { atom } from "recoil";
 import { dialogType, stringArrayType } from "../global/customType";
 
+export const navCursorPosAtom = atom({
+  key: "navCursorPos",
+  default: 0,
+});
+
 export const isLoginAtom = atom({
   key: "isLogin",
   default: false,
