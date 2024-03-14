@@ -92,7 +92,7 @@ export const DropdownUIContainerStyle = styled.div<{
   background-color: #fff;
   border-radius: 5px;
   background-color: ${COLORS.BASIC_WHITE};
-  box-shadow: 0 2px 7px 0 ${COLORS.GRAY_08_OVERAY};
+  box-shadow: 0 1px 5px 0 ${COLORS.GRAY_07_OVERAY};
   max-width: ${SIZES.MAX_WIDTH * 0.65}px;
 
   @media screen and (max-width: ${SIZES.MEDIA_QUERY_BP_SMALL}px) {

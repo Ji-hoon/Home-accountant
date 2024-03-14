@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { COLORS, SIZES } from "../../global/constants";
+import { SIZES } from "../../global/constants";
 import { useRecoilValue } from "recoil";
 import { selectedExpenseIdAtom } from "../../atoms/globalAtoms";
-import { useRef } from "react";
 
 export default function HorizontalViewLayout({
   children,
@@ -11,16 +10,10 @@ export default function HorizontalViewLayout({
 }) {
   const selectedExpenseId = useRecoilValue(selectedExpenseIdAtom);
 
-  const navRef = useRef<HTMLDivElement>(null);
-  const navLength =
-    navRef.current?.getElementsByTagName("nav")[0]?.childNodes.length;
-
   return (
     <HorizontalViewContainer
-      ref={navRef}
       autoFocus
       $showBottomBar={selectedExpenseId.length > 0 ? true : false}
-      $navLength={navLength}
     >
       {children}
     </HorizontalViewContainer>
@@ -30,7 +23,6 @@ export default function HorizontalViewLayout({
 // eslint-disable-next-line react-refresh/only-export-components
 const HorizontalViewContainer = styled.section<{
   $showBottomBar: boolean;
-  $navLength: number | undefined;
 }>`
   display: flex;
   max-width: ${SIZES.MAX_WIDTH}px;
@@ -112,21 +104,8 @@ const HorizontalViewContainer = styled.section<{
     flex-direction: column;
 
     .aside-navigation-container {
-      nav {
-        flex-direction: row;
-        justify-content: center;
-        padding: 20px 20px;
-        display: ${(props) => (props.$navLength === 1 ? "none" : "flex")};
-        background-color: ${COLORS.GRAY_00};
-
-        button {
-          border-radius: 40px;
-          padding: 12px 20px;
-        }
-        .active button {
-          background-color: ${COLORS.GRAY_02};
-        }
-      }
+      display: flex;
+      justify-content: center;
     }
 
     .list-container {
@@ -139,6 +118,13 @@ const HorizontalViewContainer = styled.section<{
       &.assets section {
         margin: -60px 20px 0;
         width: auto;
+      }
+
+      #group-settings {
+        & button.submit {
+          position: sticky;
+          bottom: ${SIZES.XL}px;
+        }
       }
     }
 
@@ -154,8 +140,7 @@ const HorizontalViewContainer = styled.section<{
 
     .aside-navigation-container {
       nav {
-        padding-top: 16px;
-        padding-bottom: 16px;
+        margin: ${SIZES.SM}px;
       }
     }
   }

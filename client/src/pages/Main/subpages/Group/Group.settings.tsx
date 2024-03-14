@@ -46,7 +46,10 @@ export default function Group_Settings() {
   }
 
   return (
-    <section className={fetchStatus === "fetching" ? "fetching" : ""}>
+    <section
+      id="group-settings"
+      className={fetchStatus === "fetching" ? "fetching" : ""}
+    >
       <SettingLayoutContainer
         ref={groupFormRef}
         onSubmit={handleSubmit(onSubmit)}
