@@ -3,9 +3,23 @@ import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
+import authRouter from "./auth/auth.router.js";
+import expenseRouter from "./expenses/expense.router.js";
+import errorHandler from "./middleware/errorHandler.js";
+import assetRouter from "./assets/asset.router.js";
+import groupRouter from "./group/group.router.js";
+import userRouter from "./user/user.router.js";
+import categoryRouter from "./categories/categories.router.js";
+import assetTypeRouter from "./asset_types/asset_types.router.js";
 
-const { PORT, MONGODB_URL, FRONTEND_URL } = process.env;
-if (!PORT || !MONGODB_URL || !FRONTEND_URL) {
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const { PORT, MONGODB_URL, FRONTEND_URL, IP } = process.env;
+if (!PORT || !MONGODB_URL || !FRONTEND_URL || !IP) {
   console.error("no env var");
   process.exit();
 }
@@ -18,20 +32,41 @@ mongoose.connection.on("connected", () => {
 const app = express();
 app.use(cookieParser());
 
-// app.use(errorLogger);
-//app.use(errorHandler);
-
 app.use(express.json());
 app.use(
   cors({
-    origin: [FRONTEND_URL],
+    origin: [FRONTEND_URL, "http://localhost:3000"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   }),
 );
 
-app.get("/", (req, res) => {
-  res.send("Hello, Home accountant server!");
+app.use("/api/auth", authRouter);
+app.use("/api/expenses", expenseRouter);
+app.use("/api/assets", assetRouter);
+app.use("/api/groups", groupRouter);
+app.use("/api/users", userRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/asset_types", assetTypeRouter);
+
+app.use(errorHandler);
+
+app.use("/", express.static(join(__dirname, "dist")));
+
+app.use(
+  express.static(join(__dirname, "/"), {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".js")) {
+        res.setHeader("Content-Type", "application/javascript");
+      }
+    },
+  }),
+);
+
+app.get("*", (req, res) => {
+  res.sendFile(join(__dirname, "/index.html"));
 });
-app.listen(PORT, () => {
-  console.log(`PORT:${PORT}`);
+
+app.listen(PORT as unknown as number, IP, () => {
+  console.log(`PORT:${PORT} IP: ${IP}`);
 });
