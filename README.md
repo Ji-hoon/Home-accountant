@@ -8,7 +8,7 @@
 본 리포지토리는 개인 프로젝트인 **지출 및 자산 관리 애플리케이션** 코드를 포함하고 있습니다.
 
 ## 서비스 링크
-- [링크](http://35.231.16.39)
+- [링크](https://savebudget.app)
 
 ## 릴리즈 노트
 - [링크](https://github.com/Ji-hoon/Home-accountant/wiki/Release-Note)
