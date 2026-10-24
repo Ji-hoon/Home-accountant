@@ -18,5 +18,8 @@
         "react"
     ],
     "rules": {
+    },
+    "globals": {
+        "process": "readonly"
     }
 }
