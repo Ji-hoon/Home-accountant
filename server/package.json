@@ -41,7 +41,7 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^6.9.8",
+    "nodemailer": "^10.2.1",
     "process": "^0.11.10"
   },
   "lint-staged": {
